@@ -28,6 +28,6 @@ class AdminBookingNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('AdminBookingNotification');
+        return $this->markdown('emails.AdminBookingNotification');
     }
 }

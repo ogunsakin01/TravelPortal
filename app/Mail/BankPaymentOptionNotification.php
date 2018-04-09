@@ -28,6 +28,6 @@ class BankPaymentOptionNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('BankPaymentOptionNotification');
+        return $this->markdown('emails.BankPaymentOptionNotification');
     }
 }

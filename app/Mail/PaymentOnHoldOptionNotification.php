@@ -28,6 +28,6 @@ class PaymentOnHoldOptionNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('PaymentOnHoldOptionNotification');
+        return $this->markdown('emails.PaymentOnHoldOptionNotification');
     }
 }

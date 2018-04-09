@@ -28,6 +28,6 @@ class TicketVoid extends Mailable
      */
     public function build()
     {
-        return $this->markdown('TicketVoid');
+        return $this->markdown('emails.TicketVoid');
     }
 }

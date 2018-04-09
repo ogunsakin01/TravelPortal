@@ -28,6 +28,6 @@ class HotelReservationComplete extends Mailable
      */
     public function build()
     {
-        return $this->markdown('HotelReservationComplete');
+        return $this->markdown('emails.HotelReservationComplete');
     }
 }

@@ -28,6 +28,6 @@ class PaymentSuccessful extends Mailable
      */
     public function build()
     {
-        return $this->markdown('PaymentSuccessful');
+        return $this->markdown('emails.PaymentSuccessful');
     }
 }
