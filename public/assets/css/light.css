@@ -1,0 +1,88 @@
+/**
+*
+* Author: Limpid Themes
+* Last Modified: 09-28-2015
+* Description: Stylesheet used by CRUISE template. Sylesheet includes styles for light version
+*
+**/
+
+.main-footer-sub,
+.main-footer-nav,
+.sm-footer-nav {
+	background: #f7f7f7;
+}
+.transparent-menu-top,
+.header-top {
+	background: #00adef;
+}
+.navbar-contact a,
+.navbar-contact a  i {
+	color: #fff;
+}
+.navbar-contact .form-control,
+.navbar-contact .input-group-addon {
+	background: #fff;
+}
+.main-footer-sub .form-control,
+.price-filter .ui-slider-horizontal {
+	background: #e6e6e6;
+}
+.transparent-menu .navbar-nav > li > a,
+.navbar-header a,
+.nav-container .mega-menu .links a,
+.transparent-menu .dropdown-menu > li > a,
+.nav-container .mega-menu .desc p,
+.main-footer-sub,
+.main-footer .links ul li a, 
+.main-footer-nav ul li a,
+.main-footer .contact-box p,
+.main-footer .about-box,
+.main-footer-nav,
+.filter-area,
+.sm-footer,
+.sm-footer-nav a,
+.sm-footer-nav .copyright,
+.light-menu .dropdown-menu > li > a {
+	color: #07253f !important;
+}
+.nav-container .mega-menu .links a:hover {
+	color: #f9676b;
+}
+.transparent-menu,
+.main-footer,
+.filter-area,
+.price-filter input,
+.sm-footer {
+	background: #fff;
+}
+.transparent-menu .dropdown-menu,
+.light-menu .dropdown-menu {
+	background: #fff;
+	border: 1px solid #e6e6e6;
+}
+.main-footer .contact-box p i {
+	border: 2px solid #07253f;
+}
+.mega-menu .links .img-div .overlay a {
+	color: #fff !important;
+}
+.filter-head h4::after {
+	border: 4px solid #fff;
+	background: #00adef;
+}
+.filter-head  {
+	background: #00adef;
+}
+.filter-area {
+	border: 1px solid #e6e6e6;
+	box-shadow: 0px 2px 5px #e6e6e6;
+}
+.sm-footer .footer-subscribe .form-control {
+	background: #e6e6e6;
+}
+.go-up a {
+	color: #fff !important;
+}
+.filter {
+	border-top: #e6e6e6;
+}
