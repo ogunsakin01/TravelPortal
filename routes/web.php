@@ -15,6 +15,19 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
-Route::get('search_results', function () {
-    return view('pages.flight.search_results');
-});
+Route::get('flight/search_results', 'FlightController@flightSearchResult');
+Route::get('flight/itinerary_booking', 'FlightController@flightItineraryBooking');
+Route::get('flight/payment_option', 'FlightController@flightPaymentOption');
+Route::get('flight/payment_confirmation', 'FlightController@flightPaymentConfirmation');
+
+Route::get('hotel/search_results', 'HotelController@HotelSearchResult');
+Route::get('hotel/hotel_booking', 'HotelController@hotelBooking');
+Route::get('hotel/hotel_payment_option', 'HotelController@hotelPaymentOption');
+Route::get('hotel/hotel_payment_confirmation', 'HotelController@hotelPaymentConfirmation');
+Route::get('hotel/hotel_room_details', 'HotelController@roomDetails');
+Route::get('hotel/hotel_details', 'HotelController@hotelDetails');
+
+Route::get('package/package_details', 'PackageController@packageDetails');
+Route::get('package/package_list', 'PackageController@packageList');
+Route::get('package/package_payment_option', 'PackageController@packagePaymentOption');
+Route::get('package/package_payment_confirmation', 'PackageController@packagePaymentConfirmation');
