@@ -27,6 +27,40 @@ class AmadeusConfig
 
     public $requestorId = 'RubyTravel';
 
+
+
+    public $lowFarePlusRequestWebServiceUrl     = 'http://amadeusws.tripxml.com/TripXML/wsLowFarePlus.asmx';
+
+    public $lowFareMatrixRequestWebServiceUrl   = 'http://amadeusws.tripxml.com/TripXML/wsLowFareMatrix.asmx';
+
+    public $lowFareScheduleRequestWebServiceUrl = 'http://amadeusws.tripxml.com/TripXML/wsLowFareSchedule.asmx';
+
+    public $airSeatMapRequestWebServiceUrl      = 'http://amadeusws.tripxml.com/TripXML/wsAirSeatMap.asmx';
+
+    public $airPriceRequestWebServiceUrl        = 'http://amadeusws.tripxml.com/TripXML/wsAirPrice.asmx';
+
+    public $airRulesRequestWebServiceUrl        = 'http://amadeusws.tipxml.com/TripXML/wsAirRules_v03.asmx';
+
+    public $airInfoRequestWebServiceUrl         = 'http://amadeusws.tripxml.com/TripXML/wsAirFlifo.asmx';
+
+    public $travelBuildRequestWebServiceUrl     = 'http://amadeusws.tripxml.com/TripXML/wsTravelBuild_v03.asmx';
+
+    public $cancelPrnRequestWebServiceUrl       = 'http://amadeusws.tripxml.com/TripXML/wsPNRCancel.asmx';
+
+    public $pnrReadRequestWebServiceUrl         = 'http://amadeusws.tripxml.com/TripXML/wsPNRRead_v03.asmx';
+
+    public $updateRequestWebServiceUrl          = 'http://amadeusws.tripxml.com/TripXML/wsUpdate.asmx';
+
+    public $issueTicketRequestWebServiceUrl     = 'http://amadeusws.tripxml.com/TripXML/wsIssueTicket.asmx';
+
+    public $voidTicketRequestWebServiceUrl      = 'http://amadeusws.tripxml.com/TripXML/wsVoidTicket.asmx';
+
+    public $hotelAvailRequestWebServiceUrl      = 'http://amadeusws.tripxml.com/TripXML/wsHotelAvail.asmx';
+
+
+
+
+
     public static function iataCode($string){
 
         if(strlen($string) == 3){
@@ -121,6 +155,7 @@ class AmadeusConfig
         fwrite($file,$response);
         return fclose($file);
     }
+
 
     public function lowFareRequestHeader($xml_post_string){
         return [
@@ -242,5 +277,8 @@ class AmadeusConfig
             "Content-Length: ".strlen($xml_post_string)
         ];
     }
+
+
+
 
 }

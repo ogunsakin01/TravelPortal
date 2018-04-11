@@ -48,38 +48,39 @@ class AmadeusRequestXML
 
     public function lowFarePlusRequestBodyXML($data){
         $passengers = '';
-        if($data['num_of_adults'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['num_of_adults'].'"/>';
-        }if($data['num_of_children'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data['num_of_children'].'"/>';
-        }if($data['num_of_infants'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data['num_of_infants'].'"/>';
+        if($data['no_of_adult'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['no_of_adult'].'"/>';
+        }if($data['no_of_child'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data['no_of_child'].'"/>';
+        }if($data['no_of_infant'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data['no_of_infant'].'"/>';
         }
 
-        if($data['return_date'] == " " || $data['return_date'] == null){
+        if($data['return_date'] == "" || $data['return_date'] == null ||  $data['return_date'] ==  "Not Available"){
             $originDestinations = '
                 <OriginDestinationInformation>
                   <DepartureDateTime>'.date('Y-m-d',strtotime($data['departure_date'])).'T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['departure_location']).'"/>   
-                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['arrival_location']).'"/>  
+                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['departure_city']).'"/>   
+                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['destination_city']).'"/>  
                 </OriginDestinationInformation> 
             ';
         }else{
             $originDestinations = '
                 <OriginDestinationInformation>
                   <DepartureDateTime>'.date('Y-m-d',strtotime($data['departure_date'])).'T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['departure_location']).'"/>   
-                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['arrival_location']).'"/>  
+                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['departure_city']).'"/>   
+                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['destination_city']).'"/>  
                 </OriginDestinationInformation> 
                 <OriginDestinationInformation>
                   <DepartureDateTime>'.date('Y-m-d',strtotime($data['return_date'])).'T00:00:00</DepartureDateTime>
-                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['arrival_location']).'"/>   
-                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['departure_location']).'"/>   
+                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['destination_city']).'"/>   
+                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['departure_city']).'"/>   
                 </OriginDestinationInformation>
             ';
         }
 
        return '
+            <wmLowFarePlus xmlns="http://traveltalk.com/wsLowFarePlus">
               <OTA_AirLowFareSearchPlusRQ>   
                 '.$this->posXML().'
                 '.$originDestinations.'
@@ -87,31 +88,32 @@ class AmadeusRequestXML
                   <CabinPref Cabin="'.$data['cabin'].'"/>
                 </TravelPreferences> 
                 <TravelerInfoSummary>   
-                  <SeatsRequested>'.($data['num_of_adults'] + $data['num_of_children']).'</SeatsRequested>
+                  <SeatsRequested>'.($data['no_of_adult'] + $data['no_of_child']).'</SeatsRequested>
                   <AirTravelerAvail>
                     '.$passengers.'
                   </AirTravelerAvail>  
                   <PriceRequestInformation PricingSource="Both"/>
                 </TravelerInfoSummary>
-              </OTA_AirLowFareSearchPlusRQ>';
+              </OTA_AirLowFareSearchPlusRQ>
+            </wmLowFarePlus>';
     }
 
     public function lowFarePlusMultiDestinationRequestBodyXML($data){
         $passengers = '';
-        if($data['num_of_adults'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['num_of_adults'].'"/>';
-        }if($data['num_of_children'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data['num_of_children'].'"/>';
-        }if($data['num_of_infants'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data['num_of_infants'].'"/>';
+        if($data['no_of_adult'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['no_of_adult'].'"/>';
+        }if($data['no_of_child'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data['no_of_child'].'"/>';
+        }if($data['no_of_infant'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data['no_of_infant'].'"/>';
         }
         $originDestinations = '';
         foreach($data['originDestinations'] as $serial => $originDestination){
             $originDestinations = $originDestinations.'
             <OriginDestinationInformation>
                   <DepartureDateTime>'.date('Y-m-d',strtotime($originDestination['departure_date'])).'T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['departure_location']).'"/>   
-                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['arrival_location']).'"/>  
+                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['departure_city']).'"/>   
+                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['destination_city']).'"/>  
                 </OriginDestinationInformation> 
             ';
         }
@@ -123,7 +125,7 @@ class AmadeusRequestXML
                   <CabinPref Cabin="'.$data['cabin'].'"/>
                 </TravelPreferences> 
                 <TravelerInfoSummary>   
-                  <SeatsRequested>'.($data['num_of_adults'] + $data['num_of_children']).'</SeatsRequested>
+                  <SeatsRequested>'.($data['no_of_adult'] + $data['no_of_child']).'</SeatsRequested>
                   <AirTravelerAvail>
                     '.$passengers.'
                   </AirTravelerAvail>  
@@ -134,20 +136,20 @@ class AmadeusRequestXML
 
     public function lowFareMatrixRequestBodyXML($data){
         $passengers = '';
-        if($data['num_of_adults'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['num_of_adults'].'"/>';
-        }if($data['num_of_children'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data['num_of_children'].'"/>';
-        }if($data['num_of_infants'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data['num_of_infants'].'"/>';
+        if($data['no_of_adult'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['no_of_adult'].'"/>';
+        }if($data['no_of_child'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data['no_of_child'].'"/>';
+        }if($data['no_of_infant'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data['no_of_infant'].'"/>';
         }
         $originDestinations = '';
         foreach($data['originDestinations'] as $serial => $originDestination){
             $originDestinations = $originDestinations.'
             <OriginDestinationInformation>
                   <DepartureDateTime>'.date('Y-m-d',strtotime($originDestination['departure_date'])).'T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['departure_location']).'"/>   
-                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['arrival_location']).'"/>  
+                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['departure_city']).'"/>   
+                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['destination_city']).'"/>  
                 </OriginDestinationInformation> 
             ';
         }
@@ -159,7 +161,7 @@ class AmadeusRequestXML
                   <CabinPref Cabin="'.$data['cabin'].'"/>
                 </TravelPreferences> 
                 <TravelerInfoSummary>   
-                  <SeatsRequested>'.($data['num_of_adults'] + $data['num_of_children']).'</SeatsRequested>
+                  <SeatsRequested>'.($data['num_of_adult'] + $data['num_of_child']).'</SeatsRequested>
                   <AirTravelerAvail>
                     '.$passengers.'
                   </AirTravelerAvail>  
@@ -170,20 +172,20 @@ class AmadeusRequestXML
 
     public function lowFareScheduleRequestBodyXML($data){
         $passengers = '';
-        if($data['num_of_adults'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['num_of_adults'].'"/>';
-        }if($data['num_of_children'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data['num_of_children'].'"/>';
-        }if($data['num_of_infants'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data['num_of_infants'].'"/>';
+        if($data['no_of_adult'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['no_of_adult'].'"/>';
+        }if($data['no_of_child'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data['no_of_child'].'"/>';
+        }if($data['no_of_infant'] > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data['no_of_infant'].'"/>';
         }
         $originDestinations = '';
         foreach($data['originDestinations'] as $serial => $originDestination){
             $originDestinations = $originDestinations.'
             <OriginDestinationInformation>
                   <DepartureDateTime>'.date('Y-m-d',strtotime($originDestination['departure_date'])).'T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['departure_location']).'"/>   
-                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['arrival_location']).'"/>  
+                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['departure_city']).'"/>   
+                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($originDestination['destination_city']).'"/>  
                 </OriginDestinationInformation> 
             ';
         }
@@ -195,7 +197,7 @@ class AmadeusRequestXML
                   <CabinPref Cabin="'.$data['cabin'].'"/>
                 </TravelPreferences> 
                 <TravelerInfoSummary>   
-                  <SeatsRequested>'.($data['num_of_adults'] + $data['num_of_children']).'</SeatsRequested>
+                  <SeatsRequested>'.($data['num_of_adult'] + $data['num_of_child']).'</SeatsRequested>
                   <AirTravelerAvail>
                     '.$passengers.'
                   </AirTravelerAvail>  

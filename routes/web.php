@@ -16,5 +16,22 @@ Route::get('/', function () {
 });
 
 Route::get('search_results', function () {
-    return view('pages.flight.search_results');
+    return view('pages.flight.search_result');
 });
+
+
+
+
+
+Route::get('typeaheadJs', 'AirportController@typeAhead')->name('typeaheadJs');
+Route::get('airlineTypeAheadJs', 'AirlineController@typeAhead')->name('airlineTypeAheadJs');
+
+
+
+Route::post('/one-way-flight-search','FlightController@oneWayFlightSearch');
+Route::post('/round-trip-flight-search','FlightController@roundTripFlightSearch');
+Route::post('/multi-destination-flight-search','FlightController@multiDestinationFlightSearch');
+
+Route::get('/available-itineraries','ViewController@availableItineraries');
+
+

@@ -22,24 +22,6 @@
                                     <span>HOTELS</span>
                                 </a>
                             </li>
-                            <li role="presentation">
-                                <a href="#holiday" aria-controls="holiday" role="tab" data-toggle="tab">
-                                    <i class="fa fa-suitcase"></i>
-                                    <span>HOLIDAYS</span>
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#taxi" aria-controls="taxi" role="tab" data-toggle="tab">
-                                    <i class="fa fa-cab"></i>
-                                    <span>CAR</span>
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#cruise" aria-controls="cruise" role="tab" data-toggle="tab">
-                                    <i class="fa fa-ship"></i>
-                                    <span>CRUISE</span>
-                                </a>
-                            </li>
                         </ul>
                         <!-- END: CATEGORY TAB -->
                     </div>
@@ -48,91 +30,305 @@
                         <div class="tab-content">
                             <!-- BEGIN: FLIGHT SEARCH -->
                             <div role="tabpanel" class="tab-pane active" id="flight">
-                                <div class="col-md-8 clear-padding">
-                                    <form >
+                                <div class="col-md-12 clear-padding">
                                         <div class="col-md-12 product-search-title">Book Flight Tickets</div>
                                         <div class="col-md-12 search-col-padding">
                                             <label class="radio-inline">
                                                 <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="One Way"> One Way
                                             </label>
                                             <label class="radio-inline">
-                                                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="Round Trip"> Round Trip
+                                                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" checked value="Round Trip"> Round Trip
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="Multi Destination"> Multi Destination
                                             </label>
                                         </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Leaving From</label>
-                                            <div class="input-group">
-                                                <input type="text" name="departure_city" class="form-control" required placeholder="E.g. London">
-                                                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                                        <div class="hidden" id="one_way_flight_search_holder">
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
+                                                <label>Departure City</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="departure_city" class="form-control type-ahead one_way_departure_city" required placeholder="E.g. London">
+                                                    <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Leaving To</label>
-                                            <div class="input-group">
-                                                <input type="text" name="destination_city" class="form-control" required placeholder="E.g. New York">
-                                                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
+                                                <label>Destination City</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="destination_city" class="form-control type-ahead one_way_destination_city"  required placeholder="E.g. New York">
+                                                    <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Departure</label>
-                                            <div class="input-group">
-                                                <input type="text" id="departure_date" name="departure_date" class="form-control" placeholder="DD/MM/YYYY">
-                                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
+                                                <label>Departure Date</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="departure_date" class="form-control one_way_departure_date date-picker" placeholder="DD/MM/YYYY">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Return</label>
-                                            <div class="input-group">
-                                                <input type="text" id="return_date" class="form-control" name="return_date" placeholder="DD/MM/YYYY">
-                                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <div class="form-group">
+                                                    <label>Adults <small>Above 12yrs</small></label>
+                                                    <select name="adult_count" class="selectpicker one_way_adult_count">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </div>
                                             </div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <div class="form-group">
+                                                    <label>Child <small>2 - 12yrs</small></label>
+                                                    <select name="child_count" class="selectpicker one_way_child_count">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <div class="form-group">
+                                                    <label>Infants <small>below 2yrs</small></label>
+                                                    <select name="infant_count" class="selectpicker one_way_infant_count">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <label>Class</label><br>
+                                                <select name="cabin" class="selectpicker one_way_cabin">
+                                                    <option value="Economy">ECONOMY</option>
+                                                    <option value="First">FIRST CLASS</option>
+                                                    <option value="Business">BUSINESS</option>
+                                                    <option value="Premium">PREMIUM</option>
+                                                </select>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-12 search-col-padding">
+                                                <button type="submit" class="search-button btn transition-effect one_way_search_flight">Search Flights</button>
+                                            </div>
+                                            <div class="clearfix"></div>
                                         </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-4 col-sm-4 search-col-padding">
-                                            <label>Adult</label><br>
-                                            <input id="adult_count" name="adult_count" value="1" class="form-control quantity-padding">
+                                        <div  id="round_trip_flight_search_holder">
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-6 col-sm-6 search-col-padding">
+                                                <label>Departure City</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="departure_city" class="form-control type-ahead round_trip_departure_city" required placeholder="E.g. London">
+                                                    <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 search-col-padding">
+                                                <label>Destination City</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="destination_city" class="form-control type-ahead round_trip_destination_city"  required placeholder="E.g. New York">
+                                                    <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-6 col-sm-6 search-col-padding">
+                                                <label>Departure Date</label>
+                                                <div class="input-group">
+                                                    <input type="text" name="departure_date" class="form-control round_trip_departure_date date-picker" placeholder="DD/MM/YYYY">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6 search-col-padding">
+                                                <label>Return Date</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control round_trip_return_date date-picker" name="return_date" placeholder="DD/MM/YYYY">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <div class="form-group">
+                                                    <label>Adults <small>Above 12yrs</small></label>
+                                                    <select name="adult_count" class="selectpicker round_trip_adult_count">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <div class="form-group">
+                                                    <label>Child <small>2 - 12yrs</small></label>
+                                                    <select name="child_count" class="selectpicker round_trip_child_count">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <div class="form-group">
+                                                    <label>Infants <small>below 2yrs</small></label>
+                                                    <select name="infant_count" class="selectpicker round_trip_infant_count">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <label>Class</label><br>
+                                                <select name="cabin" class="selectpicker round_trip_cabin">
+                                                    <option value="Economy">ECONOMY</option>
+                                                    <option value="First">FIRST CLASS</option>
+                                                    <option value="Business">BUSINESS</option>
+                                                    <option value="Premium">PREMIUM</option>
+                                                </select>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-12 search-col-padding">
+                                                <button type="submit" class="search-button btn transition-effect round_trip_search_flight">Search Flights</button>
+                                            </div>
+                                            <div class="clearfix"></div>
                                         </div>
-                                        <div class="col-md-4 col-sm-4 search-col-padding">
-                                            <label>Child</label><br>
-                                            <input type="text" id="child_count" name="child_count" value="1" class="form-control quantity-padding">
+                                        <div class="hidden" id="multi_destination_flight_search_holder">
+                                            <div class="clearfix"></div>
+                                            <div class="multi_destination_origin_destinations">
+                                                <div class="col-md-4 col-sm-4 search-col-padding">
+                                                    <div class="form-group">
+                                                        <label>Departure City</label>
+                                                        <input type="text" name="departure_city" class="form-control multi_destination_departure_city type-ahead" placeholder="Airport or City Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-sm-4 search-col-padding">
+                                                    <div class="form-group">
+                                                        <label>Destination City</label>
+                                                        <input type="text" name="destination_city" class="form-control multi_destination_destination_city type-ahead" placeholder="Airport or City Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 search-col-padding">
+                                                    <div class="form-group">
+                                                        <label>Departure Date</label>
+                                                        <input type="text" class="form-control multi_destination_departure_date date-picker" name="departure_date" placeholder="DD/MM/YYYY">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1 col-sm-1 search-col-padding">
+
+                                                    <div class="form-group">
+                                                        <label>&nbsp;</label>
+                                                        <button class="btn btn-outline-primary btn-group" id="add_new_trip" type="button"><i class="fa fa-plus"></i> Add </button>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <div class="form-group">
+                                                    <label>Adults <small>Above 12yrs</small></label>
+                                                    <select name="adult_count" class="selectpicker multi_destination_adult_count">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <div class="form-group">
+                                                    <label>Child <small>2 - 12yrs</small></label>
+                                                    <select name="child_count" class="selectpicker multi_destination_child_count">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <div class="form-group">
+                                                    <label>Infants <small>below 2yrs</small></label>
+                                                    <select name="infant_count" class="selectpicker multi_destination_infant_count">
+                                                        <option value="0">0</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6</option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                                <label>Class</label><br>
+                                                <select name="cabin" class="selectpicker multi_destination_cabin">
+                                                    <option value="Economy">ECONOMY</option>
+                                                    <option value="First">FIRST CLASS</option>
+                                                    <option value="Business">BUSINESS</option>
+                                                    <option value="Premium">PREMIUM</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-12 search-col-padding">
+                                                <button type="submit" id="search_multi_flight" class="search-button btn transition-effect multi_destination_search_flight">Search Flights</button>
+                                            </div>
+                                            <div class="clearfix"></div>
                                         </div>
-                                        <div class="col-md-4 col-sm-4 search-col-padding">
-                                            <label>Class</label><br>
-                                            <select class="selectpicker">
-                                                <option>Business</option>
-                                                <option>Economy</option>
-                                            </select>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-12 search-col-padding">
-                                            <button type="submit" class="search-button btn transition-effect">Search Flights</button>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </form>
-                                </div>
-                                <div class="offer-box col-md-4">
-                                    <div class="owl-carousel" id="flightoffer">
-                                        <div class="item">
-                                            <img src="assets/images/tour1.jpg" alt="cruise">
-                                            <h4>Flights To Hong Kong</h4>
-                                            <h5>Starting From $599</h5>
-                                            <a href="#">KNOW MORE</a>
-                                        </div>
-                                        <div class="item">
-                                            <img src="assets/images/tour1.jpg" alt="cruise">
-                                            <h4>Flights To Paris</h4>
-                                            <h5>Starting From $999</h5>
-                                            <a href="#">KNOW MORE</a>
-                                        </div>
-                                        <div class="item">
-                                            <img src="assets/images/tour1.jpg" alt="cruise">
-                                            <h4>Flights To Dubai</h4>
-                                            <h5>Starting From $399</h5>
-                                            <a href="#">KNOW MORE</a>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -214,229 +410,6 @@
                                 <div class="clearfix"></div>
                             </div>
                             <!-- END: HOTEL SEARCH -->
-
-                            <!-- START: BEGIN HOLIDAY -->
-                            <div role="tabpanel" class="tab-pane" id="holiday">
-                                <div class="col-md-8">
-                                    <form >
-                                        <div class="col-md-12 product-search-title">Book Holiday Packages</div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>From</label>
-                                            <div class="input-group">
-                                                <input type="text" name="pack-departure-city" class="form-control" required placeholder="E.g. New York">
-                                                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>I Want To Go</label>
-                                            <div class="input-group">
-                                                <input type="text" name="pack-destination-city" class="form-control" required placeholder="E.g. New York">
-                                                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Starting From</label>
-                                            <div class="input-group">
-                                                <input type="text" id="package_start" class="form-control" placeholder="DD/MM/YYYY">
-                                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Duration(Optional)</label><br>
-                                            <select class="selectpicker" name="holiday_duration">
-                                                <option>3 Days</option>
-                                                <option>5 Days</option>
-                                                <option>1 Week</option>
-                                                <option>2 Weeks</option>
-                                                <option>1 Month</option>
-                                                <option>1+ Month</option>
-                                            </select>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Package Type(Optional)</label><br>
-                                            <select class="selectpicker" name="package_type">
-                                                <option>Group</option>
-                                                <option>Family</option>
-                                                <option>Individual</option>
-                                                <option>Honeymoon</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Budget(Optional)</label><br>
-                                            <select class="selectpicker" name="package_budget">
-                                                <option>500</option>
-                                                <option>1000</option>
-                                                <option>1000+</option>
-                                            </select>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-12 search-col-padding">
-                                            <button type="submit" class="search-button btn transition-effect">Search Packages</button>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </form>
-                                </div>
-                                <div class="offer-box col-md-4">
-                                    <div class="item">
-                                        <img src="assets/images/tour1.jpg" alt="cruise">
-                                        <h4>Sky High Dubai</h4>
-                                        <h5>Starting From $399/Person</h5>
-                                        <a href="#">KNOW MORE</a>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <!-- END: HOLIDAYS -->
-
-                            <!-- START: CAR SEARCH -->
-                            <div role="tabpanel" class="tab-pane" id="taxi">
-                                <div class="col-md-8">
-                                    <form >
-                                        <div class="col-md-12 product-search-title">Search Perfect Car</div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Pick Up Location</label>
-                                            <div class="input-group">
-                                                <input type="text" name="departure-city" class="form-control" required placeholder="E.g. New York">
-                                                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Drop Off Location</label>
-                                            <div class="input-group">
-                                                <input type="text" name="destination-city" class="form-control" required placeholder="E.g. New York">
-                                                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Pick Up Date</label>
-                                            <div class="input-group">
-                                                <input type="text" id="car_start" class="form-control" placeholder="MM/DD/YYYY">
-                                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Drop Off Date</label>
-                                            <div class="input-group">
-                                                <input type="text" id="car_end" class="form-control" placeholder="MM/DD/YYYY">
-                                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Car Brnad(Optional)</label><br>
-                                            <select class="selectpicker" name="brand">
-                                                <option>BMW</option>
-                                                <option>Audi</option>
-                                                <option>Mercedes</option>
-                                                <option>Suzuki</option>
-                                                <option>Honda</option>
-                                                <option>Hyundai</option>
-                                                <option>Toyota</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Car Type(Optional)</label><br>
-                                            <select class="selectpicker" name="car_type">
-                                                <option>Limo</option>
-                                                <option>Sedan</option>
-                                            </select>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-12 search-col-padding">
-                                            <button type="submit" class="search-button btn transition-effect">Search Cars</button>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </form>
-                                </div>
-                                <div class="offer-box col-md-4">
-                                    <div class="item">
-                                        <img src="assets/images/car11.jpg" alt="cruise">
-                                        <h4>BMW</h4>
-                                        <h5>Starting From $399/Day</h5>
-                                        <a href="#">KNOW MORE</a>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <!-- END: CAR SEARCH -->
-
-                            <!-- START: CRUISE SEARCH -->
-                            <div role="tabpanel" class="tab-pane" id="cruise">
-                                <div class="col-md-8">
-                                    <form >
-                                        <div class="col-md-12 product-search-title">Cruise Holidays</div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>From</label>
-                                            <div class="input-group">
-                                                <input type="text" name="pack-departure-city" class="form-control" required placeholder="E.g. New York">
-                                                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>I Want To Go</label>
-                                            <div class="input-group">
-                                                <input type="text" name="pack-destination-city" class="form-control" required placeholder="E.g. New York">
-                                                <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Starting From</label>
-                                            <div class="input-group">
-                                                <input type="text" id="cruise_start" class="form-control" placeholder="DD/MM/YYYY">
-                                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Duration(Optional)</label><br>
-                                            <select class="selectpicker" name="holiday_duration">
-                                                <option>3 Days</option>
-                                                <option>5 Days</option>
-                                                <option>1 Week</option>
-                                                <option>2 Weeks</option>
-                                                <option>1 Month</option>
-                                                <option>1+ Month</option>
-                                            </select>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Package Type(Optional)</label><br>
-                                            <select class="selectpicker" name="package_type">
-                                                <option>Group</option>
-                                                <option>Family</option>
-                                                <option>Individual</option>
-                                                <option>Honeymoon</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 search-col-padding">
-                                            <label>Budget(Optional)</label><br>
-                                            <select class="selectpicker" name="package_budget">
-                                                <option>500</option>
-                                                <option>1000</option>
-                                                <option>1000+</option>
-                                            </select>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="col-md-12 search-col-padding">
-                                            <button type="submit" class="search-button btn transition-effect">Search Cruises</button>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </form>
-                                </div>
-                                <div class="offer-box col-md-4">
-                                    <div class="item">
-                                        <img src="assets/images/tour1.jpg" alt="cruise">
-                                        <h4>Sky High Dubai</h4>
-                                        <h5>Starting From $399/Person</h5>
-                                        <a href="#">KNOW MORE</a>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <!-- END: CRUISE SEARCH -->
                         </div>
                         <!-- END: TAB PANE -->
                     </div>
@@ -1068,7 +1041,50 @@
 @endsection
 
 @section('javascript')
+    <script type="text/javascript">
+        /* SLIDER SETTINGS */
+        jQuery(function($){
+            "use strict";
+            $.supersized({
 
+                //Functionality
+                slideshow               :   1,		//Slideshow on/off
+                autoplay				:	1,		//Slideshow starts playing automatically
+                start_slide             :   1,		//Start slide (0 is random)
+                random					: 	0,		//Randomize slide order (Ignores start slide)
+                slide_interval          :   10000,	//Length between transitions
+                transition              :   1, 		//0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
+                transition_speed		:	500,	//Speed of transition
+                new_window				:	1,		//Image links open in new window/tab
+                pause_hover             :   0,		//Pause slideshow on hover
+                keyboard_nav            :   0,		//Keyboard navigation on/off
+                performance				:	1,		//0-Normal, 1-Hybrid speed/quality, 2-Optimizes image quality, 3-Optimizes transition speed // (Only works for Firefox/IE, not Webkit)
+                image_protect			:	1,		//Disables image dragging and right click with Javascript
+
+                //Size & Position
+                min_width		        :   0,		//Min width allowed (in pixels)
+                min_height		        :   0,		//Min height allowed (in pixels)
+                vertical_center         :   1,		//Vertically center background
+                horizontal_center       :   1,		//Horizontally center background
+                fit_portrait         	:   1,		//Portrait images will not exceed browser height
+                fit_landscape			:   0,		//Landscape images will not exceed browser width
+
+                //Components
+                navigation              :   1,		//Slideshow controls on/off
+                thumbnail_navigation    :   1,		//Thumbnail navigation
+                slide_counter           :   1,		//Display slide numbers
+                slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
+                slides 					:  	[		//Slideshow Images
+                    {image : 'assets/images/slide.jpg', title : 'Slide 1'},
+                    {image : 'assets/images/slide2.jpg', title : 'Slide 2'},
+                    {image : 'assets/images/slide.jpg', title : 'Slide 3'},
+                ]
+
+            });
+        });
+
+    </script>
+    <script src="{{asset('assets/js/pages/flight_search_management.js')}}"></script>
 @endsection
 
 @section('css')
