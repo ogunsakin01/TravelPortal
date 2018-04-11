@@ -28,6 +28,6 @@ class FlightReservationReminder extends Mailable
      */
     public function build()
     {
-        return $this->markdown('FlightReservationReminder');
+        return $this->markdown('emails.FlightReservationReminder');
     }
 }

@@ -28,6 +28,6 @@ class HotelReservationReminder extends Mailable
      */
     public function build()
     {
-        return $this->markdown('HotelReservationReminder');
+        return $this->markdown('emails.HotelReservationReminder');
     }
 }

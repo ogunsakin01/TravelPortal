@@ -28,6 +28,6 @@ class SuccessfulRegistration extends Mailable
      */
     public function build()
     {
-        return $this->markdown('SuccessfulRegistration');
+        return $this->markdown('emails.SuccessfulRegistration');
     }
 }

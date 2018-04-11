@@ -1,0 +1,40 @@
+
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                
+            <wmLowFarePlus xmlns="http://traveltalk.com/wsLowFarePlus">
+              <OTA_AirLowFareSearchPlusRQ>   
+                <POS>
+        <Source PseudoCityCode="MIA1S21AV" ISOCurrency="NGN">
+         <RequestorID Type="21" ID="RubyTravel"/>
+        </Source>
+         <TPA_Extensions>
+            <Provider>
+               <Name>Amadeus</Name> 
+               <System>Test</System> 
+               <Userid>RubyTravel</Userid> 
+               <Password>sTeBr+Fr3kEv</Password> 
+            </Provider>
+         </TPA_Extensions>
+      </POS>
+                
+                <OriginDestinationInformation>
+                  <DepartureDateTime>2018-04-18T00:00:00</DepartureDateTime>   
+                  <OriginLocation LocationCode="LHR"/>   
+                  <DestinationLocation LocationCode="DXB"/>  
+                </OriginDestinationInformation> 
+            
+                <TravelPreferences>
+                  <CabinPref Cabin="Economy"/>
+                </TravelPreferences> 
+                <TravelerInfoSummary>   
+                  <SeatsRequested>3</SeatsRequested>
+                  <AirTravelerAvail>
+                    <PassengerTypeQuantity Code="ADT" Quantity="2"/><PassengerTypeQuantity Code="CHD" Quantity="1"/><PassengerTypeQuantity Code="INF" Quantity="1"/>
+                  </AirTravelerAvail>  
+                  <PriceRequestInformation PricingSource="Both"/>
+                </TravelerInfoSummary>
+              </OTA_AirLowFareSearchPlusRQ>
+            </wmLowFarePlus>
+            </soap:Body>
+        </soap:Envelope>

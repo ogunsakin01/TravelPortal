@@ -28,6 +28,6 @@ class PaymentNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('PaymentNotification');
+        return $this->markdown('emails.PaymentNotification');
     }
 }

@@ -28,6 +28,6 @@ class TicketIssued extends Mailable
      */
     public function build()
     {
-        return $this->markdown('TicketIssued');
+        return $this->markdown('emails.TicketIssued');
     }
 }

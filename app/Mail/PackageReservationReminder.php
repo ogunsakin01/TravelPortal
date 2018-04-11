@@ -28,6 +28,6 @@ class PackageReservationReminder extends Mailable
      */
     public function build()
     {
-        return $this->markdown('PackageReservationReminder');
+        return $this->markdown('emails.PackageReservationReminder');
     }
 }

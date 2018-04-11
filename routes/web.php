@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
+<<<<<<< HEAD
 Route::get('flight/search_results', 'FlightController@flightSearchResult');
 Route::get('flight/itinerary_booking', 'FlightController@flightItineraryBooking');
 Route::get('flight/payment_option', 'FlightController@flightPaymentOption');
@@ -55,3 +56,23 @@ Route::get('pages/booking/package/agent_bookings', function () {
 Route::get('pages/booking/package/customer_bookings', function () {
     return view('pages/booking/package/customer_bookings');
 });
+=======
+
+Route::get('search_results', function () {
+    return view('pages.flight.search_result');
+});
+
+
+Route::get('typeaheadJs', 'AirportController@typeAhead')->name('typeaheadJs');
+Route::get('airlineTypeAheadJs', 'AirlineController@typeAhead')->name('airlineTypeAheadJs');
+
+
+
+Route::post('/one-way-flight-search','FlightController@oneWayFlightSearch');
+Route::post('/round-trip-flight-search','FlightController@roundTripFlightSearch');
+Route::post('/multi-destination-flight-search','FlightController@multiDestinationFlightSearch');
+
+Route::get('/available-itineraries','ViewController@availableItineraries');
+
+
+>>>>>>> 8f8fc7e6ea4a2a61594d465d0b1e5d82f4639d59

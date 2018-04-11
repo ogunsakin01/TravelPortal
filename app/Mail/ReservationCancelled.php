@@ -28,6 +28,6 @@ class ReservationCancelled extends Mailable
      */
     public function build()
     {
-        return $this->markdown('ReservationCancelled');
+        return $this->markdown('emails.ReservationCancelled');
     }
 }
