@@ -31,3 +31,27 @@ Route::get('package/package_details', 'PackageController@packageDetails');
 Route::get('package/package_list', 'PackageController@packageList');
 Route::get('package/package_payment_option', 'PackageController@packagePaymentOption');
 Route::get('package/package_payment_confirmation', 'PackageController@packagePaymentConfirmation');
+
+Route::get('pages/booking/flight/my_bookings', function () {
+    return view('pages/booking/flight/my_bookings');
+});
+
+Route::get('pages/booking/flight/agent_bookings', function () {
+    return view('pages/booking/flight/agent_bookings');
+});
+
+Route::get('pages/booking/flight/customer_bookings', function () {
+    return view('pages/booking/flight/customer_bookings');
+});
+
+Route::get('pages/booking/package/my_bookings', function () {
+    return view('pages/booking/package/my_bookings');
+});
+
+Route::get('pages/booking/package/agent_bookings', function () {
+    return view('pages/booking/package/agent_bookings');
+});
+
+Route::get('pages/booking/package/customer_bookings', function () {
+    return view('pages/booking/package/customer_bookings');
+});
