@@ -19,18 +19,18 @@
       </POS>
                 
                 <OriginDestinationInformation>
-                  <DepartureDateTime>2018-04-18T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="LHR"/>   
-                  <DestinationLocation LocationCode="DXB"/>  
+                  <DepartureDateTime>2018-04-12T00:00:00</DepartureDateTime>   
+                  <OriginLocation LocationCode="LOS"/>   
+                  <DestinationLocation LocationCode="EWR"/>  
                 </OriginDestinationInformation> 
             
                 <TravelPreferences>
-                  <CabinPref Cabin="Economy"/>
+                  <CabinPref Cabin="Premium"/>
                 </TravelPreferences> 
                 <TravelerInfoSummary>   
-                  <SeatsRequested>3</SeatsRequested>
+                  <SeatsRequested>1</SeatsRequested>
                   <AirTravelerAvail>
-                    <PassengerTypeQuantity Code="ADT" Quantity="2"/><PassengerTypeQuantity Code="CHD" Quantity="1"/><PassengerTypeQuantity Code="INF" Quantity="1"/>
+                    <PassengerTypeQuantity Code="ADT" Quantity="1"/>
                   </AirTravelerAvail>  
                   <PriceRequestInformation PricingSource="Both"/>
                 </TravelerInfoSummary>
