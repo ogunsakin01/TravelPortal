@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
-@section('page-title') Flight Result  @endsection
+@section('page-title') Hotel Result  @endsection
 
 @section('content')
+
     <!-- START: PAGE TITLE -->
     <div class="row page-title">
         <div class="container clear-padding text-center flight-title">
-            <h3>Your Selection</h3>
-            <h4><i class="fa fa-plane"></i>NEW DELHI<i class="fa fa-long-arrow-right"></i>NEW YORK</h4>
-            <span><i class="fa fa-calendar"></i> 05 Aug <i class="fa fa-male"></i>Traveller(s) - 2 Adult</span>
+            <h3>YOUR SELECTION</h3>
+            <h4>Grand Lilly</h4>
+            <span><i class="fa fa-calendar"></i> Check In - 05 Aug <i class="fa fa-calendar"></i> Check Out - 05 Aug <i class="fa fa-male"></i> Guest(s) - 2 Adult</span>
         </div>
     </div>
     <!-- END: PAGE TITLE -->
@@ -17,9 +18,8 @@
     <div class="row booking-tab">
         <div class="container clear-padding">
             <ul class="nav nav-tabs">
-                <li class="active col-md-offset-2 col-md-4 col-sm-4 col-sm-offset-2 col-xs-4 col-xs-offset-2"><a data-toggle="tab" href="#review-booking" class="text-center"><i class="fa fa-edit"></i> <span>Review Booking</span></a></li>
-                <li class="col-md-4  col-sm-4 col-xs-4"><a data-toggle="tab" href="#passenger-info" class="text-center"><i class="fa fa-male"></i> <span>Passenger Info</span></a></li>
-                {{--<li class="col-md-4 col-sm-4 col-xs-4"><a data-toggle="tab" href="#billing-info" class="text-center"><i class="fa fa-check-square"></i> <span>Billing Info</span></a></li>--}}
+                <li class="active col-md-offset-2 col-md-4 col-sm-offset-2 col-sm-4 col-xs-offset-2 col-xs-4"><a data-toggle="tab" href="#review-booking" class="text-center"><i class="fa fa-edit"></i> <span>Review Booking</span></a></li>
+                <li class="col-md-4 col-sm-4 col-xs-4"><a data-toggle="tab" href="#passenger-info" class="text-center"><i class="fa fa-male"></i> <span>Passenger Info</span></a></li>
             </ul>
         </div>
     </div>
@@ -28,47 +28,27 @@
             <div class="tab-content">
                 <div id="review-booking" class="tab-pane fade in active">
                     <div class="col-md-8 col-sm-8">
-                        <div class="flight-list-v2">
-                            <div class="flight-list-main">
-                                <div class="col-md-2 col-sm-2 text-center airline">
-                                    <img src="assets/images/airline/airline.jpg" alt="cruise">
-                                    <h6>Vistara</h6>
-                                </div>
-                                <div class="col-md-3 col-sm-3 departure">
-                                    <h3><i class="fa fa-plane"></i> LHR 19:00</h3>
-                                    <h5 class="bold">SAT, 21 SEP</h5>
-                                    <h5>London, UK</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-4 stop-duration">
-                                    <div class="flight-direction">
-                                    </div>
-                                    <div class="stop">
-                                    </div>
-                                    <div class="stop-box">
-                                        <span>0 Stop</span>
-                                    </div>
-                                    <div class="duration text-center">
-                                        <span><i class="fa fa-clock-o"></i> 02h 00m</span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 col-sm-3 destination">
-                                    <h3><i class="fa fa-plane fa-rotate-90"></i> DEL 21:00</h3>
-                                    <h5 class="bold">SAT, 21 SEP</h5>
-                                    <h5>New Delhi, IN</h5>
-                                </div>
+                        <div class="booking-summary-v2">
+                            <div class="col-md-4 col-sm-6 clear-padding">
+                                <img src="assets/images/offer1.jpg" alt="cruise">
                             </div>
-                            <div class="clearfix"></div>
-                            <div class="flight-list-footer">
-                                <div class="col-md-6 col-sm-6 col-xs-6 sm-invisible">
-                                    <span><i class="fa fa-plane"></i> Economy</span>
-                                    <span class="refund"><i class="fa fa-undo"></i> Refundable</span>
-                                    <span><i class="fa fa-suitcase"></i> 10 KG</span>
+                            <div class="col-md-6 col-sm-6">
+                                <h4>Grand Lilly <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></h4>
+                                <div class="col-md-6 col-sm-6 col-xs-6 clear-padding">
+                                    <p>Check In</p>
+                                    <p><i class="fa fa-calendar"></i> SAT, 22 AUG</p>
                                 </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 clear-padding">
-                                    <div class="pull-right">
-                                        <a href="#">Edit Flight</a>
-                                    </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 clear-padding">
+                                    <p>Check Out</p>
+                                    <p><i class="fa fa-calendar"></i> SAT, 22 AUG</p>
                                 </div>
+                                <div class="clearfix"></div>
+                                <p><span>Guest(s)</span> - 2 Adult</p>
+                                <p><span>Room Type</span> - Deluxe Suite</p>
+                            </div>
+                            <div class="clearfix visible-sm-block"></div>
+                            <div class="col-md-2 text-center">
+                                <a href="#">CHANGE</a>
                             </div>
                         </div>
                         <div class="login-box">
@@ -99,7 +79,7 @@
                     </div>
                     <div class="col-md-4 col-sm-4 booking-sidebar">
                         <div class="sidebar-item">
-                            <h4><i class="fa fa-bookmark"></i>Fare Details</h4>
+                            <h4><i class="fa fa-bookmark"></i>Price Details</h4>
                             <div class="sidebar-body">
                                 <table class="table">
                                     <tr>
@@ -107,15 +87,15 @@
                                         <td>$199</td>
                                     </tr>
                                     <tr>
-                                        <td>Base Fare</td>
+                                        <td>Base Ammount</td>
                                         <td>$100</td>
                                     </tr>
                                     <tr>
-                                        <td>Service Fee</td>
+                                        <td>Service Tax</td>
                                         <td>$50</td>
                                     </tr>
                                     <tr>
-                                        <td>Airport Taxes</td>
+                                        <td>Other Taxes</td>
                                         <td>$20</td>
                                     </tr>
                                     <tr>
@@ -137,7 +117,7 @@
                 <div id="passenger-info" class="tab-pane fade">
                     <div class="col-md-8 col-sm-8">
                         <div class="passenger-detail">
-                            <h3>Passenger Details</h3>
+                            <h3>Guest Details</h3>
                             <div class="passenger-detail-body">
                                 <form >
                                     <div class="col-md-6 ol-sm-6">
@@ -189,10 +169,15 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+    <!-- END: BOOKING TAB -->
 
+@endsection
+
+@section('javascript')
 @endsection
 
 @section('css')

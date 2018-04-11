@@ -1046,7 +1046,6 @@
         jQuery(function($){
             "use strict";
             $.supersized({
-
                 //Functionality
                 slideshow               :   1,		//Slideshow on/off
                 autoplay				:	1,		//Slideshow starts playing automatically
@@ -1085,6 +1084,7 @@
 
     </script>
     <script src="{{asset('assets/js/pages/flight_search_management.js')}}"></script>
+
 @endsection
 
 @section('css')

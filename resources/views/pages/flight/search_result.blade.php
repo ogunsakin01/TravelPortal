@@ -1,516 +1,649 @@
 @extends('layouts.app')
 
-@section('page-title') Welcome  @endsection
+@section('page-title') Flight Result  @endsection
 
 @section('content')
-    <section>
-        <div class="row flight-search single-search">
-            <div class="container clear-padding">
-                <div class="col-md-12 clear-padding search-section">
-                    <h2 class="text-center">FIND YOUR PERFECT AIRLINE</h2>
-                    <!-- START: HOTEL SEARCH -->
-                    <div role="tabpanel" class="tab-pane" id="hotel">
-                        <form >
-                            <div class="col-md-3 col-sm-3 search-col-padding">
-                                <label>Leaving From</label>
-                                <div class="input-group">
-                                    <input type="text" name="dep-city" class="form-control" required placeholder="E.g. New York">
-                                    <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-3 search-col-padding">
-                                <label>Leaving To</label>
-                                <div class="input-group">
-                                    <input type="text" name="des-city" class="form-control" required placeholder="E.g. London">
-                                    <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-sm-2 search-col-padding">
-                                <label>Departure</label>
-                                <div class="input-group">
-                                    <input type="text" name="dep_date" id="departure_date" class="form-control" placeholder="MM/DD/YYYY">
-                                    <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-sm-2 search-col-padding">
-                                <label>Return</label>
-                                <div class="input-group">
-                                    <input type="text" name="return_date" id="return_date" class="form-control" placeholder="MM/DD/YYYY">
-                                    <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-md-2 col-sm-2 search-col-padding">
-                                <label>Guest(s)</label><br>
-                                <select class="selectpicker" name="guests">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                </select>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="col-md-12 text-center search-col-padding">
-                                <button type="submit" class="search-button btn transition-effect">Search Flight</button>
-                            </div>
-                            <div class="clearfix"></div>
-                        </form>
+    <div class="row modify-search modify-flight">
+        <div class="container clear-padding">
+            <form >
+                <div class="col-md-2 col-sm-6">
+                    <div class="form-gp">
+                        <label>Leaving From</label>
+                        <div class="input-group margin-bottom-sm">
+                            <input type="text" name="departure_city" class="form-control" required placeholder="E.g. London">
+                            <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                        </div>
                     </div>
-                    <!-- END: HOTEL SEARCH -->
                 </div>
-            </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="form-gp">
+                        <label>Leaving To</label>
+                        <div class="input-group margin-bottom-sm">
+                            <input type="text" name="destination_city" class="form-control" required placeholder="E.g. New York">
+                            <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-6">
+                    <div class="form-gp">
+                        <label>Departure</label>
+                        <div class="input-group margin-bottom-sm">
+                            <input type="text" id="departure_date" name="departure_date" class="form-control" required placeholder="DD/MM/YYYY">
+                            <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-6">
+                    <div class="form-gp">
+                        <label>Return</label>
+                        <div class="input-group margin-bottom-sm">
+                            <input type="text" id="return_date" name="return_date" class="form-control" required placeholder="DD/MM/YYYY">
+                            <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-6 col-xs-3">
+                    <div class="form-gp">
+                        <label>Adult</label>
+                        <select class="selectpicker">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-6 col-xs-3">
+                    <div class="form-gp">
+                        <label>Child</label>
+                        <select class="selectpicker">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-xs-6">
+                    <div class="form-gp">
+                        <button type="submit" class="modify-search-button btn transition-effect">MODIFY SEARCH</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </section>
-    <!-- END: SEARCH SECTION -->
+    </div>
+    <!-- END: MODIFY SEARCH -->
 
-    <!-- STRAT: LAST MINUTE DEALS -->
-    <section>
-        <div class="row last-minute-deal">
-            <div class="container">
-                <div class="section-title text-center">
-                    <h2>LAST MINUTE DEALS</h2>
-                    <h4>SAVE MORE</h4>
+    <!-- START: LISTING AREA-->
+    <div class="row">
+        <div class="container">
+            <!-- START: FILTER AREA -->
+            <div class="col-md-3 clear-padding">
+                <div class="filter-head text-center">
+                    <h4>25 Result Found Matching Your Search.</h4>
                 </div>
-                <div class="owl-carousel" id="lastminute">
-                    <div class="col-grid">
-                        <div class="wrapper">
-                            <img src="assets/images/tour1.jpg" alt="cruise">
-                            <h5 class="location">PARIS</h5>
-                        </div>
-                        <div class="body text-center">
-                            <h5>Roound Trip</h5>
-                            <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
-                            <p class="back-line">Starting From</p>
-                            <h3>$199</h3>
-                            <p class="text-sm">Thu Aug 12 - Sun 14 Aug</p>
-                        </div>
-                        <div class="bottom">
-                            <a href="#">VIEW DETAIL</a>
+                <div class="filter-area">
+                    <div class="price-filter filter">
+                        <h5><i class="fa fa-usd"></i> Price</h5>
+                        <p>
+                            <label></label>
+                            <input type="text" id="amount" readonly>
+                        </p>
+                        <div id="price-range"></div>
+                    </div>
+                    <div class="name-filter filter">
+                        <h5><i class="fa fa-plane"></i> Airline Name</h5>
+                        <div class="input-group margin-bottom-sm">
+                            <input type="text" name="airline_name" class="form-control" required placeholder="E.g. Vistara">
+                            <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
                         </div>
                     </div>
-                    <div class="col-grid">
-                        <div class="wrapper">
-                            <img src="assets/images/tour1.jpg" alt="cruise">
-                            <h5 class="location">BANGKOK</h5>
-                        </div>
-                        <div class="body text-center">
-                            <h5>One Way Trip</h5>
-                            <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
-                            <p class="back-line">Starting From</p>
-                            <h3>$299</h3>
-                            <p class="text-sm">Thu Aug 12 - Sun 14 Aug</p>
-                        </div>
-                        <div class="bottom">
-                            <a href="#">VIEW DETAIL</a>
+                    <div class="airline-filter filter">
+                        <h5><i class="fa fa-plane"></i> Airline</h5>
+                        <ul>
+                            <li><input type="checkbox"><img src="assets/images/airline/airline.jpg" alt="cruise"> Vistara</li>
+                            <li><input type="checkbox"><img src="assets/images/airline/airline.jpg" alt="cruise"> Indigo</li>
+                            <li><input type="checkbox"><img src="assets/images/airline/airline.jpg" alt="cruise"> Spicejet</li>
+                            <li><input type="checkbox"><img src="assets/images/airline/airline.jpg" alt="cruise"> Jet</li>
+                            <li><input type="checkbox"><img src="assets/images/airline/airline.jpg" alt="cruise"> Vistara</li>
+                            <li><input type="checkbox"><img src="assets/images/airline/airline.jpg" alt="cruise"> Indigo</li>
+                        </ul>
+                    </div>
+                    <div class="stop-filter filter">
+                        <h5><i class="fa fa-stop"></i> Stops</h5>
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="option1"> 0 <br>Stop
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="option2"> 1 <br>Stops
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="option3"> 1+ <br>Stops
+                            </label>
                         </div>
                     </div>
-                    <div class="col-grid">
-                        <div class="wrapper">
-                            <img src="assets/images/tour1.jpg" alt="cruise">
-                            <h5 class="location">DUBAI</h5>
-                        </div>
-                        <div class="body text-center">
-                            <h5>One Way Trip</h5>
-                            <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
-                            <p class="back-line">Starting From</p>
-                            <h3>$399</h3>
-                            <p class="text-sm">Thu Aug 12 - Sun 14 Aug</p>
-                        </div>
-                        <div class="bottom">
-                            <a href="#">VIEW DETAIL</a>
-                        </div>
+                    <div class="filter">
+                        <h5><i class="fa fa-list"></i> Class</h5>
+                        <ul>
+                            <li><input type="checkbox"> Economy</li>
+                            <li><input type="checkbox"> Business</li>
+                            <li><input type="checkbox"> All</li>
+                        </ul>
                     </div>
-                    <div class="col-grid">
-                        <div class="wrapper">
-                            <img src="assets/images/tour1.jpg" alt="cruise">
-                            <h5 class="location">ITALY</h5>
-                        </div>
-                        <div class="body text-center">
-                            <h5>Round Trip</h5>
-                            <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
-                            <p class="back-line">Starting From</p>
-                            <h3>$399</h3>
-                            <p class="text-sm">Thu Aug 12 - Sun 14 Aug</p>
-                        </div>
-                        <div class="bottom">
-                            <a href="#">VIEW DETAIL</a>
-                        </div>
-                    </div>
-                    <div class="col-grid">
-                        <div class="wrapper">
-                            <img src="assets/images/tour1.jpg" alt="cruise">
-                            <h5 class="location">PARIS</h5>
-                        </div>
-                        <div class="body text-center">
-                            <h5>One Way Trip</h5>
-                            <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
-                            <p class="back-line">Starting From</p>
-                            <h3>$199</h3>
-                            <p class="text-sm">Thu Aug 12 - Sun 14 Aug</p>
-                        </div>
-                        <div class="bottom">
-                            <a href="#">VIEW DETAIL</a>
-                        </div>
-                    </div>
-                    <div class="col-grid">
-                        <div class="wrapper">
-                            <img src="assets/images/tour1.jpg" alt="cruise">
-                            <h5 class="location">BANGKOK</h5>
-                        </div>
-                        <div class="body text-center">
-                            <h5>Round Trip</h5>
-                            <p><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></p>
-                            <p class="back-line">Starting From</p>
-                            <h3>$299</h3>
-                            <p class="text-sm">Thu Aug 12 - Sun 14 Aug</p>
-                        </div>
-                        <div class="bottom">
-                            <a href="#">VIEW DETAIL</a>
-                        </div>
+                    <div class="facilities-filter filter">
+                        <h5><i class="fa fa-list"></i> Airline Facilities</h5>
+                        <ul>
+                            <li><input type="checkbox"> <i class="fa fa-wifi"></i> Wifi</li>
+                            <li><input type="checkbox"> <i class="fa fa-cab"></i> Taxi</li>
+                            <li><input type="checkbox"> <i class="fa fa-cutlery"></i> Meal</li>
+                            <li><input type="checkbox"> <i class="fa fa-coffee"></i> Coffee </li>
+                            <li><input type="checkbox"> <i class="fa fa-cutlery"></i> Meal</li>
+                            <li><input type="checkbox"> <i class="fa fa-coffee"></i> Coffee</li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- END: LAST MINUTE DEALS -->
+            <!-- END: FILTER AREA -->
 
-    <!-- BEGIN: TOP DESTINATION SECTION -->
-    <section id="top-flight-row">
-        <div class="row top-flight">
-            <div class="container">
-                <div class="section-title text-center">
-                    <h2>TOP DESTINATION</h2>
-                    <h4>CHECK OUT FLIGHTS TO TOP DESTINATIONS</h4>
-                </div>
-                <div class="col-md-4 col-sm-6 tour-grid clear-padding">
-                    <img src="assets/images/tour1.jpg" alt="Cruise">
-                    <div class="tour-brief">
-                        <div class="pull-left">
-                            <h4><i class="fa fa-map-marker"></i>FRANCE</h4>
+            <!-- START: INDIVIDUAL LISTING AREA -->
+            <div class="col-md-9 flight-listing">
+
+                <!-- START: LOWEST FARE SLIDER -->
+                <div class="lowest-fare-slider col-md-12">
+                    <div class="owl-carousel" id="lowest-fare">
+                        <div class="text-center">
+                            <h5>22 Aug</h5>
+                            <span>From $129</span>
                         </div>
-                        <div class="pull-right">
-                            <h4>$49/Person</h4>
+                        <div class="text-center">
+                            <h5>23 Aug</h5>
+                            <span>From $119</span>
                         </div>
-                    </div>
-                    <div class="tour-detail text-center">
-                        <p><strong><i class="fa fa-plane"></i>25 Airline</strong></p>
-                        <p><strong>Starting $49/Person</strong></p>
-                        <p><a href="#">DETAIL</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 tour-grid clear-padding">
-                    <img src="assets/images/tour1.jpg" alt="Cruise">
-                    <div class="tour-brief">
-                        <div class="pull-left">
-                            <h4><i class="fa fa-map-marker"></i>DUBAI</h4>
+                        <div class="text-center">
+                            <h5>24 Aug</h5>
+                            <span>From $299</span>
                         </div>
-                        <div class="pull-right">
-                            <h4>$99/Person</h4>
+                        <div class="text-center">
+                            <h5>25 Aug</h5>
+                            <span>From $200</span>
                         </div>
-                    </div>
-                    <div class="tour-detail text-center">
-                        <p><strong><i class="fa fa-plane"></i>40 Airline</strong></p>
-                        <p><strong>Starting $99/Person</strong></p>
-                        <p><a href="#">DETAIL</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 tour-grid clear-padding">
-                    <img src="assets/images/tour1.jpg" alt="Cruise">
-                    <div class="tour-brief">
-                        <div class="pull-left">
-                            <h4><i class="fa fa-map-marker"></i>BANGKOK</h4>
+                        <div class="text-center">
+                            <h5>26 Aug</h5>
+                            <span>From $150</span>
                         </div>
-                        <div class="pull-right">
-                            <h4>$69/Person</h4>
+                        <div class="text-center">
+                            <h5>27 Aug</h5>
+                            <span>From $300</span>
                         </div>
-                    </div>
-                    <div class="tour-detail text-center">
-                        <p><strong><i class="fa fa-plane"></i>90 Airline</strong></p>
-                        <p><strong>Starting $69/Person</strong></p>
-                        <p><a href="#">DETAIL</a></p>
+                        <div class="text-center">
+                            <h5>28 Aug</h5>
+                            <span>From $400</span>
+                        </div>
+                        <div class="text-center">
+                            <h5>29 Aug</h5>
+                            <span>From $500</span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 tour-grid clear-padding">
-                    <img src="assets/images/tour1.jpg" alt="Cruise">
-                    <div class="tour-brief">
-                        <div class="pull-left">
-                            <h4><i class="fa fa-map-marker"></i>AFRICA</h4>
-                        </div>
-                        <div class="pull-right">
-                            <h4>$90/Person</h4>
-                        </div>
+                <!-- END: LOWEST FARE SLIDER -->
+
+                <!-- START: SORT AREA -->
+                <div class="sort-area col-md-12">
+                    <div class="col-md-3 col-sm-3 col-xs-6 sort">
+                        <select class="selectpicker">
+                            <option>Price</option>
+                            <option> Low to High</option>
+                            <option> High to Low</option>
+                        </select>
                     </div>
-                    <div class="tour-detail text-center">
-                        <p><strong><i class="fa fa-plane"></i>6 Airline</strong></p>
-                        <p><strong>Starting $90/Person</strong></p>
-                        <p><a href="#">DETAIL</a></p>
+                    <div class="col-md-3 col-sm-3 col-xs-6 sort">
+                        <select class="selectpicker">
+                            <option>Airline</option>
+                            <option> Vistara</option>
+                            <option> Indigo</option>
+                            <option> Jet</option>
+                            <option> Spicejet</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6 sort">
+                        <select class="selectpicker">
+                            <option>User Rating</option>
+                            <option> Low to High</option>
+                            <option> High to Low</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6 sort">
+                        <select class="selectpicker">
+                            <option>Name</option>
+                            <option> Ascending</option>
+                            <option> Descending</option>
+                        </select>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 tour-grid clear-padding">
-                    <img src="assets/images/tour1.jpg" alt="Cruise">
-                    <div class="tour-brief">
-                        <div class="pull-left">
-                            <h4><i class="fa fa-map-marker"></i>BELGIUM</h4>
+                <!-- END: SORT AREA -->
+                <div class="clearfix"></div>
+                <!-- START: FLIGHT LIST VIEW -->
+                <div class="flight-list-view">
+                    <div class="airline-logo col-md-2 text-center clear-padding">
+                        <img src="assets/images/airline/airline.jpg" alt="cruise">
+                        <h6>Vistara</h6>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-8 text-center clear-padding flight-desc">
+                        <div class="take-off">
+                            <h4><i class="fa fa-plane"></i> 19:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> London (LHR), United Kingdom (UK)</h5>
                         </div>
-                        <div class="pull-right">
-                            <h4>$89/Person</h4>
+                        <div class="landing">
+                            <h4><i class="fa fa-plane fa-rotate-90"></i> 21:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> New Delhi (DEL), India (IN)</h5>
                         </div>
                     </div>
-                    <div class="tour-detail text-center">
-                        <p><strong><i class="fa fa-plane"></i>8 Airline</strong></p>
-                        <p><strong>Starting $89/Person</strong></p>
-                        <p><a href="#">DETAIL</a></p>
+                    <div class="col-md-2 col-sm-6 col-xs-4 clear-padding flight-desc text-center">
+                        <div class="duration">
+                            <h4><i class="fa fa-clock-o"></i> 02h 00m</h4>
+                            <h4>1 Stop</h4>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block visible-xs-block"></div>
+                    <div class="col-md-2 flight-book text-center clear-padding">
+                        <div class="price">
+                            <h4>$599</h4>
+                            <h5>Per Person</h5>
+                        </div>
+                        <div class="book">
+                            <a href="#">BOOK</a>
+                            <h6 data-toggle="modal" data-target=".flight-details">Show Details <i class="fa fa-plus"></i></h6>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 tour-grid clear-padding">
-                    <img src="assets/images/tour1.jpg" alt="Cruise">
-                    <div class="tour-brief">
-                        <div class="pull-left">
-                            <h4><i class="fa fa-map-marker"></i>AUSTRIA</h4>
+                <div class="flight-list-view">
+                    <div class="airline-logo col-md-2 text-center clear-padding">
+                        <img src="assets/images/airline/airline.jpg" alt="cruise">
+                        <h6>Spicejet</h6>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-8 text-center clear-padding flight-desc">
+                        <div class="take-off">
+                            <h4><i class="fa fa-plane"></i> 19:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> London (LHR), United Kingdom (UK)</h5>
                         </div>
-                        <div class="pull-right">
-                            <h4>$199/Person</h4>
+                        <div class="landing">
+                            <h4><i class="fa fa-plane fa-rotate-90"></i> 21:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> New Delhi (DEL), India (IN)</h5>
                         </div>
                     </div>
-                    <div class="tour-detail text-center">
-                        <p><strong><i class="fa fa-plane"></i>28 Airline</strong></p>
-                        <p><strong>Starting $199/Person</strong></p>
-                        <p><a href="#">DETAIL</a></p>
+                    <div class="col-md-2 col-sm-6 col-xs-4 clear-padding flight-desc text-center">
+                        <div class="duration">
+                            <h4><i class="fa fa-clock-o"></i> 02h 00m</h4>
+                            <h4>1 Stop</h4>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block visible-xs-block"></div>
+                    <div class="col-md-2 flight-book text-center clear-padding">
+                        <div class="price">
+                            <h4>$599</h4>
+                            <h5>Per Person</h5>
+                        </div>
+                        <div class="book">
+                            <a href="#">BOOK</a>
+                            <h6 data-toggle="modal" data-target=".flight-details">Show Details <i class="fa fa-plus"></i></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-list-view">
+                    <div class="airline-logo col-md-2 text-center clear-padding">
+                        <img src="assets/images/airline/airline.jpg" alt="cruise">
+                        <h6>Jet</h6>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-8 text-center clear-padding flight-desc">
+                        <div class="take-off">
+                            <h4><i class="fa fa-plane"></i> 19:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> London (LHR), United Kingdom (UK)</h5>
+                        </div>
+                        <div class="landing">
+                            <h4><i class="fa fa-plane fa-rotate-90"></i> 21:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> New Delhi (DEL), India (IN)</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-4 clear-padding flight-desc text-center">
+                        <div class="duration">
+                            <h4><i class="fa fa-clock-o"></i> 02h 00m</h4>
+                            <h4>1 Stop</h4>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block visible-xs-block"></div>
+                    <div class="col-md-2 flight-book text-center clear-padding">
+                        <div class="price">
+                            <h4>$599</h4>
+                            <h5>Per Person</h5>
+                        </div>
+                        <div class="book">
+                            <a href="#">BOOK</a>
+                            <h6 data-toggle="modal" data-target=".flight-details">Show Details <i class="fa fa-plus"></i></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-list-view">
+                    <div class="airline-logo col-md-2 text-center clear-padding">
+                        <img src="assets/images/airline/airline.jpg" alt="cruise">
+                        <h6>Indigo</h6>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-8 text-center clear-padding flight-desc">
+                        <div class="take-off">
+                            <h4><i class="fa fa-plane"></i> 19:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> London (LHR), United Kingdom (UK)</h5>
+                        </div>
+                        <div class="landing">
+                            <h4><i class="fa fa-plane fa-rotate-90"></i> 21:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> New Delhi (DEL), India (IN)</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-4 clear-padding flight-desc text-center">
+                        <div class="duration">
+                            <h4><i class="fa fa-clock-o"></i> 02h 00m</h4>
+                            <h4>1 Stop</h4>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block visible-xs-block"></div>
+                    <div class="col-md-2 flight-book text-center clear-padding">
+                        <div class="price">
+                            <h4>$599</h4>
+                            <h5>Per Person</h5>
+                        </div>
+                        <div class="book">
+                            <a href="#">BOOK</a>
+                            <h6 data-toggle="modal" data-target=".flight-details">Show Details <i class="fa fa-plus"></i></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-list-view">
+                    <div class="airline-logo col-md-2 text-center clear-padding">
+                        <img src="assets/images/airline/airline.jpg" alt="cruise">
+                        <h6>Vistara</h6>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-8 text-center clear-padding flight-desc">
+                        <div class="take-off">
+                            <h4><i class="fa fa-plane"></i> 19:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> London (LHR), United Kingdom (UK)</h5>
+                        </div>
+                        <div class="landing">
+                            <h4><i class="fa fa-plane fa-rotate-90"></i> 21:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> New Delhi (DEL), India (IN)</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-4 clear-padding flight-desc text-center">
+                        <div class="duration">
+                            <h4><i class="fa fa-clock-o"></i> 02h 00m</h4>
+                            <h4>1 Stop</h4>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block visible-xs-block"></div>
+                    <div class="col-md-2 flight-book text-center clear-padding">
+                        <div class="price">
+                            <h4>$599</h4>
+                            <h5>Per Person</h5>
+                        </div>
+                        <div class="book">
+                            <a href="#">BOOK</a>
+                            <h6 data-toggle="modal" data-target=".flight-details">Show Details <i class="fa fa-plus"></i></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-list-view">
+                    <div class="airline-logo col-md-2 text-center clear-padding">
+                        <img src="assets/images/airline/airline.jpg" alt="cruise">
+                        <h6>Spicejet</h6>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-8 text-center clear-padding flight-desc">
+                        <div class="take-off">
+                            <h4><i class="fa fa-plane"></i> 19:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> London (LHR), United Kingdom (UK)</h5>
+                        </div>
+                        <div class="landing">
+                            <h4><i class="fa fa-plane fa-rotate-90"></i> 21:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> New Delhi (DEL), India (IN)</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-4 clear-padding flight-desc text-center">
+                        <div class="duration">
+                            <h4><i class="fa fa-clock-o"></i> 02h 00m</h4>
+                            <h4>1 Stop</h4>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block visible-xs-block"></div>
+                    <div class="col-md-2 flight-book text-center clear-padding">
+                        <div class="price">
+                            <h4>$599</h4>
+                            <h5>Per Person</h5>
+                        </div>
+                        <div class="book">
+                            <a href="#">BOOK</a>
+                            <h6 data-toggle="modal" data-target=".flight-details">Show Details <i class="fa fa-plus"></i></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-list-view">
+                    <div class="airline-logo col-md-2 text-center clear-padding">
+                        <img src="assets/images/airline/airline.jpg" alt="cruise">
+                        <h6>Jet</h6>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-8 text-center clear-padding flight-desc">
+                        <div class="take-off">
+                            <h4><i class="fa fa-plane"></i> 19:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> London (LHR), United Kingdom (UK)</h5>
+                        </div>
+                        <div class="landing">
+                            <h4><i class="fa fa-plane fa-rotate-90"></i> 21:20 Mon, Aug 3</h4>
+                            <h5><i class="fa fa-map-marker"></i> New Delhi (DEL), India (IN)</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6 col-xs-4 clear-padding flight-desc text-center">
+                        <div class="duration">
+                            <h4><i class="fa fa-clock-o"></i> 02h 00m</h4>
+                            <h4>1 Stop</h4>
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm-block visible-xs-block"></div>
+                    <div class="col-md-2 flight-book text-center clear-padding">
+                        <div class="price">
+                            <h4>$599</h4>
+                            <h5>Per Person</h5>
+                        </div>
+                        <div class="book">
+                            <a href="#">BOOK</a>
+                            <h6 data-toggle="modal" data-target=".flight-details">Show Details <i class="fa fa-plus"></i></h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- END: FLIGHT LIST VIEW -->
+
+                <!-- START: PAGINATION -->
+                <div class="bottom-pagination">
+                    <nav class="pull-right">
+                        <ul class="pagination pagination-lg">
+                            <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">6 <span class="sr-only">(current)</span></a></li>
+                            <li><a href="#" aria-label="Previous"><span aria-hidden="true">&#187;</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- END: PAGINATION -->
+            </div>
+            <!-- END: INDIVIDUAL LISTING AREA -->
+        </div>
+    </div>
+
+    <!-- START: FLIGHT MODAL -->
+    <div class="modal fade flight-details" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="flight-details-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+                        <h5>FLIGHT DETAILS</h5>
+                        <div class="flight-details-book">
+                            <div class="col-md-2 col-sm-2 col-xs-4">
+                                <h3>$599</h3>
+                                <h6>Per Person</h6>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-4">
+                                <a href="#">BOOK</a>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="flight-details-body">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#itinerary">Itinerary</a></li>
+                            <li><a data-toggle="tab" href="#fare">Fare Details</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="itinerary" class="tab-pane fade in active">
+                                <h5 class="itinerary-date">Mon, Aug 3</h5>
+                                <div class="itinerary-details text-center">
+                                    <div class="flight">
+                                        <div class="col-md-1 col-sm-2 col-xs-3">
+                                            <img src="assets/images/airline/airline.jpg" alt="cruise">
+                                            <h6>Vistara</h6>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <h4>19:20</h4>
+                                            <h5>London (LHR)</h5>
+                                        </div>
+                                        <div class="col-md-1 col-sm-1 col-xs-1">
+                                            <i class="fa fa-long-arrow-right"></i>
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                            <h4>21:20</h4>
+                                            <h5>New Delhi (DEL)</h5>
+                                        </div>
+                                        <div class="col-md-2 col-sm-3 col-xs-2">
+                                            <h4>02h 00m</h4>
+                                            <h5>0 Stop</h5>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div>
+                                        <div class="col-md-6 col-sm-6 airline-facilities text-center">
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <i class="fa fa-cutlery"></i>
+                                                <span>Free Meal</span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <i class="fa fa-coffee"></i>
+                                                <span>Drinks</span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <i class="fa fa-taxi"></i>
+                                                <span>Taxi</span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <i class="fa fa-wifi"></i>
+                                                <span>Free Wifi</span>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix-sm"></div>
+                                        <div class="col-md-6 col-sm-6 airline-rating text-center">
+                                            <h5>Airline Rating</h5>
+                                            <i class="fa fa-star colored"></i>
+                                            <i class="fa fa-star colored"></i>
+                                            <i class="fa fa-star colored"></i>
+                                            <i class="fa fa-star colored"></i>
+                                            <i class="fa fa-star"></i>
+                                            <h6>4.0/5 Based on 128 Guest Reviews</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="fare" class="tab-pane fade">
+                                <div class="col-md-6 col-sm-6">
+                                    <h5>Fare Details</h5>
+                                    <table>
+                                        <tr>
+                                            <td>Base Fare</td>
+                                            <td>$499</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Development Fee</td>
+                                            <td>$19</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trasnportation</td>
+                                            <td>$420</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Service Fee</td>
+                                            <td>$25</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Serivce Tax</td>
+                                            <td>$20</td>
+                                        </tr>
+                                        <tr class="grand-total">
+                                            <td>Grand Total</td>
+                                            <td>$599</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <h5>Fare Rule</h5>
+                                    <table>
+                                        <tr>
+                                            <td>Date Change Penality</td>
+                                            <td>$19</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cancellation Penality</td>
+                                            <td>$25</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Service Fee</td>
+                                            <td>$20</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- END: TOP DESTINATION SECTION -->
-    <!-- START: HOT  DEALS -->
-    <section>
-        <div class="row hot-deals">
-            <div class="container clear-padding">
-                <div class="section-title text-center">
-                    <h2>HOT DEALS</h2>
-                    <h4>SAVE MORE</h4>
-                </div>
-                <div role="tabpanel" class="text-center">
-                    <!-- BEGIN: CATEGORY TAB -->
-                    <ul class="nav nav-tabs" role="tablist" id="hotDeal">
-                        <li role="presentation" class="active text-center">
-                            <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">
-                                <i class="fa fa-map-marker"></i>
-                                <span>NEW YORK</SPAN>
-                            </a>
-                        </li>
-                        <li role="presentation" class="text-center">
-                            <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">
-                                <i class="fa fa-map-marker"></i>
-                                <span>SEATLE</SPAN>
-                            </a>
-                        </li>
-                        <li role="presentation" class="text-center">
-                            <a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">
-                                <i class="fa fa-map-marker"></i>
-                                <span>CALIFORNIA</SPAN>
-                            </a>
-                        </li>
-                        <li role="presentation" class="text-center">
-                            <a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">
-                                <i class="fa fa-map-marker"></i>
-                                <span>LOS VAGAS</SPAN>
-                            </a>
-                        </li>
-                        <li role="presentation" class="text-center">
-                            <a href="#tab5" aria-controls="tab5" role="tab" data-toggle="tab">
-                                <i class="fa fa-map-marker"></i>
-                                <span>LOS ANGELES</SPAN>
-                            </a>
-                        </li>
-                    </ul>
-                    <!-- END: CATEGORY TAB -->
-                    <div class="clearfix"></div>
-                    <!-- BEGIN: TAB PANELS -->
-                    <div class="tab-content">
-                        <!-- BEGIN: FLIGHT SEARCH -->
-                        <div role="tabpanel" class="tab-pane active fade in" id="tab1">
-                            <div class="col-md-6 hot-deal-list">
-                                <div class="item">
-                                    <div class="col-xs-3">
-                                        <img src="assets/images/offer1.jpg" alt="Cruise">
-                                    </div>
-                                    <div class="col-md-7 col-xs-6">
-                                        <h5>Round Trip To New York</h5>
-                                        <p class="location">New York <i class="fa fa-long-arrow-right"></i> New Delhi</p>
-                                        <p class="location">New Delhi <i class="fa fa-long-arrow-right"></i> New York</p>
-                                    </div>
-                                    <div class="col-md-2 col-xs-3">
-                                        <h4>$499</h4>
-                                        <h6>Per Person</h6>
-                                        <a href="#">BOOK</a>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="item">
-                                    <div class="col-xs-3">
-                                        <img src="assets/images/offer2.jpg" alt="Cruise">
-                                    </div>
-                                    <div class="col-md-7 col-xs-6">
-                                        <h5>One Way Trip To Paris</h5>
-                                        <p class="location">New York <i class="fa fa-long-arrow-right"></i> Paris</p>
-                                    </div>
-                                    <div class="col-md-2 col-xs-3">
-                                        <h4>$399</h4>
-                                        <h6>Per Person</h6>
-                                        <a href="#">BOOK</a>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="item">
-                                    <div class="col-xs-3">
-                                        <img src="assets/images/offer3.jpg" alt="Cruise">
-                                    </div>
-                                    <div class="col-md-7 col-xs-6">
-                                        <h5>Round Trip To New York</h5>
-                                        <p class="location">New York <i class="fa fa-long-arrow-right"></i> Dubai</p>
-                                        <p class="location">Dubai <i class="fa fa-long-arrow-right"></i> New York</p>
-                                    </div>
-                                    <div class="col-md-2 col-xs-3">
-                                        <h4>$499</h4>
-                                        <h6>Per Person</h6>
-                                        <a href="#">BOOK</a>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="col-md-6 hot-deal-grid">
-                                <div class="col-sm-6 item">
-                                    <div class="wrapper">
-                                        <img src="assets/images/tour1.jpg" alt="Cruise">
-                                        <h5>Paris Flights $599/Person</h5>
-                                        <a href="#">DETAILS</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 item">
-                                    <div class="wrapper">
-                                        <img src="assets/images/tour1.jpg" alt="Cruise">
-                                        <h5>Spain Flights $599/Person</h5>
-                                        <a href="#">DETAILS</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 item">
-                                    <div class="wrapper">
-                                        <img src="assets/images/tour1.jpg" alt="Cruise">
-                                        <h5>Dubai Flights $599/Person</h5>
-                                        <a href="#">DETAILS</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 item">
-                                    <div class="wrapper">
-                                        <img src="assets/images/tour1.jpg" alt="Cruise">
-                                        <h5>Italy Flights $599/Person</h5>
-                                        <a href="#">DETAILS</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="tab2">
-                            <div class="col-md-6 hot-deal-list">
-                                <div class="item">
-                                    <div class="col-xs-3">
-                                        <img src="assets/images/offer3.jpg" alt="Cruise">
-                                    </div>
-                                    <div class="col-md-7 col-xs-6">
-                                        <h5>Round Trip To New York</h5>
-                                        <p class="location">New York <i class="fa fa-long-arrow-right"></i> New Delhi</p>
-                                        <p class="location">New Delhi <i class="fa fa-long-arrow-right"></i> New York</p>
-                                    </div>
-                                    <div class="col-md-2 col-xs-3">
-                                        <h4>$499</h4>
-                                        <h6>Per Person</h6>
-                                        <a href="#">BOOK</a>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="item">
-                                    <div class="col-xs-3">
-                                        <img src="assets/images/offer2.jpg" alt="Cruise">
-                                    </div>
-                                    <div class="col-md-7 col-xs-6">
-                                        <h5>One Way Trip To Paris</h5>
-                                        <p class="location">New York <i class="fa fa-long-arrow-right"></i> Paris</p>
-                                    </div>
-                                    <div class="col-md-2 col-xs-3">
-                                        <h4>$399</h4>
-                                        <h6>Per Person</h6>
-                                        <a href="#">BOOK</a>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="item">
-                                    <div class="col-xs-3">
-                                        <img src="assets/images/offer1.jpg" alt="Cruise">
-                                    </div>
-                                    <div class="col-md-7 col-xs-6">
-                                        <h5>Round Trip To New York</h5>
-                                        <p class="location">New York <i class="fa fa-long-arrow-right"></i> Dubai</p>
-                                        <p class="location">Dubai <i class="fa fa-long-arrow-right"></i> New York</p>
-                                    </div>
-                                    <div class="col-md-2 col-xs-3">
-                                        <h4>$499</h4>
-                                        <h6>Per Person</h6>
-                                        <a href="#">BOOK</a>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="col-md-6 hot-deal-grid">
-                                <div class="col-sm-6 item">
-                                    <div class="wrapper">
-                                        <img src="assets/images/tour1.jpg" alt="Cruise">
-                                        <h5>London Flights $599/Person</h5>
-                                        <a href="#">DETAILS</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 item">
-                                    <div class="wrapper">
-                                        <img src="assets/images/tour1.jpg" alt="Cruise">
-                                        <h5>France Flights $699/Person</h5>
-                                        <a href="#">DETAILS</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 item">
-                                    <div class="wrapper">
-                                        <img src="assets/images/tour1.jpg" alt="Cruise">
-                                        <h5>Dubai Flights $799/Person</h5>
-                                        <a href="#">DETAILS</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 item">
-                                    <div class="wrapper">
-                                        <img src="assets/images/tour1.jpg" alt="Cruise">
-                                        <h5>Italy Flights $599/Person</h5>
-                                        <a href="#">DETAILS</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="tab3">
-                            Lorem Lpsum 3
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="tab4">
-                            Lorem Lpsum 4
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="tab5">
-                            Lorem Lpsum 5
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+    <!-- END: FLIGHT MODAL -->
+
 
 @endsection
 
 @section('javascript')
+    <script type="text/javascript">
 
+        /* Price Range Slider */
+
+        $(function() {
+            "use strict";
+            $( "#price-range" ).slider({
+                range: true,
+                min: 0,
+                max: 100,
+                values: [ 3, 50 ],
+                slide: function( event, ui ) {
+                    $( "#amount" ).val( "$ " + ui.values[ 0 ] + " - $ " + ui.values[ 1 ] );
+                }
+            });
+            $( "#amount" ).val( "$ " + $( "#price-range" ).slider( "values", 0 ) +
+                " - $ " + $( "#price-range" ).slider( "values", 1 ) );
+        });
+    </script>
 @endsection
 
 @section('css')

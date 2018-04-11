@@ -19,3 +19,4 @@
 <script src="{{asset('assets/js/toastr.min.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap3-typeahead.js')}}"></script>
 <script src="{{asset('assets/js/required.js')}}"></script>
+

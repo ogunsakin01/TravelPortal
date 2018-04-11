@@ -15,12 +15,10 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
+
 Route::get('search_results', function () {
     return view('pages.flight.search_result');
 });
-
-
-
 
 
 Route::get('typeaheadJs', 'AirportController@typeAhead')->name('typeaheadJs');
