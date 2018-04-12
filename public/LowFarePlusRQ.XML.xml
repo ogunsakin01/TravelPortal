@@ -21,7 +21,7 @@
                 <OriginDestinationInformation>
                   <DepartureDateTime>2018-04-12T00:00:00</DepartureDateTime>   
                   <OriginLocation LocationCode="LOS"/>   
-                  <DestinationLocation LocationCode="EWR"/>  
+                  <DestinationLocation LocationCode="HAM"/>  
                 </OriginDestinationInformation> 
             
                 <TravelPreferences>

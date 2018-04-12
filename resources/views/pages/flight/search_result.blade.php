@@ -3,6 +3,7 @@
 @section('page-title') Flight Result  @endsection
 
 @section('content')
+    <!-- START: MODIFY SEARCH -->
     <div class="row modify-search modify-flight">
         <div class="container clear-padding">
             <form >
@@ -482,6 +483,7 @@
             <!-- END: INDIVIDUAL LISTING AREA -->
         </div>
     </div>
+    <!-- END: LISTING AREA -->
 
     <!-- START: FLIGHT MODAL -->
     <div class="modal fade flight-details" tabindex="-1" role="dialog">
@@ -621,7 +623,6 @@
     </div>
     <!-- END: FLIGHT MODAL -->
 
-
 @endsection
 
 @section('javascript')
@@ -643,6 +644,7 @@
             $( "#amount" ).val( "$ " + $( "#price-range" ).slider( "values", 0 ) +
                 " - $ " + $( "#price-range" ).slider( "values", 1 ) );
         });
+
     </script>
 @endsection
 

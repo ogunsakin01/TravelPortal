@@ -1,90 +1,71 @@
 @extends('layouts.app')
 
-@section('page-title')Agent Package Booking @endsection
+@section('page-title') Agent Package Booking @endsection
 
 @section('content')
-    <div class="content">
+    <div class="row user-profile">
+        <div class="container">
+            <div class="col-md-12 user-name">
+                <h3>Hotel Booking</h3>
+            </div>
+            <div class="col-md-2 col-sm-2">
+                <div class="user-profile-tabs">
+                    <ul class="nav nav-tabs">
+                        <li><a  href="{{ url('booking/package/my_bookings') }}" class="text-center"><i class="fa fa-bolt"></i> <span>My Booking</span></a></li>
+                        <li class="active"><a  href="{{ url('booking/package/agent_bookings') }}" class="text-center"><i class="fa fa-history"></i> <span>Agent Booking</span></a></li>
+                        <li><a href="{{ url('booking/package/customer_bookings') }}" class="text-center"><i class="fa fa-user"></i> <span>Customer Booking</span></a></li>
+                    </ul>
+                </div>
+            </div>
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card stats-card">
-                            <div class="stats-icon">
-                                <span class="fa fa-check-circle"></span>
-                            </div>
-                            <div class="stats-ctn">
-                                <div class="stats-counter"><span class="counter">0</span></div>
-                                <span class="desc">Successful Bookings <span class="badge badge-success">successful</span> </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card stats-card">
-                            <div class="stats-icon">
-                                <span class="fa fa-times-circle"></span>
-                            </div>
-                            <div class="stats-ctn">
-                                <div class="stats-counter"><span class="counter">0</span></div>
-                                <span class="desc">Failed Bookings <span class="badge badge-danger">failed/Incomplete</span></span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-md-10 col-sm-10">
+                <div class="booking-tab">
+                    <h3>Agent Package Bookings </h3>
+                </div>
+
+
+                <div class="table-responsive" style="background-color: white;">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Agency Name</th>
+                            <th>Agent Id</th>
+                            <th>Package Name</th>
+                            <th>Contact Number</th>
+                            <th>Includes</th>
+                            <th>Adults</th>
+                            <th>Children</th>
+                            <th>Infants</th>
+                            <th>Price (₦)</th>
+                            <th>Status</th>
+                            <th>Booked on</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header">
-                        Agents Package Bookings
-                    </div>
-                    <div class="card-body">
-                        <div class=" table-responsive  dataTables_wrapper">
-                            <table class="table dataTable ">
-                                <thead>
-                                <tr>
-                                    <th>Reference</th>
-                                    <th>Agency Name</th>
-                                    <th>Agent Id</th>
-                                    <th>Package Name</th>
-                                    <th>Contact Number</th>
-                                    <th>Includes</th>
-                                    <th>Adults</th>
-                                    <th>Children</th>
-                                    <th>Infants</th>
-                                    <th>Price (₦)</th>
-                                    <th>Status</th>
-                                    <th>Booked on</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
+
     </div>
+
 @endsection
 
 @section('css')
     <style>
-        .table thead{
-            color: #f9676b;
-        }
 
-        .card.stats-card .stats-icon {
-            position: absolute;
-            height: 100%;
-            top: 0;
-            left: 0;
-            width: 75px;
-            background-color: #efefef;
-            font-size: 35px;
+        .booking-tab h3{
+            color: rgba(0,0,0,.9);
+            font-weight: 500;
             text-align: center;
-            color: #aaa;
-            line-height: 2.9;
+            padding: -10px 0;
+            margin: -10px 0;
         }
     </style>
 @endsection
