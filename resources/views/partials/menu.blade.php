@@ -89,9 +89,9 @@
                                     <li class="col-md-offset-3 col-md-3 col-sm-4 links">
                                         <h5>TRAVEL PACKAGES</h5>
                                         <ul>
-                                            <li><a href="#">All Travel Packages</a></li>
-                                            <li><a href="#">Create Travel Package</a></li>
-                                            <li><a href="#">Categories </a></li>
+                                            <li><a href="{{ url('setting/travel-package') }}">All Travel Packages</a></li>
+                                            <li><a href="{{ url('setting/travel-package/create') }}">Create Travel Package</a></li>
+                                            <li><a href="{{ url('setting/travel-package/categories') }}">Categories </a></li>
                                         </ul>
                                     </li>
                                     <li class="col-md-3 col-sm-4 links">
@@ -105,9 +105,9 @@
                                     <li class="col-md-3 col-sm-4 links">
                                         <h5>OTHER SETTINGS</h5>
                                         <ul>
-                                            <li><a href="#">Profile Management</a></li>
-                                            <li><a href="#">Wallet Management</a></li>
-                                            <li><a href="#">Customer Bookings</a></li>
+                                            <li><a href="{{ url('setting/other-setting/profile_management') }}">Profile Management</a></li>
+                                            <li><a href="{{ url('setting/other-setting/Wallet_management') }}">Wallet Management</a></li>
+                                            <li><a href="{{ url('setting/other-setting/Customer_bookings') }}">Customer Bookings</a></li>
                                         </ul>
                                     </li>
                                 </ul>

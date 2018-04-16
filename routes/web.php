@@ -94,6 +94,25 @@ Route::get('booking/package/customer_bookings', function () {
     return view('pages/booking/package/customer_bookings');
 });
 
+Route::get('setting/travel-package', function () {
+    return view('pages/setting/travel-package/all_travel_packages');
+});
+Route::get('setting/travel-package/create', function () {
+    return view('pages/setting/travel-package/create_package');
+});
+Route::get('setting/travel-package/categories', function () {
+    return view('pages/setting/travel-package/categories');
+});
+
+Route::get('setting/other-setting/profile_management', function () {
+    return view('pages/setting/other-setting/profile_management');
+});
+Route::get('setting/other-setting/Wallet_management', function () {
+    return view('pages/setting/other-setting/Wallet_management');
+});
+Route::get('setting/other-setting/Customer_bookings', function () {
+    return view('pages/setting/other-setting/Customer_bookings');
+});
 
 Route::get('typeaheadJs', 'AirportController@typeAhead')->name('typeaheadJs');
 Route::get('airlineTypeAheadJs', 'AirlineController@typeAhead')->name('airlineTypeAheadJs');
