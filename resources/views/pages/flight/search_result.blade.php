@@ -3,6 +3,7 @@
 @section('page-title') Available Itineraries  @endsection
 
 @section('content')
+    <!-- START: MODIFY SEARCH -->
     <div class="row modify-search modify-flight">
         <div class="container clear-padding">
             <div class="col-md-3 col-sm-3 open-search-holder search-col-padding hidden-lg hidden-md">
@@ -211,245 +212,225 @@
                                             <div class="col-md-2 col-sm-2 col-xs-4">
                                                 <button class="btn btn-sm btn-block btn-outline-primary continue" value="{{$serial}}"> Continue <i class="fa fa-plane"></i></button>
                                             </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-
-                                    {{-- Not in use but dont delete --}}
-                                    <div class="flight-details-body hide hidden">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active"><a data-toggle="tab" href="#itinerary-{{$serial}}">Itinerary</a></li>
-                                            <li><a data-toggle="tab" href="#itinerary-info-{{$serial}}">Itinerary Info</a></li>
-                                            <li><a data-toggle="tab" href="#fare-{{$serial}}">Fare Details</a></li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div id="itinerary-{{$serial}}" class="tab-pane fade in active">
-                                                @foreach($itinerary['originDestinations'] as $serial => $originDestination)
-                                                    <h5 class="itinerary-date">{{date('D, M d',strtotime($originDestination['departureDateTime']))}}</h5>
-                                                    <div class="itinerary-details text-center">
-                                                        <div class="flight row">
-                                                            <div class="col-md-1 col-sm-2 col-xs-3">
-                                                                <img src="{{\App\Services\AmadeusConfig::airlineLogo($originDestination['filingAirlineCode'])}}" style="width:60px; height: 60px;" alt="{{$originDestination['filingAirlineCode']}}">
-                                                                <h6>{{\App\Airline::getAirlineName($originDestination['filingAirlineCode'])}}</h6>
+                                            {{-- Not in use but dont delete --}}
+                                            <div class="flight-details-body hide hidden">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a data-toggle="tab" href="#itinerary-{{$serial}}">Itinerary</a></li>
+                                                    <li><a data-toggle="tab" href="#itinerary-info-{{$serial}}">Itinerary Info</a></li>
+                                                    <li><a data-toggle="tab" href="#fare-{{$serial}}">Fare Details</a></li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div id="itinerary-{{$serial}}" class="tab-pane fade in active">
+                                                        @foreach($itinerary['originDestinations'] as $serial => $originDestination)
+                                                            <h5 class="itinerary-date">{{date('D, M d',strtotime($originDestination['departureDateTime']))}}</h5>
+                                                            <div class="itinerary-details text-center">
+                                                                <div class="flight row">
+                                                                    <div class="col-md-1 col-sm-2 col-xs-3">
+                                                                        <img src="{{\App\Services\AmadeusConfig::airlineLogo($originDestination['filingAirlineCode'])}}" style="width:60px; height: 60px;" alt="{{$originDestination['filingAirlineCode']}}">
+                                                                        <h6>{{\App\Airline::getAirlineName($originDestination['filingAirlineCode'])}}</h6>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                        <h5>{{date('h:m D, M d',strtotime($originDestination['departureDateTime']))}}</h5>
+                                                                        <h6>{{$originDestination['departureAirportName']}} ({{$originDestination['departureAirportCode']}})</h6>
+                                                                    </div>
+                                                                    <div class="col-md-1 col-sm-1 col-xs-1">
+                                                                        <i class="fa fa-long-arrow-right"></i>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                        <h5>{{date('h:m D, M d',strtotime($originDestination['arrivalDateTime']))}}</h5>
+                                                                        <h6>{{$originDestination['arrivalAirportName']}} ({{$originDestination['arrivalAirportCode']}})</h6>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-sm-3 col-xs-2">
+                                                                        <h5>{{$originDestination['journeyDuration']}}(h:m)</h5>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                                                <h5>{{date('h:m D, M d',strtotime($originDestination['departureDateTime']))}}</h5>
-                                                                <h6>{{$originDestination['departureAirportName']}} ({{$originDestination['departureAirportCode']}})</h6>
-                                                            </div>
-                                                            <div class="col-md-1 col-sm-1 col-xs-1">
-                                                                <i class="fa fa-long-arrow-right"></i>
-                                                            </div>
-                                                            <div class="col-md-3 col-sm-3 col-xs-3">
-                                                                <h5>{{date('h:m D, M d',strtotime($originDestination['arrivalDateTime']))}}</h5>
-                                                                <h6>{{$originDestination['arrivalAirportName']}} ({{$originDestination['arrivalAirportCode']}})</h6>
-                                                            </div>
-                                                            <div class="col-md-2 col-sm-3 col-xs-2">
-                                                                <h5>{{$originDestination['journeyDuration']}}(h:m)</h5>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                            <div id="itinerary-info-{{$serial}}" class="tab-pane fade">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h5>Itinerary Information</h5>
-                                                    <table>
-                                                        <tr>
-                                                            <td>Base Fare</td>
-                                                            <td>$499</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Development Fee</td>
-                                                            <td>$19</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trasnportation</td>
-                                                            <td>$420</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service Fee</td>
-                                                            <td>$25</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Serivce Tax</td>
-                                                            <td>$20</td>
-                                                        </tr>
-                                                        <tr class="grand-total">
-                                                            <td>Grand Total</td>
-                                                            <td>$599</td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h5>Fare Rule</h5>
-                                                    <table>
-                                                        <tr>
-                                                            <td>Date Change Penality</td>
-                                                            <td>$19</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Cancellation Penality</td>
-                                                            <td>$25</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service Fee</td>
-                                                            <td>$20</td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div id="fare-{{$serial}}" class="tab-pane fare fade">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h5>Fare Details</h5>
-                                                    <table>
-                                                        <tr>
-                                                            <td>Base Fare</td>
-                                                            <td>$499</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Development Fee</td>
-                                                            <td>$19</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Trasnportation</td>
-                                                            <td>$420</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service Fee</td>
-                                                            <td>$25</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Serivce Tax</td>
-                                                            <td>$20</td>
-                                                        </tr>
-                                                        <tr class="grand-total">
-                                                            <td>Grand Total</td>
-                                                            <td>$599</td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h5>Fare Rule</h5>
-                                                    <table>
-                                                        <tr>
-                                                            <td>Date Change Penality</td>
-                                                            <td>$19</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Cancellation Penality</td>
-                                                            <td>$25</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service Fee</td>
-                                                            <td>$20</td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{-- Not in use but dont delete --}}
-
-                                    <div class="flight-details-body">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active">
-                                                <a data-toggle="tab" href=".itinerary-{{$serial}}">Itinerary</a>
-                                            </li>
-                                            <li>
-                                                <a data-toggle="tab" href=".fare-{{$serial}}">Fare Details</a>
-                                            </li>
-
-
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade in active itinerary-{{$serial}}">
-                                                @foreach($itinerary['originDestinations'] as $serial => $originDestination)
-                                                <h5 class="itinerary-date">{{date('D, M d',strtotime($originDestination['departureDateTime']))}}</h5>
-                                                <div class="itinerary-details text-center">
-                                                    <div class="flight">
-                                                        <div class="col-md-1 col-sm-2 col-xs-3">
-                                                            <img src="{{\App\Services\AmadeusConfig::airlineLogo($originDestination['filingAirlineCode'])}}" style="width:60px; height: 60px;" alt="{{$originDestination['filingAirlineCode']}}">
-                                                            <h6>{{\App\Airline::getAirlineName($originDestination['filingAirlineCode'])}}</h6>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                                            <h5>{{date('h:m D, M d',strtotime($originDestination['departureDateTime']))}}</h5>
-                                                            <h6>{{$originDestination['departureAirportName']}} ({{$originDestination['departureAirportCode']}})</h6>
-                                                        </div>
-                                                        <div class="col-md-1 col-sm-1 col-xs-1">
-                                                            <i class="fa fa-long-arrow-right"></i>
-                                                        </div>
-                                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                                            <h5>{{date('h:m D, M d',strtotime($originDestination['arrivalDateTime']))}}</h5>
-                                                            <h6>{{$originDestination['arrivalAirportName']}} ({{$originDestination['arrivalAirportCode']}})</h6>
-                                                        </div>
-                                                        <div class="col-md-2 col-sm-3 col-xs-2">
-                                                            <h5>{{$originDestination['journeyDuration']}}(h:m)</h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-
-                                                </div>
-                                                 @endforeach
-                                            </div>
-                                            <div class="tab-pane fade fare fare-{{$serial}}">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <h5>Fare Details</h5>
-                                                    <table>
-                                                        @foreach($itinerary['itineraryPassengerInfo'] as $i => $passengerInfo)
-                                                            <tr>
-                                                                <td>{{$passengerInfo['passengerType']}} ({{$passengerInfo['quantity']}})</td>
-                                                                <td>&#x20a6;{{number_format($passengerInfo['price'] / 100)}}</td>
-                                                            </tr>
                                                         @endforeach
-                                                        <tr>
-                                                            <td>VAT</td>
-                                                            <td> + &#x20a6;{{number_format($itinerary['vat']/100)}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Service Fee</td>
-                                                            <td> + &#x20a6;{{number_format($itinerary['adminToCustomerMarkup']/100)}}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Discount</td>
-                                                            <td> - &#x20a6;{{number_format($itinerary['airlineMarkdown']/100)}}</td>
-                                                        </tr>
-                                                        <tr class="grand-total">
-                                                            <td>Grand Total</td>
-                                                            <td>&#x20a6;{{number_format($itinerary['displayTotal'] /100)}}</td>
-                                                        </tr>
-                                                    </table>
+                                                    </div>
+                                                    <div id="itinerary-info-{{$serial}}" class="tab-pane fade">
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Itinerary Information</h5>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Base Fare</td>
+                                                                    <td>$499</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Development Fee</td>
+                                                                    <td>$19</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Trasnportation</td>
+                                                                    <td>$420</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Service Fee</td>
+                                                                    <td>$25</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Serivce Tax</td>
+                                                                    <td>$20</td>
+                                                                </tr>
+                                                                <tr class="grand-total">
+                                                                    <td>Grand Total</td>
+                                                                    <td>$599</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Fare Rule</h5>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Date Change Penality</td>
+                                                                    <td>$19</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Cancellation Penality</td>
+                                                                    <td>$25</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Service Fee</td>
+                                                                    <td>$20</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div id="fare-{{$serial}}" class="tab-pane fare fade">
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Fare Details</h5>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Base Fare</td>
+                                                                    <td>$499</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Development Fee</td>
+                                                                    <td>$19</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Trasnportation</td>
+                                                                    <td>$420</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Service Fee</td>
+                                                                    <td>$25</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Serivce Tax</td>
+                                                                    <td>$20</td>
+                                                                </tr>
+                                                                <tr class="grand-total">
+                                                                    <td>Grand Total</td>
+                                                                    <td>$599</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Fare Rule</h5>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>Date Change Penality</td>
+                                                                    <td>$19</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Cancellation Penality</td>
+                                                                    <td>$25</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Service Fee</td>
+                                                                    <td>$20</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                {{--<div class="col-md-6 col-sm-6">--}}
-                                                    {{--<h5>Fare Rule</h5>--}}
-                                                    {{--<table>--}}
-                                                        {{--<tr>--}}
-                                                            {{--<td>Date Change Penality</td>--}}
-                                                            {{--<td>$19</td>--}}
-                                                        {{--</tr>--}}
-                                                        {{--<tr>--}}
-                                                            {{--<td>Cancellation Penality</td>--}}
-                                                            {{--<td>$25</td>--}}
-                                                        {{--</tr>--}}
-                                                        {{--<tr>--}}
-                                                            {{--<td>Service Fee</td>--}}
-                                                            {{--<td>$20</td>--}}
-                                                        {{--</tr>--}}
-                                                    {{--</table>--}}
-                                                {{--</div>--}}
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     </div>
-                 @endforeach
+                                            {{-- Not in use but dont delete --}}
 
+                                            <div class="flight-details-body">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active">
+                                                        <a data-toggle="tab" href=".itinerary-{{$serial}}">Itinerary</a>
+                                                    </li>
+                                                    <li>
+                                                        <a data-toggle="tab" href=".fare-{{$serial}}">Fare Details</a>
+                                                    </li>
+
+
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane fade in active itinerary-{{$serial}}">
+                                                        @foreach($itinerary['originDestinations'] as $serial => $originDestination)
+                                                            <h5 class="itinerary-date">{{date('D, M d',strtotime($originDestination['departureDateTime']))}}</h5>
+                                                            <div class="itinerary-details text-center">
+                                                                <div class="flight">
+                                                                    <div class="col-md-1 col-sm-2 col-xs-3">
+                                                                        <img src="{{\App\Services\AmadeusConfig::airlineLogo($originDestination['filingAirlineCode'])}}" style="width:60px; height: 60px;" alt="{{$originDestination['filingAirlineCode']}}">
+                                                                        <h6>{{\App\Airline::getAirlineName($originDestination['filingAirlineCode'])}}</h6>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                        <h5>{{date('h:m D, M d',strtotime($originDestination['departureDateTime']))}}</h5>
+                                                                        <h6>{{$originDestination['departureAirportName']}} ({{$originDestination['departureAirportCode']}})</h6>
+                                                                    </div>
+                                                                    <div class="col-md-1 col-sm-1 col-xs-1">
+                                                                        <i class="fa fa-long-arrow-right"></i>
+                                                                    </div>
+                                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                        <h5>{{date('h:m D, M d',strtotime($originDestination['arrivalDateTime']))}}</h5>
+                                                                        <h6>{{$originDestination['arrivalAirportName']}} ({{$originDestination['arrivalAirportCode']}})</h6>
+                                                                    </div>
+                                                                    <div class="col-md-2 col-sm-3 col-xs-2">
+                                                                        <h5>{{$originDestination['journeyDuration']}}(h:m)</h5>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="tab-pane fade fare fare-{{$serial}}">
+                                                        <div class="col-md-6 col-sm-6">
+                                                            <h5>Fare Details</h5>
+                                                            <table>
+                                                                @foreach($itinerary['itineraryPassengerInfo'] as $i => $passengerInfo)
+                                                                    <tr>
+                                                                        <td>{{$passengerInfo['passengerType']}} ({{$passengerInfo['quantity']}})</td>
+                                                                        <td>&#x20a6;{{number_format($passengerInfo['price'] / 100)}}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                <tr>
+                                                                    <td>VAT</td>
+                                                                    <td> + &#x20a6;{{number_format($itinerary['vat']/100)}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Service Fee</td>
+                                                                    <td> + &#x20a6;{{number_format($itinerary['adminToCustomerMarkup']/100)}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Discount</td>
+                                                                    <td> - &#x20a6;{{number_format($itinerary['airlineMarkdown']/100)}}</td>
+                                                                </tr>
+                                                                <tr class="grand-total">
+                                                                    <td>Grand Total</td>
+                                                                    <td>&#x20a6;{{number_format($itinerary['displayTotal'] /100)}}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                 <div class="clearfix"></div>
-                <!-- END: FLIGHT LIST VIEW -->
+
             </div>
             <!-- END: INDIVIDUAL LISTING AREA -->
+        </div>
+    </div>
+                            </div>
+                        </div>
+                      </div>
+                     </div>
+                @endforeach
+            </div>
         </div>
     </div>
 
@@ -463,9 +444,8 @@
 @section('javascript')
     <script type="text/javascript">
           var minPrice = '{{$minimumPrice}}';
-          var maxPrice = '{{$maximumPrice}}'
+          var maxPrice = '{{$maximumPrice}}';
           var prices   =  $.parseJSON('{{$availablePrices}}');
-
 
     </script>
     <script src="{{asset('assets/js/pages/flight/flight_search_management.js')}}"></script>

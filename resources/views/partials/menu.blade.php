@@ -54,24 +54,66 @@
                                     <li><a href="{{ url('package/package_payment_confirmation') }}"> Package Payment Confirmation</a></li>
                                 </ul>
                             </li>
-                            {{--<li class="dropdown">--}}
-                                {{--<a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-suitcase"></i> TOURS <i class="fa fa-caret-down"></i></a>--}}
-                                {{--<ul class="dropdown-menu">--}}
-                                    {{--<li><a href="#"> HOME STYLE 1</a></li>--}}
-                                    {{--<li><a href="#"> HOME STYLE 2</a></li>--}}
-                                    {{--<li><a href="#"> HOME STYLE 3</a></li>--}}
-                                    {{--<li><a href="#"> HOME STYLE 4</a></li>--}}
-                                    {{--<li><a href="#"> HOME STYLE 5</a></li>--}}
-                                {{--</ul>--}}
-                            {{--</li>--}}
+                            <li class="dropdown mega">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-ship"></i> BOOKINGS <i class="fa fa-caret-down"></i></a>
+                                <ul class="dropdown-menu mega-menu col-md-9">
+                                    <li class="col-md-offset-3 col-md-3 col-sm-4 links">
+                                        <h5>FLIGHT BOOKING</h5>
+                                        <ul>
+                                            <li><a href="{{ url('booking/flight/my_bookings') }}">My Bookings</a></li>
+                                            <li><a href="{{ url('booking/flight/agent_bookings') }}">Agent Bookings</a></li>
+                                            <li><a href="{{ url('booking/flight/customer_bookings') }}">Customer Bookings</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="col-md-3 col-sm-4 links">
+                                        <h5>HOTEL BOOKING</h5>
+                                        <ul>
+                                            <li><a href="{{ url('booking/hotel/my_bookings') }}">My Bookings</a></li>
+                                            <li><a href="{{ url('booking/hotel/agent_bookings') }}">Agent Bookings</a></li>
+                                            <li><a href="{{ url('booking/hotel/customer_bookings') }}">Customer Bookings</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="col-md-3 col-sm-4 links">
+                                        <h5>PACKAGE BOOKING</h5>
+                                        <ul>
+                                            <li><a href="{{ url('booking/package/my_bookings') }}">My Bookings</a></li>
+                                            <li><a href="{{ url('booking/package/agent_bookings') }}">Agent Bookings</a></li>
+                                            <li><a href="{{ url('booking/package/customer_bookings') }}">Customer Bookings</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown mega">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-cog"></i> SETTINGS <i class="fa fa-caret-down"></i></a>
+                                <ul class="dropdown-menu mega-menu col-md-9">
+                                    <li class="col-md-offset-3 col-md-3 col-sm-4 links">
+                                        <h5>TRAVEL PACKAGES</h5>
+                                        <ul>
+                                            <li><a href="{{ url('setting/travel-package') }}">All Travel Packages</a></li>
+                                            <li><a href="{{ url('setting/travel-package/create') }}">Create Travel Package</a></li>
+                                            <li><a href="{{ url('setting/travel-package/categories') }}">Categories </a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="col-md-3 col-sm-4 links">
+                                        <h5>TRANSACTION LOG</h5>
+                                        <ul>
+                                            <li><a href="#">My Bookings</a></li>
+                                            <li><a href="#">Agent Bookings</a></li>
+                                            <li><a href="#">Customer Bookings</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="col-md-3 col-sm-4 links">
+                                        <h5>OTHER SETTINGS</h5>
+                                        <ul>
+                                            <li><a href="{{ url('setting/other-setting/profile_management') }}">Profile Management</a></li>
+                                            <li><a href="{{ url('setting/other-setting/Wallet_management') }}">Wallet Management</a></li>
+                                            <li><a href="{{ url('setting/other-setting/Customer_bookings') }}">Customer Bookings</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="dropdown mega">
                                 <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-taxi"></i> LOGIN </a>
-                            </li>
-                            <li class="dropdown mega">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-ship"></i> BOOKINGS </a>
-                            </li>
-                            <li class="dropdown mega">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-file"></i> SETTINGS </a>
                             </li>
                         </ul>
                     </div>
