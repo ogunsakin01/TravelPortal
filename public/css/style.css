@@ -2645,6 +2645,34 @@ h5 {
 	font-weight: bold;
 	margin-top: 25px;
 }
+
+.fare {
+	overflow: hidden;
+}
+.fare tr {
+	border-bottom: 1px solid #e6e6e6;
+}
+.fare td:nth-child(2n+1) {
+	padding: 10px 100px 10px 10px !important;
+	font-size: 13px;
+}
+.fare td {
+	padding: 0px 10px 0px 0px;
+	font-size: 13px;
+}
+.fare .grand-total {
+	background: #e6e6e6;
+}
+.fare .grand-total td {
+	font-weight: bold;
+	font-size: 14px;
+}
+.fare h5 {
+	font-weight: bold;
+	margin-top: 25px;
+}
+
+
 @media (max-width: 991px) {
 	.flight-list-view .flight-desc {
 		border-top: 1px solid #e6e6e6; 

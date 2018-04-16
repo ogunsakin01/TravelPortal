@@ -67,7 +67,7 @@
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
                                                 <div class="form-group">
                                                     <label>Adults <small>Above 12yrs</small></label>
                                                     <select name="adult_count" class="selectpicker one_way_adult_count">
@@ -84,7 +84,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
                                                 <div class="form-group">
                                                     <label>Child <small>2 - 12yrs</small></label>
                                                     <select name="child_count" class="selectpicker one_way_child_count">
@@ -102,7 +102,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
                                                 <div class="form-group">
                                                     <label>Infants <small>below 2yrs</small></label>
                                                     <select name="infant_count" class="selectpicker one_way_infant_count">
@@ -120,18 +120,10 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
-                                                <label>Class</label><br>
-                                                <select name="cabin" class="selectpicker one_way_cabin">
-                                                    <option value="Economy">ECONOMY</option>
-                                                    <option value="First">FIRST CLASS</option>
-                                                    <option value="Business">BUSINESS</option>
-                                                    <option value="Premium">PREMIUM</option>
-                                                </select>
-                                            </div>
+
                                             <div class="clearfix"></div>
                                             <div class="col-md-12 search-col-padding">
-                                                <button type="submit" class="search-button btn transition-effect one_way_search_flight">Search Flights</button>
+                                                <button type="button" class="search-button btn transition-effect one_way_search_flight">Search Flights</button>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -167,7 +159,7 @@
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
                                                 <div class="form-group">
                                                     <label>Adults <small>Above 12yrs</small></label>
                                                     <select name="adult_count" class="selectpicker round_trip_adult_count">
@@ -184,7 +176,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
                                                 <div class="form-group">
                                                     <label>Child <small>2 - 12yrs</small></label>
                                                     <select name="child_count" class="selectpicker round_trip_child_count">
@@ -202,7 +194,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
                                                 <div class="form-group">
                                                     <label>Infants <small>below 2yrs</small></label>
                                                     <select name="infant_count" class="selectpicker round_trip_infant_count">
@@ -220,18 +212,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
-                                                <label>Class</label><br>
-                                                <select name="cabin" class="selectpicker round_trip_cabin">
-                                                    <option value="Economy">ECONOMY</option>
-                                                    <option value="First">FIRST CLASS</option>
-                                                    <option value="Business">BUSINESS</option>
-                                                    <option value="Premium">PREMIUM</option>
-                                                </select>
-                                            </div>
                                             <div class="clearfix"></div>
                                             <div class="col-md-12 search-col-padding">
-                                                <button type="submit" class="search-button btn transition-effect round_trip_search_flight">Search Flights</button>
+                                                <button type="button" class="search-button btn transition-effect round_trip_search_flight">Search Flights</button>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -266,7 +249,7 @@
                                                 <div class="clearfix"></div>
                                             </div>
 
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
                                                 <div class="form-group">
                                                     <label>Adults <small>Above 12yrs</small></label>
                                                     <select name="adult_count" class="selectpicker multi_destination_adult_count">
@@ -281,7 +264,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
                                                 <div class="form-group">
                                                     <label>Child <small>2 - 12yrs</small></label>
                                                     <select name="child_count" class="selectpicker multi_destination_child_count">
@@ -297,7 +280,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
+                                            <div class="col-md-4 col-sm-4 search-col-padding">
                                                 <div class="form-group">
                                                     <label>Infants <small>below 2yrs</small></label>
                                                     <select name="infant_count" class="selectpicker multi_destination_infant_count">
@@ -313,19 +296,9 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3 col-sm-3 search-col-padding">
-                                                <label>Class</label><br>
-                                                <select name="cabin" class="selectpicker multi_destination_cabin">
-                                                    <option value="Economy">ECONOMY</option>
-                                                    <option value="First">FIRST CLASS</option>
-                                                    <option value="Business">BUSINESS</option>
-                                                    <option value="Premium">PREMIUM</option>
-                                                </select>
-                                            </div>
-
                                             <div class="clearfix"></div>
                                             <div class="col-md-12 search-col-padding">
-                                                <button type="submit" id="search_multi_flight" class="search-button btn transition-effect multi_destination_search_flight">Search Flights</button>
+                                                <button type="button" id="search_multi_flight" class="search-button btn transition-effect multi_destination_search_flight">Search Flights</button>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
@@ -394,7 +367,7 @@
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="col-md-12 search-col-padding">
-                                            <button type="submit" class="search-button btn transition-effect">Search Hotels</button>
+                                            <button type="button" class="search-button btn transition-effect">Search Hotels</button>
                                         </div>
                                         <div class="clearfix"></div>
                                     </form>
@@ -1083,7 +1056,7 @@
         });
 
     </script>
-    <script src="{{asset('assets/js/pages/flight_search_management.js')}}"></script>
+    <script src="{{asset('assets/js/pages/flight/flight_search_management.js')}}"></script>
 
 @endsection
 

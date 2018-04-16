@@ -13,4 +13,8 @@ class Airline extends Model
             ->orWhere("name","LIKE","%{$request->input('query')}%")
             ->get();
     }
+
+    public static function getAirlineName($code){
+        return static::where('code',$code)->first()->name;
+    }
 }

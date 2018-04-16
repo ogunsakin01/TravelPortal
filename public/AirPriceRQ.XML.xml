@@ -1,0 +1,43 @@
+
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                
+       <wmAirPrice xmlns="http://traveltalk.com/wsAirPrice">
+		 <OTA_AirPriceRQ>
+		  <POS>
+        <Source PseudoCityCode="MIA1S21AV" ISOCurrency="NGN">
+         <RequestorID Type="21" ID="RubyTravel"/>
+        </Source>
+         <TPA_Extensions>
+            <Provider>
+               <Name>Amadeus</Name> 
+               <System>Test</System> 
+               <Userid>RubyTravel</Userid> 
+               <Password>sTeBr+Fr3kEv</Password> 
+            </Provider>
+         </TPA_Extensions>
+      </POS> 
+		  <AirItinerary>   
+		  <OriginDestinationOptions>    
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-24T22:20:00" ArrivalDateTime="2018-04-25T05:00:00" FlightNumber="61" ResBookDesigCode="T">    
+		  <DepartureAirport LocationCode="LOS"/>
+		  <ArrivalAirport LocationCode="JNB"/>      
+		  <MarketingAirline Code="South African Airways"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-04-25T09:25:00" ArrivalDateTime="2018-04-25T19:30:00" FlightNumber="768" ResBookDesigCode="R">    
+		  <DepartureAirport LocationCode="JNB"/>
+		  <ArrivalAirport LocationCode="DXB"/>      
+		  <MarketingAirline Code="Emirates"/>     
+		  </FlightSegment></OriginDestinationOption>  
+		  </OriginDestinationOptions>  
+		  </AirItinerary>  
+		  <TravelerInfoSummary>   
+		  <SeatsRequested>3</SeatsRequested>   
+		  <AirTravelerAvail>    
+		  <PassengerTypeQuantity Code="ADT" Quantity="2"/><PassengerTypeQuantity Code="CHD" Quantity="1"/><PassengerTypeQuantity Code="INF" Quantity="1"/> 
+		  </AirTravelerAvail>   
+		  <PriceRequestInformation PricingSource="Published"/>  
+		  </TravelerInfoSummary> 
+		 </OTA_AirPriceRQ>
+		</wmAirPrice> 
+            </soap:Body>
+        </soap:Envelope>

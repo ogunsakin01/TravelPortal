@@ -80,7 +80,7 @@
         <div class="main-footer-nav row">
             <div class="container clear-padding">
                 <div class="col-md-6 col-sm-6">
-                    <p>Copyright &copy; 2015 LimpidThemes. All Rights Reserved.</p>
+                    <p>Copyright &copy; {{date('Y')}} {{config('app.name')}}. All Rights Reserved.</p>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <ul>

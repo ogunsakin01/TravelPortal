@@ -29,7 +29,13 @@ Route::get('airlineTypeAheadJs', 'AirlineController@typeAhead')->name('airlineTy
 Route::post('/one-way-flight-search','FlightController@oneWayFlightSearch');
 Route::post('/round-trip-flight-search','FlightController@roundTripFlightSearch');
 Route::post('/multi-destination-flight-search','FlightController@multiDestinationFlightSearch');
+Route::get('/selected-itinerary-info/{id}','FlightController@selectedItineraryInfo');
+Route::get('/get-flight-information-and-pricing/{id}','FlightController@getItineraryInformationAndPricing');
 
 Route::get('/available-itineraries','ViewController@availableItineraries');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

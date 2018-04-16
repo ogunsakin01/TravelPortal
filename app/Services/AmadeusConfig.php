@@ -59,6 +59,9 @@ class AmadeusConfig
 
 
 
+    public static function airlineLogo($code){
+        return 'http://pics.avs.io/200/200/'.$code.'.png';
+    }
 
 
     public static function iataCode($string){

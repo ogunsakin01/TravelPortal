@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="LimpidThemes">
 
-    <title>Travel Portal - @yield('page-title')</title>
+    <title>{{config('app.name')}} - @yield('page-title')</title>
 
     <script type="text/javascript">
         var baseUrl = "{{url("/")}}";
@@ -57,6 +57,7 @@
 @include('partials.flight_booking_loader')
 @include('partials.flight_information_loader')
 @include('partials.flight_search_loader')
+@include('partials.flight_multi_search_loader')
 @include('partials.hotel_booking_loader')
 @include('partials.hotel_information_loader')
 @include('partials.hotel_room_information')
@@ -64,7 +65,7 @@
 
 
 <!-- END : LOADING PAGE -->
-
+{!! Toastr::render() !!}
 <!-- Load Scripts -->
 @include('partials.javascript')
 @yield('javascript')

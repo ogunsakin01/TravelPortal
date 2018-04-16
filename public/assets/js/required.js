@@ -1,5 +1,19 @@
 $(function(){
 
+    var loaderCircle = '<div class="spinner-layer spinner-red">\n' +
+        '        <div class="circle-clipper left">\n' +
+        '          <div class="circle"></div>\n' +
+        '        </div><div class="gap-patch">\n' +
+        '          <div class="circle"></div>\n' +
+        '        </div><div class="circle-clipper right">\n' +
+        '          <div class="circle"></div>\n' +
+        '        </div>\n' +
+        '      </div>';
+
+    var loaderHorizontal = '<div class="progress">\n' +
+        '      <div class="indeterminate"></div>\n' +
+        '  </div>';
+
     function extractError(error) {
         for(var error_log in error.response.data.errors) {
             var err = error.response.data.errors[error_log];
@@ -174,6 +188,8 @@ $(function(){
     });
 
     $('.date-picker').datepicker({ minDate: 0});
+
+
 
 
 

@@ -16,6 +16,10 @@
 <link href="{{asset('assets/css/iziToast.css')}}" rel="stylesheet">
 <link href="{{asset('assets/css/materialize.css')}}" rel="stylesheet">
 <link href="{{asset('assets/css/toastr.min.css')}}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{asset('assets/plugins/ion.rangeSlider-2.2.0/css/normalize.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('assets/plugins/ion.rangeSlider-2.2.0/css/ion.rangeSlider.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('assets/plugins/ion.rangeSlider-2.2.0/css/ion.rangeSlider.skinHTML5.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('assets/plugins/printJs/css/print.css')}}"/>
 
 <!-- FONTS -->
 

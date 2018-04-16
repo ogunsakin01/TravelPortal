@@ -11,8 +11,8 @@
                 <span><i class="fa fa-suitcase"></i></span>
             </div>
             <div class="search-title" align="center">
-                <p>We are finding the cheapest available flights for you. Hold on for some seconds ... <br/>
-                    <span class="search_departure_city"></span>&nbsp; to &nbsp;<span class="search_destination_city"></span></p>
+                <p><small>We are finding the cheapest available flights for you. Hold on for some seconds </small> <br/>
+                    <span class="search_departure_city"></span>&nbsp; <br/> to &nbsp;<br/><span class="search_destination_city"></span></p>
             </div>
             <div class="search-box">
                 <table class="table">
@@ -38,11 +38,11 @@
                     </tr>
                     <tr>
                         <td>Cabin</td>
-                        <td><span class="search_cabin"></span></td>
+                        <td><span class="search_cabin">All Cabin</span></td>
                     </tr>
                 </table>
             </div>
-            <p class="copyright">&copy; {{date('Y')}} Travel Portal</p>
+            <p class="copyright">&copy; {{date('Y')}} {{config('app.name')}}</p>
         </div>
     </div>
 </div>

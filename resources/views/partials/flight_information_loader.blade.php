@@ -11,11 +11,32 @@
                 <span><i class="fa fa-suitcase"></i></span>
             </div>
             <div class="search-title" align="center">
-                <span>Great Choice</span>
-                <p>Hold onn for some seconds while we get the flight booking information ... </p>
+                <span><i class="fa fa-smile-o fa-2x"></i> Great Choice !!!</span>
+                <p>Hold on for some seconds while we get more information on your choice ... </p>
             </div>
-
-            <p class="copyright">&copy; {{date('Y')}} Travel Portal</p>
+            <div class=" confirmation-detail">
+                <h3>Booking Details</h3>
+                <table class="table">
+                    <tr>
+                        <td>Airline</td>
+                        <td class="displayAirline"></td>
+                    </tr>
+                    <tr>
+                        <td>Cabin Type</td>
+                        <td class="cabinType"></td>
+                    </tr>
+                    <tr>
+                        <td>Stops</td>
+                        <td class="stops"></td>
+                    </tr>
+                    <tr>
+                        <td>Total Pricing</td>
+                        <td class="totalPricing"></td>
+                    </tr>
+                </table>
+                <p>You can check your email for further details. We have sent you a mail with details.</p>
+            </div>
+            <p class="copyright">&copy; {{date('Y')}} {{config('app.name')}}</p>
         </div>
     </div>
 </div>

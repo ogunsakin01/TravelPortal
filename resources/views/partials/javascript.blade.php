@@ -18,5 +18,8 @@
 <script src="{{asset('assets/js/materialize.js')}}"></script>
 <script src="{{asset('assets/js/toastr.min.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap3-typeahead.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/plugins/ion.rangeSlider-2.2.0/js/ion-rangeSlider/ion.rangeSlider.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('assets/plugins/printJs/js/print.js')}}"></script>
 <script src="{{asset('assets/js/required.js')}}"></script>
+
 

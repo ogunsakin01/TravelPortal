@@ -11,38 +11,10 @@
                 <span><i class="fa fa-suitcase"></i></span>
             </div>
             <div class="search-title" align="center">
-                <p>We are finding the cheapest available flights for you. Hold on for some seconds ...
-                    <br/><span>New York</span>&nbsp; to &nbsp;<span>New York</span></p>
+                <span>We are finding the cheapest available flights for you. Hold on for some seconds ...</span>
             </div>
-            <div class="search-box">
-                <table class="table">
-                    <tr>
-                        <td>Departure Airport / Date</td>
-                        <td><span>New York <small> </small></span></td>
-                    </tr>
-                    <tr>
-                        <td>Destination Airport</td>
-                        <td><span>New York</span></td>
-                    </tr>
-                    <tr>
-                        <td>Adults</td>
-                        <td><span>New York</span></td>
-                    </tr>
-                    <tr>
-                        <td>Children</td>
-                        <td><span>New York</span></td>
-                    </tr>
-                    <tr>
-                        <td>Infants</td>
-                        <td><span>New York</span></td>
-                    </tr>
-                    <tr>
-                        <td>Cabin</td>
-                        <td><span>New York</span></td>
-                    </tr>
-                </table>
-            </div>
-            <p class="copyright">&copy; {{date('Y')}} Travel Portal</p>
+
+            <p class="copyright">&copy; {{date('Y')}} {{config('app.name')}}</p>
         </div>
     </div>
 </div>
