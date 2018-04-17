@@ -1,0 +1,11 @@
+.btn_travel_portal{
+    font-weight : bold;
+    color : #fff;
+    background : #F2676B;
+    padding : 8px 20px;
+    display: inline-block;
+}
+
+.btn_travel_portal:hover{
+    color: #000;
+}

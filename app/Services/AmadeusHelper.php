@@ -16,6 +16,13 @@ use App\Vat;
 class AmadeusHelper
 {
 
+    private $AmadeusConfig;
+
+    public function __construct(){
+        $this->AmadeusConfig = new AmadeusConfig();
+    }
+
+
     public function lowFarePlusResponseValidator($responseArray){
         if(empty($responseArray)){
             return 0;
@@ -319,6 +326,11 @@ class AmadeusHelper
 
         return $sortedResponse;
 
+    }
+
+    public function lowFarePlusResponseSortFromXML($responseXML){
+        $responseData = simplexml_load_string($this->AmadeusConfig->mungXMl($responseXML));
+        dd($responseData);
     }
 
     public function LowFarePlusResponseAvailableAirline($sortedResponseArray){

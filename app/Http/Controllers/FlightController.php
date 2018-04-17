@@ -82,7 +82,7 @@ class FlightController extends Controller
                 'no_of_child'  => $data['searchParam']['no_of_child']
             ];
             session()->put('flightSearchParam',$searchParam);
-            session()->put('availableItineraries',$sortedResponse);
+            session()->put('availableItineraries',$search);
         }
         return $validatorResponse;
     }

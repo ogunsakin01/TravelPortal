@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('assets/plugins/ion.rangeSlider-2.2.0/css/ion.rangeSlider.css')}}"/>
 <link rel="stylesheet" type="text/css" href="{{asset('assets/plugins/ion.rangeSlider-2.2.0/css/ion.rangeSlider.skinHTML5.css')}}"/>
 <link rel="stylesheet" type="text/css" href="{{asset('assets/plugins/printJs/css/print.css')}}"/>
+<link rel="stylesheet" type="text/css" href="{{asset('assets/css/travel_portal.css')}}"/>
 
 <!-- FONTS -->
 

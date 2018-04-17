@@ -17,11 +17,11 @@
             </Provider>
          </TPA_Extensions>
       </POS>
-                <Airline Code="SA" />  
-                <FlightNumber>61</FlightNumber>  
-                <DepartureDate>2018-04-24T22:20:00</DepartureDate>  
+                <Airline Code="WB" />  
+                <FlightNumber>203</FlightNumber>  
+                <DepartureDate>2018-04-24T15:35:00</DepartureDate>  
                 <DepartureAirport LocationCode="LOS" />  
-                <ArrivalAirport LocationCode="JNB" /> 
+                <ArrivalAirport LocationCode="KGL" /> 
             </OTA_AirFlifoRQ>
          </wmAirFlifoXml>
             </soap:Body>
