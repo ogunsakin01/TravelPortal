@@ -29,20 +29,28 @@ class FlightController extends Controller
         $this->AmadeusConfig->createXMlFile($requestXML,'LowFarePlusOneWayRQ.XML');
         $search = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->lowFareRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->lowFarePlusRequestWebServiceUrl);
         $this->AmadeusConfig->createXMlFile($search,'LowFarePlusOneWayRS.XML');
+
+
         $responseArray = $this->AmadeusConfig->mungXmlToArray($search);
         $validatorResponse = $this->AmadeusHelper->lowFarePlusResponseValidator($responseArray);
-        if($validatorResponse === 1){
+
+        $responseXml   = $this->AmadeusConfig->mungXML($search);
+        $xmlValidatorResponse = $this->AmadeusHelper->lowFarePlusResponseXMLValidator($responseXml);
+
+        if($xmlValidatorResponse === 1){
+
             $sortedResponse = $this->AmadeusHelper->lowFarePlusResponseSort($responseArray);
+            $sortedXMLResponse = $this->AmadeusHelper->lowFarePlusResponseSortFromXML($responseXml);
+
             $searchParam    = [
                 'no_of_adult' => $data['no_of_adult'],
                 'no_of_infant' => $data['no_of_infant'],
                 'no_of_child'  => $data['no_of_child']
             ];
             session()->put('flightSearchParam',$searchParam);
-            session()->put('availableItineraries',$sortedResponse);
+            session()->put('availableItineraries',$sortedXMLResponse);
         }
-
-        return $validatorResponse;
+        return $xmlValidatorResponse;
     }
 
     public function roundTripFlightSearch(Request $data){
@@ -51,19 +59,30 @@ class FlightController extends Controller
         $this->AmadeusConfig->createXMlFile($requestXML,'LowFarePlusTurnAroundRQ.XML');
         $search = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->lowFareRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->lowFarePlusRequestWebServiceUrl);
         $this->AmadeusConfig->createXMlFile($search,'LowFarePlusTurnAroundRS.XML');
+
         $responseArray = $this->AmadeusConfig->mungXmlToArray($search);
         $validatorResponse = $this->AmadeusHelper->lowFarePlusResponseValidator($responseArray);
-        if($validatorResponse === 1){
-          $sortedResponse = $this->AmadeusHelper->lowFarePlusResponseSort($responseArray);
+
+        $responseXml   = $this->AmadeusConfig->mungXML($search);
+        $xmlValidatorResponse = $this->AmadeusHelper->lowFarePlusResponseXMLValidator($responseXml);
+
+        if($xmlValidatorResponse === 1){
+
+          $sortedResponse    = $this->AmadeusHelper->lowFarePlusResponseSort($responseArray);
+          $sortedXMLResponse = $this->AmadeusHelper->lowFarePlusResponseSortFromXML($responseXml);
+
           $searchParam    = [
-              'no_of_adult' => $data['no_of_adult'],
+              'no_of_adult'  => $data['no_of_adult'],
               'no_of_infant' => $data['no_of_infant'],
               'no_of_child'  => $data['no_of_child']
           ];
+
           session()->put('flightSearchParam',$searchParam);
-          session()->put('availableItineraries',$sortedResponse);
+          session()->put('availableItinerariesXML',$sortedResponse);
+
         }
-        return $validatorResponse;
+        return $xmlValidatorResponse;
+
     }
 
     public function multiDestinationFlightSearch(Request $data){
@@ -71,20 +90,29 @@ class FlightController extends Controller
         $this->AmadeusConfig->createXMlFile($requestXML,'LowFarePlusMultiDestinationRQ.XML');
         $search = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->lowFareRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->lowFarePlusRequestWebServiceUrl);
         $this->AmadeusConfig->createXMlFile($search,'LowFarePlusMultiDestinationRS.XML');
+
+
+
         $responseArray = $this->AmadeusConfig->mungXmlToArray($search);
         $validatorResponse = $this->AmadeusHelper->lowFarePlusResponseValidator($responseArray);
-        if($validatorResponse === 1){
+
+        $responseXml   = $this->AmadeusConfig->mungXML($search);
+        $xmlValidatorResponse = $this->AmadeusHelper->lowFarePlusResponseXMLValidator($responseXml);
+
+        if($xmlValidatorResponse === 1){
+
             $sortedResponse = $this->AmadeusHelper->lowFarePlusResponseSort($responseArray);
-            Toastr::success(count($sortedResponse)." Result Found Matching Your Search. Browse through to find you best choice");
+            $sortedXMLResponse = $this->AmadeusHelper->lowFarePlusResponseSortFromXML($responseXml);
+
             $searchParam    = [
-                'no_of_adult' => $data['searchParam']['no_of_adult'],
-                'no_of_infant' => $data['searchParam']['no_of_infant'],
-                'no_of_child'  => $data['searchParam']['no_of_child']
+                'no_of_adult' => $data['no_of_adult'],
+                'no_of_infant' => $data['no_of_infant'],
+                'no_of_child'  => $data['no_of_child']
             ];
             session()->put('flightSearchParam',$searchParam);
-            session()->put('availableItineraries',$search);
+            session()->put('availableItineraries',$sortedXMLResponse);
         }
-        return $validatorResponse;
+        return $xmlValidatorResponse;
     }
 
     public function selectedItineraryInfo($id){

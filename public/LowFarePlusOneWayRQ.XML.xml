@@ -19,9 +19,8 @@
       </POS>
                 
                 <OriginDestinationInformation>
-<<<<<<< HEAD:public/LowFarePlusOneWayRQ.XML.xml
-                  <DepartureDateTime>2018-04-24T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="LOS"/>   
+                  <DepartureDateTime>2018-04-25T00:00:00</DepartureDateTime>   
+                  <OriginLocation LocationCode="LHR"/>   
                   <DestinationLocation LocationCode="DXB"/>  
                 </OriginDestinationInformation> 
             
@@ -39,20 +38,11 @@
                             <Penalty/>    
                             </VoluntaryChanges>   
                             </FareRestrictPref>  
-=======
-                  <DepartureDateTime>2018-04-12T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="LOS"/>   
-                  <DestinationLocation LocationCode="HAM"/>  
-                </OriginDestinationInformation> 
-            
-                <TravelPreferences>
-                  <CabinPref Cabin="Premium"/>
->>>>>>> 77a576a91f22e8ac20fe4beaa2c245b3ca967d7a:public/LowFarePlusRQ.XML.xml
                 </TravelPreferences> 
                 <TravelerInfoSummary>   
-                  <SeatsRequested>1</SeatsRequested>
+                  <SeatsRequested>3</SeatsRequested>
                   <AirTravelerAvail>
-                    <PassengerTypeQuantity Code="ADT" Quantity="1"/>
+                    <PassengerTypeQuantity Code="ADT" Quantity="2"/><PassengerTypeQuantity Code="CHD" Quantity="1"/><PassengerTypeQuantity Code="INF" Quantity="1"/>
                   </AirTravelerAvail>  
                   <PriceRequestInformation PricingSource="Both"/>
                 </TravelerInfoSummary>

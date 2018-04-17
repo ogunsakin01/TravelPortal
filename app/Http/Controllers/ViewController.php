@@ -17,7 +17,11 @@ class ViewController extends Controller
 
     public function availableItineraries(){
 
-        $availableItineraries = session()->get('availableItineraries');
+        $availableItinerariesXML = session()->get('availableItinerariesXML');
+        $availableItineraries = $this->AmadeusHelper->lowFarePlusResponseSortFromXML($availableItinerariesXML);
+
+        dd($availableItineraries);
+
         $availableAirlines    = $this->AmadeusHelper->LowFarePlusResponseAvailableAirline($availableItineraries);
         $availableCabins      = $this->AmadeusHelper->LowFarePlusResponseAvailableCabin($availableItineraries);
         $availableStops       = $this->AmadeusHelper->LowFarePlusResponseAvailableStops($availableItineraries);
@@ -25,6 +29,7 @@ class ViewController extends Controller
         $minimumPrice         = round($availableItineraries[0]['displayTotal'] /100);
         $lastItinerary        = count($availableItineraries) - 1;
         $maximumPrice         = round($availableItineraries[$lastItinerary]['displayTotal'] / 100);
+
         return view('pages.flight.search_result',compact('availableItineraries','availableCabins','availableAirlines','minimumPrice','maximumPrice','availableStops','availablePrices'));
 
     }

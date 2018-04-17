@@ -147,6 +147,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         nilsenj\Toastr\ToastrServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
 
         /*
@@ -213,7 +214,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Toastr' => nilsenj\Toastr\Facades\Toastr::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];
