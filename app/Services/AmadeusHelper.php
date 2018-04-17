@@ -637,7 +637,9 @@ class AmadeusHelper
 
     }
 
-    public function LowFarePlusResponseAvailableAirline($sortedResponseArray){
+
+
+    public function lowFarePlusResponseAvailableAirline($sortedResponseArray){
         $airlines = [];
         foreach($sortedResponseArray as $serial => $response){
             array_push($airlines, $response['displayAirline']);
@@ -646,7 +648,7 @@ class AmadeusHelper
        return array_values(array_unique($airlines));
     }
 
-    public function LowFarePlusResponseAvailableCabin($sortedResponseArray){
+    public function lowFarePlusResponseAvailableCabin($sortedResponseArray){
         $cabins = [];
         foreach($sortedResponseArray as $serial => $response){
             array_push($cabins, $response['cabinType']);
@@ -655,7 +657,7 @@ class AmadeusHelper
         return array_values(array_unique($cabins));
     }
 
-    public function LowFarePlusResponseAvailableStops($sortedResponseArray){
+    public function lowFarePlusResponseAvailableStops($sortedResponseArray){
         $stops = [];
         foreach($sortedResponseArray as $serial => $response){
             array_push($stops, $response['stops']);
@@ -664,7 +666,7 @@ class AmadeusHelper
         return array_values(array_unique($stops));
     }
 
-    public function LowFarePlusResponseAvailablePrice($sortedResponseArray){
+    public function lowFarePlusResponseAvailablePrice($sortedResponseArray){
         $prices = [];
         foreach($sortedResponseArray as $serial => $response){
             array_push($prices, (round($response['displayTotal']/100)));
@@ -672,6 +674,5 @@ class AmadeusHelper
 
         return array_values(array_unique($prices));
     }
-
 
 }

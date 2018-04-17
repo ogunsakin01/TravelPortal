@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\AmadeusHelper;
-use Illuminate\Http\Request;
-use function MongoDB\BSON\toJSON;
 
 class ViewController extends Controller
 {
@@ -22,16 +20,15 @@ class ViewController extends Controller
 
         dd($availableItineraries);
 
-        $availableAirlines    = $this->AmadeusHelper->LowFarePlusResponseAvailableAirline($availableItineraries);
-        $availableCabins      = $this->AmadeusHelper->LowFarePlusResponseAvailableCabin($availableItineraries);
-        $availableStops       = $this->AmadeusHelper->LowFarePlusResponseAvailableStops($availableItineraries);
-        $availablePrices      = json_encode($this->AmadeusHelper->LowFarePlusResponseAvailablePrice($availableItineraries));
+        $availableAirlines    = $this->AmadeusHelper->lowFarePlusResponseAvailableAirline($availableItineraries);
+        $availableCabins      = $this->AmadeusHelper->lowFarePlusResponseAvailableCabin($availableItineraries);
+        $availableStops       = $this->AmadeusHelper->lowFarePlusResponseAvailableStops($availableItineraries);
+        $availablePrices      = json_encode($this->AmadeusHelper->lowFarePlusResponseAvailablePrice($availableItineraries));
         $minimumPrice         = round($availableItineraries[0]['displayTotal'] /100);
         $lastItinerary        = count($availableItineraries) - 1;
         $maximumPrice         = round($availableItineraries[$lastItinerary]['displayTotal'] / 100);
 
         return view('pages.flight.search_result',compact('availableItineraries','availableCabins','availableAirlines','minimumPrice','maximumPrice','availableStops','availablePrices'));
-
     }
 
 }

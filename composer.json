@@ -9,6 +9,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
+        "laravelcollective/html": "^5.4.0",
         "nilsenj/toastr-laravel": "dev-1.0-stable",
         "zizaco/entrust": "5.2.x-dev"
     },
