@@ -65,9 +65,10 @@
 
 
 <!-- END : LOADING PAGE -->
-{!! Toastr::render() !!}
+
 <!-- Load Scripts -->
 @include('partials.javascript')
 @yield('javascript')
+{!! Toastr::render() !!}
 </body>
 </html>

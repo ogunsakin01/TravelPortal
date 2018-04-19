@@ -3124,11 +3124,14 @@ h5 {
 			20. hotel-detailed.html CSS Start
 *********************************************************************************/
 .page-title {
-	background: url('../images/bg-image16.jpg');
-	padding: 60px 0px;
-	background-attachment: fixed;
-	background-size: contain;
+
 	color: #ffffff;
+	padding: 100px 0px;
+	height: 100%;
+	width: 100%;
+	background-image: url('../images/bg-image16.jpg');
+	background-repeat: no-repeat;
+
 }
 .page-title h3 {
 	font-weight: 800;

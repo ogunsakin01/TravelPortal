@@ -19,14 +19,22 @@
       </POS> 
 		  <AirItinerary>   
 		  <OriginDestinationOptions>    
-		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-24T22:20:00" ArrivalDateTime="2018-04-25T05:00:00" FlightNumber="61" ResBookDesigCode="T">    
-		  <DepartureAirport LocationCode="LOS"/>
-		  <ArrivalAirport LocationCode="JNB"/>      
-		  <MarketingAirline Code="South African Airways"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-04-25T09:25:00" ArrivalDateTime="2018-04-25T19:30:00" FlightNumber="768" ResBookDesigCode="R">    
-		  <DepartureAirport LocationCode="JNB"/>
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-24T22:15:00" ArrivalDateTime="2018-04-25T08:05:00" FlightNumber="6" ResBookDesigCode="K">    
+		  <DepartureAirport LocationCode="LHR"/>
 		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="Emirates"/>     
+		  <MarketingAirline Code="EK"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-27T03:55:00" ArrivalDateTime="2018-04-27T08:35:00" FlightNumber="781" ResBookDesigCode="K">    
+		  <DepartureAirport LocationCode="DXB"/>
+		  <ArrivalAirport LocationCode="LOS"/>      
+		  <MarketingAirline Code="EK"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-29T13:25:00" ArrivalDateTime="2018-04-29T20:10:00" FlightNumber="876" ResBookDesigCode="T">    
+		  <DepartureAirport LocationCode="LOS"/>
+		  <ArrivalAirport LocationCode="CAI"/>      
+		  <MarketingAirline Code="MS"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-04-30T09:30:00" ArrivalDateTime="2018-04-30T13:35:00" FlightNumber="877" ResBookDesigCode="T">    
+		  <DepartureAirport LocationCode="CAI"/>
+		  <ArrivalAirport LocationCode="ABV"/>      
+		  <MarketingAirline Code="MS"/>     
 		  </FlightSegment></OriginDestinationOption>  
 		  </OriginDestinationOptions>  
 		  </AirItinerary>  

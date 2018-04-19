@@ -15,19 +15,25 @@ class UsersTableSeeder extends Seeder
         $users = [
 
             [
-                'id' =>  1,
-                'email' => 'admin@travelportal.com',
-                'password' => bcrypt('admin')
+                'id'                      =>  1,
+                'email'                   => 'admin@travelportal.com',
+                'password'                => bcrypt('admin'),
+                'delete_status'           => 0,
+                'profile_complete_status' => 0
             ],
             [
-                'id' =>  2,
-                'email' => 'agent@travelportal.com',
-                'password' => bcrypt('agent')
+                'id'                      =>  2,
+                'email'                   => 'agent@travelportal.com',
+                'password'                => bcrypt('agent'),
+                'delete_status'           => 0,
+                'profile_complete_status' => 0
             ],
             [
-                'id' =>  3,
-                'email' => 'customer@travelportal.com',
-                'password' => bcrypt('customer')
+                'id'                      =>  3,
+                'email'                   => 'customer@travelportal.com',
+                'password'                => bcrypt('customer'),
+                'delete_status'           => 0,
+                'profile_complete_status' => 0
             ],
         ];
 
@@ -37,9 +43,11 @@ class UsersTableSeeder extends Seeder
         }
 
         $defaultOriginalUser =  [
-            'id' =>  4,
-            'email' => 'ogunsakin191@gmail.com',
-            'password' => bcrypt('ogunsakin191')
+            'id'                          =>  4,
+            'email'                       => 'ogunsakin191@gmail.com',
+            'password'                    => bcrypt('ogunsakin191'),
+            'delete_status'               => 0,
+            'profile_complete_status'     => 0
         ];
 
         $createDefaultOriginalUser = User::create($defaultOriginalUser);

@@ -16,9 +16,12 @@ class SuccessfulRegistration extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $userData;
+
+    public function __construct($userData)
     {
-        //
+        $this->userData = $userData;
     }
 
     /**
@@ -28,6 +31,8 @@ class SuccessfulRegistration extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.SuccessfulRegistration');
+        return $this->from('no-reply@travelportal.com',config('app.name'))
+            ->subject('Registration Successful')
+            ->markdown('emails.SuccessfulRegistration');
     }
 }

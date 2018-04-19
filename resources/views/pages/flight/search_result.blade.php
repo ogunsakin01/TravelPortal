@@ -192,7 +192,7 @@
                             <h6>{{$itinerary['cabinType']}}</h6>
                         </div>
                         <div class="book">
-                            <a data-toggle="modal" data-target=".flight-details_{{$serial}}" class="btn btn-sm more-details"> More Info <i class="fa fa-plus"></i></a>
+                            <a data-toggle="modal" data-target=".flight-details_{{$serial}}" data-backdrop="false" class="btn btn-sm more-details"> More Info <i class="fa fa-plus"></i></a>
                             <input type="hidden" value="{{$serial}}" class="hidden-itinerary-serial"/>
                         </div>
                     </div>
@@ -364,12 +364,11 @@
 
 
                                                      @foreach($itinerary['originDestinations'] as $serial => $originDestination)
-                                                         <h5 class="itinerary-date">{{date('D, M d',strtotime($originDestination['departureDateTime']))}}</h5>
                                                          <div class="itinerary-details text-center">
                                                              <div class="flight">
-                                                                 <div class="col-md-1 col-sm-2 col-xs-3">
+                                                                 <div class="col-md-1 col-sm-2 col-xs-3" align="center">
                                                                      <img src="{{\App\Services\AmadeusConfig::airlineLogo($originDestination['filingAirlineCode'])}}" style="width:60px; height: 60px;" alt="{{$originDestination['filingAirlineCode']}}">
-                                                                     <h6>{{\App\Airline::getAirlineName($originDestination['filingAirlineCode'])}}</h6>
+                                                                     <small style="text-align: justify;">{{$originDestination['marketingAirlineCode']}}-{{$originDestination['flightNumber']}}</small><br/>
                                                                  </div>
                                                                  <div class="col-md-3 col-sm-3 col-xs-3">
                                                                      <h5>{{date('h:m D, M d',strtotime($originDestination['departureDateTime']))}}</h5>

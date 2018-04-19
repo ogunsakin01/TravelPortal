@@ -125,10 +125,19 @@ Route::post('/multi-destination-flight-search','FlightController@multiDestinatio
 Route::get('/selected-itinerary-info/{id}','FlightController@selectedItineraryInfo');
 Route::get('/get-flight-information-and-pricing/{id}','FlightController@getItineraryInformationAndPricing');
 
+
+Route::get('/itinerary-booking','ViewController@itineraryBooking');
 Route::get('/available-itineraries','ViewController@availableItineraries');
+
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/dashboard')->name('dashboard');
+
+});
 
 
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/logout','Auth\LoginController@logout');

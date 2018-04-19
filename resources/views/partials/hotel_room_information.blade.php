@@ -2,7 +2,7 @@
     <div class="coming-soon full-screen">
         <div class="centered-box text-center">
             <div class="logo">
-                <h2>TRAVEL PORTAL</h2>
+                <h2>{{config('app.name')}}</h2>
             </div>
             <div class="loading-animation">
                 <span><i class="fa fa-plane"></i></span>
@@ -14,7 +14,7 @@
                 <span>Raddisson Blue </span>
                 <p>Getting hotel room information</p>
             </div>
-            <p class="copyright">&copy; {{date('Y')}} Travel Portal</p>
+            <p class="copyright">&copy; {{date('Y')}} {{config('app.name')}}</p>
         </div>
     </div>
 </div>

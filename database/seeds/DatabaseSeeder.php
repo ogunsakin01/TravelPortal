@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MarkdownsTableSeeder::class);
         $this->call(MarkupsTableSeeder::class);
         $this->call(VoucherTableSeeder::class);
-
+        $this->call(MarkupTypesTableSeeder::class);
+        $this->call(MarkupValueTypesTableSeeder::class);
     }
 }

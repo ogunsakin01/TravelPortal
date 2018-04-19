@@ -2,7 +2,7 @@
     <div class="coming-soon full-screen">
         <div class="centered-box text-center">
             <div class="logo">
-                <h2>TRAVEL PORTAL</h2>
+                <h2>{{config('app.name')}}</h2>
             </div>
             <div class="loading-animation" align="center">
                 <span><i class="fa fa-plane"></i></span>
@@ -11,7 +11,7 @@
                 <span><i class="fa fa-suitcase"></i></span>
             </div>
             <div class="search-title" align="center">
-                <span><i class="fa fa-smile-o fa-2x"></i> Great Choice !!!</span>
+                <span><i class="fa fa-smile-o "></i> Great Choice !!!</span>
                 <p>Hold on for some seconds while we get more information on your choice ... </p>
             </div>
             <div class=" confirmation-detail">
@@ -34,7 +34,6 @@
                         <td class="totalPricing"></td>
                     </tr>
                 </table>
-                <p>You can check your email for further details. We have sent you a mail with details.</p>
             </div>
             <p class="copyright">&copy; {{date('Y')}} {{config('app.name')}}</p>
         </div>

@@ -1047,9 +1047,9 @@
                 slide_counter           :   1,		//Display slide numbers
                 slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
                 slides 					:  	[		//Slideshow Images
-                    {image : 'assets/images/slide.jpg', title : 'Slide 1'},
-                    {image : 'assets/images/slide2.jpg', title : 'Slide 2'},
-                    {image : 'assets/images/slide.jpg', title : 'Slide 3'},
+                    {image : 'assets/images/1.jpg', title : 'Slide 1'},
+                    {image : 'assets/images/2.jpg', title : 'Slide 2'},
+                    {image : 'assets/images/3.jpg', title : 'Slide 3'},
                 ]
 
             });

@@ -1,5 +1,23 @@
 $(function(){
 
+    function flightInformationLoader(status) {
+        if(status === 1){
+            $('.site-wrapper').addClass('hidden');
+            $('.flight_information_loader').removeClass('hidden');
+        }
+        if(status === 0){
+            $('.site-wrapper').removeClass('hidden');
+            $('.flight_information_loader').addClass('hidden');
+        }
+    }
+
+    function extractError(error) {
+        for(var error_log in error.response.data.errors) {
+            var err = error.response.data.errors[error_log];
+            toastr.error(err);
+        }
+    }
+
     $('.show-available-airlines').on('click',function(){
         $('.available-airlines').fadeIn('slow',function(){
             $(this).toggleClass('hidden-sm').toggleClass('hidden-xs');
@@ -103,10 +121,9 @@ $(function(){
        }
 });
 
-
     $('.continue').on('click',function(){
         var serial = $(this).val();
-        toastr.info(serial);
+        toastr.info("Contacting the booking server on the availability of this Itinerary. It will take just few seconds");
         axios.get(baseUrl+'/selected-itinerary-info/'+serial)
             .then(function(response){
                 console.log(response.data);
@@ -115,13 +132,27 @@ $(function(){
                 $('.stops').html(response.data.stops+" stop(s)");
                 $('.totalPricing').html('&#x20a6;'+ (response.data.displayTotal / 100));
             });
-
+         flightInformationLoader(1);
         axios.get(baseUrl+'/get-flight-information-and-pricing/'+serial)
             .then(function(response){
                 console.log(response.data);
+                if(response.data == 1){
+                    toastr.success('Itinerary available. Redirecting to booking page ...');
+                    window.location.href = baseUrl+'/itinerary-booking';
+                }else{
+                    if(response.data == 2){
+                        toastr.error('Sorry !!! This Itinerary is not longer available, please choose another Itinerary');
+                    }else if(response.data == 0){
+                        toastr.error('Bad Internet Connection, unable to connect to the booking server');
+                    }else{
+                        toastr.error('Sorry !!! This Itinerary is not longer available, please choose another Itinerary');
+                    }
+                flightInformationLoader(0);
+                }
             })
             .catch(function(error){
-
+                extractError(error);
+                flightInformationLoader(0);
             })
 
     });

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Profile;
+use App\Services\PortalCustomNotificationHandler;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use nilsenj\Toastr\Facades\Toastr;
 
 class RegisterController extends Controller
 {
@@ -48,12 +51,28 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+        $validator = Validator::make($data, [
+            'sur_name'   => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'other_name' => 'required|string|max:255',
+            'email'      => 'required|string|email|max:255|unique:users',
+            'phone'      => 'required',
+            'password'   => 'required|string|min:6|confirmed',
+
         ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach($errors as $serial => $error){
+                Toastr::error($error);
+            }
+        }
+
+        return $validator;
     }
+
+
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -63,10 +82,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user = User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        $user->attachRole(3);
+
+        $data['user'] = $user;
+
+        PortalCustomNotificationHandler::registrationSuccessful($user);
+
+        Profile::store($data);
+
+        Toastr::success('Thanks for signing up on our portal');
+
+        return $user;
     }
 }
+

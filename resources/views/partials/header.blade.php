@@ -1,12 +1,12 @@
 <div class="row transparent-menu-top">
     <div class="container clear-padding">
         <div class="navbar-contact">
-            <div class="col-md-7 col-sm-6 clear-padding">
+            <div class="col-md-5 col-sm-6 clear-padding">
                 <a href="#" class="transition-effect"><i class="fa fa-phone"></i> (+91) 1234567890</a>
                 <a href="#" class="transition-effect"><i class="fa fa-envelope-o"></i> support@email.com</a>
             </div>
-            <div class="col-md-5 col-sm-6 clear-padding search-box">
-                <div class="col-md-6 col-xs-5 clear-padding">
+            <div class="col-md-7 col-sm-6 clear-padding search-box">
+                <div class="col-md-5 col-xs-5 clear-padding">
                     <form>
                         <div class="input-group">
                             <input type="text" name="search" class="form-control" required placeholder="Search">
@@ -14,15 +14,33 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6 col-xs-7 clear-padding user-logged">
+                @if(auth()->guest())
+                <div class="col-md-7 col-xs-7 clear-padding user-logged">
                     <a href="#" class="transition-effect">
-                        <img src="assets/images/user.jpg" alt="cruise">
-                        Hi, Lenore
+                        <img src="{{asset('assets/images/portal_images/user.png')}}" alt="user">
                     </a>
-                    <a href="#" class="transition-effect">
-                        <i class="fa fa-sign-out"></i>Sign Out
+                    <a href="{{url('/login')}}" class="transition-effect">
+                        <i class="fa fa-sign-in"></i>Sign in/Sign up
                     </a>
                 </div>
+                    @elseif(auth()->user())
+                    <div class="col-md-7 col-xs-7 clear-padding user-logged">
+                        <a href="{{url('/dashboard')}}" class="transition-effect">
+                            @if(!empty(\App\Profile::getUserInfo(auth()->user()->id)->photo))
+                            <img src="{{asset(\App\Profile::getUserInfo(auth()->user()->id)->photo)}}" alt="{{\App\Profile::getUserInfo(auth()->user()->id)->first_name}}">
+                            @else
+                            <img src="{{asset('assets/images/portal_images/user.png')}}" alt="user">
+                            @endif
+                            Hi, {{\App\Profile::getUserInfo(auth()->user()->id)->first_name}}
+                        </a>
+                        <a class="btn btn-primary btn-sm" href="{{url('/dashboard')}}">
+                            Bookings
+                        </a>
+                        <a href="{{url('/logout')}}" class="transition-effect">
+                            <i class="fa fa-sign-out"></i>Sign Out
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

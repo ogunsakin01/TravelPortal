@@ -3,12 +3,19 @@
 @section('page-title') Flight Result  @endsection
 
 @section('content')
+    @php
+    $AmadeusConfig = new \App\Services\AmadeusConfig();
+    $AmadeusHelper = new \App\Services\AmadeusHelper();
+    @endphp
+
     <!-- START: PAGE TITLE -->
     <div class="row page-title">
         <div class="container clear-padding text-center flight-title">
-            <h3>Your Selection</h3>
-            <h4><i class="fa fa-plane"></i>NEW DELHI<i class="fa fa-long-arrow-right"></i>NEW YORK</h4>
-            <span><i class="fa fa-calendar"></i> 05 Aug <i class="fa fa-male"></i>Traveller(s) - 2 Adult</span>
+            <h3>Your Booking</h3>
+            @foreach($flightSearchParam['flight_search'] as $i => $searchParam)
+            <h5><i class="fa fa-plane"></i>{{$searchParam['departure_city']}}<i class="fa fa-long-arrow-right"></i>{{$searchParam['destination_city']}}</h5>
+            @endforeach
+            <span> <i class="fa fa-male"></i>Traveller(s) - {{$flightSearchParam['no_of_adult']}} Adult, {{$flightSearchParam['no_of_child']}} child, {{$flightSearchParam['no_of_infant']}} Infant </span>
         </div>
     </div>
     <!-- END: PAGE TITLE -->
@@ -17,9 +24,8 @@
     <div class="row booking-tab">
         <div class="container clear-padding">
             <ul class="nav nav-tabs">
-                <li class="active col-md-offset-2 col-md-4 col-sm-4 col-sm-offset-2 col-xs-4 col-xs-offset-2"><a data-toggle="tab" href="#review-booking" class="text-center"><i class="fa fa-edit"></i> <span>Review Booking</span></a></li>
+                <li class="active col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2 col-xs-4 col-xs-offset-2"><a data-toggle="tab" href="#review-booking" class="text-center"><i class="fa fa-edit"></i> <span>Review Booking</span></a></li>
                 <li class="col-md-4  col-sm-4 col-xs-4"><a data-toggle="tab" href="#passenger-info" class="text-center"><i class="fa fa-male"></i> <span>Passenger Info</span></a></li>
-                {{--<li class="col-md-4 col-sm-4 col-xs-4"><a data-toggle="tab" href="#billing-info" class="text-center"><i class="fa fa-check-square"></i> <span>Billing Info</span></a></li>--}}
             </ul>
         </div>
     </div>
@@ -28,16 +34,20 @@
             <div class="tab-content">
                 <div id="review-booking" class="tab-pane fade in active">
                     <div class="col-md-8 col-sm-8">
+                        @foreach($selectedItinerary['originDestinations'] as $serial => $segment)
+                         @php
+                             $segment = (array)$segment;
+                         @endphp
                         <div class="flight-list-v2">
                             <div class="flight-list-main">
                                 <div class="col-md-2 col-sm-2 text-center airline">
-                                    <img src="assets/images/airline/airline.jpg" alt="cruise">
-                                    <h6>Vistara</h6>
+                                    <img src="{{\App\Services\AmadeusConfig::airlineLogo($segment['marketingAirlineCode'])}}" style="height: 90px; width: 90px;" alt="{{$segment['marketingAirlineCode']}}">
+                                    <h6>{{$segment['marketingAirlineCode']}}-{{$segment['flightNumber']}}</h6>
                                 </div>
                                 <div class="col-md-3 col-sm-3 departure">
-                                    <h3><i class="fa fa-plane"></i> LHR 19:00</h3>
-                                    <h5 class="bold">SAT, 21 SEP</h5>
-                                    <h5>London, UK</h5>
+                                    <h3><i class="fa fa-plane"></i> {{$segment['departureAirportCode']}} {{date('H:i',strtotime($segment['departureDateTime']))}}</h3>
+                                    <h5 class="bold">{{date('D, d M',strtotime($segment['departureDateTime']))}}</h5>
+                                    <h5>{{$segment['departureAirportName']}}</h5>
                                 </div>
                                 <div class="col-md-4 col-sm-4 stop-duration">
                                     <div class="flight-direction">
@@ -48,29 +58,156 @@
                                         <span>0 Stop</span>
                                     </div>
                                     <div class="duration text-center">
-                                        <span><i class="fa fa-clock-o"></i> 02h 00m</span>
+                                        <span><i class="fa fa-clock-o"></i> {{$segment['journeyDuration']}}</span>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-3 destination">
-                                    <h3><i class="fa fa-plane fa-rotate-90"></i> DEL 21:00</h3>
-                                    <h5 class="bold">SAT, 21 SEP</h5>
-                                    <h5>New Delhi, IN</h5>
+                                    <h3><i class="fa fa-plane fa-rotate-90"></i> {{$segment['arrivalAirportCode']}} {{date('H:i',strtotime($segment['arrivalDateTime']))}}</h3>
+                                    <h5 class="bold">{{date('D, d M',strtotime($segment['arrivalDateTime']))}}</h5>
+                                    <h5>{{$segment['arrivalAirportName']}}</h5>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                             <div class="flight-list-footer">
                                 <div class="col-md-6 col-sm-6 col-xs-6 sm-invisible">
-                                    <span><i class="fa fa-plane"></i> Economy</span>
-                                    <span class="refund"><i class="fa fa-undo"></i> Refundable</span>
-                                    <span><i class="fa fa-suitcase"></i> 10 KG</span>
-                                </div>
-                                <div class="col-md-6 col-sm-6 col-xs-12 clear-padding">
-                                    <div class="pull-right">
-                                        <a href="#">Edit Flight</a>
-                                    </div>
+                                    <span><i class="fa fa-plane"></i> {{$segment['cabin']}}</span>
                                 </div>
                             </div>
                         </div>
+                        <br/>
+                        @endforeach
+                        <div class="row">
+                            <div class="col-md-3" style="text-align: center">
+                                <div class="form-group">
+                                    <a class="continue btn-block btn_travel_portal">Continue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 booking-sidebar">
+                        <div class="sidebar-item">
+                            <h4><i class="fa fa-bookmark"></i>Fare Details</h4>
+                            <div class="sidebar-body">
+                                @if($selectedItinerary['priceChange'] != 0)
+                                <div class="alert alert-info">
+                                    <strong><i class="fa fa-info"></i></strong> The Itinerary price changed by &#x20a6;{{number_format($selectedItinerary['priceChange'], 2)}}.
+                                </div>
+                                @endif
+
+                                <table class="table">
+                                    @foreach($selectedItinerary['itineraryPassengerInfo'] as $serial => $passenger)
+                                        @php $passenger = (array)$passenger; @endphp
+                                    <tr>
+                                        <td>{{$passenger['passengerType']}} {{$passenger['quantity']}}</td>
+                                        <td>&#x20a6;{{number_format(($passenger['price']/100),2)}}</td>
+                                    </tr>
+                                    @endforeach
+
+                                         @if(auth()->user())
+                                        @role('agent')
+                                        <tr>
+                                            <td>Service Fee</td>
+                                            <td>&#x20a6;{{number_format($selectedItinerary['adminToCustomerMarkup'] / 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                        @role('customer')
+                                        <tr>
+                                            <td>Service Fee</td>
+                                            <td>&#x20a6;{{number_format($selectedItinerary['adminToCustomerMarkup']/ 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                        @else
+                                            <tr>
+                                                <td>Service Fee</td>
+                                                <td>&#x20a6;{{number_format($selectedItinerary['adminToCustomerMarkup']/ 100, 2)}}</td>
+                                            </tr>
+                                             @endif
+                                        <tr>
+                                            <td>Vat</td>
+                                            <td>&#x20a6;{{number_format($selectedItinerary['vat']/100, 2)}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Discount</td>
+                                            <td>&#x20a6;{{number_format($selectedItinerary['airlineMarkdown']/100, 2)}}</td>
+                                        </tr>
+                                        @if(auth()->user())
+                                        @role('agent')
+                                        <tr>
+                                            <td>Service Fee</td>
+                                            <td>&#x20a6;{{number_format($selectedItinerary['agentTotal'] / 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                        @role('customer')
+                                        <tr>
+                                            <td>You Pay</td>
+                                            <td class="total">&#x20a6;{{number_format($selectedItinerary['customerTotal']/ 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                        @role('admin')
+                                        <tr>
+                                            <td>You Pay</td>
+                                            <td class="total">&#x20a6;{{number_format($selectedItinerary['adminTotal']/ 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                            @else
+                                            <tr>
+                                                <td>You Pay</td>
+                                                <td class="total">&#x20a6;{{number_format($selectedItinerary['customerTotal']/ 100, 2)}}</td>
+                                            </tr>
+                                            @endif
+                                </table>
+                            </div>
+                        </div>
+                        <div class="sidebar-item contact-box">
+                            <h4><i class="fa fa-phone"></i>Need Help?</h4>
+                            <div class="sidebar-body text-center">
+                                <p>Need Help? Call us or drop a message. Our agents will be in touch shortly.</p>
+                                <h2>+91 1234567890</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="passenger-info" class="tab-pane fade">
+                    <div class="col-md-8 col-sm-8">
+                        <div class="login-box">
+                            <h3>Sign In</h3>
+                            <div class="booking-form">
+                                    <form >
+                                        <div class="row">
+                                           <div class="col-md-4">,
+                                               <div class="form-group">
+                                                   <label>Email</label>
+                                                   <input class="form-control" type="email" name="emailid" placeholder="Enter Your Email" required>
+                                               </div>
+                                           </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Password</label>
+                                                    <input class="form-control" type="password" name="password" placeholder="Enter Password" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group" style="text-align: center">
+                                                    <label></label>
+                                                    <button class="login">Login</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <a href="{{url('/password/reset')}}">Forget Password ?</a>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <a href="{{url('/register')}}">Not a registered customer ? Register here.</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+                        <br/>
                         <div class="login-box">
                             <h3>Sign In</h3>
                             <div class="booking-form">
@@ -96,46 +233,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-sm-4 booking-sidebar">
-                        <div class="sidebar-item">
-                            <h4><i class="fa fa-bookmark"></i>Fare Details</h4>
-                            <div class="sidebar-body">
-                                <table class="table">
-                                    <tr>
-                                        <td>Adult 1</td>
-                                        <td>$199</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Base Fare</td>
-                                        <td>$100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Service Fee</td>
-                                        <td>$50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Airport Taxes</td>
-                                        <td>$20</td>
-                                    </tr>
-                                    <tr>
-                                        <td>You Pay</td>
-                                        <td class="total">$500</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="sidebar-item contact-box">
-                            <h4><i class="fa fa-phone"></i>Need Help?</h4>
-                            <div class="sidebar-body text-center">
-                                <p>Need Help? Call us or drop a message. Our agents will be in touch shortly.</p>
-                                <h2>+91 1234567890</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="passenger-info" class="tab-pane fade">
-                    <div class="col-md-8 col-sm-8">
+                        <br/>
                         <div class="passenger-detail">
                             <h3>Passenger Details</h3>
                             <div class="passenger-detail-body">
@@ -181,6 +279,79 @@
                     </div>
                     <div class="col-md-4 col-sm-4 booking-sidebar">
                         <div class="sidebar-item">
+                            <h4><i class="fa fa-bookmark"></i>Fare Details</h4>
+                            <div class="sidebar-body">
+                                @if($selectedItinerary['priceChange'] != 0)
+                                    <div class="alert alert-info">
+                                        <strong><i class="fa fa-info"></i></strong> The Itinerary price changed by &#x20a6;{{number_format($selectedItinerary['priceChange'], 2)}}.
+                                    </div>
+                                @endif
+
+                                <table class="table">
+                                    @foreach($selectedItinerary['itineraryPassengerInfo'] as $serial => $passenger)
+                                        @php $passenger = (array)$passenger; @endphp
+                                        <tr>
+                                            <td>{{$passenger['passengerType']}} {{$passenger['quantity']}}</td>
+                                            <td>&#x20a6;{{number_format(($passenger['price']/100),2)}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                    @if(auth()->user())
+                                        @role('agent')
+                                        <tr>
+                                            <td>Service Fee</td>
+                                            <td>&#x20a6;{{number_format($selectedItinerary['adminToCustomerMarkup'] / 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                        @role('customer')
+                                        <tr>
+                                            <td>Service Fee</td>
+                                            <td>&#x20a6;{{number_format($selectedItinerary['adminToCustomerMarkup']/ 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                    @else
+                                        <tr>
+                                            <td>Service Fee</td>
+                                            <td>&#x20a6;{{number_format($selectedItinerary['adminToCustomerMarkup']/ 100, 2)}}</td>
+                                        </tr>
+                                    @endif
+                                    <tr>
+                                        <td>Vat</td>
+                                        <td>&#x20a6;{{number_format($selectedItinerary['vat']/100, 2)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Discount</td>
+                                        <td>&#x20a6;{{number_format($selectedItinerary['airlineMarkdown']/100, 2)}}</td>
+                                    </tr>
+                                    @if(auth()->user())
+                                        @role('agent')
+                                        <tr>
+                                            <td>Service Fee</td>
+                                            <td>&#x20a6;{{number_format($selectedItinerary['agentTotal'] / 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                        @role('customer')
+                                        <tr>
+                                            <td>You Pay</td>
+                                            <td class="total">&#x20a6;{{number_format($selectedItinerary['customerTotal']/ 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                        @role('admin')
+                                        <tr>
+                                            <td>You Pay</td>
+                                            <td class="total">&#x20a6;{{number_format($selectedItinerary['adminTotal']/ 100, 2)}}</td>
+                                        </tr>
+                                        @endrole
+                                    @else
+                                        <tr>
+                                            <td>You Pay</td>
+                                            <td class="total">&#x20a6;{{number_format($selectedItinerary['customerTotal']/ 100, 2)}}</td>
+                                        </tr>
+                                    @endif
+                                </table>
+                            </div>
+                        </div>
+                        <div class="sidebar-item contact-box">
                             <h4><i class="fa fa-phone"></i>Need Help?</h4>
                             <div class="sidebar-body text-center">
                                 <p>Need Help? Call us or drop a message. Our agents will be in touch shortly.</p>
@@ -195,6 +366,10 @@
 
 @endsection
 
+
+@section('javascript')
+<script src="{{asset('assets/js/pages/flight/itinerary_booking.js')}}"></script>
+@endsection
 @section('css')
 
 @endsection

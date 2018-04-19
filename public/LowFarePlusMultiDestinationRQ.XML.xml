@@ -18,16 +18,27 @@
          </TPA_Extensions>
       </POS>
                 
-                <OriginDestinationInformation>
-                  <DepartureDateTime>2018-04-25T00:00:00</DepartureDateTime>   
+            <OriginDestinationInformation>
+                  <DepartureDateTime>2018-04-24T00:00:00</DepartureDateTime>   
                   <OriginLocation LocationCode="LHR"/>   
                   <DestinationLocation LocationCode="DXB"/>  
                 </OriginDestinationInformation> 
             
+            <OriginDestinationInformation>
+                  <DepartureDateTime>2018-04-27T00:00:00</DepartureDateTime>   
+                  <OriginLocation LocationCode="DXB"/>   
+                  <DestinationLocation LocationCode="LOS"/>  
+                </OriginDestinationInformation> 
+            
+            <OriginDestinationInformation>
+                  <DepartureDateTime>2018-04-29T00:00:00</DepartureDateTime>   
+                  <OriginLocation LocationCode="LOS"/>   
+                  <DestinationLocation LocationCode="ABV"/>  
+                </OriginDestinationInformation> 
+            
                 <TravelPreferences>
-                  <FareRestrictPref>
+                 <FareRestrictPref>
                       <AdvResTicketing>
-                           
                            <AdvReservation/>   
                             </AdvResTicketing>    
                             <StayRestrictions>     
@@ -37,7 +48,7 @@
                             <VoluntaryChanges>     
                             <Penalty/>    
                             </VoluntaryChanges>   
-                            </FareRestrictPref>  
+                            </FareRestrictPref> 
                 </TravelPreferences> 
                 <TravelerInfoSummary>   
                   <SeatsRequested>3</SeatsRequested>

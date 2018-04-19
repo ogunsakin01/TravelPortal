@@ -7,6 +7,9 @@ use App\Services\AmadeusRequestXML;
 use App\Services\AmadeusHelper;
 use Illuminate\Http\Request;
 use nilsenj\Toastr\Facades\Toastr;
+use App\Markdown;
+use App\Markup;
+use App\Vat;
 
 class FlightController extends Controller
 {
@@ -31,24 +34,29 @@ class FlightController extends Controller
         $this->AmadeusConfig->createXMlFile($search,'LowFarePlusOneWayRS.XML');
 
 
-        $responseArray = $this->AmadeusConfig->mungXmlToArray($search);
-        $validatorResponse = $this->AmadeusHelper->lowFarePlusResponseValidator($responseArray);
-
         $responseXml   = $this->AmadeusConfig->mungXML($search);
         $xmlValidatorResponse = $this->AmadeusHelper->lowFarePlusResponseXMLValidator($responseXml);
 
         if($xmlValidatorResponse === 1){
 
-            $sortedResponse = $this->AmadeusHelper->lowFarePlusResponseSort($responseArray);
             $sortedXMLResponse = $this->AmadeusHelper->lowFarePlusResponseSortFromXML($responseXml);
 
             $searchParam    = [
-                'no_of_adult' => $data['no_of_adult'],
+                'flight_search' => [
+                    0 => [
+                        'departure_city'   => $data['departure_city'],
+                        'destination_city' => $data['destination_city'],
+                        'departure_date'   => $data['departure_date'],
+                    ]
+                ],
+                'no_of_adult'  => $data['no_of_adult'],
                 'no_of_infant' => $data['no_of_infant'],
                 'no_of_child'  => $data['no_of_child']
             ];
+
             session()->put('flightSearchParam',$searchParam);
             session()->put('availableItineraries',$sortedXMLResponse);
+
         }
         return $xmlValidatorResponse;
     }
@@ -60,25 +68,33 @@ class FlightController extends Controller
         $search = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->lowFareRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->lowFarePlusRequestWebServiceUrl);
         $this->AmadeusConfig->createXMlFile($search,'LowFarePlusTurnAroundRS.XML');
 
-        $responseArray = $this->AmadeusConfig->mungXmlToArray($search);
-        $validatorResponse = $this->AmadeusHelper->lowFarePlusResponseValidator($responseArray);
-
         $responseXml   = $this->AmadeusConfig->mungXML($search);
         $xmlValidatorResponse = $this->AmadeusHelper->lowFarePlusResponseXMLValidator($responseXml);
 
         if($xmlValidatorResponse === 1){
 
-          $sortedResponse    = $this->AmadeusHelper->lowFarePlusResponseSort($responseArray);
           $sortedXMLResponse = $this->AmadeusHelper->lowFarePlusResponseSortFromXML($responseXml);
 
           $searchParam    = [
+              'flight_search' => [
+                  0 => [
+                      'departure_city'   => $data['departure_city'],
+                      'destination_city' => $data['destination_city'],
+                      'departure_date'   => $data['departure_date'],
+                  ],
+                  1 => [
+                      'departure_city'   => $data['destination_city'],
+                      'destination_city' => $data['departure_city'],
+                      'departure_date'   => $data['return_date'],
+                  ]
+              ],
               'no_of_adult'  => $data['no_of_adult'],
               'no_of_infant' => $data['no_of_infant'],
               'no_of_child'  => $data['no_of_child']
           ];
 
           session()->put('flightSearchParam',$searchParam);
-          session()->put('availableItinerariesXML',$sortedResponse);
+          session()->put('availableItineraries',$sortedXMLResponse);
 
         }
         return $xmlValidatorResponse;
@@ -91,26 +107,23 @@ class FlightController extends Controller
         $search = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->lowFareRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->lowFarePlusRequestWebServiceUrl);
         $this->AmadeusConfig->createXMlFile($search,'LowFarePlusMultiDestinationRS.XML');
 
-
-
-        $responseArray = $this->AmadeusConfig->mungXmlToArray($search);
-        $validatorResponse = $this->AmadeusHelper->lowFarePlusResponseValidator($responseArray);
-
         $responseXml   = $this->AmadeusConfig->mungXML($search);
         $xmlValidatorResponse = $this->AmadeusHelper->lowFarePlusResponseXMLValidator($responseXml);
 
         if($xmlValidatorResponse === 1){
 
-            $sortedResponse = $this->AmadeusHelper->lowFarePlusResponseSort($responseArray);
             $sortedXMLResponse = $this->AmadeusHelper->lowFarePlusResponseSortFromXML($responseXml);
 
             $searchParam    = [
-                'no_of_adult' => $data['no_of_adult'],
-                'no_of_infant' => $data['no_of_infant'],
-                'no_of_child'  => $data['no_of_child']
+                'flight_search' => $data['originDestinations'],
+                'no_of_adult'   => $data['searchParam']['no_of_adult'],
+                'no_of_infant'  => $data['searchParam']['no_of_infant'],
+                'no_of_child'   => $data['searchParam']['no_of_child']
             ];
+
             session()->put('flightSearchParam',$searchParam);
             session()->put('availableItineraries',$sortedXMLResponse);
+
         }
         return $xmlValidatorResponse;
     }
@@ -123,12 +136,78 @@ class FlightController extends Controller
     public function getItineraryInformationAndPricing($id){
 
         $selectedItinerary =  $this->selectedItineraryInfo($id);
+        $selectedItinerary = (array) json_decode($selectedItinerary);
         $searchParam       =  session()->get('flightSearchParam');
         $xml_post_string = $this->AmadeusRequestXML->airPriceRequestXML($selectedItinerary,$searchParam);
         $this->AmadeusConfig->createXMlFile($xml_post_string,'AirPriceRQ.XML');
         $getPricing = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->airPriceRequestHeader($xml_post_string),$xml_post_string,$this->AmadeusConfig->airPriceRequestWebServiceUrl);
         $this->AmadeusConfig->createXMlFile($getPricing,'AirPriceRS.XML');
-        return $this->AmadeusConfig->mungXmlToArray($getPricing);
+
+        $responseXML = $this->AmadeusConfig->mungXML($getPricing);
+        $responseValidator = $this->AmadeusHelper->airPriceResponseXMLValidator($responseXML);
+
+        if($responseValidator === 1){
+            $sortedResponse = $this->AmadeusHelper->airPriceResponseSort($responseXML);
+            $itineraryPricingInfo = $sortedResponse;
+            $priceChange = 0;
+            if($selectedItinerary['defaultItineraryPrice'] != $itineraryPricingInfo['newTotalPrice']){
+                Toastr::info('The price of this Itinerary has changed, review the new price before booking.');
+                $priceChange = $itineraryPricingInfo['newTotalPrice'] - $selectedItinerary['defaultItineraryPrice'];
+                $customerMarkup        = 0;
+                $agentMarkup           = 0;
+                $adminMarkup           = 0;
+                $vat                   = 0;
+                $airlineMarkdown       = 0;
+                $customerTotal         = 0;
+                $agentTotal            = 0;
+                $adminTotal            = 0;
+                $displayTotal          = 0;
+
+                $agentMarkupInfo    = Markup::where('role_id', 2)->first();
+                $customerMarkupInfo = Markup::where('role_id', 3)->first();
+                $vatInfo            = Vat::where('id',1)->first();
+                $markdownInfo       = Markdown::where('airline_code',$selectedItinerary['displayAirline'])->first();
+                if(!is_null($markdownInfo)){
+                    $airlineMarkdown = $this->AmadeusHelper->priceTypeCalculator($markdownInfo->type,$markdownInfo->type,$itineraryPricingInfo['newTotalPrice']);
+                }
+                $agentMarkup    = $this->AmadeusHelper->priceTypeCalculator($agentMarkupInfo->flight_markup_type,$agentMarkupInfo->flight_markup_type,$itineraryPricingInfo['newTotalPrice']);
+                $customerMarkup = $this->AmadeusHelper->priceTypeCalculator($customerMarkupInfo->flight_markup_type,$customerMarkupInfo->flight_markup_type,$itineraryPricingInfo['newTotalPrice']);
+                $adminMarkup    = 0;
+                $vat            = $this->AmadeusHelper->priceTypeCalculator($vatInfo->flight_vat_type,$vatInfo->flight_vat_type,$itineraryPricingInfo['newTotalPrice']);
+
+                $customerTotal = ($itineraryPricingInfo['newTotalPrice'] + $customerMarkup + $vat) - $airlineMarkdown;
+                $agentTotal    = ($itineraryPricingInfo['newTotalPrice'] + $agentMarkup + $vat) - $airlineMarkdown;
+                $adminTotal    = ($itineraryPricingInfo['newTotalPrice'] + $adminMarkup + $vat) - $airlineMarkdown;
+
+                if(auth()->guest()){
+                    $displayTotal = $customerTotal;
+                }
+                else{
+                    if(auth()->user()->hasRole('admin')){
+                        $displayTotal = $adminTotal;
+                    }elseif(auth()->user()->hasRole('agent')){
+                        $displayTotal = $agentTotal;
+                    }elseif(auth()->user()->hasRole('customer')){
+                        $displayTotal = $customerTotal;
+                    }
+                }
+
+                $selectedItinerary['defaultItineraryPrice'] = $itineraryPricingInfo['newTotalPrice'];
+                $selectedItinerary['adminToCustomerMarkup'] = $customerMarkup;
+                $selectedItinerary['adminToAgentMarkup'] = $agentMarkup;
+                $selectedItinerary['customerTotal'] = $customerTotal;
+                $selectedItinerary['agentTotal'] = $agentTotal;
+                $selectedItinerary['adminTotal'] = $adminTotal;
+                $selectedItinerary['displayTotal'] = $displayTotal;
+                $selectedItinerary['itineraryPassengerInfo'] = $itineraryPricingInfo['passengerFareBrakeDown'];
+            }
+            $selectedItinerary['priceChange'] = $priceChange;
+
+            session()->put('selectedItinerary',$selectedItinerary);
+            session()->put('itineraryPricingInfo',$sortedResponse);
+        }
+
+        return $responseValidator;
 
     }
 

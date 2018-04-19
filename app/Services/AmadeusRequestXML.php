@@ -290,7 +290,6 @@ class AmadeusRequestXML
     }
 
     public function airPriceRequestXML($selectedItinerary, $searchParam){
-        $selectedItinerary = (array) json_decode($selectedItinerary);
 
 //        dd($selectedItinerary);
 
@@ -320,18 +319,10 @@ class AmadeusRequestXML
                foreach($selectedItinerary['originDestinations'] as $serial => $originDestination){
                    $originDestination = (array)$originDestination;
                    if($check == $originDestination['originDestinationPlacement']){
-                       dd($originDestination);
-                       $flightInfoRequestXMl = $this->flightInfoRequestXML($originDestination);
-                       $this->AmadeusConfig->createXMlFile($flightInfoRequestXMl,'FlightInfoRQ'.$serial);
-                       $getFlightInfo = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->airInfoRequestHeader($flightInfoRequestXMl),$flightInfoRequestXMl,$this->AmadeusConfig->airInfoRequestWebServiceUrl);
-                       $this->AmadeusConfig->createXMlFile($getFlightInfo,'FlightInfoRS'.$serial);
-                       $responseArray = $this->AmadeusConfig->mungXmlToArray($getFlightInfo);
-                       dd($responseArray);
-
                        $segmentInfoData = '<FlightSegment DepartureDateTime="'.$originDestination['departureDateTime'].'" ArrivalDateTime="'.$originDestination['arrivalDateTime'].'" FlightNumber="'.$originDestination['flightNumber'].'" ResBookDesigCode="'.$originDestination['resBookDesigCode'].'">    
 		  <DepartureAirport LocationCode="'.$originDestination['departureAirportCode'].'"/>
 		  <ArrivalAirport LocationCode="'.$originDestination['arrivalAirportCode'].'"/>      
-		  <MarketingAirline Code="'.$originDestination['marketingAirline'].'"/>     
+		  <MarketingAirline Code="'.$originDestination['marketingAirlineCode'].'"/>     
 		  </FlightSegment>';
                        $segmentInfo = $segmentInfo.$segmentInfoData;
                    }
