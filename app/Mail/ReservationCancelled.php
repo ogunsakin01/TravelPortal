@@ -28,6 +28,7 @@ class ReservationCancelled extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.ReservationCancelled');
+        return $this->from('no-reply@travelportal.com',config('app.name'))
+            ->markdown('emails.ReservationCancelled');
     }
 }

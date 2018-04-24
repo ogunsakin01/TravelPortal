@@ -3,83 +3,68 @@
 namespace App\Http\Controllers;
 
 use App\OnlinePayment;
+use App\Services\InterswitchConfig;
+use App\Services\PaystackConfig;
 use Illuminate\Http\Request;
 
 class OnlinePaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    private $InterswitchConfig;
+
+    private $PaystackConfig;
+
+    public function __construct(){
+        $this->InterswitchConfig = new InterswitchConfig();
+        $this->PaystackConfig    = new PaystackConfig();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function generateInterswitchPayment(Request $r){
+
+        $redirectUrl = url('/interswitch-payment-verification');
+        $txnRef      = strtoupper(str_random(9));
+
+        $hash = $this->InterswitchConfig->transactionHash($txnRef,$r->amount,$redirectUrl);
+        $saveData = [
+            'reference'            => $txnRef,
+            'user_id'              => auth()->user()->id,
+            'booking_reference'    => $r->booking_reference,
+            'amount'               => $r->amount,
+            'gateway_id'           => 1,
+            'response_code'        => 0,
+            'response_description' => 'Pending',
+            'payment_status'       => 0,
+            'response_full'        => ''
+        ];
+
+        $create = OnlinePayment::create($saveData);
+
+        return [
+            'reference'      => $txnRef,
+            'redirect_url'   => $redirectUrl,
+            'hash'           => $hash
+        ];
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function payStackPaymentVerification(Request $r){
+        $redirectUrl = url('/paystack-payment-verification');
+        $txnRef      = strtoupper(str_random(9));
+        $saveData = [
+            'reference'            => $txnRef,
+            'user_id'              => auth()->user()->id,
+            'booking_reference'    => $r->booking_reference,
+            'amount'               => $r->amount,
+            'gateway_id'           => 2,
+            'response_code'        => 0,
+            'response_description' => 'Pending',
+            'payment_status'       => 0,
+            'response_full'        => ''
+        ];
+
+        $create = OnlinePayment::create($saveData);
+
+        $paystack = $this->PaystackConfig->initialize($r->email,$r->amount,$txnRef,$redirectUrl);
+        dd($paystack);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\OnlinePayment  $onlinePayment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(OnlinePayment $onlinePayment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\OnlinePayment  $onlinePayment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(OnlinePayment $onlinePayment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\OnlinePayment  $onlinePayment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, OnlinePayment $onlinePayment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\OnlinePayment  $onlinePayment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(OnlinePayment $onlinePayment)
-    {
-        //
-    }
 }

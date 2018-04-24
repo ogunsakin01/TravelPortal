@@ -16,9 +16,12 @@ class PaymentNotification extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $data;
+
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +31,8 @@ class PaymentNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.PaymentNotification');
+        return $this->from('no-reply@travelportal.com',config('app.name'))
+            ->subject('Payment Notification')
+            ->markdown('emails.PaymentNotification');
     }
 }

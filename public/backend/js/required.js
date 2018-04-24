@@ -23,7 +23,7 @@ function extractError(error) {
 
 function buttonClicked(button_id,button_text,option){
     if(option === 1){
-        var appendInfo = '<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...';
+        var appendInfo = '<i class="fa fa-spinner fa-spin"></i> Loading...';
         $('#'+button_id).html(appendInfo);
         $('#'+button_id).prop('disabled',true);
     }else if(option === 0){
@@ -36,7 +36,7 @@ function buttonClicked(button_id,button_text,option){
 
 function buttonClassClicked(button_class,button_text,option){
     if(option === 1){
-        var appendInfo = '<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...';
+        var appendInfo = '<i class="fa fa-spinner fa-spin"></i> Loading...';
         $('.'+button_class).html(appendInfo);
         $('.'+button_class).prop('disabled',true);
     }else if(option === 0){

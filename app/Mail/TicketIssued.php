@@ -28,6 +28,7 @@ class TicketIssued extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.TicketIssued');
+        return $this->from('no-reply@travelportal.com',config('app.name'))
+            ->markdown('emails.TicketIssued');
     }
 }

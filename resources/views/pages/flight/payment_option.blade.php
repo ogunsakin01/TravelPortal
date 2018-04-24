@@ -6,6 +6,7 @@
     @php
         $AmadeusConfig = new \App\Services\AmadeusConfig();
         $AmadeusHelper = new \App\Services\AmadeusHelper();
+        $InterswitchConfig = new \App\Services\InterswitchConfig();
     @endphp
 
     <!-- START: PAGE TITLE -->
@@ -34,7 +35,7 @@
                 <div id="billing-info"> {{--I removed class="tab-pane fade" from this div so that the content will not be hidden--}}
                     <div class="col-md-8 col-sm-8">
                         <div class="passenger-detail">
-                            <h3>Total Payment to be made &#x20a6;{{number_format($selectedItinerary['customerTotal']/ 100, 2)}}</h3>
+                            <h3>Total Payment to be made &#x20a6;{{number_format($selectedItinerary['displayTotal']/ 100, 2)}}</h3>
                             <div class="passenger-detail-body">
                                 @if(!is_null($banks))
                                 <div class="saved-card">
@@ -51,54 +52,44 @@
                                 </div>
                                     <div class="payment-seperator clearfix"></div>
                                 @endif
-                                    <div class="add-new-card">
-                                    <h4>Add New Card</h4>
-                                    <form >
-                                        <div class="col-md-6 ol-sm-6">
-                                            <label>Card Type</label>
-                                            <select name="carttype" class="form-control">
-                                                <option>Credit Card</option>
-                                                <option>Debit Card</option>
-                                                <option>Gift Card</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 ol-sm-6">
-                                            <label>Card Number</label>
-                                            <input type="text" name="cardnumber" required class="form-control">
-                                        </div>
-                                        <div class="col-md-6 ol-sm-6">
-                                            <label>Card Expiry</label>
-                                            <select name="cardexpiry" class="form-control">
-                                                <option>Select</option>
-                                                <option>Dec 2015</option>
-                                                <option>Jan 2016</option>
-                                                <option>Feb 2016</option>
-                                                <option>Mar 2016</option>
-                                                <option>Apr 2016</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 ol-sm-6">
-                                            <label>CVV Number</label>
-                                            <input type="password" name="cvvnumber" class="form-control">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label><input type="checkbox" name="alert"> Save this card for future</label>
-                                        </div>
-                                        <div>
-                                            <button type="submit">CONFIRM BOOKING <i class="fa fa-chevron-right"></i></button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="payment-seperator clearfix"></div>
                                 <div class="paypal-pay">
-                                    <h4>Pay Using Paypal</h4>
-                                    <div class="col-md-2 col-sm-2 col-xs-4">
-                                        <i class="fa fa-paypal"></i>
+                                    <h4>Pay Using Interswitch</h4>
+                                    <div class="col-md-8 col-sm-8">
+                                       <img src="{{asset('assets/images/portal_images/interswitch.png')}}" class="img-responsive"/>
                                     </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-8">
-                                        <a href="#">CONFIRM BOOKING</a>
+                                    <div class="col-md-4 col-sm-4">
+                                        <input  type="hidden"  class="booking_reference" value="{{$booking->reference}}"/>
+                                        <form method="post" action="{{$InterswitchConfig->requestActionUrl}}">
+                                            <input  type="hidden"  class="reference" name="txn_ref" value=""/>
+                                            <input  type="hidden"  class="amount" name="amount" value="{{$selectedItinerary['displayTotal']}}"/>
+                                            <input  type="hidden"  name="currency" value="566"/>
+                                            <input  type="hidden"  class="item_id" name="pay_item_id" value="{{$InterswitchConfig->item_id}}"/>
+                                            <input  type="hidden"  class="redirect_url" name="site_redirect_url" value=""/>
+                                            <input  type="hidden"  class="product_id" name="product_id" value="{{$InterswitchConfig->product_id}}"/>
+                                            <input  type="hidden"  class="cust_id" name="cust_id" value="{{auth()->user()->id}}"/>
+                                            <input  type="hidden"  name="cust_name" value="{{\App\Profile::getUserInfo(auth()->user()->id)->first_name}}"/>
+                                            <input  type="hidden"  class="hash" name="hash" value=""/>
+                                            <button type="button"  class="btn btn_travel_portal confirm_interswitch_booking">CONFIRM BOOKING </button>
+                                            <button type="submit"  class="btn btn_travel_portal interswitch_pay_now hidden">PAY NOW</button>
+                                        </form>
                                     </div>
                                 </div>
+                                    <div class="payment-seperator clearfix"></div>
+                                    <div class="paypal-pay">
+                                        <h4>Pay Using PayStack</h4>
+                                        <div class="col-md-8 col-sm-8">
+                                            <img src="{{asset('assets/images/portal_images/paystack.png')}}" class="img-responsive"/>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <form method="post" action="{{url('/paystack-payment-verification')}}">
+                                              @csrf
+                                                <input type="hidden" name="amount" value="{{$selectedItinerary['displayTotal']}}"/>
+                                                <input  type="hidden" name="booking_reference" value="{{$booking->reference}}"/>
+                                                <input type="hidden" name="email" value="{{auth()->user()->email}}"/>
+                                              <button type="submit">Pay Now </button>
+                                            </form>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -171,7 +162,7 @@
                                     @else
                                         <tr>
                                             <td>You Pay</td>
-                                            <td class="total">&#x20a6;{{number_format($selectedItinerary['customerTotal']/ 100, 2)}}</td>
+                                            <td class="total">&#x20a6;{{number_format($selectedItinerary['displayTotal']/ 100, 2)}}</td>
                                         </tr>
                                     @endif
                                 </table>
@@ -193,6 +184,6 @@
 
 @endsection
 
-@section('css')
-
+@section('javascript')
+<script src="{{asset('assets/js/pages/flight/payment_option.js')}}"></script>
 @endsection

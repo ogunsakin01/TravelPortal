@@ -28,6 +28,7 @@ class HotelReservationReminder extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.HotelReservationReminder');
+        return $this->from('no-reply@travelportal.com',config('app.name'))
+            ->markdown('emails.HotelReservationReminder');
     }
 }

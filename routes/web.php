@@ -39,8 +39,14 @@ Route::get('/flight-booking-payment-page','ViewController@flightBookingPayment')
 Route::get('/flight-payment-confirmation','ViewController@flightPaymentConfirmation');
 
 
-Route::post('/searchHotel','HotelController@searchHotel');
+Route::post('/generate-interswitch-payment','OnlinePaymentController@generateInterswitchPayment');
+Route::post('/interswitch-payment-verification','OnlinePaymentController@interswitchPaymentVerification');
+Route::post('/paystack-payment-verification','OnlinePaymentController@payStackPaymentVerification');
 
+
+
+
+Route::post('/searchHotel','HotelController@searchHotel');
 
 
 Route::middleware(['auth'])->group(function(){
@@ -51,7 +57,6 @@ Route::middleware(['auth'])->group(function(){
         Route::get('vats','BackEndViewController@vat')->name('vats');
         Route::post('vat', 'VatController@saveVat')->name('backend-save-vat');
         Route::get('getVat/{type}','VatController@getVat');
-
     });
 
     Route::group(['prefix' => 'bookings'],function(){

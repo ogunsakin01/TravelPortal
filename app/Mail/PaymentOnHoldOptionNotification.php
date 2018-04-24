@@ -28,6 +28,7 @@ class PaymentOnHoldOptionNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.PaymentOnHoldOptionNotification');
+        return $this->from('no-reply@travelportal.com',config('app.name'))
+            ->markdown('emails.PaymentOnHoldOptionNotification');
     }
 }

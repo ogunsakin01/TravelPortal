@@ -80,7 +80,7 @@ class PaystackConfig{
             }elseif(isset($response['data']['authorization_url'])){
 
                 $url = $response['data']['authorization_url'];
-                return http_redirect($url);
+               return header('location:'.$url);
 
             }
         }

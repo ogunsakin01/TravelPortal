@@ -16,9 +16,13 @@ class BankPaymentOptionNotification extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $booking;
+
+
+    public function __construct($booking)
     {
-        //
+        $this->booking         = $booking;
     }
 
     /**
@@ -26,8 +30,11 @@ class BankPaymentOptionNotification extends Mailable
      *
      * @return $this
      */
+
     public function build()
     {
-        return $this->markdown('emails.BankPaymentOptionNotification');
+        return $this->from('no-reply@travelportal.com',config('app.name'))
+            ->subject('Bank Payment Notification')
+            ->markdown('emails.BankPaymentOptionNotification');
     }
 }
