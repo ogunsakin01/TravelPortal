@@ -52,7 +52,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Vat List</div>
-                <div class="card-body">
+                <div class="card-body table-responsive">
                     <table class="table table-sm">
                         <thead>
                         <tr>
