@@ -7,6 +7,26 @@ use Illuminate\Support\Facades\DB;
 
 class Airline extends Model
 {
+
+    public static function getAirline($iata_code)
+    {
+        $airline = static::where('code', $iata_code)->first();
+
+        if(is_null($airline) || empty($airline))
+        {
+            return "";
+        }
+        else
+        {
+            return $airline->name;
+        }
+
+    }
+
+    public static function getAirlineCodeByName($name){
+        return static::where('Airline',$name)->first();
+    }
+
     public static function typeAhead($request){
         return Airline::select(DB::raw('CONCAT(code, " - ", name) AS name'))
             ->where("code","LIKE","%{$request->input('query')}%")
