@@ -1,0 +1,28 @@
+
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                
+        <wmAirFlifoXml xmlns="http://traveltalk.com/wsAirFlifo">
+            <OTA_AirFlifoRQ Version="1.000">
+              <POS>
+        <Source PseudoCityCode="MIA1S21AV" ISOCurrency="NGN">
+         <RequestorID Type="21" ID="RubyTravel"/>
+        </Source>
+         <TPA_Extensions>
+            <Provider>
+               <Name>Amadeus</Name> 
+               <System>Test</System> 
+               <Userid>RubyTravel</Userid> 
+               <Password>sTeBr+Fr3kEv</Password> 
+            </Provider>
+         </TPA_Extensions>
+      </POS>
+                <Airline Code="ET" />  
+                <FlightNumber>900</FlightNumber>  
+                <DepartureDate>2018-04-26T13:40:00</DepartureDate>  
+                <DepartureAirport LocationCode="LOS" />  
+                <ArrivalAirport LocationCode="ADD" /> 
+            </OTA_AirFlifoRQ>
+         </wmAirFlifoXml>
+            </soap:Body>
+        </soap:Envelope>

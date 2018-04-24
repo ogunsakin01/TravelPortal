@@ -1,0 +1,1 @@
+$(window).on("load",function(){var n=c3.generate({bindto:"#range-y-axis",size:{height:400},color:{pattern:["#673AB7","#E91E63"]},data:{columns:[["sample",30,200,100,400,150,250]]},axis:{y:{max:400,min:-400}},grid:{y:{show:!0}}});$(".menu-toggle").on("click",function(){n.resize()})});

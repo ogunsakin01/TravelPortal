@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\FlightBooking;
+use App\Profile;
 use App\Services\AmadeusConfig;
 use App\Services\AmadeusRequestXML;
 use App\Services\AmadeusHelper;
 use Illuminate\Http\Request;
+use function MongoDB\BSON\toJSON;
 use nilsenj\Toastr\Facades\Toastr;
 use App\Markdown;
 use App\Markup;
 use App\Vat;
+use App\Voucher;
 
 class FlightController extends Controller
 {
@@ -208,6 +212,87 @@ class FlightController extends Controller
         }
 
         return $responseValidator;
+
+    }
+
+    public function bookItinerary(Request $data){
+
+        $user = auth()->user();
+        $userProfile = Profile::getUserInfo($user->id);
+        $user['profile'] =  $userProfile;
+
+        $selectedItinerary = session()->get('selectedItinerary');
+        $xml_post_string = $this->AmadeusRequestXML->flightTravelBuildRequestElementXML($data->all(),$selectedItinerary,$user);
+        $this->AmadeusConfig->createXMlFile($xml_post_string,'FlightBuildRQ.XML');
+        $build = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->travelBuildRequestHeader($xml_post_string),$xml_post_string,$this->AmadeusConfig->travelBuildRequestWebServiceUrl);
+        $this->AmadeusConfig->createXMlFile($build,'FlightBuildRS.XML');
+
+        $responseArray = $this->AmadeusConfig->mungXmlToArray($build);
+        $validator   = $this->AmadeusHelper->flightBuildResponseValidator($responseArray);
+
+        if($validator == 1){
+//            dd($responseArray);
+            $voucher_id = 0;
+            $voucher_amount = 0;
+            $total_amount = 0;
+            $markup = 0;
+            if(auth()->user()->hasRole('agent')){
+                $total_amount = $selectedItinerary['agentTotal'];
+                $markup = $selectedItinerary['adminToAgentMarkup'];
+            }
+            elseif(auth()->user()->hasRole('admin')){
+                $total_amount = $selectedItinerary['adminTotal'];
+                $markup = $selectedItinerary['adminToAdminMarkup'];
+            }
+            elseif(auth()->user()->hasRole('customer')){
+                $total_amount = $selectedItinerary['customerTotal'];
+                $markup = $selectedItinerary['adminToCustomerMarkup'];
+            }
+            if(!empty($data->voucher_code)){
+
+                $checkVoucher = Voucher::where('code',$data->voucher_code)
+                    ->where('status',3)
+                    ->first();
+
+                if(!empty($checkVoucher) && !(is_null($checkVoucher))){
+                    $voucher_id = $checkVoucher->id;
+                    $voucher_amount = $checkVoucher->amount;
+                    $total_amount = $total_amount - ($checkVoucher->amount);
+                    $selectedItinerary['voucher_id']     = $voucher_id;
+                    $selectedItinerary['voucher_amount'] = $voucher_amount;
+                    $selectedItinerary['displayTotal']   = $total_amount;
+                }
+            }
+
+            $selectedItinerary['markup'] = $markup;
+            $sortedResponse = $this->AmadeusHelper->flightBuildResponseSort($responseArray);
+            $saveBooking = FlightBooking::store($sortedResponse,$user,$selectedItinerary);
+            if($saveBooking){
+                session()->put('selectedItinerary',$selectedItinerary);
+                session()->put('pnr',$sortedResponse['pnr']);
+                return redirect(url('/flight-booking-payment-page'));
+            }
+            else{
+                Toastr::error('Sorry, an unknown error was encountered');
+                return back();
+            }
+        }
+        else{
+            if(is_array($validator)){
+                if(is_array(isset($validator[1]))){
+                    foreach($validator[1] as $i => $error){
+                        Toastr::error($error);
+                    }
+                }
+                else{
+                    Toastr::error($validator[1]);
+                }
+            }
+            else{
+                Toastr::error('Sorry, this itinerary is not available for booking, try again with another itinerary');
+            }
+            return back();
+        }
 
     }
 

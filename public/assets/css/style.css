@@ -2404,9 +2404,16 @@ h5 {
 			15. flight-list.html 
 *********************************************************************************/
 .modify-flight {
-	background: url('../images/bg-image10.jpg');
-	background-attachment: fixed;
-	background-size: contain;
+	/*background: url('../images/bg-image10.jpg');*/
+	/*background-attachment: fixed;*/
+	/*background-size: contain;*/
+
+	padding: 100px 0px;
+	height: 100%;
+	width: 100%;
+	background-image: url('../images/bg-image16.jpg');
+	background-repeat: no-repeat;
+
 }
 .filter-area .airline-filter  img {
 	max-width: 30px;

@@ -58,9 +58,9 @@ class AmadeusHelper
     }
 
     public function priceTypeCalculator($type,$value,$amount){
-        if($type == 1){
+        if($type == 2){
             return (($value/100) * $amount);
-        }if($type == 0){
+        }if($type == 1){
             return $value;
         }
     }
@@ -1059,6 +1059,69 @@ class AmadeusHelper
 
         return $responseArray;
 
+    }
+
+    public function flightBuildResponseValidator($responseArray){
+        if(empty($responseArray)){
+            return 0;
+        }
+        else{
+            if(isset($responseArray['soap_Body']['wmTravelBuildResponse']['OTA_TravelItineraryRS']['Success'])){
+                return 1;
+            }
+            elseif($responseArray['soap_Body']['wmTravelBuildResponse']['OTA_TravelItineraryRS']['Errors']){
+                $error = $responseArray['soap_Body']['wmTravelBuildResponse']['OTA_TravelItineraryRS']['Errors']['Error'];
+                return [21, $error];
+            }
+            else{
+                return 2;
+            }
+        }
+    }
+
+    public function flightBuildResponseSort($responseArray){
+        $flights = [];
+        $bagsAllowance = [];
+        $passengers = [];
+        $pnrData = $responseArray['soap_Body']['wmTravelBuildResponse']['OTA_TravelItineraryRS']['TravelItinerary'];
+        $allFlights = $pnrData['ItineraryInfo']['ReservationItems']['Item'];
+        if(isset($allFlights[0])){
+            foreach($allFlights as $i => $allFlight){
+                array_push($flights, $allFlight);
+            }
+        }
+        else{
+            array_push($flights, $allFlights);
+        }
+
+        $allBags = $pnrData['ItineraryInfo']['ReservationItems']['ItemPricing']['AirFareInfo']['PTC_FareBreakdowns']['PTC_FareBreakdown'];
+
+        if(isset($allBags[0])){
+            foreach($allBags as $j => $allBag){
+                array_push($bagsAllowance, $allBag);
+            }
+        }
+        else{
+            array_push($bagsAllowance, $allBags);
+        }
+
+        $allPassengers = $pnrData['CustomerInfos']['CustomerInfo'];
+        if(isset($allPassengers[0])){
+            foreach($allPassengers as $k => $allPassenger){
+                array_push($passengers,$allPassenger);
+            }
+        }
+        else{
+            array_push($passengers,$allPassengers);
+        }
+
+
+        return [
+            'pnr'           => $pnrData['ItineraryRef']['@attributes']['ID'],
+            'flights'       => $flights,
+            'bagsAllowance' => $bagsAllowance,
+            'passengers'    => $passengers
+        ];
     }
 
 }

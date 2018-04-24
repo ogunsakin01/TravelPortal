@@ -1,0 +1,1 @@
+$(window).on("load",function(){var t=c3.generate({bindto:"#data-from-url",size:{height:400},color:{pattern:["#E91E63","#00BCD4","#673AB7"]},data:{url:"../../../app-assets/data/c3/c3_test.csv"},grid:{y:{show:!0}}});setTimeout(function(){c3.generate({data:{url:"../../../app-assets/data/c3/c3_test.json",mimeType:"json"}})},1e3),$(".menu-toggle").on("click",function(){t.resize()})});

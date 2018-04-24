@@ -1,0 +1,1 @@
+$(window).on("load",function(){var n=c3.generate({bindto:"#column-oriented",size:{height:400},color:{pattern:["#E91E63","#00BCD4","#673AB7"]},data:{columns:[["data1",30,20,50,40,60,50],["data2",200,130,90,240,130,220],["data3",300,200,160,400,250,250]]},grid:{y:{show:!0}}});$(".menu-toggle").on("click",function(){n.resize()})});

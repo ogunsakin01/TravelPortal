@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VoucherTableSeeder::class);
         $this->call(MarkupTypesTableSeeder::class);
         $this->call(MarkupValueTypesTableSeeder::class);
+        $this->call(FlightBookingsTableSeeder::class);
     }
 }

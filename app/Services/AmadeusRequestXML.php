@@ -342,17 +342,10 @@ class AmadeusRequestXML
             foreach($selectedItinerary['originDestinations'] as $serial => $originDestination){
 
                 $originDestination = (array)$originDestination;
-                $flightInfoRequestXMl = $this->flightInfoRequestXML($originDestination);
-                $this->AmadeusConfig->createXMlFile($flightInfoRequestXMl,'FlightInfoRQ'.$serial);
-                $getFlightInfo = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->airInfoRequestHeader($flightInfoRequestXMl),$flightInfoRequestXMl,$this->AmadeusConfig->airInfoRequestWebServiceUrl);
-                $this->AmadeusConfig->createXMlFile($getFlightInfo,'FlightInfoRS'.$serial);
-                $responseArray = $this->AmadeusConfig->mungXmlToArray($getFlightInfo);
-                dd($responseArray);
-
                 $segmentInfoData = '<FlightSegment DepartureDateTime="'.$originDestination['departureDateTime'].'" ArrivalDateTime="'.$originDestination['arrivalDateTime'].'" FlightNumber="'.$originDestination['flightNumber'].'" ResBookDesigCode="'.$originDestination['resBookDesigCode'].'">    
 		  <DepartureAirport LocationCode="'.$originDestination['departureAirportCode'].'"/>
 		  <ArrivalAirport LocationCode="'.$originDestination['arrivalAirportCode'].'"/>      
-		  <MarketingAirline Code="'.$originDestination['marketingAirline'].'"/>     
+		  <MarketingAirline Code="'.$originDestination['marketingAirlineCode'].'"/>     
 		  </FlightSegment>';
                $segmentInfo = $segmentInfo.$segmentInfoData;
             }
@@ -393,28 +386,71 @@ class AmadeusRequestXML
 	}
 
     public function airBookXML($selectedItinerary){
-		
+        $passengerCount = 0;
+        foreach($selectedItinerary['itineraryPassengerInfo'] as $i => $count){
+            if(!is_array($count)){
+                $count = (array) $count;
+            }
+            $passengerCount = $passengerCount + $count['quantity'];
+        }
+
+        $originDestinationsCount = $selectedItinerary['originDestinationsCount'];
+
+        if($originDestinationsCount > 1){
+            $originDestinationOptions = '';
+            $segmentCount = 1;
+            for($i = 0; $i < $originDestinationsCount; $i++){
+                $segmentInfo = '';
+                $check = $i + 1;
+                foreach($selectedItinerary['originDestinations'] as $serial => $originDestination){
+                    $originDestination = (array)$originDestination;
+                    if($check == $originDestination['originDestinationPlacement']){
+                        $segmentInfoData = '<FlightSegment DepartureDateTime="'.$originDestination['departureDateTime'].'" ArrivalDateTime="'.$originDestination['arrivalDateTime'].'" FlightNumber="'.$originDestination['flightNumber'].'" ResBookDesigCode="'.$originDestination['resBookDesigCode'].'" RPH="'.$segmentCount.'" NumberInParty="'.$passengerCount.'">    
+		  <DepartureAirport LocationCode="'.$originDestination['departureAirportCode'].'"/>
+		  <ArrivalAirport LocationCode="'.$originDestination['arrivalAirportCode'].'"/>      
+		  <MarketingAirline Code="'.$originDestination['marketingAirlineCode'].'"/>     
+		  </FlightSegment>';
+                        $segmentInfo = $segmentInfo.$segmentInfoData;
+                        $segmentCount = $segmentCount + 1;
+                    }
+                }
+
+                $originDestinationOption = '';
+                if($segmentInfo != ""){
+                    $originDestinationOption = '<OriginDestinationOption>'.$segmentInfo.'</OriginDestinationOption>';
+                }
+                $originDestinationOptions = $originDestinationOptions.$originDestinationOption;
+            }
+
+        }
+
+        else{
+            $originDestinationOptions = '';
+            $segmentInfo = '';
+            $segmentCount = 1;
+            foreach($selectedItinerary['originDestinations'] as $serial => $originDestination){
+                $originDestination = (array)$originDestination;
+                $segmentInfoData = '<FlightSegment DepartureDateTime="'.$originDestination['departureDateTime'].'" ArrivalDateTime="'.$originDestination['arrivalDateTime'].'" FlightNumber="'.$originDestination['flightNumber'].'" ResBookDesigCode="'.$originDestination['resBookDesigCode'].'" RPH="'.$segmentCount.'" NumberInParty="'.$passengerCount.'">    
+		  <DepartureAirport LocationCode="'.$originDestination['departureAirportCode'].'"/>
+		  <ArrivalAirport LocationCode="'.$originDestination['arrivalAirportCode'].'"/>      
+		  <MarketingAirline Code="'.$originDestination['marketingAirlineCode'].'"/>     
+		  </FlightSegment>';
+                $segmentInfo = $segmentInfo.$segmentInfoData;
+                $segmentCount = $segmentCount + 1;
+            }
+            $originDestinationOptions = '<OriginDestinationOption>'.$segmentInfo.'</OriginDestinationOption>';
+        }
+
 	return '
-<OTA_AirBookRQ>
-   <AirItinerary DirectionInd="Circle">
+             <OTA_AirBookRQ>
+   <AirItinerary DirectionInd="'.$selectedItinerary['directionInd'].'">
       <OriginDestinationOptions>
-         <OriginDestinationOption>
-            <FlightSegment DepartureDateTime="2006-05-10T10:59:00" ArrivalDateTime="2006-0510T12:51:00" RPH="1" FlightNumber="0754" ResBookDesigCode="T" NumberInParty="1">
-               <DepartureAirport LocationCode="MIA" />
-               <ArrivalAirport LocationCode="ATL" />
-               <MarketingAirline Code="DL" />
-            </FlightSegment>
-         </OriginDestinationOption>
-         <OriginDestinationOption>
-            <FlightSegment DepartureDateTime="2006-05-14T22:41:00" ArrivalDateTime="2006-0515T00:19:00" RPH="2" FlightNumber="1241" ResBookDesigCode="T" NumberInParty="1">
-               <DepartureAirport LocationCode="ATL" />
-               <ArrivalAirport LocationCode="MIA" />
-               <MarketingAirline Code="DL" />
-            </FlightSegment>
-         </OriginDestinationOption>
+         '.$originDestinationOptions.'
       </OriginDestinationOptions>
    </AirItinerary>
-</OTA_AirBookRQ>';
+</OTA_AirBookRQ>
+           ';
+
 	}
 
     public function hotelBookXML($hotelRoomInformation){
@@ -505,9 +541,11 @@ class AmadeusRequestXML
 </OTA_VehResRQ>';
 	}
 
-    public function travelBuildMainRequestElementXML($passengerInformation,$buildData,$buildType){
+    public function travelBuildMainRequestElementXML($passengerInformation,$buildData,$buildType,$user){
     	
-    	$body = '<OTA_TravelItineraryRQ>
+    	$body = '
+  <wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
+  <OTA_TravelItineraryRQ>
    '.$this->posXML().'
    '.$this->buildTypeSort($buildType,$buildData).'
    <TPA_Extensions>
@@ -521,22 +559,105 @@ class AmadeusRequestXML
             </PersonName>
             <TravelerRefNumber RPH="1" />
          </Traveler>
-         <Telephone PhoneLocationType="Home" CountryAccessCode="1" AreaCityCode="MIA" PhoneNumber="305-444-4444" FormattedInd="0" />
-         <Telephone PhoneLocationType="Business" CountryAccessCode="1" AreaCityCode="MIA" PhoneNumber="305-670-1561" FormattedInd="0" />
-         <Email>info@Amadeus.com</Email>
-         <Address FormattedInd="0" Type="Home">
-            <StreetNmbr>7300 North Kendall Drive</StreetNmbr>
-            <CityName>MIAMI</CityName>
-            <PostalCode>33156</PostalCode>
-            <StateProv StateCode="FL" />
-            <CountryName Code="US" />
-         </Address>
-         <Ticketing TicketTimeLimit="2006-06-06T06:00:00" TicketType="eTicket" />
+         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="'.$user['profile']['phone'].'" FormattedInd="0" />
+         <Email>'.$user['email'].'info@Amadeus.com</Email>
+         <Ticketing TicketTimeLimit="'.$buildData['ticketTimeLimit'].'" TicketType="eTicket" />
       </PNRData>
+      <PriceData PriceType="'.$buildData['priceType'].'" AutoTicketing="false" ValidatingAirlineCode="'.$buildData['validatingAirlineCode'].'">
+       <PublishedFares>
+      <FareRestrictPref>
+      <AdvResTicketing><AdvReservation/>
+      </AdvResTicketing>
+      <StayRestrictions>
+      <MinimumStay/>
+      <MaximumStay/>
+      </StayRestrictions>
+      <VoluntaryChanges>
+      <Penalty/>
+      </VoluntaryChanges>
+      </FareRestrictPref>
+      </PublishedFares>
+      </PriceData>
    </TPA_Extensions>
-  </OTA_TravelItineraryRQ>';
+  </OTA_TravelItineraryRQ>
+  </wmTravelBuild>';
 
         return $this->requestXML($body);
+    }
+
+    public function flightTravelBuildRequestElementXML($passengerInformation,$buildData,$user){
+
+//         dd($passengerInformation);
+        $body = '
+  <wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
+  <OTA_TravelItineraryRQ>
+   '.$this->posXML().'
+   '.$this->airBookXML($buildData).'
+   <TPA_Extensions>
+      <PNRData>
+      '.$this->airBookPassengersXML($passengerInformation).'
+         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="'.$user['profile']['phone'].'" FormattedInd="0"/>
+         <Email>'.$user['email'].'</Email>
+         <Ticketing TicketTimeLimit="'.$buildData['ticketTimeLimit'].'" TicketType="eTicket" />
+      </PNRData>
+      <PriceData PriceType="'.$buildData['pricingSource'].'" AutoTicketing="false" ValidatingAirlineCode="'.$buildData['validatingAirlineCode'].'" >
+       <PublishedFares>
+      <FareRestrictPref>
+      <AdvResTicketing><AdvReservation/>
+      </AdvResTicketing>
+      <StayRestrictions>
+      <MinimumStay/>
+      <MaximumStay/>
+      </StayRestrictions>
+      <VoluntaryChanges>
+      <Penalty/>
+      </VoluntaryChanges>
+      </FareRestrictPref>
+      </PublishedFares>
+      </PriceData>
+   </TPA_Extensions>
+  </OTA_TravelItineraryRQ>
+  </wmTravelBuild>';
+
+        return $this->requestXML($body);
+    }
+
+    public function airBookPassengersXML($passengerInformation){
+        $available = [];
+        foreach($passengerInformation as $key => $information){
+            $prefix = explode('_',$key)[0];
+            if($prefix != ""){
+            array_push($available,$prefix);
+            }
+        }
+        $passengerArray = array_values(array_unique($available));
+        $passengerRPH = 1;
+        $travelers = '';
+        foreach($passengerArray as $serial => $passengerType){
+            $passengerTypeCount = count($passengerInformation[$passengerType."_title"]);
+            for($p = 0; $p < $passengerTypeCount; $p++){
+                $birthDate = '';
+                if($passengerType != 'adult'){
+                    $dob_new = $passengerInformation[$passengerType."_year_of_birth"][$p].'-'.$passengerInformation[$passengerType."_month_of_birth"][$p].'-'.$passengerInformation[$passengerType."_day_of_birth"][$p];
+                    $date = $dob = date('Y-m-d', strtotime($dob_new));
+                    $birthDate = 'BirthDate="'.$date.'"';
+                }
+                $traveler = '
+                <Traveler PassengerTypeCode="ADT" '.$birthDate.'>
+                  <PersonName>
+                    <NamePrefix>'.$passengerInformation[$passengerType."_title"][$p].'</NamePrefix>
+                    <GivenName>'.$passengerInformation[$passengerType."_first_name"][$p].' '.$passengerInformation[$passengerType."_other_name"][$p].'</GivenName>
+                    <Surname>'.$passengerInformation[$passengerType."_sur_name"][$p].'</Surname>
+                  </PersonName>
+                  <TravelerRefNumber RPH="'.$passengerRPH.'" />
+                </Traveler>
+                ';
+                $passengerRPH =  $passengerRPH + 1;
+                $travelers = $travelers.$traveler;
+            }
+        }
+
+       return $travelers;
     }
 
     public function hotelAvailRequestXml($data){
@@ -615,16 +736,6 @@ class AmadeusRequestXML
 </OTA_HotelAvailRQ>';
         return $this->requestXML($body);
 	}
-
-
-
-
-
-
-
-
-
-
 
 
 }

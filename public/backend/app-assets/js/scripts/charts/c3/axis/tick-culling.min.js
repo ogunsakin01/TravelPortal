@@ -1,0 +1,1 @@
+$(window).on("load",function(){var i=c3.generate({bindto:"#tick-culling",size:{height:400},color:{pattern:["#673AB7","#E91E63"]},data:{columns:[["sample",30,200,100,400,150,250,30,200,100,400,150,250,30,200,100,400,150,250,200,100,400,150,250]]},axis:{x:{type:"category",tick:{culling:{max:4}}}},grid:{y:{show:!0}}});$(".menu-toggle").on("click",function(){i.resize()})});

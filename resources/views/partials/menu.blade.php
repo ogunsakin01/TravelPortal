@@ -15,20 +15,19 @@
                         </button>
 
                         <!-- BEGIN: LOGO -->
-                        <a class="navbar-brand logo" href="{{ url('/') }}">CRUISE</a>
+                        <a class="navbar-brand logo" href="{{ url('/') }}">{{config('app.name')}}</a>
                     </div>
 
                     <!-- BEGIN: NAVIGATION -->
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a class="dropdown-toggle" href="{{ url('/') }}" data-toggle="dropdown"><i class="fa fa-home"></i> HOME </a>
+                                <a class="dropdown-toggle" href="{{ url('/') }}"><i class="fa fa-home"></i> HOME </a>
                             </li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-plane"></i> FLIGHTS <i class="fa fa-caret-down"></i></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ url('flight/search_results') }}"> Search Results</a></li>
-                                    {{--<li><a href="index-2.html"> Itinerary Details</a></li>--}}
                                     <li><a href="{{ url('flight/itinerary_booking') }}"> Itinerary Booking</a></li>
                                     <li><a href="{{ url('flight/payment_option') }}">Flight Payment Options</a></li>
                                     <li><a href="{{ url('flight/payment_confirmation') }}">Flight Payment Confirmation</a></li>

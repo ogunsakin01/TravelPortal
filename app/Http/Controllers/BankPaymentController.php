@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\BankPayment;
 use Illuminate\Http\Request;
+use App\FlightBooking;
+use nilsenj\Toastr\Facades\Toastr;
 
 class BankPaymentController extends Controller
 {
@@ -81,5 +83,26 @@ class BankPaymentController extends Controller
     public function destroy(BankPayment $bankPayment)
     {
         //
+    }
+
+
+    public function itineraryBankPayment(Request $r){
+        $pnr = session()->get('pnr');
+        $booking = FlightBooking::where('pnr',$pnr)->first();
+        $saveBankBooking = BankPayment::store($booking,$r->bank_details_id);
+        if($saveBankBooking){
+
+            $paymentInfo = [
+                'status' => 3,
+                'message' => 'You selected the pay by bank option'
+            ];
+
+            session()->put('paymentInfo',$paymentInfo);
+            return redirect('/flight-payment-confirmation');
+
+        }else{
+            Toastr::error('Unable to save bank payments option');
+            return back();
+        }
     }
 }

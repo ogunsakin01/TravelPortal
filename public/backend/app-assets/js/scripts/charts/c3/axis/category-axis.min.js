@@ -1,0 +1,1 @@
+$(window).on("load",function(){var t=c3.generate({bindto:"#category-axis",size:{height:400},color:{pattern:["#673AB7","#E91E63"]},data:{columns:[["data1",30,200,100,400,150,250,50,100,250]]},axis:{x:{type:"category",categories:["cat1","cat2","cat3","cat4","cat5","cat6","cat7","cat8","cat9"]}},grid:{y:{show:!0}}});$(".menu-toggle").on("click",function(){t.resize()})});

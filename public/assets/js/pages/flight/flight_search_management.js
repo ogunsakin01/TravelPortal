@@ -212,7 +212,6 @@ $(function(){
 
     });
 
-
     $('input[name="inlineRadioOptions"][type="radio"]').on('change',function(){
         var option = $(this).val();
         toastr.info($(this).val());
@@ -413,17 +412,5 @@ $(function(){
 
 
     });
-
-
-
-
-
-
-
-
-
-
-
-
 
 });

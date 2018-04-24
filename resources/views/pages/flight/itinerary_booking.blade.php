@@ -32,6 +32,7 @@
     <div class="row booking-detail">
         <div class="container clear-padding">
             <div class="tab-content">
+
                 <div id="review-booking" class="tab-pane fade in active">
                     <div class="col-md-8 col-sm-8">
                         @foreach($selectedItinerary['originDestinations'] as $serial => $segment)
@@ -91,7 +92,7 @@
                             <div class="sidebar-body">
                                 @if($selectedItinerary['priceChange'] != 0)
                                 <div class="alert alert-info">
-                                    <strong><i class="fa fa-info"></i></strong> The Itinerary price changed by &#x20a6;{{number_format($selectedItinerary['priceChange'], 2)}}.
+                                    <strong><i class="fa fa-info"></i></strong> The Itinerary price changed by<br/> <b> &#x20a6; {{number_format(($selectedItinerary['priceChange'] / 100), 2)}}</b>.
                                 </div>
                                 @endif
 
@@ -168,29 +169,32 @@
                         </div>
                     </div>
                 </div>
+
                 <div id="passenger-info" class="tab-pane fade">
                     <div class="col-md-8 col-sm-8">
+                        @if(auth()->guest())
                         <div class="login-box">
-                            <h3>Sign In</h3>
-                            <div class="booking-form">
+                            <h3>Existing customer  ?  <button class="btn btn_travel_portal btn-sm pull-right sign-in">Sign in <i class="fa fa-sign-in"></i></button></h3>
+                            <div class="booking-form sign-in-container hidden">
+                                <h4>Sign In</h4>
                                     <form >
                                         <div class="row">
-                                           <div class="col-md-4">,
+                                           <div class="col-md-4">
                                                <div class="form-group">
                                                    <label>Email</label>
-                                                   <input class="form-control" type="email" name="emailid" placeholder="Enter Your Email" required>
+                                                   <input class="form-control login_email" type="email" name="email" placeholder="Enter Your Email" required>
                                                </div>
                                            </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Password</label>
-                                                    <input class="form-control" type="password" name="password" placeholder="Enter Password" required>
+                                                    <input class="form-control login_password" type="password" name="password" placeholder="Enter Password" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group" style="text-align: center">
                                                     <label></label>
-                                                    <button class="login">Login</button>
+                                                    <button class="login sign-in-submit">Sign In</button>
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
@@ -206,70 +210,267 @@
                                         </div>
                                     </form>
                             </div>
-                        </div>
-                        <br/>
-                        <div class="login-box">
-                            <h3>Sign In</h3>
-                            <div class="booking-form">
-                                <div class="col-md-6 col-sm-6">
+
+                            <div class="booking-form sign-up-container">
+                                <h4>Sign Up</h4>
+                                <div class="col-md-12">
                                     <form >
-                                        <label>Email</label>
-                                        <input class="form-control" type="email" name="emailid" placeholder="Enter Your Email" required>
-                                        <label>Password</label>
-                                        <input class="form-control" type="password" name="password" placeholder="Enter Password" required>
-                                        <a href="#">Forget Password?</a>
-                                        <label>Phone Number (Optional)</label>
-                                        <input class="form-control" type="text" name="phone">
-                                        <label><input type="checkbox" name="remember"> Remember me</label>
-                                        <button type="submit">Login</button>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Surname</label>
+                                                <div class="input-group">
+                                                    <input name="sur_name" type="text" class="form-control sur_name" placeholder="Surname (Family name)" required>
+                                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>First name</label>
+                                                <div class="input-group">
+                                                    <input name="first_name" type="text" class="form-control first_name" placeholder="First name (Your name)" required>
+                                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Other name</label>
+                                                <div class="input-group">
+                                                    <input name="other_name" type="text" class="form-control other_name" placeholder="Other name (Your other name)" required>
+                                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                                <div class="input-group">
+                                                    <input name="email" type="email" class="form-control register_email" placeholder="Email" required>
+                                                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Phone</label>
+                                                <div class="input-group">
+                                                    <input name="phone" type="tel" class="form-control register_phone" placeholder="Phone number" required>
+                                                    <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Password</label>
+                                                <div class="input-group">
+                                                    <input id="password" type="password" class="form-control password" name="password" placeholder="Password" required>
+                                                    <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Confirm Password</label>
+                                                <div class="input-group">
+                                                    <input id="password-confirm" type="password" class="form-control password_confirmation" name="password_confirmation" placeholder="Retype Password">
+                                                    <span class="input-group-addon"><i class="fa fa-eye fa-fw"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button class="btn btn_travel_portal sign-up-submit"> Sign Up</button>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
-                                <div class="col-md-6 col-sm-6 text-center">
-                                    <div class="social-media-login">
-                                        <a href="#"><i class="fa fa-facebook"></i>Log in With Facebook</a>
-                                        <span>Or</span>
-                                        <a href="#"><i class="fa fa-plus"></i>Create Account</a>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <br/>
-                        <div class="passenger-detail">
+                        @endif
+                        <div class="passenger-detail @if(auth()->guest()) hidden @endif">
                             <h3>Passenger Details</h3>
                             <div class="passenger-detail-body">
-                                <form >
-                                    <div class="col-md-6 ol-sm-6">
-                                        <label>First Name</label>
-                                        <input type="text" name="firstname" required class="form-control">
+                                <form method="post" action="{{url('/book-itinerary')}}">
+                                    @csrf
+                                    <div class="alert alert-info">
+                                        <b>Please enter details as on traveller(s) passport</b>
                                     </div>
-                                    <div class="col-md-6 ol-sm-6">
-                                        <label>Last Name</label>
-                                        <input type="text" name="lastname" required class="form-control">
+                                   @for($i = 0; $i < $flightSearchParam['no_of_adult']; $i++)
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                           <b>Adult [{{$i+1}}]</b>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <select required name="adult_title[]" class="form-control">
+                                                    <option value="MR">MR. </option>
+                                                    <option value="MRS">MRS. </option>
+                                                    <option value="MISS">MISS </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ol-sm-4">
+                                                    <div class="form-group">
+                                                       <label>Surname</label>
+                                                       <input type="text" name="adult_sur_name[]" required class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 ol-sm-4">
+                                                    <div class="form-group">
+                                                        <label>First name</label>
+                                                        <input type="text" name="adult_first_name[]" required class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 ol-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Other name</label>
+                                                        <input type="text" name="adult_other_name[]" required class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 ol-sm-6">
-                                        <label>Email</label>
-                                        <input type="email" name="email" required class="form-control">
+                                   @endfor
+
+                                    @for($i = 0; $i < $flightSearchParam['no_of_child']; $i++)
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <b>Child [{{$i+1}}]</b>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <select required name="child_title[]" class="form-control">
+                                                    <option value="MR">MR. </option>
+                                                    <option value="MRS">MRS. </option>
+                                                    <option value="MISS">MISS </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ol-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Surname</label>
+                                                        <input type="text" name="child_sur_name[]" required class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 ol-sm-4">
+                                                    <div class="form-group">
+                                                        <label>First name</label>
+                                                        <input type="text" name="child_first_name[]" required class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 ol-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Other name</label>
+                                                        <input type="text" name="child_other_name[]" required class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                                <div class="form-group">
+                                                    <label>Date Of Birth</label>
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                             <select name="child_day_of_birth[]" required class="form-control">
+                                                                 @for($day = 1; $day < 32; $day++)
+                                                                     <option value="{{sprintf("%01d", $day)}}">{{sprintf("%01d", $day)}}</option>
+                                                                 @endfor
+                                                             </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <select name="child_month_of_birth[]" required class="form-control">
+                                                                @foreach($months as $serial => $month)
+                                                                    <option value="{{sprintf("%01d", ($serial+1))}}">{{$month}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <select name="child_year_of_birth[]" required class="form-control">
+                                                                @php
+                                                                    $cur_year = date('Y');
+                                                                    for ($i=2; $i<=14; $i++) {
+                                                                      echo '<option value="'. ($cur_year-$i) .'">'. ($cur_year-$i) .'</option>';
+                                                                    }
+                                                                @endphp
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                     </div>
+                                    @endfor
+
+                                    @for($i = 0; $i < $flightSearchParam['no_of_infant']; $i++)
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <b>Infant [{{$i+1}}]</b>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label>Title</label>
+                                                <select required name="infant_title[]" class="form-control">
+                                                    <option value="MASTER">MASTER </option>
+                                                    <option value="MISS">MISS </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-4 ol-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Surname</label>
+                                                        <input type="text" name="infant_sur_name[]" required class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 ol-sm-4">
+                                                    <div class="form-group">
+                                                        <label>First name</label>
+                                                        <input type="text" name="infant_first_name[]" required class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 ol-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Other name</label>
+                                                        <input type="text" name="infant_other_name[]" required class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="form-group">
+                                                <label>Date Of Birth</label>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <select name="infant_day_of_birth[]" required class="form-control">
+                                                            @for($day = 1; $day < 32; $day++)
+                                                                <option value="{{sprintf("%01d", $day)}}">{{sprintf("%01d", $day)}}</option>
+                                                            @endfor
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select name="infant_month_of_birth[]" required class="form-control">
+                                                            @foreach($months as $serial => $month)
+                                                                <option value="{{sprintf("%01d", ($serial+1))}}">{{$month}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select name="infant_year_of_birth[]" required class="form-control">
+                                                            @php
+                                                                $cur_year = date('Y');
+                                                                for ($i=0; $i<=2; $i++) {
+                                                                  echo '<option value="'. ($cur_year-$i) .'">'. ($cur_year-$i) .'</option>';
+                                                                }
+                                                            @endphp
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 ol-sm-6">
-                                        <label>Verify Email</label>
-                                        <input type="email" name="verify_email" class="form-control">
-                                    </div>
-                                    <div class="col-md-6 ol-sm-6">
-                                        <label>Country Code</label>
-                                        <select name="countrycode" class="form-control">
-                                            <option>+1 United States</option>
-                                            <option>+1 Canada</option>
-                                            <option>+44 United Kingdom</option>
-                                            <option>+91 India</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 ol-sm-6">
-                                        <label>Phone Number</label>
-                                        <input type="text" name="phonenumber" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <label><input type="checkbox" name="alert"> Send me newsletters and updates</label>
-                                    </div>
+                                    @endfor
+
                                     <div class="text-center">
                                         <button type="submit">CONTINUE <i class="fa fa-chevron-right"></i></button>
                                     </div>

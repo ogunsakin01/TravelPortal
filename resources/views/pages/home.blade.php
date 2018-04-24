@@ -315,7 +315,7 @@
                                         <div class="col-md-12 col-sm-12 search-col-padding">
                                             <label>I Want To Go</label>
                                             <div class="input-group">
-                                                <input type="text" name="destination-city" class="form-control" required placeholder="E.g. New York">
+                                                <input type="text" name="destination-city" class="form-control type-ahead hotel_city" required placeholder="E.g. City, Airport ...">
                                                 <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
                                             </div>
                                         </div>
@@ -323,51 +323,29 @@
                                         <div class="col-md-6 col-sm-6 search-col-padding">
                                             <label>Check - In</label>
                                             <div class="input-group">
-                                                <input type="text" name="check-in" id="check_in" class="form-control" placeholder="DD/MM/YYYY">
+                                                <input type="text" name="check-in" id="check_in" class="form-control date-picker check_in_date" placeholder="DD/MM/YYYY">
                                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 search-col-padding">
                                             <label>Check - Out</label>
                                             <div class="input-group">
-                                                <input type="text" name="check-out" id="check_out" class="form-control" placeholder="DD/MM/YYYY">
+                                                <input type="text" name="check-out" id="check_out" class="form-control date-picker check_out_date" placeholder="DD/MM/YYYY">
                                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="col-md-3 col-sm-3 search-col-padding">
                                             <label>Adult</label><br>
-                                            <input id="hotel_adult_count" name="adult_count" value="1" class="form-control quantity-padding">
+                                            <input id="hotel_adult_count" name="adult_count" value="1" class="form-control quantity-padding adult_count">
                                         </div>
                                         <div class="col-md-3 col-sm-3 search-col-padding">
                                             <label>Child</label><br>
-                                            <input type="text" id="hotel_child_count" name="child_count" value="1" class="form-control quantity-padding">
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 search-col-padding">
-                                            <label>Rooms</label><br>
-                                            <select class="selectpicker" name="rooms">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 search-col-padding">
-                                            <label>Nights</label><br>
-                                            <select class="selectpicker" name="nights">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                            </select>
+                                            <input type="text" id="hotel_child_count" name="child_count" value="1" class="form-control quantity-padding child_count">
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="col-md-12 search-col-padding">
-                                            <button type="button" class="search-button btn transition-effect">Search Hotels</button>
+                                            <button type="button" class="search-button btn transition-effect hotel_search">Search Hotels</button>
                                         </div>
                                         <div class="clearfix"></div>
                                     </form>
@@ -1057,6 +1035,7 @@
 
     </script>
     <script src="{{asset('assets/js/pages/flight/flight_search_management.js')}}"></script>
+    <script src="{{asset('assets/js/pages/hotel/hotel_search_management.js')}}"></script>
 
 @endsection
 

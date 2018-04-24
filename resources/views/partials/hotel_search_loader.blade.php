@@ -11,7 +11,7 @@
                 <span><i class="fa fa-suitcase"></i></span>
             </div>
             <div class="search-title">
-                <p>We are on it! Looking for best hotels in <span>New York</span>. This will take few seconds.</p>
+                <p>We are on it! Looking for best hotels in <br/><span class="hotel_destination_city"></span> <br/> This will take few seconds.</p>
             </div>
             <p class="copyright">&copy; {{date('Y')}} {{config('app.name')}}</p>
         </div>

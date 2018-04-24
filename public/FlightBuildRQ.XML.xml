@@ -1,0 +1,99 @@
+
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                
+  <wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
+  <OTA_TravelItineraryRQ>
+   <POS>
+        <Source PseudoCityCode="MIA1S21AV" ISOCurrency="NGN">
+         <RequestorID Type="21" ID="RubyTravel"/>
+        </Source>
+         <TPA_Extensions>
+            <Provider>
+               <Name>Amadeus</Name> 
+               <System>Test</System> 
+               <Userid>RubyTravel</Userid> 
+               <Password>sTeBr+Fr3kEv</Password> 
+            </Provider>
+         </TPA_Extensions>
+      </POS>
+   
+             <OTA_AirBookRQ>
+   <AirItinerary DirectionInd="Circle">
+      <OriginDestinationOptions>
+         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-25T17:45:00" ArrivalDateTime="2018-04-26T03:35:00" FlightNumber="98" ResBookDesigCode="S" RPH="1" NumberInParty="4">    
+		  <DepartureAirport LocationCode="LHR"/>
+		  <ArrivalAirport LocationCode="DXB"/>      
+		  <MarketingAirline Code="BI"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-27T01:35:00" ArrivalDateTime="2018-04-27T05:55:00" FlightNumber="97" ResBookDesigCode="S" RPH="2" NumberInParty="4">    
+		  <DepartureAirport LocationCode="DXB"/>
+		  <ArrivalAirport LocationCode="LHR"/>      
+		  <MarketingAirline Code="BI"/>     
+		  </FlightSegment></OriginDestinationOption>
+      </OriginDestinationOptions>
+   </AirItinerary>
+</OTA_AirBookRQ>
+           
+   <TPA_Extensions>
+      <PNRData>
+      
+                <Traveler PassengerTypeCode="ADT" >
+                  <PersonName>
+                    <NamePrefix>MR</NamePrefix>
+                    <GivenName>Damilola olamide</GivenName>
+                    <Surname>Ogunsakin</Surname>
+                  </PersonName>
+                  <TravelerRefNumber RPH="1" />
+                </Traveler>
+                
+                <Traveler PassengerTypeCode="ADT" >
+                  <PersonName>
+                    <NamePrefix>MR</NamePrefix>
+                    <GivenName>Ogunsakin Olamide</GivenName>
+                    <Surname>Ogunsakin</Surname>
+                  </PersonName>
+                  <TravelerRefNumber RPH="2" />
+                </Traveler>
+                
+                <Traveler PassengerTypeCode="ADT" BirthDate="2016-01-01">
+                  <PersonName>
+                    <NamePrefix>MR</NamePrefix>
+                    <GivenName>Mia lola</GivenName>
+                    <Surname>John</Surname>
+                  </PersonName>
+                  <TravelerRefNumber RPH="3" />
+                </Traveler>
+                
+                <Traveler PassengerTypeCode="ADT" BirthDate="2018-01-01">
+                  <PersonName>
+                    <NamePrefix>MASTER</NamePrefix>
+                    <GivenName>weij ji</GivenName>
+                    <Surname>sdfu</Surname>
+                  </PersonName>
+                  <TravelerRefNumber RPH="4" />
+                </Traveler>
+                
+         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="" FormattedInd="0"/>
+         <Email>ogunsakin191@gmail.com</Email>
+         <Ticketing TicketTimeLimit="2018-04-25T23:59:00" TicketType="eTicket" />
+      </PNRData>
+      <PriceData PriceType="Published" AutoTicketing="false" ValidatingAirlineCode="BI" >
+       <PublishedFares>
+      <FareRestrictPref>
+      <AdvResTicketing><AdvReservation/>
+      </AdvResTicketing>
+      <StayRestrictions>
+      <MinimumStay/>
+      <MaximumStay/>
+      </StayRestrictions>
+      <VoluntaryChanges>
+      <Penalty/>
+      </VoluntaryChanges>
+      </FareRestrictPref>
+      </PublishedFares>
+      </PriceData>
+   </TPA_Extensions>
+  </OTA_TravelItineraryRQ>
+  </wmTravelBuild>
+            </soap:Body>
+        </soap:Envelope>

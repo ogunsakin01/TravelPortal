@@ -34,5 +34,6 @@ class MarkupTypesTableSeeder extends Seeder
         {
             MarkupType::create($value);
         }
+
     }
 }

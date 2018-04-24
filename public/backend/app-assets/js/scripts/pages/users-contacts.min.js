@@ -1,0 +1,1 @@
+$(document).ready(function(){var a=$("#users-contacts").DataTable();$("#search-contacts").on("keyup",function(){a.search(this.value).draw()}),$(".input-chk").iCheck({checkboxClass:"icheckbox_square-blue",radioClass:"iradio_square-blue"}),a.on("draw.dt",function(){$(".input-chk").iCheck({checkboxClass:"icheckbox_square-blue",radioClass:"iradio_square-blue"})})});

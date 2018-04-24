@@ -1,0 +1,1 @@
+$(window).on("load",function(){for(var o,r=[],e=0;e<=60;e+=1)r.push([e,parseInt(30*Math.random()-10)]);o=0,$.plot("#thresholds",[{data:r,color:"#00A5A8",threshold:{below:o,color:"#F25E75"},lines:{steps:!0}}],{grid:{borderWidth:1,borderColor:"#e9e9e9",color:"#999",minBorderMargin:20,labelMargin:10,margin:{top:8,bottom:20,left:20}}})});

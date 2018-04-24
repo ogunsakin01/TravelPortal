@@ -1,4 +1,4 @@
-$(function(){
+
 
     var loaderCircle = '<div class="spinner-layer spinner-red">\n' +
         '        <div class="circle-clipper left">\n' +
@@ -23,7 +23,7 @@ $(function(){
 
     function buttonClicked(button_id,button_text,option){
         if(option === 1){
-            var appendInfo = '<i class="fa fa-refresh fa-spin"></i> '+button_text;
+            var appendInfo = '<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...';
             $('#'+button_id).html(appendInfo);
             $('#'+button_id).prop('disabled',true);
         }else if(option === 0){
@@ -36,7 +36,7 @@ $(function(){
 
     function buttonClassClicked(button_class,button_text,option){
         if(option === 1){
-            var appendInfo = '<i class="fa fa-refresh fa-spin"></i> '+button_text;
+            var appendInfo = '<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...';
             $('.'+button_class).html(appendInfo);
             $('.'+button_class).prop('disabled',true);
         }else if(option === 0){
@@ -196,8 +196,3 @@ $(function(){
         }
     }
 
-
-
-
-
-});

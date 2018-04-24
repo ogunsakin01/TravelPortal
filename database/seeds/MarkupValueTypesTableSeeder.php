@@ -14,11 +14,11 @@ class MarkupValueTypesTableSeeder extends Seeder
     {
         $markups = [
             [
-                'type' => 'Percentage'
+                'type' => 'Naira'
             ],
 
             [
-                'type' => 'Naira'
+                'type' => 'Percentage'
             ],
         ];
 

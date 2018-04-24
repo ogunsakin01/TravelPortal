@@ -91,9 +91,10 @@ class RegisterController extends Controller
 
         $data['user'] = $user;
 
+        Profile::store($data);
+
         PortalCustomNotificationHandler::registrationSuccessful($user);
 
-        Profile::store($data);
 
         Toastr::success('Thanks for signing up on our portal');
 
