@@ -61,6 +61,15 @@ Route::middleware(['auth'])->group(function(){
         Route::post('createOrUpdateMarkdown','MarkdownController@createOrUpdate');
         Route::get('getMarkdown/{id}','MarkdownController@getMarkdownById');
 
+        Route::group(['prefix' => 'bank-details'],function(){
+            Route::get('/fetch/{id}', 'BankDetailController@getBankDetail')->name('backend-bank-details');
+            Route::view('','pages.backend.settings.banks')->name('banks');
+            Route::post('/saveOrUpdate','BankDetailController@saveOrUpdateBankDetails');
+            Route::post('/activate','BankDetailController@activateBankDetails');
+            Route::post('/deActivate','BankDetailController@deActivateBankDetails');
+            Route::post('/delete','BankDetailController@deleteBankDetails');
+        });
+
     });
 
     Route::group(['prefix' => 'bookings'],function(){

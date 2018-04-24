@@ -67,7 +67,7 @@
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Vouchers</a>
                     </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Banks</a>
+                    <li><a class="menu-item" href="{{route('banks')}}" data-i18n="nav.page_layouts.2_columns">Banks</a>
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Users Management</a>
                     </li>
