@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-4" id="enter_bank_details_card_body">
+        <div class="col-md-12 col-lg-4" id="enter_bank_details_card_body">
             <div class="card">
                 <div class="card-header">
                     <h3 id="save_header">Add Bank Account Details</h3>
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12 col-lg-8">
             <div class="card">
                 <div class="card-header">
                     <h3>Bank Details</h3>
