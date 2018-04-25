@@ -73,7 +73,7 @@
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Email Subscribers</a>
                     </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Profile</a>
+                    <li><a class="menu-item" href="{{route('backend-profile-view')}}" data-i18n="nav.page_layouts.2_columns">Profile</a>
                     </li>
                 </ul>
             </li>
