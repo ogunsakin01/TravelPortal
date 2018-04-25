@@ -29,7 +29,7 @@ class FlightBooking extends Model
 
         return static::create([
             'user_id'              => $user->id,
-            'reference'            => strtoupper(str_random(6)),
+            'reference'            => 'AIR-'.strtoupper(str_random(5)),
             'pnr'                  => $sortedResponse['pnr'],
             'itinerary_amount'     => $selectedItinerary['defaultItineraryPrice'],
             'markup'               => $selectedItinerary['markup'],

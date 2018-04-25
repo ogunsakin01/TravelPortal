@@ -21,98 +21,26 @@
                     <!-- BEGIN: NAVIGATION -->
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" href="{{ url('/') }}"><i class="fa fa-home"></i> HOME </a>
+                            <li class="dropdown @yield('activeHome')">
+                                <a class="dropdown-toggle" href="{{ url('/') }}"> HOME </a>
                             </li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-plane"></i> FLIGHTS <i class="fa fa-caret-down"></i></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ url('flight/search_results') }}"> Search Results</a></li>
-                                    <li><a href="{{ url('flight/itinerary_booking') }}"> Itinerary Booking</a></li>
-                                    <li><a href="{{ url('flight/payment_option') }}">Flight Payment Options</a></li>
-                                    <li><a href="{{ url('flight/payment_confirmation') }}">Flight Payment Confirmation</a></li>
-                                </ul>
+                            <li class="dropdown @yield('activeFlights')">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> FLIGHTS </a>
                             </li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-bed"></i> HOTELS <i class="fa fa-caret-down"></i></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ url('hotel/search_results') }}"> Search Results</a></li>
-                                    <li><a href="{{ url('hotel/hotel_details') }}"> Hotel Details</a></li>
-                                    <li><a href="{{ url('hotel/hotel_room_details') }}"> Hotel Room Details</a></li>
-                                    <li><a href="{{ url('hotel/hotel_booking') }}"> Hotel Booking</a></li>
-                                    <li><a href="{{ url('hotel/hotel_payment_option') }}">Hotel Payment Options</a></li>
-                                    <li><a href="{{ url('hotel/hotel_payment_confirmation') }}">Hotel Payment Confirmation</a></li>
-                                </ul>
+                            <li class="dropdown @yield('activeHotels')">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> HOTELS </a>
                             </li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-suitcase"></i> PACKAGES <i class="fa fa-caret-down"></i></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ url('package/package_list') }}"> Package List</a></li>
-                                    <li><a href="{{ url('package/package_details') }}"> Package Details</a></li>
-                                    <li><a href="{{ url('package/package_payment_option') }}"> Package Payment Options</a></li>
-                                    <li><a href="{{ url('package/package_payment_confirmation') }}"> Package Payment Confirmation</a></li>
-                                </ul>
+                            <li class="dropdown @yield('activePackages')">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> PACKAGES </a>
                             </li>
-                            <li class="dropdown mega">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-ship"></i> BOOKINGS <i class="fa fa-caret-down"></i></a>
-                                <ul class="dropdown-menu mega-menu col-md-9">
-                                    <li class="col-md-offset-3 col-md-3 col-sm-4 links">
-                                        <h5>FLIGHT BOOKING</h5>
-                                        <ul>
-                                            <li><a href="{{ url('booking/flight/my_bookings') }}">My Bookings</a></li>
-                                            <li><a href="{{ url('booking/flight/agent_bookings') }}">Agent Bookings</a></li>
-                                            <li><a href="{{ url('booking/flight/customer_bookings') }}">Customer Bookings</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-md-3 col-sm-4 links">
-                                        <h5>HOTEL BOOKING</h5>
-                                        <ul>
-                                            <li><a href="{{ url('booking/hotel/my_bookings') }}">My Bookings</a></li>
-                                            <li><a href="{{ url('booking/hotel/agent_bookings') }}">Agent Bookings</a></li>
-                                            <li><a href="{{ url('booking/hotel/customer_bookings') }}">Customer Bookings</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-md-3 col-sm-4 links">
-                                        <h5>PACKAGE BOOKING</h5>
-                                        <ul>
-                                            <li><a href="{{ url('booking/package/my_bookings') }}">My Bookings</a></li>
-                                            <li><a href="{{ url('booking/package/agent_bookings') }}">Agent Bookings</a></li>
-                                            <li><a href="{{ url('booking/package/customer_bookings') }}">Customer Bookings</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                            <li class="dropdown @yield('activeAboutUs')">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> ABOUT US </a>
                             </li>
-                            <li class="dropdown mega">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-cog"></i> SETTINGS <i class="fa fa-caret-down"></i></a>
-                                <ul class="dropdown-menu mega-menu col-md-9">
-                                    <li class="col-md-offset-3 col-md-3 col-sm-4 links">
-                                        <h5>TRAVEL PACKAGES</h5>
-                                        <ul>
-                                            <li><a href="{{ url('setting/travel-package') }}">All Travel Packages</a></li>
-                                            <li><a href="{{ url('setting/travel-package/create') }}">Create Travel Package</a></li>
-                                            <li><a href="{{ url('setting/travel-package/categories') }}">Categories </a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-md-3 col-sm-4 links">
-                                        <h5>TRANSACTION LOG</h5>
-                                        <ul>
-                                            <li><a href="#">My Bookings</a></li>
-                                            <li><a href="#">Agent Bookings</a></li>
-                                            <li><a href="#">Customer Bookings</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="col-md-3 col-sm-4 links">
-                                        <h5>OTHER SETTINGS</h5>
-                                        <ul>
-                                            <li><a href="{{ url('setting/other-setting/profile_management') }}">Profile Management</a></li>
-                                            <li><a href="{{ url('setting/other-setting/Wallet_management') }}">Wallet Management</a></li>
-                                            <li><a href="{{ url('setting/other-setting/Customer_bookings') }}">Customer Bookings</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                            <li class="dropdown @yield('activeContactUs')">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> CONTACT US </a>
                             </li>
-                            <li class="dropdown mega">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="fa fa-taxi"></i> LOGIN </a>
+                            <li class="dropdown @yield('activeLogin')">
+                                <a class="dropdown-toggle" href="{{url('/login')}}" data-toggle="dropdown"> LOGIN </a>
                             </li>
                         </ul>
                     </div>

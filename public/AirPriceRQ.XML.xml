@@ -19,14 +19,14 @@
       </POS> 
 		  <AirItinerary>   
 		  <OriginDestinationOptions>    
-		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-25T17:45:00" ArrivalDateTime="2018-04-26T03:35:00" FlightNumber="98" ResBookDesigCode="S">    
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-29T13:00:00" ArrivalDateTime="2018-04-29T19:35:00" FlightNumber="202" ResBookDesigCode="H">    
 		  <DepartureAirport LocationCode="LHR"/>
+		  <ArrivalAirport LocationCode="BEY"/>      
+		  <MarketingAirline Code="ME"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-04-30T07:30:00" ArrivalDateTime="2018-04-30T11:45:00" FlightNumber="426" ResBookDesigCode="H">    
+		  <DepartureAirport LocationCode="BEY"/>
 		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="BI"/>     
-		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-27T01:35:00" ArrivalDateTime="2018-04-27T05:55:00" FlightNumber="97" ResBookDesigCode="S">    
-		  <DepartureAirport LocationCode="DXB"/>
-		  <ArrivalAirport LocationCode="LHR"/>      
-		  <MarketingAirline Code="BI"/>     
+		  <MarketingAirline Code="ME"/>     
 		  </FlightSegment></OriginDestinationOption>  
 		  </OriginDestinationOptions>  
 		  </AirItinerary>  

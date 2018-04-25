@@ -28,6 +28,7 @@ class PasswordReset extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.PasswordReset');
+        return $this->from('no-reply@travelportal.com',config('app.name'))
+            ->markdown('emails.PasswordReset');
     }
 }

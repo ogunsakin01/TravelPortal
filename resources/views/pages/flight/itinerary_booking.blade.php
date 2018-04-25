@@ -34,7 +34,17 @@
             <div class="tab-content">
 
                 <div id="review-booking" class="tab-pane fade in active">
+
                     <div class="col-md-8 col-sm-8">
+                        @if($errors->any())
+                        @if(is_array($errors->first()))
+                            @foreach($errors->first() as $serial => $error)
+                                    <div class="alert alert-danger">{{$error}}</div>
+                                @endforeach
+                            @else
+                                <div class="alert alert-danger">{{$errors->first()}}</div>
+                            @endif
+                        @endif
                         @foreach($selectedItinerary['originDestinations'] as $serial => $segment)
                          @php
                              $segment = (array)$segment;

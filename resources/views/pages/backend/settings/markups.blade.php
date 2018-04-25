@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-12">
             <div class="card">
                 <div class="card-header" id="header_info">
                     Add Markup
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <div class="col-md-8">
+        <div class="col-lg-8 col-md-12">
             <div class="card">
                 <div class="card-header">Markup List</div>
                 <div class="card-body">

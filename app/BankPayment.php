@@ -29,7 +29,7 @@ class BankPayment extends Model
             'slip_photo'     => '',
             'status'         => 2,
         ]);
-        return $store;
 
+        return $store;
     }
 }

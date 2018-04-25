@@ -28,6 +28,7 @@ class AdminBookingNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.AdminBookingNotification');
+        return $this->from('no-reply@travelportal.com',config('app.name'))
+            ->markdown('emails.AdminBookingNotification');
     }
 }

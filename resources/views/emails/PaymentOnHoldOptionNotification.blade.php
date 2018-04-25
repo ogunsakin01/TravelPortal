@@ -1,4 +1,7 @@
 @component('mail::message')
+<div align="center">
+        <img src="{{asset('assets/images/portal_images/email-logo.png')}}" align="center">
+    </div>
 # Introduction
 
 The body of your message.

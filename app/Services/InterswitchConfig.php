@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 
+use App\Profile;
 use Exception;
 
 
@@ -61,12 +62,14 @@ class InterswitchConfig
 
     public function transactionHash($txnRef,$amount,$redirectUrl){
         $info = [
-            'txn_reference' => $txnRef,
-            'user_id' => auth()->user()->id,
-            'amount' => $amount,
-            'gateway_id' => 1,
+            'reference'  => $txnRef,
+            'user_id'        => auth()->user()->id,
+            'profile'        => Profile::getUserInfo(auth()->user()->id),
+            'amount'         => $amount,
+            'gateway_id'     => 1,
             'payment_status' => 0
         ];
+        PortalCustomNotificationHandler::interswitchPrepayment($info);
 
         $toHash = $txnRef.$this->product_id.$this->item_id.$amount.$redirectUrl.$this->mac_key;
         return openssl_digest($toHash, "SHA512");

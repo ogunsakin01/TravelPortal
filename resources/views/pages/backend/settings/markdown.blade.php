@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-12 col-12">
             <div class="card">
                 <div class="card-header" id="markdown_header">
                     Add Markdown
@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-lg-8 col-md-12 col-12">
             <div class="card">
                 <div class="card-header">
                     Airlines Markdown
@@ -69,7 +69,7 @@
                                 <td>{{\App\Airline::getAirline($markdown->airline_code)}}</td>
                                 <td>{{\App\MarkupValueType::find($markdown->type)->type}}</td>
                                 <td>{{$markdown->value}}</td>
-                                <td><button class="btn btn-primary edit" value="{{$markdown->id}}" data-toggle="tooltip" title="Edit markdown information"><i class="fa fa-edit"></i></button></td>
+                                <td><button class="btn btn-sm btn-primary edit" value="{{$markdown->id}}" data-toggle="tooltip" title="Edit markdown information"><i class="la la-edit"></i></button></td>
                             </tr>
                         @endforeach
                         </tbody>

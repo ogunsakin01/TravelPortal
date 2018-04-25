@@ -39,8 +39,14 @@ Route::get('/flight-booking-payment-page','ViewController@flightBookingPayment')
 Route::get('/flight-payment-confirmation','ViewController@flightPaymentConfirmation');
 
 
-Route::post('/searchHotel','HotelController@searchHotel');
+Route::post('/generate-interswitch-payment','OnlinePaymentController@generateInterswitchPayment');
+Route::post('/interswitch-payment-verification','OnlinePaymentController@interswitchPaymentVerification');
+Route::post('/paystack-payment-verification','OnlinePaymentController@payStackPaymentVerification');
 
+
+
+
+Route::post('/searchHotel','HotelController@searchHotel');
 
 
 Route::middleware(['auth'])->group(function(){

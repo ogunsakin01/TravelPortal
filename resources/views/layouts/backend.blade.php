@@ -12,7 +12,7 @@
     <script type="text/javascript">
         var baseUrl = "{{url("/")}}";
         var path = "{{ route('typeaheadJs') }}";
-        var airline_path = "{{route('airlineTypeAheadJs')}}";
+        var airline_path = "{{ route('airlineTypeAheadJs') }}";
     </script>
     @include('partials.backend.css')
     @yield('css')

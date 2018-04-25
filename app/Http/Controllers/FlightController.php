@@ -287,13 +287,14 @@ class FlightController extends Controller
                 else{
                     Toastr::error($validator[1]);
                 }
+                $error = $validator[1];
             }
             else{
+                $error = 'Sorry, this itinerary is not available for booking, try again with another itinerary';
                 Toastr::error('Sorry, this itinerary is not available for booking, try again with another itinerary');
             }
-            return back();
+            return back()->withErrors($error);
         }
-
     }
 
 }
