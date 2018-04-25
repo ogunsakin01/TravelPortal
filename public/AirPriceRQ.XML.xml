@@ -19,14 +19,18 @@
       </POS> 
 		  <AirItinerary>   
 		  <OriginDestinationOptions>    
-		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-29T13:00:00" ArrivalDateTime="2018-04-29T19:35:00" FlightNumber="202" ResBookDesigCode="H">    
-		  <DepartureAirport LocationCode="LHR"/>
-		  <ArrivalAirport LocationCode="BEY"/>      
-		  <MarketingAirline Code="ME"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-04-30T07:30:00" ArrivalDateTime="2018-04-30T11:45:00" FlightNumber="426" ResBookDesigCode="H">    
-		  <DepartureAirport LocationCode="BEY"/>
-		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="ME"/>     
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-23T16:00:00" ArrivalDateTime="2018-05-23T21:20:00" FlightNumber="201" ResBookDesigCode="O">    
+		  <DepartureAirport LocationCode="LOS"/>
+		  <ArrivalAirport LocationCode="KGL"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-23T22:20:00" ArrivalDateTime="2018-05-24T02:10:00" FlightNumber="102" ResBookDesigCode="O">    
+		  <DepartureAirport LocationCode="KGL"/>
+		  <ArrivalAirport LocationCode="JNB"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-30T18:15:00" ArrivalDateTime="2018-05-30T22:15:00" FlightNumber="51" ResBookDesigCode="S">    
+		  <DepartureAirport LocationCode="JNB"/>
+		  <ArrivalAirport LocationCode="LOS"/>      
+		  <MarketingAirline Code="WB"/>     
 		  </FlightSegment></OriginDestinationOption>  
 		  </OriginDestinationOptions>  
 		  </AirItinerary>  

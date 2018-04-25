@@ -36,12 +36,14 @@ Route::post('/bank-payment','BankPaymentController@itineraryBankPayment');
 Route::get('/itinerary-booking','ViewController@itineraryBooking');
 Route::get('/available-itineraries','ViewController@availableItineraries');
 Route::get('/flight-booking-payment-page','ViewController@flightBookingPayment');
-Route::get('/flight-payment-confirmation','ViewController@flightPaymentConfirmation');
+Route::get('/flight-booking-confirmation','ViewController@flightPaymentConfirmation');
 
 
 Route::post('/generate-interswitch-payment','OnlinePaymentController@generateInterswitchPayment');
 Route::post('/interswitch-payment-verification','OnlinePaymentController@interswitchPaymentVerification');
-Route::post('/paystack-payment-verification','OnlinePaymentController@payStackPaymentVerification');
+Route::post('/generate-paystack-payment','OnlinePaymentController@generatePayStackPayment');
+Route::get('/paystack-payment-verification','OnlinePaymentController@payStackPaymentVerification');
+
 
 
 

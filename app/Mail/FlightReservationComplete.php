@@ -16,9 +16,18 @@ class FlightReservationComplete extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $response;
+
+    public $booking;
+
+    public $profile;
+
+    public function __construct($response, $booking, $profile)
     {
-        //
+        $this->response = $response;
+        $this->booking  = $booking;
+        $this->profile  = $profile;
     }
 
     /**
@@ -28,7 +37,8 @@ class FlightReservationComplete extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@travelportal.com',config('app.name'))
+        return $this->subject('Reservation Created')
+            ->from('no-reply@travelportal.com',config('app.name'))
             ->markdown('emails.FlightReservationComplete');
     }
 }

@@ -26,7 +26,7 @@ class BankPaymentController extends Controller
             ];
 
             session()->put('paymentInfo',$paymentInfo);
-            return redirect('/flight-payment-confirmation');
+            return redirect('/flight-booking-confirmation');
 
         }
 

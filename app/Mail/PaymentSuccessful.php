@@ -16,9 +16,13 @@ class PaymentSuccessful extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $response;
+
+
+    public function __construct($response)
     {
-        //
+        $this->response = $response;
     }
 
     /**
@@ -28,7 +32,8 @@ class PaymentSuccessful extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@travelportal.com',config('app.name'))
+        return $this->subject('Payment Successful')
+            ->from('no-reply@travelportal.com',config('app.name'))
             ->markdown('emails.PaymentSuccessful');
     }
 }

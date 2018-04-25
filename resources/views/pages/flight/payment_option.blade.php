@@ -3,6 +3,7 @@
 @section('page-title') Flight Result  @endsection
 
 @section('content')
+
     @php
         $AmadeusConfig = new \App\Services\AmadeusConfig();
         $AmadeusHelper = new \App\Services\AmadeusHelper();
@@ -16,7 +17,7 @@
             @foreach($flightSearchParam['flight_search'] as $i => $searchParam)
                 <h5><i class="fa fa-plane"></i>{{$searchParam['departure_city']}}<i class="fa fa-long-arrow-right"></i>{{$searchParam['destination_city']}}</h5>
             @endforeach
-            <span> <i class="fa fa-male"></i>Traveller(s) - {{$flightSearchParam['no_of_adult']}} Adult, {{$flightSearchParam['no_of_child']}} child, {{$flightSearchParam['no_of_infant']}} Infant </span>
+            <span> <i class="fa fa-male"></i> Traveller(s) - {{$flightSearchParam['no_of_adult']}} Adult, {{$flightSearchParam['no_of_child']}} child, {{$flightSearchParam['no_of_infant']}} Infant </span>
         </div>
     </div>
     <!-- END: PAGE TITLE -->
@@ -81,7 +82,7 @@
                                             <img src="{{asset('assets/images/portal_images/paystack.png')}}" class="img-responsive"/>
                                         </div>
                                         <div class="col-md-4 col-sm-4">
-                                            <form method="post" action="{{url('/paystack-payment-verification')}}">
+                                            <form method="post" action="{{url('/generate-paystack-payment')}}">
                                               @csrf
                                                 <input type="hidden" name="amount" value="{{$selectedItinerary['displayTotal']}}"/>
                                                 <input  type="hidden" name="booking_reference" value="{{$booking->reference}}"/>

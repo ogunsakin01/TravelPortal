@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use Exception;
+use Illuminate\Support\Facades\Redirect;
 
 
 class PaystackConfig{
@@ -80,7 +81,8 @@ class PaystackConfig{
             }elseif(isset($response['data']['authorization_url'])){
 
                 $url = $response['data']['authorization_url'];
-               return header('location:'.$url);
+
+                return Redirect::to($url);
 
             }
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BankDetail;
 use App\FlightBooking;
+use App\Profile;
 use App\Services\AmadeusConfig;
 use App\Services\AmadeusHelper;
 use App\Markup;
@@ -81,7 +82,8 @@ class ViewController extends Controller
           $flightSearchParam      = session()->get('flightSearchParam');
           $pnr = session()->get('pnr');
           $booking = FlightBooking::where('pnr',$pnr)->first();
-          return view('pages.flight.payment_confirmation',compact('paymentInfo','itineraryPricingInfo','selectedItinerary','flightSearchParam','booking'));
+          $profile = Profile::getUserInfo(auth()->user()->id);
+          return view('pages.flight.payment_confirmation',compact('paymentInfo','itineraryPricingInfo','selectedItinerary','flightSearchParam','booking','profile'));
 
     }
 

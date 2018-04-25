@@ -19,16 +19,20 @@
       </POS>
    
              <OTA_AirBookRQ>
-   <AirItinerary DirectionInd="OneWay">
+   <AirItinerary DirectionInd="Circle">
       <OriginDestinationOptions>
-         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-04-29T13:00:00" ArrivalDateTime="2018-04-29T19:35:00" FlightNumber="202" ResBookDesigCode="H" RPH="1" NumberInParty="4">    
-		  <DepartureAirport LocationCode="LHR"/>
-		  <ArrivalAirport LocationCode="BEY"/>      
-		  <MarketingAirline Code="ME"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-04-29T21:00:00" ArrivalDateTime="2018-04-30T01:15:00" FlightNumber="430" ResBookDesigCode="H" RPH="2" NumberInParty="4">    
-		  <DepartureAirport LocationCode="BEY"/>
-		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="ME"/>     
+         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-23T16:00:00" ArrivalDateTime="2018-05-23T21:20:00" FlightNumber="201" ResBookDesigCode="O" RPH="1" NumberInParty="4">    
+		  <DepartureAirport LocationCode="LOS"/>
+		  <ArrivalAirport LocationCode="KGL"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-23T22:20:00" ArrivalDateTime="2018-05-24T02:10:00" FlightNumber="102" ResBookDesigCode="O" RPH="2" NumberInParty="4">    
+		  <DepartureAirport LocationCode="KGL"/>
+		  <ArrivalAirport LocationCode="JNB"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-30T18:15:00" ArrivalDateTime="2018-05-30T22:15:00" FlightNumber="51" ResBookDesigCode="S" RPH="3" NumberInParty="4">    
+		  <DepartureAirport LocationCode="JNB"/>
+		  <ArrivalAirport LocationCode="LOS"/>      
+		  <MarketingAirline Code="WB"/>     
 		  </FlightSegment></OriginDestinationOption>
       </OriginDestinationOptions>
    </AirItinerary>
@@ -40,7 +44,7 @@
                 <Traveler PassengerTypeCode="ADT" >
                   <PersonName>
                     <NamePrefix>MR</NamePrefix>
-                    <GivenName>Damilola olamide</GivenName>
+                    <GivenName>Ogunsakin Olamide</GivenName>
                     <Surname>sdflgk</Surname>
                   </PersonName>
                   <TravelerRefNumber RPH="1" />
@@ -49,7 +53,7 @@
                 <Traveler PassengerTypeCode="ADT" >
                   <PersonName>
                     <NamePrefix>MR</NamePrefix>
-                    <GivenName>Ogunsakin olamide</GivenName>
+                    <GivenName>Damilola olamide</GivenName>
                     <Surname>Ogunsakin</Surname>
                   </PersonName>
                   <TravelerRefNumber RPH="2" />
@@ -74,10 +78,10 @@
                 </Traveler>
                 
          <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="" FormattedInd="0"/>
-         <Email>ogunsakin191@gmail.com</Email>
-         <Ticketing TicketTimeLimit="2018-04-29T23:59:00" TicketType="eTicket" />
+         <Email>admin@travelportal.com</Email>
+         <Ticketing TicketTimeLimit="2018-05-23T23:59:00" TicketType="eTicket" />
       </PNRData>
-      <PriceData PriceType="Published" AutoTicketing="false" ValidatingAirlineCode="ME" >
+      <PriceData PriceType="Published" AutoTicketing="false" ValidatingAirlineCode="WB" >
        <PublishedFares>
       <FareRestrictPref>
       <AdvResTicketing><AdvReservation/>

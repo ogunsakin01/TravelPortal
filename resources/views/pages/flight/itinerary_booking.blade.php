@@ -40,7 +40,7 @@
                         @if(is_array($errors->first()))
                             @foreach($errors->first() as $serial => $error)
                                     <div class="alert alert-danger">{{$error}}</div>
-                                @endforeach
+                             @endforeach
                             @else
                                 <div class="alert alert-danger">{{$errors->first()}}</div>
                             @endif

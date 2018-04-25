@@ -10,7 +10,10 @@
 namespace App\Services;
 
 use App\Mail\BankPaymentOptionNotification;
+use App\Mail\FlightReservationComplete;
+use App\Mail\PaymentFailed;
 use App\Mail\PaymentNotification;
+use App\Mail\PaymentSuccessful;
 use App\Mail\SuccessfulRegistration;
 use Exception;
 use Illuminate\Support\Facades\Mail;
@@ -32,14 +35,38 @@ class PortalCustomNotificationHandler
         try{
             Mail::to(auth()->user())->send(new PaymentNotification($data));
         }catch(Exception $e){
-            Toastr::info('Sorry, unable to send you a payment notification email');
+            Toastr::info('Sorry, unable to send you a payment notification email.');
         }
         return 0;
     }
 
-    public static function PayByBank($booking){
+    public static function payByBank($booking){
+        try{
+            Mail::to(auth()->user())->send(new BankPaymentOptionNotification($booking));
+        }catch(Exception $e){
+            Toastr::info("Sorry, unable to send you an email confirming your bank payment choice.");
+        }
 
-        Mail::to(auth()->user())->send(new BankPaymentOptionNotification($booking));
+        return 0;
+    }
+
+    public static function paymentSuccessful($response){
+
+        Mail::to(auth()->user())->send(new PaymentSuccessful($response));
+
+        return 0;
+    }
+
+    public static function paymentFailed($response){
+
+       Mail::to(auth()->user())->send(new PaymentFailed($response));
+
+       return 0;
+    }
+
+    public static function flightReservationComplete($response,$booking,$profile){
+
+        Mail::to(auth()->user())->send(new FlightReservationComplete($response,$booking,$profile));
 
         return 0;
     }

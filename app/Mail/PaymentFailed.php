@@ -16,9 +16,12 @@ class PaymentFailed extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $response;
+
+    public function __construct($response)
     {
-        //
+        $this->response = $response;
     }
 
     /**
@@ -28,7 +31,8 @@ class PaymentFailed extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@travelportal.com',config('app.name'))
+        return $this->subject('Payment Failed')
+            ->from('no-reply@travelportal.com',config('app.name'))
             ->markdown('emails.PaymentFailed');
     }
 }

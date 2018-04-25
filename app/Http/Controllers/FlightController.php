@@ -229,9 +229,7 @@ class FlightController extends Controller
 
         $responseArray = $this->AmadeusConfig->mungXmlToArray($build);
         $validator   = $this->AmadeusHelper->flightBuildResponseValidator($responseArray);
-
         if($validator == 1){
-//            dd($responseArray);
             $voucher_id = 0;
             $voucher_amount = 0;
             $total_amount = 0;
@@ -279,7 +277,7 @@ class FlightController extends Controller
         }
         else{
             if(is_array($validator)){
-                if(is_array(isset($validator[1]))){
+                if(is_array($validator[1])){
                     foreach($validator[1] as $i => $error){
                         Toastr::error($error);
                     }
@@ -287,7 +285,7 @@ class FlightController extends Controller
                 else{
                     Toastr::error($validator[1]);
                 }
-                $error = $validator[1];
+                $error = json_encode($validator[1]);
             }
             else{
                 $error = 'Sorry, this itinerary is not available for booking, try again with another itinerary';
