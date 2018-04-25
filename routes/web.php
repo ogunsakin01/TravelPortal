@@ -70,6 +70,8 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/delete','BankDetailController@deleteBankDetails');
         });
 
+        Route::get('', 'ProfileController@profileView')->name('backend-profile-view');
+
     });
 
     Route::group(['prefix' => 'bookings'],function(){
