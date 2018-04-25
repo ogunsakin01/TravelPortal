@@ -59,15 +59,15 @@
             </li>
             <li class="nav-item @yield('activeSettings')"><a href="#"><i class="la la-cogs"></i><span class="menu-title" data-i18n="nav.page_layouts.main">Settings</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="{{route('vats')}}" data-i18n="nav.page_layouts.1_column">Vats</a>
+                    <li><a class="menu-item" href="{{url('settings/vats')}}" data-i18n="nav.page_layouts.1_column">Vats</a>
                     </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Markups</a>
+                    <li><a class="menu-item" href="{{url('settings/markups')}}" data-i18n="nav.page_layouts.2_columns">Markups</a>
                     </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Airline Markdowns</a>
+                    <li><a class="menu-item" href="{{url('settings/markdown')}}" data-i18n="nav.page_layouts.2_columns">Airline Markdowns</a>
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Vouchers</a>
                     </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Banks</a>
+                    <li><a class="menu-item" href="{{route('banks')}}" data-i18n="nav.page_layouts.2_columns">Banks</a>
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Users Management</a>
                     </li>

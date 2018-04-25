@@ -2,19 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Airline;
 use App\Markdown;
 use Illuminate\Http\Request;
 
 class MarkdownController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+
+    public function createOrUpdate(Request $r){
+        $airlineCode = Airline::getAirlineCodeByName($r->airline);
+        if(is_null($airlineCode->name)){
+            return 0;
+        }
+        $r->airlineCode = $airlineCode->name;
+
+        return Markdown::store($r);
+    }
+
+    public function getMarkdownById($id){
+
+        $markdown = Markdown::getMarkdownWithId($id);
+        $airlineName = Airline::getAirline($markdown->airline_code);
+
+        $markdown->airline_name = $airlineName;
+        return $markdown;
     }
 
     /**

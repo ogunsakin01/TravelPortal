@@ -3,10 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Markup;
+use App\MarkupType;
+use App\MarkupValueType;
+use App\Role;
 use Illuminate\Http\Request;
 
 class MarkupController extends Controller
 {
+
+    public function saveAdminMarkup(Request $r)
+    {
+        $markup = new Markup();
+
+        $this->validate($r, [
+            'role' => 'required',
+            'markup_type' => 'required',
+            'markup_value_type' => 'required',
+            'markup_value' =>'required|numeric'
+        ]);
+
+        $response = 0;
+
+        if ($markup->updateOrCreateMarkup($r->all()))
+        {
+            $response = 1;
+        }
+
+        return response()->json($response);
+
+
+
+
+    }
+
+    public function getMarkupById($id){
+        return Markup::find($id);
+    }
+
     /**
      * Display a listing of the resource.
      *

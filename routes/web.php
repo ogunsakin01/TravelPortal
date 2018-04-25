@@ -54,9 +54,28 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard','BackEndViewController@dashboard')->name('dashboard');
 
     Route::group(['prefix' => 'settings'],function(){
+
         Route::get('vats','BackEndViewController@vat')->name('vats');
         Route::post('vat', 'VatController@saveVat')->name('backend-save-vat');
         Route::get('getVat/{type}','VatController@getVat');
+
+        Route::get('markups', 'BackEndViewController@markupView');
+        Route::post('markup/admin', 'MarkupController@saveAdminMarkup')->name('backend-save-markup');
+        Route::get('getMarkup/{id}','MarkupController@getMarkupById');
+
+        Route::get('markdown', 'BackEndViewController@index');
+        Route::post('createOrUpdateMarkdown','MarkdownController@createOrUpdate');
+        Route::get('getMarkdown/{id}','MarkdownController@getMarkdownById');
+
+        Route::group(['prefix' => 'bank-details'],function(){
+            Route::get('/fetch/{id}', 'BankDetailController@getBankDetail')->name('backend-bank-details');
+            Route::view('','pages.backend.settings.banks')->name('banks');
+            Route::post('/saveOrUpdate','BankDetailController@saveOrUpdateBankDetails');
+            Route::post('/activate','BankDetailController@activateBankDetails');
+            Route::post('/deActivate','BankDetailController@deActivateBankDetails');
+            Route::post('/delete','BankDetailController@deleteBankDetails');
+        });
+
     });
 
     Route::group(['prefix' => 'bookings'],function(){
