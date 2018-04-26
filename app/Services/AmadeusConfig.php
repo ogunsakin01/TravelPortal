@@ -316,7 +316,15 @@ class AmadeusConfig
         ];
     }
 
-
+    public function hotelAvailRequestHeader($xml_post_string){
+        return [
+            "POST /TripXML/wsHotelAvail.asmx HTTP/1.1",
+            "Host: amadeusws.tripxml.com",
+            "Content-Type: text/xml; charset=utf-8",
+            "SOAPAction: "."http://traveltalk.com/wsHotelAvail/wmHotelAvail",
+            "Content-Length: ".strlen($xml_post_string)
+        ];
+    }
 
 
 }

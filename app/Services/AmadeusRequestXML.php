@@ -48,33 +48,33 @@ class AmadeusRequestXML
 
     public function lowFarePlusRequestBodyXML($data){
         $passengers = '';
-        if($data['no_of_adult'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['no_of_adult'].'"/>';
-        }if($data['no_of_child'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data['no_of_child'].'"/>';
-        }if($data['no_of_infant'] > 0){
-            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data['no_of_infant'].'"/>';
+        if($data->no_of_adult > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data->no_of_adult.'"/>';
+        }if($data->no_of_child > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="CHD" Quantity="'.$data->no_of_child.'"/>';
+        }if($data->no_of_infant > 0){
+            $passengers = $passengers.'<PassengerTypeQuantity Code="INF" Quantity="'.$data->no_of_infant.'"/>';
         }
 
-        if($data['return_date'] == "" || $data['return_date'] == null ||  $data['return_date'] ==  "Not Available"){
+        if($data->return_date == "" || $data->return_date == null ||  $data->return_date ==  "Not Available"){
             $originDestinations = '
                 <OriginDestinationInformation>
-                  <DepartureDateTime>'.date('Y-m-d',strtotime($data['departure_date'])).'T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['departure_city']).'"/>   
-                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['destination_city']).'"/>  
+                  <DepartureDateTime>'.date('Y-m-d',strtotime($data->departure_date)).'T00:00:00</DepartureDateTime>   
+                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data->departure_city).'"/>   
+                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data->destination_city).'"/>  
                 </OriginDestinationInformation> 
             ';
         }else{
             $originDestinations = '
                 <OriginDestinationInformation>
-                  <DepartureDateTime>'.date('Y-m-d',strtotime($data['departure_date'])).'T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['departure_city']).'"/>   
-                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['destination_city']).'"/>  
+                  <DepartureDateTime>'.date('Y-m-d',strtotime($data->departure_date)).'T00:00:00</DepartureDateTime>   
+                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data->departure_city).'"/>   
+                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data->destination_city).'"/>  
                 </OriginDestinationInformation> 
                 <OriginDestinationInformation>
-                  <DepartureDateTime>'.date('Y-m-d',strtotime($data['return_date'])).'T00:00:00</DepartureDateTime>
-                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['destination_city']).'"/>   
-                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data['departure_city']).'"/>   
+                  <DepartureDateTime>'.date('Y-m-d',strtotime($data->return_date)).'T00:00:00</DepartureDateTime>
+                  <OriginLocation LocationCode="'.$this->AmadeusConfig::iataCode($data->destination_city).'"/>   
+                  <DestinationLocation LocationCode="'.$this->AmadeusConfig::iataCode($data->departure_city).'"/>   
                 </OriginDestinationInformation>
             ';
         }
@@ -100,7 +100,7 @@ class AmadeusRequestXML
                             </FareRestrictPref>  
                 </TravelPreferences> 
                 <TravelerInfoSummary>   
-                  <SeatsRequested>'.($data['no_of_adult'] + $data['no_of_child']).'</SeatsRequested>
+                  <SeatsRequested>'.($data->no_of_adult + $data->no_of_child).'</SeatsRequested>
                   <AirTravelerAvail>
                     '.$passengers.'
                   </AirTravelerAvail>  
@@ -114,6 +114,7 @@ class AmadeusRequestXML
 
     public function lowFarePlusMultiDestinationRequestBodyXML($data){
         $passengers = '';
+
         if($data['searchParam']['no_of_adult'] > 0){
             $passengers = $passengers.'<PassengerTypeQuantity Code="ADT" Quantity="'.$data['searchParam']['no_of_adult'].'"/>';
         }if($data['searchParam']['no_of_child'] > 0){
@@ -661,31 +662,36 @@ class AmadeusRequestXML
     }
 
     public function hotelAvailRequestXml($data){
-		$body = '<OTA_HotelAvailRQ>
+		$body = '
+<wmHotelAvail xmlns="http://traveltalk.com/wsHotelAvail">
+<OTA_HotelAvailRQ>
      '.$this->posXML().'
    <AvailRequestSegments>
       <AvailRequestSegment>
-         <StayDateRange Start="2012-09-11" End="2012-09-18" />
+         <StayDateRange Start="'.date('Y-m-d',strtotime($data['check_in_date'])).'" End="'.date('Y-m-d',strtotime($data['check_out_date'])).'" />
          <RoomStayCandidates>
             <RoomStayCandidate>
                <GuestCounts IsPerRoom="true">
-                  <GuestCount Count="1" />
+                  <GuestCount Count="'. ($data['adult_count'] + $data['child_count']) .'" />
                </GuestCounts>
             </RoomStayCandidate>
          </RoomStayCandidates>
          <HotelSearchCriteria>
             <Criterion ExactMatch="true">
-               <HotelRef HotelCityCode="DUS" />
+               <HotelRef HotelCityCode="'.$this->AmadeusConfig::iataCode($data['hotel_city']).'" />
             </Criterion>
          </HotelSearchCriteria>
       </AvailRequestSegment>
    </AvailRequestSegments>
-</OTA_HotelAvailRQ>';
+</OTA_HotelAvailRQ>
+</wmHotelAvail>';
         return $this->requestXML($body);
 	}
 	
 	public function hotelAvailRoomRequestXML($data){
-		$body = '<OTA_HotelAvailRQ>
+		$body = '
+<wmHotelAvail xmlns="http://traveltalk.com/wsHotelAvail">
+<OTA_HotelAvailRQ>
      '.$this->posXML().'
    <AvailRequestSegments>
       <AvailRequestSegment>
@@ -704,14 +710,17 @@ class AmadeusRequestXML
          </HotelSearchCriteria>
       </AvailRequestSegment>
    </AvailRequestSegments>
-</OTA_HotelAvailRQ>';
+</OTA_HotelAvailRQ>
+</wmHotelAvail>';
 
         return $this->requestXML($body);
 	}
 
     public function hotelAvailRoomDetailsRequestXML($data) {
 
-		$body = '<OTA_HotelAvailRQ>
+		$body = '
+<wmHotelAvail xmlns="http://traveltalk.com/wsHotelAvail">
+<OTA_HotelAvailRQ>
      '.$this->posXML().'
    <AvailRequestSegments>
       <AvailRequestSegment>
@@ -733,7 +742,8 @@ class AmadeusRequestXML
           </RatePlanCandidates> 
       </AvailRequestSegment>
    </AvailRequestSegments>
-</OTA_HotelAvailRQ>';
+</OTA_HotelAvailRQ>
+</wmHotelAvail>';
         return $this->requestXML($body);
 	}
 

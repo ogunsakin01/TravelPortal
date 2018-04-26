@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('delete_status')->default(0);
             $table->integer('profile_complete_status')->default(0);
+            $table->longText('api_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

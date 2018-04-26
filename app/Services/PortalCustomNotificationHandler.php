@@ -51,23 +51,31 @@ class PortalCustomNotificationHandler
     }
 
     public static function paymentSuccessful($response){
-
-        Mail::to(auth()->user())->send(new PaymentSuccessful($response));
+        try{
+            Mail::to(auth()->user())->send(new PaymentSuccessful($response));
+        }catch(Exception $e){
+            Toastr::info("Sorry, unable to send you an email confirming your payment.");
+        }
 
         return 0;
     }
 
     public static function paymentFailed($response){
-
-       Mail::to(auth()->user())->send(new PaymentFailed($response));
+        try{
+            Mail::to(auth()->user())->send(new PaymentFailed($response));
+        }catch(Exception $e){
+            Toastr::info("Sorry, unable to send you a payment failed notification.");
+        }
 
        return 0;
     }
 
     public static function flightReservationComplete($response,$booking,$profile){
-
-        Mail::to(auth()->user())->send(new FlightReservationComplete($response,$booking,$profile));
-
+        try{
+            Mail::to(auth()->user())->send(new FlightReservationComplete($response,$booking,$profile));
+        }catch(Exception $e){
+            Toastr::info("Sorry, unable to send flight reservation email.");
+        }
         return 0;
     }
 

@@ -19,19 +19,19 @@
       </POS>
                 
             <OriginDestinationInformation>
-                  <DepartureDateTime>2018-04-24T00:00:00</DepartureDateTime>   
+                  <DepartureDateTime>2018-05-08T00:00:00</DepartureDateTime>   
                   <OriginLocation LocationCode="LHR"/>   
                   <DestinationLocation LocationCode="DXB"/>  
                 </OriginDestinationInformation> 
             
             <OriginDestinationInformation>
-                  <DepartureDateTime>2018-04-27T00:00:00</DepartureDateTime>   
+                  <DepartureDateTime>2018-05-16T00:00:00</DepartureDateTime>   
                   <OriginLocation LocationCode="DXB"/>   
                   <DestinationLocation LocationCode="LOS"/>  
                 </OriginDestinationInformation> 
             
             <OriginDestinationInformation>
-                  <DepartureDateTime>2018-04-29T00:00:00</DepartureDateTime>   
+                  <DepartureDateTime>2018-05-24T00:00:00</DepartureDateTime>   
                   <OriginLocation LocationCode="LOS"/>   
                   <DestinationLocation LocationCode="ABV"/>  
                 </OriginDestinationInformation> 

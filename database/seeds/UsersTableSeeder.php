@@ -19,21 +19,24 @@ class UsersTableSeeder extends Seeder
                 'email'                   => 'admin@travelportal.com',
                 'password'                => bcrypt('admin'),
                 'delete_status'           => 0,
-                'profile_complete_status' => 0
+                'profile_complete_status' => 0,
+                'api_token'               => ''
             ],
             [
                 'id'                      =>  2,
                 'email'                   => 'agent@travelportal.com',
                 'password'                => bcrypt('agent'),
                 'delete_status'           => 0,
-                'profile_complete_status' => 0
+                'profile_complete_status' => 0,
+                'api_token'               => ''
             ],
             [
                 'id'                      =>  3,
                 'email'                   => 'customer@travelportal.com',
                 'password'                => bcrypt('customer'),
                 'delete_status'           => 0,
-                'profile_complete_status' => 0
+                'profile_complete_status' => 0,
+                'api_token'               => ''
             ],
         ];
 
@@ -47,7 +50,8 @@ class UsersTableSeeder extends Seeder
             'email'                       => 'ogunsakin191@gmail.com',
             'password'                    => bcrypt('ogunsakin191'),
             'delete_status'               => 0,
-            'profile_complete_status'     => 0
+            'profile_complete_status'     => 0,
+            'api_token'                   => ''
         ];
 
         $createDefaultOriginalUser = User::create($defaultOriginalUser);

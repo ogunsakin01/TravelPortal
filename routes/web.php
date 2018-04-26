@@ -46,9 +46,8 @@ Route::get('/paystack-payment-verification','OnlinePaymentController@payStackPay
 
 
 
-
-
 Route::post('/searchHotel','HotelController@searchHotel');
+Route::get('/available-hotels','ViewController@availableHotels');
 
 
 Route::middleware(['auth'])->group(function(){

@@ -37,6 +37,14 @@ class User extends Authenticatable
 
     public $inactive = 0;
 
+    public function generateToken()
+    {
+        $this->api_token = str_random(20);
+        $this->save();
+
+        return $this->api_token;
+    }
+
     public static function getUserByEmail($email)
     {
         $user = static::where('email', $email)->first();
@@ -390,25 +398,6 @@ class User extends Authenticatable
 
         return false;
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-//    protected $fillable = [
-//       'email', 'password',
-//    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-//    protected $hidden = [
-//        'password', 'remember_token',
-//    ];
-
 
     public static function store($data){
         return static::create([

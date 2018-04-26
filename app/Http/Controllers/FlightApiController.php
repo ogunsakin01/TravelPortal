@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\FlightBooking;
-use App\Profile;
+use App\User;
+use Illuminate\Http\Request;
 use App\Services\AmadeusConfig;
 use App\Services\AmadeusRequestXML;
 use App\Services\AmadeusHelper;
-use Illuminate\Http\Request;
-use function MongoDB\BSON\toJSON;
-use nilsenj\Toastr\Facades\Toastr;
-use App\Markdown;
-use App\Markup;
-use App\Vat;
 use App\Voucher;
+use App\Profile;
+use App\FlightBooking;
+use App\Markup;
+use App\Markdown;
+use App\Vat;
 
-class FlightController extends Controller
+class FlightApiController extends Controller
 {
 
     private $AmadeusConfig;
@@ -30,12 +29,12 @@ class FlightController extends Controller
         $this->AmadeusHelper     = new AmadeusHelper();
     }
 
-    public function oneWayFlightSearch(Request $data){
+    public function oneWaySearchV1(Request $data){
+
         $requestXML = $this->AmadeusRequestXML->lowFarePlusRequestBodyXML($data);
         $this->AmadeusConfig->createXMlFile($requestXML,'LowFarePlusOneWayRQ.XML');
         $search = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->lowFareRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->lowFarePlusRequestWebServiceUrl);
         $this->AmadeusConfig->createXMlFile($search,'LowFarePlusOneWayRS.XML');
-
 
         $responseXml   = $this->AmadeusConfig->mungXML($search);
         $xmlValidatorResponse = $this->AmadeusHelper->lowFarePlusResponseXMLValidator($responseXml);
@@ -47,65 +46,97 @@ class FlightController extends Controller
             $searchParam    = [
                 'flight_search' => [
                     0 => [
-                        'departure_city'   => $data['departure_city'],
-                        'destination_city' => $data['destination_city'],
-                        'departure_date'   => $data['departure_date'],
+                        'departure_city'   => $data->departure_city,
+                        'destination_city' => $data->destination_city,
+                        'departure_date'   => $data->departure_date,
                     ]
                 ],
-                'no_of_adult'  => $data['no_of_adult'],
-                'no_of_infant' => $data['no_of_infant'],
-                'no_of_child'  => $data['no_of_child']
+                'no_of_adult'  => $data->no_of_adult,
+                'no_of_infant' => $data->no_of_infant,
+                'no_of_child'  => $data->no_of_child
             ];
 
             session()->put('flightSearchParam',$searchParam);
             session()->put('availableItineraries',$sortedXMLResponse);
 
+            $returnedResponse = [
+                'flightSearchParam'    => $searchParam,
+                'availableItineraries' => $sortedXMLResponse
+            ];
+
+            return response()->json(["type" => "error","message" => $returnedResponse], 200);
+
         }
-        return $xmlValidatorResponse;
+        elseif($xmlValidatorResponse == 2){
+            return response()->json(["type" => "error","message" => "No available itineraries for the search option"] ,200);
+        }
+        elseif(is_array($xmlValidatorResponse)){
+            return response()->json(["type" => "error","message" => $xmlValidatorResponse], 200);
+        }
+        elseif($xmlValidatorResponse == 0){
+            return response()->json(["type" => "error","message" => "Connection error"] ,200);
+        }
+
+
     }
 
-    public function roundTripFlightSearch(Request $data){
+    public function roundTripSearchV1(Request $data){
 
         $requestXML = $this->AmadeusRequestXML->lowFarePlusRequestBodyXML($data);
-        $this->AmadeusConfig->createXMlFile($requestXML,'LowFarePlusTurnAroundRQ.XML');
+        $this->AmadeusConfig->createXMlFile($requestXML,'LowFarePlusRoundTripRQ.XML');
         $search = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->lowFareRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->lowFarePlusRequestWebServiceUrl);
-        $this->AmadeusConfig->createXMlFile($search,'LowFarePlusTurnAroundRS.XML');
+        $this->AmadeusConfig->createXMlFile($search,'LowFarePlusRoundTripRS.XML');
 
         $responseXml   = $this->AmadeusConfig->mungXML($search);
         $xmlValidatorResponse = $this->AmadeusHelper->lowFarePlusResponseXMLValidator($responseXml);
 
         if($xmlValidatorResponse === 1){
 
-          $sortedXMLResponse = $this->AmadeusHelper->lowFarePlusResponseSortFromXML($responseXml);
+            $sortedXMLResponse = $this->AmadeusHelper->lowFarePlusResponseSortFromXML($responseXml);
 
-          $searchParam    = [
-              'flight_search' => [
-                  0 => [
-                      'departure_city'   => $data['departure_city'],
-                      'destination_city' => $data['destination_city'],
-                      'departure_date'   => $data['departure_date'],
-                  ],
-                  1 => [
-                      'departure_city'   => $data['destination_city'],
-                      'destination_city' => $data['departure_city'],
-                      'departure_date'   => $data['return_date'],
-                  ]
-              ],
-              'no_of_adult'  => $data['no_of_adult'],
-              'no_of_infant' => $data['no_of_infant'],
-              'no_of_child'  => $data['no_of_child']
-          ];
+            $searchParam    = [
+                'flight_search' => [
+                    0 => [
+                        'departure_city'   => $data->departure_city,
+                        'destination_city' => $data->destination_city,
+                        'departure_date'   => $data->departure_date,
+                    ],
+                    1 => [
+                        'departure_city'   => $data->destination_city,
+                        'destination_city' => $data->departure_city,
+                        'departure_date'   => $data->return_date,
+                    ]
+                ],
+                'no_of_adult'  => $data->no_of_adult,
+                'no_of_infant' => $data->no_of_infant,
+                'no_of_child'  => $data->no_of_child
+            ];
 
-          session()->put('flightSearchParam',$searchParam);
-          session()->put('availableItineraries',$sortedXMLResponse);
+            session()->put('flightSearchParam',$searchParam);
+            session()->put('availableItineraries',$sortedXMLResponse);
+
+            $returnedResponse = [
+                'flightSearchParam'    => $searchParam,
+                'availableItineraries' => $sortedXMLResponse
+            ];
+
+            return response()->json(["type" => "success",$returnedResponse], 200);
 
         }
-        return $xmlValidatorResponse;
+        elseif($xmlValidatorResponse == 2){
+            return response()->json(["type" => "error","message" => "No available itineraries for the search option"] ,200);
+        }
+        elseif(is_array($xmlValidatorResponse)){
+            return response()->json(["type" => "error", "message" => $xmlValidatorResponse], 200);
+        }
+        elseif($xmlValidatorResponse == 0){
+            return response()->json(["type" => "error","message" => "Connection error"] ,200);
+        }
 
     }
 
-    public function multiDestinationFlightSearch(Request $data){
-
+    public function multiDestinationSearchV1(Request $data){
+       
         $requestXML = $this->AmadeusRequestXML->lowFarePlusMultiDestinationRequestBodyXML($data);
         $this->AmadeusConfig->createXMlFile($requestXML,'LowFarePlusMultiDestinationRQ.XML');
         $search = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->lowFareRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->lowFarePlusRequestWebServiceUrl);
@@ -128,21 +159,31 @@ class FlightController extends Controller
             session()->put('flightSearchParam',$searchParam);
             session()->put('availableItineraries',$sortedXMLResponse);
 
+            $returnedResponse = [
+                'flightSearchParam'    => $searchParam,
+                'availableItineraries' => $sortedXMLResponse
+            ];
+
+            return response()->json($returnedResponse, 200);
+
         }
-        return $xmlValidatorResponse;
+        elseif($xmlValidatorResponse == 2){
+            return response()->json(["type" => "error","message" => "No available itineraries for the search option"] ,200);
+        }
+        elseif(is_array($xmlValidatorResponse)){
+            return response()->json(["type" => "error","message" => $xmlValidatorResponse], 200);
+        }
+        elseif($xmlValidatorResponse == 0){
+            return response()->json(["type" => "error","message" => "Connection error"] ,200);
+        }
+
     }
 
-    public function selectedItineraryInfo($id){
-        $availableItineraries = session()->get('availableItineraries');
-        return json_encode($availableItineraries[$id]);
-    }
+    public function priceItineraryV1(Request $data){
 
-    public function getItineraryInformationAndPricing($id){
+        $selectedItinerary =  $data['selectedItinerary'];
 
-        $selectedItinerary =  $this->selectedItineraryInfo($id);
-        $selectedItinerary = (array) json_decode($selectedItinerary);
-        $searchParam       =  session()->get('flightSearchParam');
-
+        $searchParam       =   $data['flightSearchParam'];
 
         $xml_post_string = $this->AmadeusRequestXML->airPriceRequestXML($selectedItinerary,$searchParam);
         $this->AmadeusConfig->createXMlFile($xml_post_string,'AirPriceRQ.XML');
@@ -157,7 +198,6 @@ class FlightController extends Controller
             $itineraryPricingInfo = $sortedResponse;
             $priceChange = 0;
             if($selectedItinerary['defaultItineraryPrice'] != $itineraryPricingInfo['newTotalPrice']){
-                Toastr::info('The price of this Itinerary has changed, review the new price before booking.');
                 $priceChange = $itineraryPricingInfo['newTotalPrice'] - $selectedItinerary['defaultItineraryPrice'];
                 $customerMarkup        = 0;
                 $agentMarkup           = 0;
@@ -209,30 +249,43 @@ class FlightController extends Controller
             }
             $selectedItinerary['priceChange'] = $priceChange;
 
-            session()->put('selectedItinerary',$selectedItinerary);
-            session()->put('itineraryPricingInfo',$sortedResponse);
+            $response = [
+                'itineraryPricingInfo' => $sortedResponse,
+                'updatedSelectedItinerary' => $selectedItinerary,
+            ];
+            return response()->json($response,200);
         }
-
-        return $responseValidator;
+        elseif($responseValidator == 2){
+            return response()->json(['type' => 'error','message' => "Sorry, unable to get Itinerary Pricing"] ,200);
+        }
+        elseif(is_array($responseValidator)){
+            return response()->json(['type' => 'success','message' =>$responseValidator, 200]);
+        }
+        elseif($responseValidator == 0){
+            return response()->json(['type' => 'error','message' => "Connection error"] ,200);
+        }
 
     }
 
-    public function bookItinerary(Request $data){
+    public function bookItineraryV1(Request $data){
 
-        dd($data->request);
-
-        $user = auth()->user();
-        $userProfile = Profile::getUserInfo($user->id);
+        $user_id = $data['userId'];
+        $user = User::find($user_id);
+        $userProfile = Profile::getUserInfo($user_id);
         $user['profile'] =  $userProfile;
 
-        $selectedItinerary = session()->get('selectedItinerary');
-        $xml_post_string = $this->AmadeusRequestXML->flightTravelBuildRequestElementXML($data->all(),$selectedItinerary,$user);
+
+        $selectedItinerary = $data['updatedSelectedItinerary'];
+        $passengerInfo = $data['passengerInfo'];
+
+        $xml_post_string = $this->AmadeusRequestXML->flightTravelBuildRequestElementXML($passengerInfo,$selectedItinerary,$user);
         $this->AmadeusConfig->createXMlFile($xml_post_string,'FlightBuildRQ.XML');
         $build = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->travelBuildRequestHeader($xml_post_string),$xml_post_string,$this->AmadeusConfig->travelBuildRequestWebServiceUrl);
         $this->AmadeusConfig->createXMlFile($build,'FlightBuildRS.XML');
 
         $responseArray = $this->AmadeusConfig->mungXmlToArray($build);
         $validator   = $this->AmadeusHelper->flightBuildResponseValidator($responseArray);
+
         if($validator == 1){
             $voucher_id = 0;
             $voucher_amount = 0;
@@ -250,9 +303,9 @@ class FlightController extends Controller
                 $total_amount = $selectedItinerary['customerTotal'];
                 $markup = $selectedItinerary['adminToCustomerMarkup'];
             }
-            if(!empty($data->voucher_code) || $data->voucher_code != 0){
+            if(!empty($data['voucher_code']) || $data['voucher_code'] != 0){
 
-                $checkVoucher = Voucher::where('code',$data->voucher_code)
+                $checkVoucher = Voucher::where('code',$data['voucher_code'])
                     ->where('status',3)
                     ->first();
 
@@ -270,33 +323,77 @@ class FlightController extends Controller
             $sortedResponse = $this->AmadeusHelper->flightBuildResponseSort($responseArray);
             $saveBooking = FlightBooking::store($sortedResponse,$user,$selectedItinerary);
             if($saveBooking){
-                session()->put('selectedItinerary',$selectedItinerary);
-                session()->put('pnr',$sortedResponse['pnr']);
-                return redirect(url('/flight-booking-payment-page'));
+                return response()->json(['type' => 'success','message' => $saveBooking]);
             }
             else{
-                Toastr::error('Sorry, an unknown error was encountered');
-                return back();
+                $response = [
+                  13,
+                  'type' => 'success',
+                  'message' => 'Itinerary was reserved successfully but we are unable to add this booking to our database',
+                  'bookingResponse' => $sortedResponse,
+                ];
+                return response()->json($response,200);
             }
         }
-        else{
-            if(is_array($validator)){
-                if(is_array($validator[1])){
-                    foreach($validator[1] as $i => $error){
-                        Toastr::error($error);
-                    }
-                }
-                else{
-                    Toastr::error($validator[1]);
-                }
-                $error = json_encode($validator[1]);
-            }
-            else{
-                $error = 'Sorry, this itinerary is not available for booking, try again with another itinerary';
-                Toastr::error('Sorry, this itinerary is not available for booking, try again with another itinerary');
-            }
-            return back()->withErrors($error);
+        elseif($validator == 2){
+            return response()->json(["message" => "Sorry, Unable to book Itinerary, try selecting another itinerary"] ,200);
         }
+        elseif(is_array($validator)){
+            return response()->json($validator, 200);
+        }
+        elseif($validator == 0){
+            return response()->json(["message" => "Connection error"] ,200);
+        }
+
+
+    }
+
+    public function getFlightBookingV1($pnr){
+
+        $getBooking = FlightBooking::where('pnr',$pnr)->first();
+
+        if(empty($getBooking) || is_null($getBooking)){
+            return response()->json(['type' => 'error','message' => 'No booking is associated with this PNR in our database'],200);
+        }
+        return response()->json($getBooking,200);
+
+    }
+
+    public function getAllBookingsV1($userId){
+
+        $getBooking = FlightBooking::where('user_id',$userId)->all();
+
+        if(empty($getBooking) || is_null($getBooking)){
+            return response()->json(['message' => 'No booking is associated with this user id in our database'],200);
+        }
+        return response()->json($getBooking,200);
+    }
+
+    public function paymentSuccessfulV1($pnr){
+        $getBooking = FlightBooking::where('pnr',$pnr)->first();
+
+        if(empty($getBooking) || is_null($getBooking)){
+            return response()->json(['type' => 'error', 'message' => 'No booking is associated with this PNR in our database'],200);
+        }
+
+        $getBooking->payment_status = 1;
+        $getBooking->update();
+
+        return response()->json(['type' => 'success', 'message' => 'Payment status updated to successful'],200);
+
+    }
+
+    public function paymentPendingV1($pnr){
+        $getBooking = FlightBooking::where('pnr',$pnr)->first();
+
+        if(empty($getBooking) || is_null($getBooking)){
+            return response()->json(['type' => 'error', 'message' => 'No booking is associated with this PNR in our database'],200);
+        }
+
+        $getBooking->payment_status = 0;
+        $getBooking->update();
+
+        return response()->json(['type' => 'success', 'message' => 'Payment status updated to pending'],200);
     }
 
 

@@ -19,18 +19,22 @@
       </POS> 
 		  <AirItinerary>   
 		  <OriginDestinationOptions>    
-		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-23T16:00:00" ArrivalDateTime="2018-05-23T21:20:00" FlightNumber="201" ResBookDesigCode="O">    
-		  <DepartureAirport LocationCode="LOS"/>
-		  <ArrivalAirport LocationCode="KGL"/>      
-		  <MarketingAirline Code="WB"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-23T22:20:00" ArrivalDateTime="2018-05-24T02:10:00" FlightNumber="102" ResBookDesigCode="O">    
-		  <DepartureAirport LocationCode="KGL"/>
-		  <ArrivalAirport LocationCode="JNB"/>      
-		  <MarketingAirline Code="WB"/>     
-		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-30T18:15:00" ArrivalDateTime="2018-05-30T22:15:00" FlightNumber="51" ResBookDesigCode="S">    
-		  <DepartureAirport LocationCode="JNB"/>
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-08T22:15:00" ArrivalDateTime="2018-05-09T08:05:00" FlightNumber="6" ResBookDesigCode="K">    
+		  <DepartureAirport LocationCode="LHR"/>
+		  <ArrivalAirport LocationCode="DXB"/>      
+		  <MarketingAirline Code="EK"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-16T03:55:00" ArrivalDateTime="2018-05-16T08:35:00" FlightNumber="781" ResBookDesigCode="K">    
+		  <DepartureAirport LocationCode="DXB"/>
 		  <ArrivalAirport LocationCode="LOS"/>      
-		  <MarketingAirline Code="WB"/>     
+		  <MarketingAirline Code="EK"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-24T11:10:00" ArrivalDateTime="2018-05-24T11:00:00" FlightNumber="25" ResBookDesigCode="N">    
+		  <DepartureAirport LocationCode="LOS"/>
+		  <ArrivalAirport LocationCode="LFW"/>      
+		  <MarketingAirline Code="2J"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-24T13:25:00" ArrivalDateTime="2018-05-24T16:00:00" FlightNumber="32" ResBookDesigCode="N">    
+		  <DepartureAirport LocationCode="LFW"/>
+		  <ArrivalAirport LocationCode="ABV"/>      
+		  <MarketingAirline Code="2J"/>     
 		  </FlightSegment></OriginDestinationOption>  
 		  </OriginDestinationOptions>  
 		  </AirItinerary>  

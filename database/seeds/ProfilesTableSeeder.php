@@ -16,6 +16,8 @@ class ProfilesTableSeeder extends Seeder
             [
               'id'            => 1,
               'user_id'       => 1,
+              'title_id'      => 1,
+              'gender_id'     => 1,
               'sur_name'      => 'Travel',
               'first_name'    => 'Portal',
               'other_name'    => 'Admin',
@@ -26,6 +28,8 @@ class ProfilesTableSeeder extends Seeder
             [
                 'id'           => 2,
                 'user_id'      => 2,
+                'title_id'      => 1,
+                'gender_id'     => 1,
                 'sur_name'     => 'First',
                 'first_name'   => 'Portal',
                 'other_name'   => 'Agent',
@@ -36,6 +40,8 @@ class ProfilesTableSeeder extends Seeder
             [
                 'id' => 3,
                 'user_id' => 3,
+                'title_id'      => 1,
+                'gender_id'     => 1,
                 'sur_name' => 'First',
                 'first_name' => 'Test',
                 'other_name' => 'Customer',
@@ -46,6 +52,8 @@ class ProfilesTableSeeder extends Seeder
             [
                 'id' => 4,
                 'user_id' => 4,
+                'title_id'      => 1,
+                'gender_id'     => 1,
                 'sur_name' => 'Ogunsakin',
                 'first_name' => 'Damilola',
                 'other_name' => 'Olamide',

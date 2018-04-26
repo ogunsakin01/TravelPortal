@@ -1124,4 +1124,196 @@ class AmadeusHelper
         ];
     }
 
+    public function hotelAvailResponseValidator($responseArray){
+        if(empty($responseArray)){
+            return 0;
+        }else{
+            if(isset($responseArray['soap_Body']['wmHotelAvailResponse']['OTA_HotelAvailRS']['Success'])){
+                return 1;
+            }elseif(isset($responseArray['soap_Body']['wmHotelAvailResponse']['OTA_HotelAvailRS']['Errors']['Error'])){
+                $error = $responseArray['soap_Body']['wmHotelAvailResponse']['OTA_HotelAvailRS']['Errors']['Error'];
+                return [
+                    2,$error
+                ];
+            }else{
+                return 2;
+            }
+        }
+    }
+
+    public function hotelAvailResponseSort($responseArray){
+         $hotels = [];
+         $availableHotels = $responseArray['soap_Body']['wmHotelAvailResponse']['OTA_HotelAvailRS']['RoomStays']['RoomStay'];
+         if(isset($availableHotels[0])){
+             foreach($availableHotels as $serial => $availableHotel){
+                 $minimumRate   = $availableHotel['RatePlans']['RatePlan']['AdditionalDetails']['AdditionalDetail'][0]['@attributes']['Amount'];
+                 $numberOfUnits = $availableHotel['RoomRates']['RoomRate']['@attributes']['NumberOfUnits'];
+                 $guestCounts   = $availableHotel['GuestCounts']['GuestCount']['@attributes']['Count'];
+                 $startDate     = $availableHotel['TimeSpan']['@attributes']['Start'];
+                 $endDate       = $availableHotel['TimeSpan']['@attributes']['End'];
+                 $chainCode     = $availableHotel['BasicPropertyInfo']['@attributes']['ChainCode'];
+                 $hotelCode     = $availableHotel['BasicPropertyInfo']['@attributes']['HotelCode'];
+                 $hotelCityCode = $availableHotel['BasicPropertyInfo']['@attributes']['HotelCityCode'];
+                 $hotelName     = $availableHotel['BasicPropertyInfo']['@attributes']['HotelName'];
+                 $hotelContextCode = $availableHotel['BasicPropertyInfo']['@attributes']['HotelCodeContext'];
+                 $hotelImage    = $availableHotel['BasicPropertyInfo']['VendorMessages']['VendorMessage'][0]['SubSection']['Paragraph']['URL'];
+                 if(isset($availableHotel['BasicPropertyInfo']['Award'])){
+                     $star_rating_size = count($availableHotel['BasicPropertyInfo']['Award']);
+                     if($star_rating_size == 1){
+                         if($availableHotel['BasicPropertyInfo']['Award']['@attributes']['Provider'] == 'Local Star Rating'){
+                             $hotelStarRating = $availableHotel['BasicPropertyInfo']['Award']['@attributes']['Rating'];
+                         }else{
+                             $hotelStarRating = 0;
+                         }
+                     }elseif($star_rating_size > 1){
+                         for($r = 0; $r < $star_rating_size; $r++){
+                             if($availableHotel['BasicPropertyInfo']['Award'][$r]['@attributes']['Provider'] == 'Local Star Rating'){
+                                 $hotelStarRating = $availableHotel['BasicPropertyInfo']['Award'][$r]['@attributes']['Rating'];
+                             }else{
+                                 $hotelStarRating = 0;
+                             }
+                         }
+                     }
+                 }
+                 else{
+                     $hotelStarRating = 0;
+                 }
+
+                 $hotelChainName = '';$availableHotel['BasicPropertyInfo']['@attributes']['ChainName'];
+                 if(isset($availableHotel['BasicPropertyInfo']['Address'])){
+                     $hotelAddress = $availableHotel['BasicPropertyInfo']['Address']['AddressLine'];
+                     if(is_array($hotelAddress)){
+                         $hotelAds = '';
+                         foreach($hotelAddress as $i => $hotelAddresss){
+                             $hotelAds = $hotelAds.', '.$hotelAddresss;
+                         }
+                         $hotelAddress = $hotelAds;
+                     }
+                     if(isset($availableHotel['BasicPropertyInfo']['Address']['CityName'])){
+                         $hotelCityName = $availableHotel['BasicPropertyInfo']['Address']['CityName'];
+                     }else{
+                         $room_details['CityName'] = '';
+                     }
+                     $hotelCountryCode = $availableHotel['BasicPropertyInfo']['Address']['CountryName']['@attributes']['Code'];
+                 }
+                 else{
+                     $hotelAddress = 'no address available';
+                     $hotelCityName = '';
+                     $hotelCountryCode = '';
+                 }
+
+                 $hotelInformation = $availableHotel['BasicPropertyInfo']['VendorMessages']['VendorMessage'][1]['SubSection']['Paragraph']['Text'];
+                 if(isset($availableHotel['BasicPropertyInfo']['HotelAmenity'])){
+                     $hotelAmenities   = $availableHotel['BasicPropertyInfo']['HotelAmenity'];
+                 }else{
+                     $hotelAmenities   = '';
+                 }
+
+                 $hotel = [
+                     'minimumRate'      => $minimumRate,
+                     'numberOfUnits'    => $numberOfUnits,
+                     'guestCounts'      => $guestCounts,
+                     'startDate'        => $startDate,
+                     'endDate'          => $endDate,
+                     'chainCode'        => $chainCode,
+                     'hotelCode'        => $hotelCode,
+                     'hotelCityCode'    => $hotelCityCode,
+                     'hotelName'        => $hotelName,
+                     'hotelContextCode' => $hotelContextCode,
+                     'hotelImage'       => $hotelImage,
+                     'hotelStarRating'  => $hotelStarRating,
+                     'hotelChainName'   => $hotelChainName,
+                     'hotelAddress'     => $hotelAddress,
+                     'hotelInformation' => $hotelInformation,
+                     'hotelAmenities'   => $hotelAmenities,
+                     'hotelCountryCode' => $hotelCountryCode,
+                     'hotelCityName'    => $hotelCityName
+                 ];
+                 array_push($hotels, $hotel);
+             }
+         }else{
+             $availableHotel = $availableHotels;
+             $minimumRate   = $availableHotel['RatePlans']['RatePlan']['AdditionalDetails']['AdditionalDetail'][0]['@attributes']['Amount'];
+             $numberOfUnits = $availableHotel['RoomRates']['RoomRate']['@attributes']['NumberOfUnits'];
+             $guestCounts   = $availableHotel['GuestCounts']['GuestCount']['@attributes']['Count'];
+             $startDate     = $availableHotel['TimeSpan']['@attributes']['Start'];
+             $endDate       = $availableHotel['TimeSpan']['@attributes']['End'];
+             $chainCode     = $availableHotel['BasicPropertyInfo']['@attributes']['ChainCode'];
+             $hotelCode     = $availableHotel['BasicPropertyInfo']['@attributes']['HotelCode'];
+             $hotelCityCode = $availableHotel['BasicPropertyInfo']['@attributes']['HotelCityCode'];
+             $hotelName     = $availableHotel['BasicPropertyInfo']['@attributes']['HotelName'];
+             $hotelContextCode = $availableHotel['BasicPropertyInfo']['@attributes']['HotelCodeContext'];
+             $hotelImage    = $availableHotel['BasicPropertyInfo']['VendorMessages']['VendorMessage'][0]['SubSection']['Paragraph']['URL'];
+             if(isset($availableHotel['BasicPropertyInfo']['Award'])){
+                 $star_rating_size = count($availableHotel['BasicPropertyInfo']['Award']);
+                 if($star_rating_size == 1){
+                     if($availableHotel['BasicPropertyInfo']['Award']['@attributes']['Provider'] == 'Local Star Rating'){
+                         $hotelStarRating = $availableHotel['BasicPropertyInfo']['Award']['@attributes']['Rating'];
+                     }else{
+                         $hotelStarRating = 0;
+                     }
+                 }elseif($star_rating_size > 1){
+                     for($r = 0; $r < $star_rating_size; $r++){
+                         if($availableHotel['BasicPropertyInfo']['Award'][$r]['@attributes']['Provider'] == 'Local Star Rating'){
+                             $hotelStarRating = $availableHotel['BasicPropertyInfo']['Award'][$r]['@attributes']['Rating'];
+                         }else{
+                             $hotelStarRating = 0;
+                         }
+                     }
+                 }
+             }
+             else{
+                 $hotelStarRating = 0;
+             }
+
+             $hotelChainName = '';$availableHotel['BasicPropertyInfo']['@attributes']['ChainName'];
+             if(isset($availableHotel['BasicPropertyInfo']['Address'])){
+                 $hotelAddress = $availableHotel['BasicPropertyInfo']['Address']['AddressLine'];
+                 if(is_array($hotelAddress)){
+                     $hotelAds = '';
+                     foreach($hotelAddress as $i => $hotelAddresss){
+                         $hotelAds = $hotelAds.', '.$hotelAddresss;
+                     }
+                     $hotelAddress = $hotelAds;
+                 }
+                 if(isset($availableHotel['BasicPropertyInfo']['Address']['CityName'])){
+                     $hotelCityName = $availableHotel['BasicPropertyInfo']['Address']['CityName'];
+                 }else{
+                     $room_details['CityName'] = '';
+                 }
+                 $hotelCountryCode = $availableHotel['BasicPropertyInfo']['Address']['CountryName']['@attributes']['Code'];
+             }
+             else{
+                 $hotelAddress = 'no address available';
+                 $hotelCityName = '';
+                 $hotelCountryCode = '';
+             }
+
+             $hotelInformation = $availableHotel['BasicPropertyInfo']['VendorMessages']['VendorMessage'][1]['SubSection']['Paragraph']['Text'];
+             $hotelAmenities   = $availableHotel['BasicPropertyInfo']['HotelAmenity'];
+             $hotel = [
+                 'minimumRate'      => $minimumRate,
+                 'numberOfUnits'    => $numberOfUnits,
+                 'guestCounts'      => $guestCounts,
+                 'startDate'        => $startDate,
+                 'endDate'          => $endDate,
+                 'chainCode'        => $chainCode,
+                 'hotelCode'        => $hotelCode,
+                 'hotelCityCode'    => $hotelCityCode,
+                 'hotelName'        => $hotelName,
+                 'hotelContextCode' => $hotelContextCode,
+                 'hotelImage'       => $hotelImage,
+                 'hotelStarRating'  => $hotelStarRating,
+                 'hotelChainName'   => $hotelChainName,
+                 'hotelAddress'     => $hotelAddress,
+                 'hotelInformation' => $hotelInformation,
+                 'hotelAmenities'   => $hotelAmenities,
+                 'hotelCountryCode' => $hotelCountryCode,
+                 'hotelCityName'    => $hotelCityName
+             ];
+             array_push($hotels, $hotel);
+         }
+      return $hotels;
+    }
+
 }

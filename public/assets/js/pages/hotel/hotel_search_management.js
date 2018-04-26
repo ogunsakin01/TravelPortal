@@ -49,6 +49,18 @@ $(function(){
         })
             .then(function(response){
                 console.log(response.data);
+                if(response.data == 1){
+                    toastr.success("Available hotels retrieved, redirecting to available hotels page");
+                    window.location.href = baseUrl+'/available-hotels';
+                }else{
+                    if(response.data == 2){
+                        toastr.error('Sorry !!! No hotel found for the options you entered');
+                    }else if(response.data == 0){
+                        toastr.error('Bad Internet Connection, unable to connect to the booking server');
+                    }else{
+                        toastr.error('Sorry !!! No hotel found for the options you entered');
+                    }
+                }
                 hotelSearchLoader(0,hotel_city);
             })
             .catch(function(error){

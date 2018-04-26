@@ -87,4 +87,11 @@ class ViewController extends Controller
 
     }
 
+    public function availableHotels(){
+
+        $availableHotels = session()->get('availableHotels');
+        $responseArray = $this->AmadeusConfig->mungXmlToArray($availableHotels);
+        dd($this->AmadeusHelper->hotelAvailResponseSort($responseArray));
+    }
+
 }

@@ -35,7 +35,7 @@ $(function(){
         '                                                     </div>\n' +
         '                                                </div>\n' +
         '                                                <div class="clearfix"></div> ' +
-        '</div>  ';
+        '</div>';
 
     function validateFormWithClasses(classes) {
         if (Array.isArray(classes))

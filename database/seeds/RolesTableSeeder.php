@@ -15,22 +15,19 @@ class RolesTableSeeder extends Seeder
     {
         $roles = [
             [
-                'id' => 1,
-                'name' => 'admin',
+                'name'         => 'admin',
                 'display_name' => 'Portal Admin',
-                'description' => 'General control of the entire system'
+                'description'  => 'General control of the entire system'
             ],
             [
-                'id' => 2,
-                'name' => 'agent',
+                'name'         => 'agent',
                 'display_name' => 'Portal Agent',
-                'description' => 'A customer that books for his/her personal customer'
+                'description'  => 'A customer that books for his/her personal customer'
             ],
             [
-                'id' => 3,
-                'name' => 'customer',
+                'name'         => 'customer',
                 'display_name' => 'Portal Customer',
-                'description' => 'A registered visitor, customer'
+                'description'  => 'A registered visitor, customer'
             ],
         ];
 
