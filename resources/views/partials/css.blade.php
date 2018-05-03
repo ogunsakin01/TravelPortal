@@ -1,5 +1,5 @@
 <!-- STYLES -->
-
+<link rel="shortcut icon" type="image/x-icon" href="{{asset('backend/img/core-img/favicon.png')}}">
 <link href="{{asset('assets/css/animate.min.css')}}" rel="stylesheet">
 <link href="{{asset('assets/css/bootstrap-select.min.css')}}" rel="stylesheet">
 <link href="{{asset('assets/css/owl.carousel.css')}}" rel="stylesheet">

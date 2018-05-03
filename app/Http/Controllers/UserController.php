@@ -76,4 +76,9 @@ class UserController extends Controller
 
     }
 
+    public function changePassword(array $r){
+        $user = new User();
+        return $user->changePassword($r);
+    }
+
 }

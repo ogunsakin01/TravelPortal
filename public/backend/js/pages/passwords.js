@@ -8,14 +8,14 @@ $(function () {
   $('#send_link').click(function () {
     var email = $('#email').val();
 
-    axios.post('/backend/password/reset', {
+    axios.post(baseUrl+'settings/password/reset', {
       'email': email
     })
         .then(function (response) {
           if (response.data == 1)
           {
             toastr.success('Password reset link sent');
-            window.location.href = baseUrl+'/backend/login';
+            location.reload();
           }
           else if(response.data == 0)
           {
@@ -38,7 +38,7 @@ $(function () {
     var new_password = $('#new_password').val();
     var confirm_password = $('#confirm_password').val();
     buttonClicked('send_link','Change',1);
-    axios.post('/backend/password/change', {
+    axios.post(baseUrl+'/settings/password/change', {
       'old_password': old_password,
       'new_password': new_password,
       'confirm_password': confirm_password

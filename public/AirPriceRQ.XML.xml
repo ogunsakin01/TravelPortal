@@ -19,29 +19,21 @@
       </POS> 
 		  <AirItinerary>   
 		  <OriginDestinationOptions>    
-		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-08T22:15:00" ArrivalDateTime="2018-05-09T08:05:00" FlightNumber="6" ResBookDesigCode="K">    
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-15T16:55:00" ArrivalDateTime="2018-05-16T02:50:00" FlightNumber="30" ResBookDesigCode="T">    
 		  <DepartureAirport LocationCode="LHR"/>
 		  <ArrivalAirport LocationCode="DXB"/>      
 		  <MarketingAirline Code="EK"/>     
-		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-16T03:55:00" ArrivalDateTime="2018-05-16T08:35:00" FlightNumber="781" ResBookDesigCode="K">    
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-24T14:15:00" ArrivalDateTime="2018-05-24T18:40:00" FlightNumber="3" ResBookDesigCode="T">    
 		  <DepartureAirport LocationCode="DXB"/>
-		  <ArrivalAirport LocationCode="LOS"/>      
+		  <ArrivalAirport LocationCode="LHR"/>      
 		  <MarketingAirline Code="EK"/>     
-		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-24T11:10:00" ArrivalDateTime="2018-05-24T11:00:00" FlightNumber="25" ResBookDesigCode="N">    
-		  <DepartureAirport LocationCode="LOS"/>
-		  <ArrivalAirport LocationCode="LFW"/>      
-		  <MarketingAirline Code="2J"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-24T13:25:00" ArrivalDateTime="2018-05-24T16:00:00" FlightNumber="32" ResBookDesigCode="N">    
-		  <DepartureAirport LocationCode="LFW"/>
-		  <ArrivalAirport LocationCode="ABV"/>      
-		  <MarketingAirline Code="2J"/>     
 		  </FlightSegment></OriginDestinationOption>  
 		  </OriginDestinationOptions>  
 		  </AirItinerary>  
 		  <TravelerInfoSummary>   
-		  <SeatsRequested>3</SeatsRequested>   
+		  <SeatsRequested>1</SeatsRequested>   
 		  <AirTravelerAvail>    
-		  <PassengerTypeQuantity Code="ADT" Quantity="2"/><PassengerTypeQuantity Code="CHD" Quantity="1"/><PassengerTypeQuantity Code="INF" Quantity="1"/> 
+		  <PassengerTypeQuantity Code="ADT" Quantity="1"/> 
 		  </AirTravelerAvail>   
 		  <PriceRequestInformation PricingSource="Published"/>  
 		  </TravelerInfoSummary> 

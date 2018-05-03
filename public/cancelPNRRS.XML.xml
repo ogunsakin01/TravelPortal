@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <soap:Body>
+        <wmPNRCancelResponse xmlns="http://traveltalk.com/wsPNRCancel">
+            <OTA_CancelRS Version="3.14" Status="Error">
+                <Errors>
+                    <Error>6271|Application|RESTRICTED ENTRY - PNR RETRIEVED IN READ MODE</Error>
+                </Errors>
+            </OTA_CancelRS>
+        </wmPNRCancelResponse>
+    </soap:Body>
+</soap:Envelope>

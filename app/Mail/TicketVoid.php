@@ -16,9 +16,15 @@ class TicketVoid extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $user;
+
+    public $ticketNumber;
+
+    public function __construct($user,$ticketNumber)
     {
-        //
+        $this->user = $user;
+        $this->ticketNumber = $ticketNumber;
     }
 
     /**
@@ -28,7 +34,8 @@ class TicketVoid extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@travelportal.com',config('app.name'))
+        return $this->subject('Void Ticket Successful')
+            ->from('no-reply@travelportal.com',config('app.name'))
             ->markdown('emails.TicketVoid');
     }
 }

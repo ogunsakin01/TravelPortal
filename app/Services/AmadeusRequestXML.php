@@ -597,7 +597,7 @@ class AmadeusRequestXML
    <TPA_Extensions>
       <PNRData>
       '.$this->airBookPassengersXML($passengerInformation).'
-         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="'.$user['profile']['phone'].'" FormattedInd="0"/>
+         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="'.$user['profile']['phone_number'].'" FormattedInd="0"/>
          <Email>'.$user['email'].'</Email>
          <Ticketing TicketTimeLimit="'.$buildData['ticketTimeLimit'].'" TicketType="eTicket" />
       </PNRData>
@@ -637,14 +637,20 @@ class AmadeusRequestXML
         foreach($passengerArray as $serial => $passengerType){
             $passengerTypeCount = count($passengerInformation[$passengerType."_title"]);
             for($p = 0; $p < $passengerTypeCount; $p++){
-                $birthDate = '';
+                $addition = '';
                 if($passengerType != 'adult'){
                     $dob_new = $passengerInformation[$passengerType."_year_of_birth"][$p].'-'.$passengerInformation[$passengerType."_month_of_birth"][$p].'-'.$passengerInformation[$passengerType."_day_of_birth"][$p];
                     $date = $dob = date('Y-m-d', strtotime($dob_new));
                     $birthDate = 'BirthDate="'.$date.'"';
+                    if($passengerType == 'infant'){
+                        $passengerTypeCode = 'PassengerTypeCode="INF"';
+                    }elseif($passengerType == 'child'){
+                        $passengerTypeCode = 'PassengerTypeCode="CHD"';
+                    }
+                    $addition = ' '.$passengerTypeCode.' '.$birthDate;
                 }
                 $traveler = '
-                <Traveler PassengerTypeCode="ADT" '.$birthDate.'>
+                <Traveler'.$addition.'>
                   <PersonName>
                     <NamePrefix>'.$passengerInformation[$passengerType."_title"][$p].'</NamePrefix>
                     <GivenName>'.$passengerInformation[$passengerType."_first_name"][$p].' '.$passengerInformation[$passengerType."_other_name"][$p].'</GivenName>
@@ -746,6 +752,44 @@ class AmadeusRequestXML
 </wmHotelAvail>';
         return $this->requestXML($body);
 	}
+
+	public function cancelPNRRequestXML($pnr){
+        $body = '<wmPNRCancel xmlns="http://traveltalk.com/wsPNRCancel">
+                    <OTA_CancelRQ>
+                      '.$this->posXML().'
+                      <UniqueID ID="'.$pnr.'"/>
+                    </OTA_CancelRQ>
+                   </wmPNRCancel> ';
+
+        return $this->requestXML($body);
+    }
+
+    public function voidTicket($ticketNumber){
+        $body = '<wmVoidTicket xmlns="http://traveltalk.com/wsVoidTicket">
+                  <TT_VoidTicketRQ Version="1.0">
+                   '.$this->posXML().'
+                   <Tickets>
+                    <TicketNumber>'.$ticketNumber.'</TicketNumber>
+                   </Tickets>
+                  </TT_VoidTicketRQ>
+                 </wmVoidTicket>';
+        return $this->requestXML($body);
+    }
+
+    public function issueTicket($pnr){
+        $body = '<wmIssueTicket xmlns="http://traveltalk.com/wsIssueTicket">
+                   <TT_IssueTicketRQ>
+                     '.$this->posXML().'
+                     <UniqueID ID="'.$pnr.'"/>
+                     <Ticketing TicketType="eTicket"/>
+                   </TT_IssueTicketRQ>
+                 </wmIssueTicket>';
+
+        return $this->requestXML($body);
+
+    }
+
+
 
 
 }

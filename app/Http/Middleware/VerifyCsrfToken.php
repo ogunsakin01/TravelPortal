@@ -13,6 +13,8 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/paystack-payment-verification',
-        '/interswitch-payment-verification'
+        '/interswitch-payment-verification',
+        '/backend/paystack-payment-verification',
+        '/backend/interswitch-payment-verification'
     ];
 }

@@ -43,7 +43,7 @@ class FlightBooking extends Model
             'issue_ticket_status'  => 0,
             'void_ticket_status'   => 0,
             'cancel_ticket_status' => 0,
-            'pnr_request_response' => response()->json($sortedResponse)
+            'pnr_request_response' => json_encode($sortedResponse,true)
         ]);
 
     }

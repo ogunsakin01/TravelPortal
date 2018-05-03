@@ -310,6 +310,8 @@
                                                 <label>Title</label>
                                                 <select required name="adult_title[]" class="form-control">
                                                     <option value="MR">MR. </option>
+                                                    <option value="MSTR">MASTER </option>
+                                                    <option value="MS">MS</option>
                                                     <option value="MRS">MRS. </option>
                                                     <option value="MISS">MISS </option>
                                                 </select>
@@ -350,6 +352,8 @@
                                                 <label>Title</label>
                                                 <select required name="child_title[]" class="form-control">
                                                     <option value="MR">MR. </option>
+                                                    <option value="MSTR">MASTER </option>
+                                                    <option value="MS">MS</option>
                                                     <option value="MRS">MRS. </option>
                                                     <option value="MISS">MISS </option>
                                                 </select>
@@ -420,7 +424,10 @@
                                             <div class="form-group">
                                                 <label>Title</label>
                                                 <select required name="infant_title[]" class="form-control">
-                                                    <option value="MASTER">MASTER </option>
+                                                    <option value="MR">MR. </option>
+                                                    <option value="MSTR">MASTER </option>
+                                                    <option value="MS">MS</option>
+                                                    <option value="MRS">MRS. </option>
                                                     <option value="MISS">MISS </option>
                                                 </select>
                                             </div>
