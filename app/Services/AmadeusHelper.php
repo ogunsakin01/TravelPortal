@@ -1316,4 +1316,45 @@ class AmadeusHelper
       return $hotels;
     }
 
+    public function cancelPNRResponseValidator($responseArray){
+        if(empty($responseArray)){
+            return 0;
+        }else{
+            $cancelResponse = $responseArray['soap_Body']['wmPNRCancelResponse'];
+            if(isset($cancelResponse['OTA_CancelRS']['Errors'])){
+                $error = $cancelResponse['OTA_CancelRS']['Errors']['Error'];
+                return [
+                    2, $error
+                ];
+            }elseif(empty($cancelResponse)){
+                return 21;
+            }elseif($cancelResponse['OTA_CancelRS']['Success']){
+                return 1;
+            }else{
+                return 2;
+            }
+        }
+    }
+
+    public function issueTicketResponseValidator($responseArray){
+        if(empty($responseArray)){
+            return 0;
+        }else{
+            if(isset($responseArray['soap_Body']['wmIssueTicketResponse']['TT_IssueTicketRS']['Errors']['Error'])){
+                $error = $responseArray['soap_Body']['wmIssueTicketResponse']['TT_IssueTicketRS']['Errors']['Error'];
+                return [2,$error];
+            }elseif(empty($responseArray['soap_Body']['wmIssueTicketResponse'])){
+                return 21;
+            }elseif(isset($responseArray['soap_Body']['wmIssueTicketResponse']['TT_IssueTicketRS']['TicketingControl'])){
+                if($responseArray['soap_Body']['wmIssueTicketResponse']['TT_IssueTicketRS']['TicketingControl']['@attributes']['Type'] == "OK"){
+                    return 1;
+                }else{
+                    return 11;
+                }
+            }else{
+                return 2;
+            }
+        }
+    }
+
 }

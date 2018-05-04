@@ -45,7 +45,7 @@ class AmadeusConfig
 
     public $travelBuildRequestWebServiceUrl     = 'http://amadeusws.tripxml.com/TripXML/wsTravelBuild_v03.asmx';
 
-    public $cancelPrnRequestWebServiceUrl       = 'http://amadeusws.tripxml.com/TripXML/wsPNRCancel.asmx';
+    public $cancelPNRRequestWebServiceUrl       = 'http://amadeusws.tripxml.com/TripXML/wsPNRCancel.asmx';
 
     public $pnrReadRequestWebServiceUrl         = 'http://amadeusws.tripxml.com/TripXML/wsPNRRead_v03.asmx';
 
@@ -62,7 +62,6 @@ class AmadeusConfig
     public static function airlineLogo($code){
         return 'http://pics.avs.io/200/200/'.$code.'.png';
     }
-
 
     public static function iataCode($string){
 
@@ -194,7 +193,6 @@ class AmadeusConfig
         return fclose($file);
     }
 
-
     public function lowFareRequestHeader($xml_post_string){
         return [
             "POST /TripXML/wsLowFarePlus.asmx HTTP/1.1",
@@ -271,7 +269,7 @@ class AmadeusConfig
             "POST /TripXML/wsPNRCancel.asmx HTTP/1.1",
             "Host: amadeusws.tripxml.com",
             "Content-Type: text/xml; charset=utf-8",
-            "SOAPAction: "."http://traveltalk.com/wsPNRCancel/wmPNRCancelXml",
+            "SOAPAction: "."http://traveltalk.com/wsPNRCancel/wmPNRCancel",
             "Content-Length: ".strlen($xml_post_string)
         ];
     }
@@ -281,7 +279,7 @@ class AmadeusConfig
             "POST /TripXML/wsIssueTicket.asmx HTTP/1.1",
             "Host: amadeusws.tripxml.com",
             "Content-Type: text/xml; charset=utf-8",
-            "SOAPAction: "."http://traveltalk.com/wsIssueTicket/wmIssueTicketXml",
+            "SOAPAction: "."http://traveltalk.com/wsIssueTicket/wmIssueTicket",
             "Content-Length: ".strlen($xml_post_string)
         ];
     }
@@ -291,7 +289,7 @@ class AmadeusConfig
             "POST /TripXML/wsVoidTicket.asmx HTTP/1.1",
             "Host: amadeusws.tripxml.com",
             "Content-Type: text/xml; charset=utf-8",
-            "SOAPAction: "."http://traveltalk.com/wsVoidTicket/wmVoidTicketXml",
+            "SOAPAction: "."http://traveltalk.com/wsVoidTicket/wmVoidTicket",
             "Content-Length: ".strlen($xml_post_string)
         ];
     }
@@ -301,7 +299,7 @@ class AmadeusConfig
             "POST /TripXML/wsPNRRead_v03.asmx HTTP/1.1",
             "Host: amadeusws.tripxml.com",
             "Content-Type: text/xml; charset=utf-8",
-            "SOAPAction: "."http://traveltalk.com/wsPNRRead/wmPNRReadXml",
+            "SOAPAction: "."http://traveltalk.com/wsPNRRead/wmPNRRead",
             "Content-Length: ".strlen($xml_post_string)
         ];
     }
@@ -311,7 +309,7 @@ class AmadeusConfig
             "POST /TripXML/wsUpdate.asmx HTTP/1.1",
             "Host: amadeusws.tripxml.com",
             "Content-Type: text/xml; charset=utf-8",
-            "SOAPAction: "."http://traveltalk.com/wsUpdate/wmUpdateXml",
+            "SOAPAction: "."http://traveltalk.com/wsUpdate/wmUpdate",
             "Content-Length: ".strlen($xml_post_string)
         ];
     }

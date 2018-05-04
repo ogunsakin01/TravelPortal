@@ -26,11 +26,11 @@
                 <ul class="menu-content">
                     <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main">Flight</a>
                         <ul class="menu-content">
-                            <li><a class="menu-item" href="" data-i18n="nav.templates.vert.classic_menu">My Bookings</a>
+                            <li><a class="menu-item" href="{{url('/bookings/flight/user')}}">My Bookings</a>
                             </li>
-                            <li><a class="menu-item" href="">Agent</a>
+                            <li><a class="menu-item" href="{{url('/bookings/flight/agent')}}">Agent</a>
                             </li>
-                            <li><a class="menu-item" href="" data-i18n="nav.templates.vert.compact_menu">Customer</a>
+                            <li><a class="menu-item" href="{{url('/bookings/flight/customer')}}">Customer</a>
                             </li>
                         </ul>
                     </li>

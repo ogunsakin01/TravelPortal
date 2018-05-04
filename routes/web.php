@@ -23,7 +23,6 @@ Route::post('/custom-sign-up','UserController@signUp');
 Route::get('typeaheadJs', 'AirportController@typeAhead')->name('typeaheadJs');
 Route::get('airlineTypeAheadJs', 'AirlineController@typeAhead')->name('airlineTypeAheadJs');
 
-
 Route::post('/one-way-flight-search','FlightController@oneWayFlightSearch');
 Route::post('/round-trip-flight-search','FlightController@roundTripFlightSearch');
 Route::post('/multi-destination-flight-search','FlightController@multiDestinationFlightSearch');
@@ -31,24 +30,29 @@ Route::get('/selected-itinerary-info/{id}','FlightController@selectedItineraryIn
 Route::get('/get-flight-information-and-pricing/{id}','FlightController@getItineraryInformationAndPricing');
 Route::post('/book-itinerary','FlightController@bookItinerary');
 Route::post('/bank-payment','BankPaymentController@itineraryBankPayment');
-
-
 Route::get('/itinerary-booking','ViewController@itineraryBooking');
 Route::get('/available-itineraries','ViewController@availableItineraries');
 Route::get('/flight-booking-payment-page','ViewController@flightBookingPayment');
 Route::get('/flight-booking-confirmation','ViewController@flightPaymentConfirmation');
 
+Route::get('/cancel-pnr/{pnr}','FlightController@cancelPNR');
+Route::get('/issue-ticket/{pnr}','FlightController@issueTicket');
+Route::get('/void-ticket/{pnr}','FlightController@voidTicket');
 
 Route::post('/generate-interswitch-payment','OnlinePaymentController@generateInterswitchPayment');
 Route::post('/interswitch-payment-verification','OnlinePaymentController@interswitchPaymentVerification');
 Route::post('/generate-paystack-payment','OnlinePaymentController@generatePayStackPayment');
 Route::get('/paystack-payment-verification','OnlinePaymentController@payStackPaymentVerification');
 
+Route::post('backend/generate-interswitch-payment','OnlinePaymentController@generateInterswitchPaymentBackEnd');
+Route::post('backend/interswitch-payment-verification','OnlinePaymentController@interswitchPaymentVerificationBackEnd');
+Route::post('backend/generate-paystack-payment','OnlinePaymentController@generatePayStackPaymentBackEnd');
+Route::get('backend/paystack-payment-verification','OnlinePaymentController@payStackPaymentVerificationBackEnd');
 
+Route::get('backend/payment-confirmation','BackEndViewController@paymentConfirmation');
 
 Route::post('/searchHotel','HotelController@searchHotel');
 Route::get('/available-hotels','ViewController@availableHotels');
-
 
 Route::middleware(['auth'])->group(function(){
 
@@ -77,6 +81,7 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/delete','BankDetailController@deleteBankDetails');
         });
 
+        Route::get('/profile', 'BackEndViewController@profile')->name('profile');
         Route::get('', 'ProfileController@profileView')->name('backend-profile-view');
 
         Route::group(['prefix' => 'users'],function(){
@@ -86,6 +91,20 @@ Route::middleware(['auth'])->group(function(){
     });
 
     Route::group(['prefix' => 'bookings'],function(){
+
+        Route::group(['prefix' => 'flight'],function(){
+           Route::get('user','BackEndViewController@userFlightBookings');
+           Route::get('agent','BackEndViewController@agentFlightBookings');
+           Route::get('customer','BackEndViewController@customerFlightBookings');
+           Route::get('itinerary-booking-information/{reference}','BackEndViewCOntroller@itineraryBookingInformation');
+
+        });
+
+        Route::group(['prefix' => 'hotel'],function(){
+            Route::get('user','BackEndViewController@userHotelBookings');
+            Route::get('agent','BackEndViewController@agentHotelBookings');
+            Route::get('customer','BackEndViewController@customerHotelBookings');
+        });
 
     });
 
@@ -102,7 +121,6 @@ Route::middleware(['auth'])->group(function(){
     });
 
 });
-
 
 Auth::routes();
 

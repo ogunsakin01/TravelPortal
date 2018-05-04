@@ -7,13 +7,14 @@ use App\Profile;
 use App\Services\AmadeusConfig;
 use App\Services\AmadeusRequestXML;
 use App\Services\AmadeusHelper;
+use App\Services\PortalCustomNotificationHandler;
 use Illuminate\Http\Request;
-use function MongoDB\BSON\toJSON;
 use nilsenj\Toastr\Facades\Toastr;
 use App\Markdown;
 use App\Markup;
 use App\Vat;
 use App\Voucher;
+use App\User;
 
 class FlightController extends Controller
 {
@@ -219,8 +220,6 @@ class FlightController extends Controller
 
     public function bookItinerary(Request $data){
 
-        dd($data->request);
-
         $user = auth()->user();
         $userProfile = Profile::getUserInfo($user->id);
         $user['profile'] =  $userProfile;
@@ -297,6 +296,59 @@ class FlightController extends Controller
             }
             return back()->withErrors($error);
         }
+    }
+
+    public function cancelPNR($pnr){
+
+        $requestXML = $this->AmadeusRequestXML->cancelPNRRequestXML($pnr);
+        $this->AmadeusConfig->createXMlFile($requestXML,'cancelPNRRQ');
+        $cancel = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->cancelPnrRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->cancelPNRRequestWebServiceUrl);
+        $this->AmadeusConfig->createXMlFile($cancel,'cancelPNRRS');
+
+        $responseArray = $this->AmadeusConfig->mungXmlToArray($cancel);
+        $validator = $this->AmadeusHelper->cancelPNRResponseValidator($responseArray);
+        if($validator == 1){
+            $booking = FlightBooking::where('pnr',$pnr)->first();
+            $booking->cancel_ticket_status = 1;
+            $booking->update();
+            $user = User::find($booking->user_id);
+            $profile = Profile::where('user_id',$booking->user_id)->first();
+            $user['profile'] = $profile;
+            PortalCustomNotificationHandler::reservationCancelled($user,$pnr);
+        }
+        return $validator;
+    }
+
+    public function voidTicket($ticketNumber){
+
+        $requestXML = $this->AmadeusRequestXML->voidTicket($ticketNumber);
+        $this->AmadeusConfig->createXMlFile($requestXML,'voidTicketRQ');
+        $voidTicket = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->voidTicketRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->voidTicketRequestWebServiceUrl);
+        $this->AmadeusConfig->createXMlFile($voidTicket,'voidTicketRS');
+
+        $responseArray = $this->AmadeusConfig->mungXmlToArray($voidTicket);
+        return $responseArray;
+
+    }
+
+    public function issueTicket($pnr){
+        $requestXML = $this->AmadeusRequestXML->issueTicket($pnr);
+        $this->AmadeusConfig->createXMlFile($requestXML,'issueTicketRQ');
+        $issueTicket = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->issueTicketRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->issueTicketRequestWebServiceUrl);
+        $this->AmadeusConfig->createXMlFile($issueTicket,'issueTicketRS');
+
+        $responseArray = $this->AmadeusConfig->mungXmlToArray($issueTicket);
+        $validator = $this->AmadeusHelper->issueTicketResponseValidator($responseArray);
+        if($validator == 1){
+            $booking = FlightBooking::where('pnr',$pnr)->first();
+            $booking->issue_ticket_status = 1;
+            $booking->update();
+            $user = User::find($booking->user_id);
+            $profile = Profile::where('user_id',$booking->user_id)->first();
+            $user['profile'] = $profile;
+            PortalCustomNotificationHandler::ticketIssued($user,$pnr);
+        }
+        return $validator;
     }
 
 

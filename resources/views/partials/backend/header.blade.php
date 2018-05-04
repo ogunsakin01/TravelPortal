@@ -21,9 +21,9 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav float-right">
-                    <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1">Hello,<span class="user-name text-bold-700">John Doe</span></span>
+                    <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1">Hello,<span class="user-name text-bold-700">{{\App\Profile::where('user_id',auth()->user()->id)->first()->first_name}}</span></span>
                             <span class="avatar avatar-online">
-                                <img src="{{asset('backend/app-assets/images/portrait/small/avatar-s-19.png')}}" alt="avatar"><i></i>
+                                <img src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="avatar"><i></i>
                             </span></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>

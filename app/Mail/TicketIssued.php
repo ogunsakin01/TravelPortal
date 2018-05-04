@@ -16,9 +16,14 @@ class TicketIssued extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $user;
+
+    public $booking;
+
+    public function __construct($user, $booking)
     {
-        //
+        $this->user = $user;
+        $this->booking = $booking;
     }
 
     /**
@@ -28,7 +33,8 @@ class TicketIssued extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@travelportal.com',config('app.name'))
+        return $this->subject('Ticket Issued')
+            ->from('no-reply@travelportal.com',config('app.name'))
             ->markdown('emails.TicketIssued');
     }
 }

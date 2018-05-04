@@ -25,22 +25,22 @@
                                 <a class="dropdown-toggle" href="{{ url('/') }}"> HOME </a>
                             </li>
                             <li class="dropdown @yield('activeFlights')">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> FLIGHTS </a>
+                                <a class="dropdown-toggle" href="#"> FLIGHTS </a>
                             </li>
                             <li class="dropdown @yield('activeHotels')">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> HOTELS </a>
+                                <a class="dropdown-toggle" href="#"> HOTELS </a>
                             </li>
                             <li class="dropdown @yield('activePackages')">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> PACKAGES </a>
+                                <a class="dropdown-toggle" href="#"> PACKAGES </a>
                             </li>
                             <li class="dropdown @yield('activeAboutUs')">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> ABOUT US </a>
+                                <a class="dropdown-toggle" href="#"> ABOUT US </a>
                             </li>
                             <li class="dropdown @yield('activeContactUs')">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown"> CONTACT US </a>
+                                <a class="dropdown-toggle" href="#"> CONTACT US </a>
                             </li>
                             <li class="dropdown @yield('activeLogin')">
-                                <a class="dropdown-toggle" href="{{url('/login')}}" data-toggle="dropdown"> LOGIN </a>
+                                <a class="dropdown-toggle" href="{{url('/login')}}"> LOGIN </a>
                             </li>
                         </ul>
                     </div>

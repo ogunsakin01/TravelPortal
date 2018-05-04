@@ -1,0 +1,24 @@
+
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <wmIssueTicket xmlns="http://traveltalk.com/wsIssueTicket">
+                   <TT_IssueTicketRQ>
+                     <POS>
+        <Source PseudoCityCode="MIA1S21AV" ISOCurrency="NGN">
+         <RequestorID Type="21" ID="RubyTravel"/>
+        </Source>
+         <TPA_Extensions>
+            <Provider>
+               <Name>Amadeus</Name> 
+               <System>Test</System> 
+               <Userid>RubyTravel</Userid> 
+               <Password>sTeBr+Fr3kEv</Password> 
+            </Provider>
+         </TPA_Extensions>
+      </POS>
+                     <UniqueID ID="V3HMGK"/>
+                     <Ticketing TicketType="eTicket"/>
+                   </TT_IssueTicketRQ>
+                 </wmIssueTicket>
+            </soap:Body>
+        </soap:Envelope>
