@@ -17,7 +17,7 @@
 
 
 
-@section('js')
+@section('javascript')
 
 @endsection
 

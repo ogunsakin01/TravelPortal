@@ -56,7 +56,7 @@
                             <tr>
                                 <th>Pay with Paystack</th>
                                 <td>
-                                    <form method="post" action="{{url('/generate-paystack-payment-backend')}}">
+                                    <form method="post" action="{{url('backend/generate-paystack-payment')}}">
                                         @csrf
                                         <input type="hidden" name="amount" value="{{$booking->total_amount}}"/>
                                         <input  type="hidden" name="booking_reference" value="{{$booking->reference}}"/>

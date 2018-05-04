@@ -332,4 +332,57 @@ class OnlinePaymentController extends Controller
 
     }
 
+    public function requery($id){
+
+        $payment = OnlinePayment::find($id);
+        $response = $this->InterswitchConfig->requery($payment->reference,$payment->amount);
+
+        if($response['responseCode'] == '00' || $response['responseCode'] == '11' || $response['responseCode'] == '10'){
+
+            Toastr::success($response['responseDescription']);
+
+            $paymentInfo  = [
+                'status'  => 1,
+                'message' => $response['responseDescription']
+            ];
+
+            $paymentData = OnlinePayment::where('reference',$response['reference'])->first();
+            $paymentData->payment_status       = 1;
+            $paymentData->response_code        = $response['responseCode'];
+            $paymentData->response_description = $response['responseDescription'];
+            $paymentData->response_full        = $response['responseFull'];
+            $paymentData->update();
+
+            $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
+            $booking->payment_status = 1;
+            $booking->update();
+
+            $profile     = Profile::getUserInfo($booking->user_id);
+
+            PortalCustomNotificationHandler::paymentSuccessful($response);
+            PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+
+        }
+        else{
+
+            Toastr::error($response['responseDescription']);
+            $paymentInfo  = [
+                'status'  => 0,
+                'message' => $response['responseDescription']
+            ];
+
+            $paymentData = OnlinePayment::where('reference',$response['reference'])->first();
+            $paymentData->payment_status       = 0;
+            $paymentData->response_code        = $response['responseCode'];
+            $paymentData->response_description = $response['responseDescription'];
+            $paymentData->response_full        = $response['responseFull'];
+            $paymentData->update();
+
+            PortalCustomNotificationHandler::paymentFailed($response);
+
+        }
+        return $response;
+
+    }
+
 }

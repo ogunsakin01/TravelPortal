@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\FlightBooking;
+use App\OnlinePayment;
 use App\Profile;
 use App\User;
 use Illuminate\Http\Request;
@@ -110,6 +111,7 @@ class BackEndViewController extends Controller
        $canceledReservations = 0;
        $voidTickets = 0;
        $customerReservations = 0;
+
        foreach($bookings as $i => $booking){
 
            $customer = User::find($booking->user_id);
@@ -129,6 +131,7 @@ class BackEndViewController extends Controller
                }
 
                $customerReservations = $customerReservations + 1;
+
            }
 
        }
@@ -148,6 +151,27 @@ class BackEndViewController extends Controller
    public function paymentConfirmation(){
        $paymentInfo = session()->get('paymentInfo');
       return view('pages.backend.payment_confirmation',compact('paymentInfo'));
+   }
+
+   public function onlinePayment(){
+
+       $interswitchPayments = OnlinePayment::where('gateway_id',1)->orderBy('id','desc')->get();
+       $amountSuccessful = 0;
+       $amountPending = 0;
+       $countSuccessful = 0;
+       $countPending = 0;
+       foreach($interswitchPayments as $serial => $interswitchPayment){
+           if($interswitchPayment->payment_status == 1){
+               $amountSuccessful = $amountSuccessful + $interswitchPayment->amount;
+               $countSuccessful = $countSuccessful + 1;
+           }
+           if($interswitchPayment->payment_status == 0){
+               $amountPending = $amountPending + $interswitchPayment->amount;
+               $countPending = $countPending + 1;
+           }
+       }
+       return view('pages.backend.transactions.online_payments',compact('interswitchPayments','amountSuccessful','amountPending','countSuccessful','countPending'));
+
    }
 
 }

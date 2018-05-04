@@ -21,14 +21,22 @@
              <OTA_AirBookRQ>
    <AirItinerary DirectionInd="Circle">
       <OriginDestinationOptions>
-         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-15T16:55:00" ArrivalDateTime="2018-05-16T02:50:00" FlightNumber="30" ResBookDesigCode="T" RPH="1" NumberInParty="1">    
+         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-15T11:30:00" ArrivalDateTime="2018-05-15T17:15:00" FlightNumber="1980" ResBookDesigCode="U" RPH="1" NumberInParty="3">    
 		  <DepartureAirport LocationCode="LHR"/>
+		  <ArrivalAirport LocationCode="IST"/>      
+		  <MarketingAirline Code="TK"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-15T18:55:00" ArrivalDateTime="2018-05-16T00:20:00" FlightNumber="760" ResBookDesigCode="U" RPH="2" NumberInParty="3">    
+		  <DepartureAirport LocationCode="IST"/>
 		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="EK"/>     
-		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-24T14:15:00" ArrivalDateTime="2018-05-24T18:40:00" FlightNumber="3" ResBookDesigCode="T" RPH="2" NumberInParty="1">    
+		  <MarketingAirline Code="TK"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-23T02:00:00" ArrivalDateTime="2018-05-23T05:40:00" FlightNumber="761" ResBookDesigCode="U" RPH="3" NumberInParty="3">    
 		  <DepartureAirport LocationCode="DXB"/>
+		  <ArrivalAirport LocationCode="IST"/>      
+		  <MarketingAirline Code="TK"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-23T07:45:00" ArrivalDateTime="2018-05-23T09:50:00" FlightNumber="1979" ResBookDesigCode="U" RPH="4" NumberInParty="3">    
+		  <DepartureAirport LocationCode="IST"/>
 		  <ArrivalAirport LocationCode="LHR"/>      
-		  <MarketingAirline Code="EK"/>     
+		  <MarketingAirline Code="TK"/>     
 		  </FlightSegment></OriginDestinationOption>
       </OriginDestinationOptions>
    </AirItinerary>
@@ -46,11 +54,38 @@
                   <TravelerRefNumber RPH="1" />
                 </Traveler>
                 
-         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="09090909090" FormattedInd="0"/>
-         <Email>admin@travelportal.com</Email>
-         <Ticketing TicketTimeLimit="2018-05-05T23:59:00" TicketType="eTicket" />
+                <Traveler>
+                  <PersonName>
+                    <NamePrefix>MR</NamePrefix>
+                    <GivenName>suydckj olamidedwas</GivenName>
+                    <Surname>Ogunsakin</Surname>
+                  </PersonName>
+                  <TravelerRefNumber RPH="2" />
+                </Traveler>
+                
+                <Traveler PassengerTypeCode="CHD" BirthDate="2016-01-01">
+                  <PersonName>
+                    <NamePrefix>MR</NamePrefix>
+                    <GivenName>Mia lola</GivenName>
+                    <Surname>John</Surname>
+                  </PersonName>
+                  <TravelerRefNumber RPH="3" />
+                </Traveler>
+                
+                <Traveler PassengerTypeCode="INF" BirthDate="2018-01-01">
+                  <PersonName>
+                    <NamePrefix>MR</NamePrefix>
+                    <GivenName>weij ji</GivenName>
+                    <Surname>sdfu</Surname>
+                  </PersonName>
+                  <TravelerRefNumber RPH="4" />
+                </Traveler>
+                
+         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="09090444444" FormattedInd="0"/>
+         <Email>ogunsakin191@gmail.com</Email>
+         <Ticketing TicketTimeLimit="2018-05-04T23:59:00" TicketType="eTicket" />
       </PNRData>
-      <PriceData PriceType="Published" AutoTicketing="false" ValidatingAirlineCode="EK" >
+      <PriceData PriceType="Published" AutoTicketing="false" ValidatingAirlineCode="TK" >
        <PublishedFares>
       <FareRestrictPref>
       <AdvResTicketing><AdvReservation/>

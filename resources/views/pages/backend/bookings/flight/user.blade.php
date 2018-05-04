@@ -121,7 +121,6 @@
                         </thead>
                         <tbody>
                         @foreach($bookings as $serial => $booking)
-                            @if(App\User::find($booking->user_id) == auth()->user()->id)
                                 <tr>
                                     <td>{{$serial}}</td>
                                     <td>{{$booking->reference}}</td>
@@ -196,7 +195,7 @@
 
                                     </td>
                                 </tr>
-                            @endif
+
                         @endforeach
                         </tbody>
                     </table>

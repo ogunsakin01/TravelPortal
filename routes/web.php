@@ -44,17 +44,19 @@ Route::post('/interswitch-payment-verification','OnlinePaymentController@intersw
 Route::post('/generate-paystack-payment','OnlinePaymentController@generatePayStackPayment');
 Route::get('/paystack-payment-verification','OnlinePaymentController@payStackPaymentVerification');
 
+
 Route::post('backend/generate-interswitch-payment','OnlinePaymentController@generateInterswitchPaymentBackEnd');
 Route::post('backend/interswitch-payment-verification','OnlinePaymentController@interswitchPaymentVerificationBackEnd');
 Route::post('backend/generate-paystack-payment','OnlinePaymentController@generatePayStackPaymentBackEnd');
 Route::get('backend/paystack-payment-verification','OnlinePaymentController@payStackPaymentVerificationBackEnd');
 
-Route::get('backend/payment-confirmation','BackEndViewController@paymentConfirmation');
 
 Route::post('/searchHotel','HotelController@searchHotel');
 Route::get('/available-hotels','ViewController@availableHotels');
 
 Route::middleware(['auth'])->group(function(){
+
+    Route::get('backend/payment-confirmation','BackEndViewController@paymentConfirmation');
 
     Route::get('/dashboard','BackEndViewController@dashboard')->name('dashboard');
 
@@ -105,7 +107,8 @@ Route::middleware(['auth'])->group(function(){
     });
 
     Route::group(['prefix' => 'transactions'],function(){
-
+        Route::get('/online-payment','BackEndViewController@onlinePayment');
+        Route::get('/requery/{id}','OnlinePaymentController@requery');
     });
 
     Route::group(['prefix' => 'travel-packages'],function(){

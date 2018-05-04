@@ -392,7 +392,9 @@ class AmadeusRequestXML
             if(!is_array($count)){
                 $count = (array) $count;
             }
-            $passengerCount = $passengerCount + $count['quantity'];
+            if($count['passengerType'] != "INF"){
+                $passengerCount = $passengerCount + $count['quantity'];
+            }
         }
 
         $originDestinationsCount = $selectedItinerary['originDestinationsCount'];
@@ -588,7 +590,6 @@ class AmadeusRequestXML
 
     public function flightTravelBuildRequestElementXML($passengerInformation,$buildData,$user){
 
-//         dd($passengerInformation);
         $body = '
   <wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
   <OTA_TravelItineraryRQ>

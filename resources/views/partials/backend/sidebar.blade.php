@@ -73,7 +73,7 @@
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Email Subscribers</a>
                     </li>
-                    <li><a class="menu-item" href="{{route('backend-profile-view')}}" data-i18n="nav.page_layouts.2_columns">Profile</a>
+                    <li><a href="" class="menu-item">Wallets Management</a></li>
                     </li>
                 </ul>
             </li>
@@ -81,7 +81,7 @@
                 <ul class="menu-content">
                     <li><a class="menu-item" href="" data-i18n="nav.navbars.nav_light">Wallet</a>
                     </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.navbars.nav_dark">Online</a>
+                    <li><a class="menu-item" href="{{url('/transactions/online-payment')}}" data-i18n="nav.navbars.nav_dark">Online</a>
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.navbars.nav_semi">Offline(Bank)</a>
                     </li>
@@ -89,12 +89,7 @@
                     </li>
                 </ul>
             </li>
-            <li class=" @yield('activeWallet') nav-item">
-                <a href="">
-                    <i class="la la-google-wallet"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main">Wallets Management</span>
-                </a>
-            </li>
+
             <li class="@yield('activeTravelPackage') nav-item"><a href="#"><i class="la la-suitcase"></i><span class="menu-title" data-i18n="nav.vertical_nav.main">Travel Packages</span></a>
                 <ul class="menu-content">
                     <li><a class="menu-item" href="" data-i18n="nav.vertical_nav.vertical_nav_fixed">Categories</a>
@@ -104,6 +99,18 @@
                     <li><a class="menu-item" href="" data-i18n="nav.vertical_nav.vertical_nav_fixed">All</a>
                     </li>
                 </ul>
+            </li>
+            <li class=" @yield('activeProfile') nav-item">
+                <a href="{{route('backend-profile-view')}}">
+                    <i class="la la-user"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">Profile</span>
+                </a>
+            </li>
+            <li class="@yield('activeMyWallet') nav-item">
+                <a href="#">
+                    <i class="la la-google-wallet"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">My Wallet</span>
+                </a>
             </li>
         </ul>
     </div>

@@ -41,7 +41,7 @@ class HotelController extends Controller
              'child_count'    => $data['child_count']
          ];
          session()->put('hotelSearchParam',$hotelSearchParam);
-         session()->put('availableHotels',$availableHotel);
+         session()->put('availableHotels',$responseArray);
         }
 
         return $validator;
