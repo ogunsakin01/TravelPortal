@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -14,6 +15,38 @@ class UserController extends Controller
     public function guard()
     {
         return Auth::guard();
+    }
+
+
+
+    public function index(Request $request)
+    {
+        $data = Profile::all();
+        $roles = new Role();
+        $roles = $roles->fetchRoles();
+        $i =0;
+        return view('pages.backend.settings.user-management',compact('data', 'roles', 'i'));
+    }
+
+    public function createUser(Request $request){
+        $this->validate($request, [
+            'sur_name'   => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'other_name' => 'required|string|max:255',
+            'email'      => 'required|string|email|max:255|unique:users',
+            'phone'      => 'required',
+            'password'   => 'required|string|min:6|confirmed',
+        ]);
+
+
+        $user = User::store($request);
+
+        $user->attachRole(3);
+
+        $request['user'] = $user;
+
+        Profile::store($request);
+
     }
 
     public function signIn(Request $request){

@@ -69,7 +69,7 @@
                     </li>
                     <li><a class="menu-item" href="{{route('banks')}}" data-i18n="nav.page_layouts.2_columns">Banks</a>
                     </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Users Management</a>
+                    <li><a class="menu-item" href="{{url('settings/users')}}" data-i18n="nav.page_layouts.2_columns">Users Management</a>
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Email Subscribers</a>
                     </li>

@@ -82,50 +82,50 @@ class User extends Authenticatable
         return Hash::make($password);
     }
 
-    public function storeUser($data)
-    {
-        $password = $this->generateRandomPassword();
-
-        $user = static::updateOrCreate(
-            [
-                'email' => $data['email']
-            ],
-
-            [
-                'title' => $data['title'],
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'other_name' => $data['other_name'],
-                'date_of_birth' => $data['date_of_birth'],
-                'phone_number' => $data['phone_number'],
-                'address' => $data['address'],
-                'gender' => $data['gender'],
-                'account_status' => $data['account_status'],
-                'email' => $data['email'],
-                'password' => $this->hashPassword($password),
-                'agency_name' => $data['agency_name'],
-                'agent_id' => $data['agent_id'],
-                'office_number' => $data['office_number']
-            ]
-        );
-
-
-        if ($user)
-        {
-            $wallet = new Wallet();
-
-            $wallet->createWallet($user->id);
-
-            $role = Role::where('id', $data['role'])->first();
-
-            $user->detachRole($role);
-            $user->attachRole($role);
-
-            return true;
-        }
-
-        return false;
-    }
+//    public function storeUser($data)
+//    {
+//        $password = $this->generateRandomPassword();
+//
+//        $user = static::updateOrCreate(
+//            [
+//                'email' => $data['email']
+//            ],
+//
+//            [
+//                'title' => $data['title'],
+//                'first_name' => $data['first_name'],
+//                'last_name' => $data['last_name'],
+//                'other_name' => $data['other_name'],
+//                'date_of_birth' => $data['date_of_birth'],
+//                'phone_number' => $data['phone_number'],
+//                'address' => $data['address'],
+//                'gender' => $data['gender'],
+//                'account_status' => $data['account_status'],
+//                'email' => $data['email'],
+//                'password' => $this->hashPassword($password),
+//                'agency_name' => $data['agency_name'],
+//                'agent_id' => $data['agent_id'],
+//                'office_number' => $data['office_number']
+//            ]
+//        );
+//
+//
+//        if ($user)
+//        {
+//            $wallet = new Wallet();
+//
+//            $wallet->createWallet($user->id);
+//
+//            $role = Role::where('id', $data['role'])->first();
+//
+//            $user->detachRole($role);
+//            $user->attachRole($role);
+//
+//            return true;
+//        }
+//
+//        return false;
+//    }
 
     public function fetch()
     {
@@ -405,7 +405,6 @@ class User extends Authenticatable
             'password' => Hash::make($data->password)
         ]);
     }
-
 
 
 }

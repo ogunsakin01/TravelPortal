@@ -79,6 +79,10 @@ Route::middleware(['auth'])->group(function(){
 
         Route::get('', 'ProfileController@profileView')->name('backend-profile-view');
 
+        Route::group(['prefix' => 'users'],function(){
+            Route::get('/', 'UserController@index');
+        });
+
     });
 
     Route::group(['prefix' => 'bookings'],function(){
