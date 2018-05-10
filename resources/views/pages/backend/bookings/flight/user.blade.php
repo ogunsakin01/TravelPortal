@@ -104,10 +104,9 @@
             </div>
             <div class="card-content">
                 <div class="table-responsive">
-                    <table class="table table-striped table-responsive table-bordered file-export">
+                    <table class="table table-striped table-responsive table-bordered">
                         <thead>
                         <tr>
-                            <th>S/N</th>
                             <th>Reference</th>
                             <th>PNR</th>
                             <th>Amount</th>
@@ -122,7 +121,6 @@
                         <tbody>
                         @foreach($bookings as $serial => $booking)
                                 <tr>
-                                    <td>{{$serial}}</td>
                                     <td>{{$booking->reference}}</td>
                                     <td>{{$booking->pnr}}</td>
                                     <th>&#x20a6; {{number_format(($booking->total_amount/100), 2)}}</th>

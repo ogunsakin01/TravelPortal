@@ -1,95 +1,99 @@
 @extends('layouts.backend')
 
-@section('page-title') Profie Management  @endsection
+@section('page-title') Users Management  @endsection
 
 @section('activeSettings') open hover  @endsection
 
 @section('content')
+
     <section class="row">
 
-        <div class="col-lg-3 col-md-2 col-sm-12">
-            <div class="card">
-                <!-- contacts view -->
-                <div class="card-body">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item active">All Users<span class="badge badge-primary badge-pill float-right">14</span></a>
-                        <a href="#" class="list-group-item list-group-item-action">Admin <span class="badge badge-primary badge-pill float-right">1</span></a>
-                        <a href="#" class="list-group-item list-group-item-action">Agents <span class="badge badge-primary badge-pill float-right">3</span></a>
-                        <a href="#" class="list-group-item list-group-item-action">Customers <span class="badge badge-primary badge-pill float-right">10</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="modal fade text-left" id="create-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17"
+       <div class="modal fade text-left" id="create-user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel17"
              aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <form method="POST" action="">
+                    <form method="POST" action="{{url('/settings/users/add-new')}}">
 
                         @csrf
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel17">Create User</h4>
+                            <h3 class="modal-title" id="myModalLabel17">Create User</h3>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="col-sm-12 sign-up-form">
-
+                               <div class="row">
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label>Title</label>
+                                           <select class="form-control" name="title_id" required>
+                                            @foreach($titles as $serial => $title)
+                                             <option value="{{$title->id}}">{{$title->name}}</option>
+                                            @endforeach
+                                           </select>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                         <label>Gender</label>
+                                           <select class="form-control" name="gender_id" required>
+                                               @foreach($genders as $serial => $gender)
+                                                   <option value="{{$gender->id}}">{{$gender->type}}</option>
+                                               @endforeach
+                                           </select>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <label>User Type</label>
+                                       <select class="form-control" name="user_type" required>
+                                           @foreach($roles as $serial => $role)
+                                               <option value="{{$role->id}}">{{$role->display_name}}</option>
+                                           @endforeach
+                                       </select>
+                                   </div>
+                               </div>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label>Surname</label>
-                                        <div class="input-group">
+                                        <div class="form-group">
+                                            <label>Surname</label>
                                             <input name="sur_name" type="text" class="form-control" placeholder="Surname (Family name)" required>
-                                            <span class="input-group-addon"><i class="la la-user la-fw"></i></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>First name</label>
-                                        <div class="input-group">
+                                        <div class="form-group">
+                                            <label>First name</label>
                                             <input name="first_name" type="text" class="form-control" placeholder="First name (Your name)" required>
-                                            <span class="input-group-addon"><i class="la la-user fa-fw"></i></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <label>Other name</label>
-                                        <div class="input-group">
-                                            <input name="other_name" type="text" class="form-control" placeholder="Other name (Your other name)" required>
-                                            <span class="input-group-addon"><i class="la la-user fa-fw"></i></span>
+                                        <div class="form-group">
+                                            <label>Other name</label>
+                                            <input name="other_name" type="text" class="form-control" placeholder="Other name (Your other name)">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Email</label>
-                                        <div class="input-group">
+                                        <div class="form-group">
+                                            <label>Email</label>
                                             <input name="email" type="email" class="form-control" placeholder="Email" required>
-                                            <span class="input-group-addon"><i class="la la-envelope-o fa-fw"></i></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Phone</label>
-                                        <div class="input-group">
+                                        <div class="form-group">
+                                            <label>Phone</label>
                                             <input name="phone" type="tel" class="form-control" placeholder="Phone number" required>
-                                            <span class="input-group-addon"><i class="la la-phone fa-fw"></i></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Password</label>
-                                        <div class="input-group">
-                                            <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
-                                            <span class="input-group-addon"><i class="la la-eye fa-fw"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Confirm Password</label>
-                                        <div class="input-group">
-                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Retype Password">
-                                            <span class="input-group-addon"><i class="la la-eye fa-fw"></i></span>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea class="form-control" name="address" required>
+
+                                            </textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -98,66 +102,78 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" {{ __('Register') }} class="btn btn-outline-primary">Create User</button>
+                            <button type="submit"  class="btn btn-outline-primary">Create User</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
 
-
-        <div class="col-lg-9 col-md-10 col-sm-12">
+        <div class="col-sm-12">
             <div class="card">
-                <div class="card-head">
-                    <div class="card-header">
+                <div class="card-header">
                         <h4 class="card-title">All Users</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#create-user"><i class="ft-plus white"></i> Create New User</button>
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li>
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#create-user"><i class="ft-plus white"></i> Create New User</button>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </div>
                 <div class="card-content">
-                    <div class="card-body">
-                        <!-- Task List table -->
-                        <div class="table-responsive">
-                            <table id="users-contacts" class="table table-white-space datatable table-bordered row-grouping display no-wrap icheck table-middle">
-                                <thead>
-                                <tr>
-                                    <th>SN</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Role</th>
-                                    <th>Actions</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($data as $key => $user)
-                                        @if(!empty($user->id))
-                                            <tr>
-                                                <td>{{ ++$i }}</td>
-                                                <td>
-                                                    {{ $user->sur_name.' '. $user->first_name.' '.$user->other_name}}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{\App\User::find($user->user_id)->email}}
-                                                </td>
-                                                <td>{{ $user->phone_number }}</td>
-                                                <td class="text-center">
-
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm"><i class="ft-edit-2 white" data-toggle="modal" data-target="#edit_user{{ $user->id }}"></i> Edit</button>
-
-                                                    <button class="btn btn-sm btn-outline-red" data-toggle="modal" data-target="#"><span><i class="ft-trash-2"></i></span> Delete </button>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>SN</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Profile Status</th>
+                                <th>Role</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                 @foreach($users as $serial => $user)
+                                     <tr class="user_id_{{$user->user_id}}">
+                                         <td>{{$serial+1}}</td>
+                                         <td>{{$user->sur_name}} {{$user->first_name}} {{$user->other_name}}</td>
+                                         <td>{{$user->email}}</td>
+                                         <td>{{$user->phone_number}}</td>
+                                         <td>
+                                             @if($user->profile_complete_status == 0)
+                                                 <p class="warning"><i class="la la-warning"></i> Incomplete</p>
+                                             @elseif($user->profile_complete_status == 0)
+                                                 <p class="success"><i class="la la-success"></i> Complete</p>
+                                             @endif
+                                         </td>
+                                         <td>
+                                             @if($user->role_id == 1)
+                                                 <p class="danger">Super Admin</p>
+                                             @elseif($user->role_id == 2)
+                                                 <p class="success">Agent</p>
+                                             @elseif($user->role_id == 3)
+                                                 <p class="info"> Customer</p>
+                                             @endif
+                                         </td>
+                                         <td>
+                                         <span class="dropdown">
+				                        <button id="btnSearchDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" class="btn btn-primary dropdown-toggle dropdown-menu-right"><i class="ft-settings"></i></button>
+				                        <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                            <button class="dropdown-item btn edit_user" value="{{$user->user_id}}"><i class="la la-edit"></i> Edit</button>
+                                            <button class="dropdown-item btn delete_user" value="{{$user->user_id}}"><i class="la la-trash"></i> Delete</button>
+				                        </span>
+				                    </span>
+                                         </td>
+                                     </tr>
+                                 @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -169,7 +185,7 @@
 
 @section('javascript')
 
-    <script src="{{asset('backend/js/pages/passwords.js')}}"></script>
+    <script src="{{asset('backend/js/pages/users-management.js')}}"></script>
 
 @endsection
 

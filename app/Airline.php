@@ -24,7 +24,7 @@ class Airline extends Model
     }
 
     public static function getAirlineCodeByName($name){
-        return static::where('Airline',$name)->first();
+        return static::where('name',$name)->first();
     }
 
     public static function typeAhead($request){

@@ -46,5 +46,6 @@
 <!-- BEGIN VENDOR JS-->
 @include('partials.backend.js')
 @yield('javascript')
+{!! Toastr::render() !!}
 <!-- END PAGE LEVEL JS-->
 </body>

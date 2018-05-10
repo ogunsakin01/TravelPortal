@@ -104,10 +104,9 @@
                 </div>
                 <div class="card-content">
                     <div class="">
-                        <table class="table table-striped table-responsive table-bordered file-export">
+                        <table class="table table-striped table-responsive table-bordered">
                             <thead>
                             <tr>
-                                <th>S/N</th>
                                 <th>Reference</th>
                                 <th>PNR</th>
                                 <th>Customer Name</th>
@@ -124,7 +123,6 @@
                             @foreach($bookings as $serial => $booking)
                                 @if(App\User::find($booking->user_id)->hasRole('customer'))
                                   <tr>
-                                <td>{{$serial}}</td>
                                 <td>{{$booking->reference}}</td>
                                 <td>{{$booking->pnr}}</td>
                                 <td>{{\App\Profile::getUserInfo($booking->user_id)->sur_name}} {{\App\Profile::getUserInfo($booking->user_id)->first_name}}</td>

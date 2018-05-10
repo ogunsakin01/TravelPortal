@@ -10,6 +10,7 @@ use App\Services\AmadeusHelper;
 use App\Markup;
 use App\Markdown;
 use App\Vat;
+use function Symfony\Component\VarDumper\Dumper\esc;
 
 class ViewController extends Controller
 {
@@ -87,13 +88,57 @@ class ViewController extends Controller
 
     }
 
+    public function palindrome($string){
+        $cleanString = preg_replace("/[^a-zA-Z]+/","",$string);
+        $stringLength = strlen($cleanString);
+        $validator = 0;
+        for($i = 0; $i < $stringLength; $i++){
+            $initial = strtolower(substr($cleanString,$i,1));
+            $later = strtolower(substr($cleanString,(-1-$i),1));
+            if($initial != $later){
+                $validator = $validator + 1;
+            }
+        }
+        if($validator > 0){
+            return "It is not a palindrome";
+        }
+        return "It is a palindrome";
+    }
+
     public function availableHotels(){
 
-        $availableHotels = session()->get('availableHotels');
-     /*   dd($availableHotels);
-        $responseArray = $this->AmadeusConfig->mungXmlToArray($availableHotels);*/
+        dd($this->palindrome("Was it a car or a cat I saw"));
 
-        dd($this->AmadeusHelper->hotelAvailResponseSort($availableHotels));
+        $hotels = session()->get('availableHotels');
+
+        $hotelSearchParam = session()->get('hotelSearchParam');
+
+        $availableHotels =  $this->AmadeusHelper->hotelAvailResponseSort($hotels);
+
+        $ratings = [];
+        $prices = [];
+        foreach($availableHotels as $serial => $availableHotel){
+            array_push($ratings,$availableHotel['hotelStarRating']);
+            array_push($prices,round($availableHotel['minimumRate'] / 100));
+        }
+
+        $starRatings = array_values(array_unique($ratings));
+        $minimumPrice = round(min($availableHotels)['minimumRate'] / 100);
+        $maximumPrice = round(max($availableHotels)['minimumRate'] / 100);
+        $availablePrices = json_encode(array_values(array_unique($prices)));
+        return view('pages.hotel.search_result',compact('availableHotels','hotelSearchParam','minimumPrice','maximumPrice','starRatings','availablePrices'));
+
+    }
+
+    public function hotelInformation(){
+
+
+
+
+        $selectedHotel = session()->get('selectedHotelInformation');
+        $hotelInformation = $this->AmadeusHelper->hotelAvailRoomResponseSort($selectedHotel);
+//        dd($hotelInformation);
+        return view('pages.hotel.hotel_details',compact('hotelInformation'));
     }
 
 }

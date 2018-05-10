@@ -29,7 +29,7 @@
          </RoomStayCandidates>
          <HotelSearchCriteria>
             <Criterion ExactMatch="true">
-               <HotelRef HotelCityCode="LHR" />
+               <HotelRef ChainCode="RD" HotelCode="316" HotelCityCode="LHR" />
             </Criterion>
          </HotelSearchCriteria>
       </AvailRequestSegment>

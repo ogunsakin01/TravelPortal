@@ -53,6 +53,9 @@ Route::get('backend/paystack-payment-verification','OnlinePaymentController@payS
 
 Route::post('/searchHotel','HotelController@searchHotel');
 Route::get('/available-hotels','ViewController@availableHotels');
+Route::get('/get-selected-hotel-information/{id}','HotelController@getSelectedHotelInformation');
+Route::get('/get-selected-hotel-rooms-information/{id}','HotelController@getSelectHotelRoomsInformation');
+Route::get('/hotel-information','ViewController@hotelInformation');
 
 Route::middleware(['auth'])->group(function(){
 
@@ -87,7 +90,9 @@ Route::middleware(['auth'])->group(function(){
         Route::get('', 'ProfileController@profileView')->name('backend-profile-view');
 
         Route::group(['prefix' => 'users'],function(){
-            Route::get('/', 'UserController@index');
+            Route::get('/', 'BackEndViewController@usersManagement');
+            Route::post('/add-new','UserController@addNew');
+            Route::get('/delete-user/{id}','UserController@deleteUser');
         });
 
     });

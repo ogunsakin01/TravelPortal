@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\FlightBooking;
+use App\Gender;
 use App\OnlinePayment;
 use App\Profile;
+use App\Title;
 use App\User;
 use Illuminate\Http\Request;
 use App\MarkupType;
@@ -16,6 +18,7 @@ use nilsenj\Toastr\Facades\Toastr;
 
 class BackEndViewController extends Controller
 {
+
    public function dashboard(){
        return view('pages.backend.dashboard');
    }
@@ -52,8 +55,10 @@ class BackEndViewController extends Controller
     }
 
    public function index(){
+
         $markdowns = Markdown::all();
         return view('pages.backend.settings.markdown',compact('markdowns'));
+
     }
 
    public function profile(){
@@ -171,6 +176,20 @@ class BackEndViewController extends Controller
            }
        }
        return view('pages.backend.transactions.online_payments',compact('interswitchPayments','amountSuccessful','amountPending','countSuccessful','countPending'));
+
+   }
+
+   public function usersManagement(){
+
+       $users   = User::where('delete_status',0)
+           ->join('profiles','profiles.user_id','=','users.id')
+           ->join('role_user','role_user.user_id','=','users.id')
+           ->get();
+       $titles  = Title::all();
+       $genders = Gender::all();
+       $roles   = Role::all();
+
+       return view('pages.backend.settings.user-management',compact('users','titles','genders','roles'));
 
    }
 

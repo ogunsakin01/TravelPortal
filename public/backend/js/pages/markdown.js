@@ -1,4 +1,4 @@
-var pageUrl = '/backend/additions';
+
 
 
 $(function(){
@@ -13,7 +13,7 @@ $(function(){
         var value_type = $('#value_type').val();
         var value      = $('#value').val();
 
-        axios.post(pageUrl+'/createOrUpdateMarkdown',{
+        axios.post(baseUrl+'/settings/createOrUpdateMarkdown',{
             airline    : airline,
             value_type : value_type,
             value      : value
@@ -38,7 +38,7 @@ $(function(){
 
     $('.edit').on('click',function(){
         var id = $(this).val();
-        axios.get(pageUrl+'/getMarkdown/'+id)
+        axios.get(baseUrl+'/settings/getMarkdown/'+id)
             .then(function(response){
                console.log(response.data);
                $('#airline').val(response.data.airline_name);

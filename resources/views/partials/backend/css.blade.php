@@ -22,6 +22,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('backend/app-assets/fonts/simple-line-icons/style.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('backend/app-assets/css/core/colors/palette-callout.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('backend/app-assets/vendors/css/extensions/sweetalert.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('backend/app-assets/vendors/css/extensions/toastr.css')}}">
 
 <!-- END Page Level CSS-->
 

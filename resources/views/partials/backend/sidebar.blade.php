@@ -63,7 +63,7 @@
                     </li>
                     <li><a class="menu-item" href="{{url('settings/markups')}}" data-i18n="nav.page_layouts.2_columns">Markups</a>
                     </li>
-                    <li><a class="menu-item" href="{{url('settings/markdown')}}" data-i18n="nav.page_layouts.2_columns">Airline Markdowns</a>
+                    <li><a class="menu-item" href="{{url('settings/markdown')}}" data-i18n="nav.page_layouts.2_columns">Markdowns</a>
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Vouchers</a>
                     </li>

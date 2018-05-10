@@ -14,6 +14,6 @@ return ['options' => ["progressBar" => true,
     "extendedTimeOut" => 1000,
     "showEasing" => "swing",
     "hideEasing"=> "linear",
-    "showMethod" => "fadeIn",
-    "hideMethod" => "fadeOut"]
+    "showMethod" => "slideDown",
+    "hideMethod" => "slideUp"]
     ];

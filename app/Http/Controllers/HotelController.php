@@ -47,4 +47,30 @@ class HotelController extends Controller
         return $validator;
 
     }
+
+    public function getSelectedHotelInformation($id){
+        $hotels = session()->get('availableHotels');
+        $availableHotels = $this->AmadeusHelper->hotelAvailResponseSort($hotels);
+        return $availableHotels[$id];
+    }
+
+    public function getSelectHotelRoomsInformation($id){
+
+        $hotelSearchParam = session()->get('hotelSearchParam');
+        $selectedHotel = $this->getSelectedHotelInformation($id);
+
+        $requestXML = $this->AmadeusRequestXML->hotelAvailRoomRequestXML($hotelSearchParam,$selectedHotel);
+        $this->AmadeusConfig->createXMlFile($requestXML,'hotelAvailRoomRQ');
+        $availableHotelRoom = $this->AmadeusConfig->callAmadeus($this->AmadeusConfig->hotelAvailRequestHeader($requestXML),$requestXML,$this->AmadeusConfig->hotelAvailRequestWebServiceUrl);
+        $this->AmadeusConfig->createXMlFile($availableHotelRoom,'hotelAvailRoomRS');
+
+        $responseArray = $this->AmadeusConfig->mungXmlToArray($availableHotelRoom);
+        $validator     = $this->AmadeusHelper->hotelAvailResponseValidator($responseArray);
+
+        if($validator == 1){
+            session()->put('selectedHotelInformation',$responseArray);
+        }
+        return $validator;
+    }
+
 }

@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Profile;
 use App\Services\PortalCustomNotificationHandler;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use nilsenj\Toastr\Facades\Toastr;
 
 class UserController extends Controller
 {
@@ -17,15 +20,12 @@ class UserController extends Controller
         return Auth::guard();
     }
 
-
-
-    public function index(Request $request)
+    public function index()
     {
-        $data = Profile::all();
-        $roles = new Role();
-        $roles = $roles->fetchRoles();
-        $i =0;
-        return view('pages.backend.settings.user-management',compact('data', 'roles', 'i'));
+        $users    = User::join('profiles','profiles.user_id','=','users.id')
+                          ->join('role_user','role_user.user_id','=','users.id')
+                          ->get();
+                return view('pages.backend.settings.user-management',compact('users'));
     }
 
     public function createUser(Request $request){
@@ -46,6 +46,47 @@ class UserController extends Controller
         $request['user'] = $user;
 
         Profile::store($request);
+
+    }
+
+    public function addNew(Request $data){
+
+        $this->validate($data,[
+            'sur_name'   => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'email'      => 'required|string|email|max:255|unique:users',
+            'phone'      => 'required',
+            'address'    => 'required',
+        ]);
+
+
+        $user = User::create([
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        $user->attachRole($data['user_type']);
+
+        $profile = Profile::create([
+            'user_id'       => $user->id,
+            'title_id'      => $data['title_id'],
+            'gender_id'     => $data['title_id'],
+            'sur_name'      => $data['sur_name'],
+            'first_name'    => $data['first_name'],
+            'other_name'    => array_get($data,'first_name',''),
+            'phone_number'  => $data['phone'],
+            'address'       => $data['address'],
+            'photo'         => array_get($data,'photo',''),
+        ]);
+
+        if($profile AND $user){
+            Toastr::success('New users created successfully');
+        }else{
+            Toastr::error('Unable to create new user');
+        }
+
+        return back();
+
 
     }
 
@@ -112,6 +153,13 @@ class UserController extends Controller
     public function changePassword(array $r){
         $user = new User();
         return $user->changePassword($r);
+    }
+
+    public function deleteUser($id){
+        $user = User::find($id);
+        $user->delete_status = 1;
+        $user->update();
+        return $user;
     }
 
 }

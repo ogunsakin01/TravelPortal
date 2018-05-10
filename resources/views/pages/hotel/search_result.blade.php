@@ -7,12 +7,11 @@
     <!-- START: MODIFY SEARCH -->
     <div class="row modify-search modify-hotel">
         <div class="container clear-padding">
-            <form >
                 <div class="col-md-4">
                     <div class="form-gp">
                         <label>Location</label>
                         <div class="input-group margin-bottom-sm">
-                            <input type="text" name="city" class="form-control" required placeholder="E.g. London">
+                            <input type="text" name="city" class="form-control type-ahead hotel_city" required placeholder="E.g. London">
                             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
                         </div>
                     </div>
@@ -21,7 +20,7 @@
                     <div class="form-gp">
                         <label>Check In</label>
                         <div class="input-group margin-bottom-sm">
-                            <input type="text" id="check_in" name="check_in" class="form-control" placeholder="DD/MM/YYYY">
+                            <input type="text" id="check_in" name="check_in" class="form-control  date-picker check_in_date" placeholder="DD/MM/YYYY">
                             <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
                         </div>
                     </div>
@@ -30,30 +29,44 @@
                     <div class="form-gp">
                         <label>Check Out</label>
                         <div class="input-group margin-bottom-sm">
-                            <input type="text" id="check_out" name="check_out" class="form-control" required placeholder="DD/MM/YYYY">
+                            <input type="text" id="check_out" name="check_out" class="form-control date-picker check_out_date" required placeholder="DD/MM/YYYY">
                             <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-1 col-sm-6 col-xs-3">
                     <div class="form-gp">
-                        <label>Rooms</label>
-                        <select class="selectpicker">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
+                        <label>Adults</label>
+                        <select class="form-control adult_count">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-9">
+                <div class="col-md-1 col-sm-6 col-xs-3">
                     <div class="form-gp">
-                        <button type="submit" class="modify-search-button btn transition-effect">MODIFY SEARCH</button>
+                        <label>Child</label>
+                        <select class="form-control child_count">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
                     </div>
                 </div>
-            </form>
+                <div class="col-md-2 col-sm-6 col-xs-9">
+                    <div class="form-gp">
+                        <button type="button" class="modify-search-button btn transition-effect hotel_search">MODIFY SEARCH</button>
+                    </div>
+                </div>
         </div>
     </div>
     <!-- END: MODIFY SEARCH -->
@@ -64,55 +77,32 @@
             <!-- START: FILTER AREA -->
             <div class="col-md-3 clear-padding">
                 <div class="filter-head text-center">
-                    <h4>25 Result Found Matching Your Search.</h4>
+                    <h4>{{count($availableHotels)}} Result Found Matching Your Search.</h4>
                 </div>
                 <div class="filter-area">
                     <div class="price-filter filter">
                         <h5><i class="fa fa-usd"></i> Price</h5>
                         <p>
                             <label></label>
-                            <input type="text" id="amount" readonly>
+                            <input type="text" id="price_filter" readonly>
                         </p>
                         <div id="price-range"></div>
                     </div>
-                    <div class="name-filter filter">
-                        <h5><i class="fa fa-bed"></i> Hotel Name</h5>
-                        <div class="input-group margin-bottom-sm">
-                            <input type="text" name="destination_city" class="form-control" required placeholder="E.g. Shimla">
-                            <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-                        </div>
-                    </div>
                     <div class="star-filter filter">
-                        <h5><i class="fa fa-star"></i> Star</h5>
-                        <ul>
-                            <li><input type="checkbox"> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
-                            <li><input type="checkbox"> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
-                            <li><input type="checkbox"> <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
-                            <li><input type="checkbox"> <i class="fa fa-star"></i><i class="fa fa-star"></i></li>
-                            <li><input type="checkbox"> <i class="fa fa-star"></i></li>
-                            <li><input type="checkbox"> <i class="fa fa-star"></i> Any</li>
-                        </ul>
-                    </div>
-                    <div class="location-filter filter">
-                        <h5><i class="fa fa-map-marker"></i> Location</h5>
-                        <ul>
-                            <li><input type="checkbox"> Sanjoli</li>
-                            <li><input type="checkbox"> Shimla</li>
-                            <li><input type="checkbox"> Mall Road</li>
-                            <li><input type="checkbox"> New Shimla</li>
-                            <li><input type="checkbox"> Summer Hill</li>
-                            <li><input type="checkbox"> Shimla</li>
-                        </ul>
-                    </div>
-                    <div class="facilities-filter filter">
-                        <h5><i class="fa fa-list"></i> Hotel Facilities</h5>
-                        <ul>
-                            <li><input type="checkbox"> <i class="fa fa-wifi"></i> Wifi</li>
-                            <li><input type="checkbox"> <i class="fa fa-beer"></i> Bar</li>
-                            <li><input type="checkbox"> <i class="fa fa-cutlery"></i> Restaurant</li>
-                            <li><input type="checkbox"> <i class="fa fa-coffee"></i> Coffee</li>
-                            <li><input type="checkbox"> <i class="fa fa-wifi"></i> Wifi</li>
-                            <li><input type="checkbox"> <i class="fa fa-beer"></i> Bar</li>
+                        <h5 class="show-star-ratings"><i class="fa fa-star"></i> Star <i class="fa fa-list pull-right"></i></h5>
+                        <ul class="hidden-sm hidden-xs available-star-ratings">
+                            @foreach($starRatings as $serial => $starRating)
+                                <li>
+                                    <input type="checkbox" value="{{$starRating}}-rating" class="select">
+                                    @for($i = 0; $i < $starRating; $i++)
+                                    <i class="fa fa-star"></i>
+                                    @endfor
+                                    @for($i = 0; $i < (5-$starRating); $i++)
+                                        <i class="fa fa-star-o"></i>
+                                    @endfor
+                                </li>
+                            @endforeach
+                            <li><input type="checkbox" value="all" class="select"> <i class="fa fa-star"></i> Any</li>
                         </ul>
                     </div>
                 </div>
@@ -123,462 +113,80 @@
             <div class="col-md-9 hotel-listing text-center">
 
                 <!-- START: SORT AREA -->
-                <div class="sort-area col-sm-10">
-                    <div class="col-md-3 col-sm-3 col-xs-6 sort">
-                        <select class="selectpicker">
-                            <option>Price</option>
-                            <option> Low to High</option>
-                            <option> High to Low</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6 sort">
-                        <select class="selectpicker">
-                            <option>Star Rating</option>
-                            <option> Low to High</option>
-                            <option> High to Low</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6 sort">
-                        <select class="selectpicker">
-                            <option>User Rating</option>
-                            <option> Low to High</option>
-                            <option> High to Low</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6 sort">
-                        <select class="selectpicker">
-                            <option>Name</option>
-                            <option> Ascending</option>
-                            <option> Descending</option>
-                        </select>
-                    </div>
-                </div>
-                <!-- END: SORT AREA -->
-                <div class="clearfix visible-xs-block"></div>
-                <div class="col-sm-2 view-switcher">
-                    <div class="pull-right">
-                        <a href="#" title="Grid View">
-                            <i class="fa fa-th-large"></i>
-                        </a>
-                        <a href="hotel-list.html" title="List View">
-                            <i class="fa fa-list"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <!-- START: HOTEL GRID VIEW -->
-                <div class="col-md-4 col-sm-6">
-                    <div class="room-grid-view">
-                        <img src="assets/images/offer1.jpg" alt="cruise">
-                        <div class="room-info">
-                            <div class="room-title">
-                                <h5>Devlok Hotel<span> 3<i class="fa fa-star"></i></span></h5>
-                                <p><i class="fa fa-map-marker"></i> Main Road, Manali</p>
-                                <div class="hotel-ammeties">
-                                    <i class="fa fa-wifi" title="Free Wifi"></i>
-                                    <i class="fa fa-cutlery" title="Breakfast"></i>
-                                    <i class="fa fa-taxi" title="Taxi Available"></i>
-                                    <i class="fa fa-bed" title="Extra Bed"></i>
-                                    <i class="fa fa-coffee" title="Free Drinks"></i>
-                                    <i class="fa fa-beer" title="Bar"></i>
-                                </div>
-                            </div>
-                            <div class="room-desc">
-                                <p>Lorem Ipsum is simply dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="hotel-rating">
-                                <div class="pull-left">
-                                    <img src="assets/images/tripadvisor.png" alt="cruise"><span>4.5/5</span>
-                                </div>
-                                <div class="pull-right">
-                                    <i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star"></i><br>
-                                    <span>128 Guest Reviews</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="room-book">
-                                <div class="col-md-8 col-sm-6 col-xs-6 clear-padding">
-                                    <h5>$49 Avg/Night</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6 clear-padding">
-                                    <a href="#">Book</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="room-grid-view">
-                        <img src="assets/images/offer2.jpg" alt="cruise">
-                        <div class="room-info">
-                            <div class="room-title">
-                                <h5>Devlok Hotel<span> 3<i class="fa fa-star"></i></span></h5>
-                                <p><i class="fa fa-map-marker"></i> Main Road, Manali</p>
-                                <div class="hotel-ammeties">
-                                    <i class="fa fa-wifi" title="Free Wifi"></i>
-                                    <i class="fa fa-cutlery" title="Breakfast"></i>
-                                    <i class="fa fa-taxi" title="Taxi Available"></i>
-                                    <i class="fa fa-bed" title="Extra Bed"></i>
-                                    <i class="fa fa-coffee" title="Free Drinks"></i>
-                                    <i class="fa fa-beer" title="Bar"></i>
-                                </div>
-                            </div>
-                            <div class="room-desc">
-                                <p>Lorem Ipsum is simply dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="hotel-rating">
-                                <div class="pull-left">
-                                    <img src="assets/images/tripadvisor.png" alt="cruise"><span>4.5/5</span>
-                                </div>
-                                <div class="pull-right">
-                                    <i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star"></i><br>
-                                    <span>128 Guest Reviews</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="room-book">
-                                <div class="col-md-8 col-sm-6 col-xs-6 clear-padding">
-                                    <h5>$49 Avg/Night</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6 clear-padding">
-                                    <a href="#">Book</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix-sm"></div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="room-grid-view">
-                        <img src="assets/images/offer3.jpg" alt="cruise">
-                        <div class="room-info">
-                            <div class="room-title">
-                                <h5>Devlok Hotel<span> 3<i class="fa fa-star"></i></span></h5>
-                                <p><i class="fa fa-map-marker"></i> Main Road, Manali</p>
-                                <div class="hotel-ammeties">
-                                    <i class="fa fa-wifi" title="Free Wifi"></i>
-                                    <i class="fa fa-cutlery" title="Breakfast"></i>
-                                    <i class="fa fa-taxi" title="Taxi Available"></i>
-                                    <i class="fa fa-bed" title="Extra Bed"></i>
-                                    <i class="fa fa-coffee" title="Free Drinks"></i>
-                                    <i class="fa fa-beer" title="Bar"></i>
-                                </div>
-                            </div>
-                            <div class="room-desc">
-                                <p>Lorem Ipsum is simply dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="hotel-rating">
-                                <div class="pull-left">
-                                    <img src="assets/images/tripadvisor.png" alt="cruise"><span>4.5/5</span>
-                                </div>
-                                <div class="pull-right">
-                                    <i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star"></i><br>
-                                    <span>128 Guest Reviews</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="room-book">
-                                <div class="col-md-8 col-sm-6 col-xs-6 clear-padding">
-                                    <h5>$49 Avg/Night</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6 clear-padding">
-                                    <a href="#">Book</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix-md"></div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="room-grid-view">
-                        <img src="assets/images/offer1.jpg" alt="cruise">
-                        <div class="room-info">
-                            <div class="room-title">
-                                <h5>Devlok Hotel<span> 3<i class="fa fa-star"></i></span></h5>
-                                <p><i class="fa fa-map-marker"></i> Main Road, Manali</p>
-                                <div class="hotel-ammeties">
-                                    <i class="fa fa-wifi" title="Free Wifi"></i>
-                                    <i class="fa fa-cutlery" title="Breakfast"></i>
-                                    <i class="fa fa-taxi" title="Taxi Available"></i>
-                                    <i class="fa fa-bed" title="Extra Bed"></i>
-                                    <i class="fa fa-coffee" title="Free Drinks"></i>
-                                    <i class="fa fa-beer" title="Bar"></i>
-                                </div>
-                            </div>
-                            <div class="room-desc">
-                                <p>Lorem Ipsum is simply dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="hotel-rating">
-                                <div class="pull-left">
-                                    <img src="assets/images/tripadvisor.png" alt="cruise"><span>4.5/5</span>
-                                </div>
-                                <div class="pull-right">
-                                    <i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star"></i><br>
-                                    <span>128 Guest Reviews</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="room-book">
-                                <div class="col-md-8 col-sm-6 col-xs-6 clear-padding">
-                                    <h5>$49 Avg/Night</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6 clear-padding">
-                                    <a href="#">Book</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix-sm"></div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="room-grid-view">
-                        <img src="assets/images/offer2.jpg" alt="cruise">
-                        <div class="room-info">
-                            <div class="room-title">
-                                <h5>Devlok Hotel<span> 3<i class="fa fa-star"></i></span></h5>
-                                <p><i class="fa fa-map-marker"></i> Main Road, Manali</p>
-                                <div class="hotel-ammeties">
-                                    <i class="fa fa-wifi" title="Free Wifi"></i>
-                                    <i class="fa fa-cutlery" title="Breakfast"></i>
-                                    <i class="fa fa-taxi" title="Taxi Available"></i>
-                                    <i class="fa fa-bed" title="Extra Bed"></i>
-                                    <i class="fa fa-coffee" title="Free Drinks"></i>
-                                    <i class="fa fa-beer" title="Bar"></i>
-                                </div>
-                            </div>
-                            <div class="room-desc">
-                                <p>Lorem Ipsum is simply dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="hotel-rating">
-                                <div class="pull-left">
-                                    <img src="assets/images/tripadvisor.png" alt="cruise"><span>4.5/5</span>
-                                </div>
-                                <div class="pull-right">
-                                    <i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star"></i><br>
-                                    <span>128 Guest Reviews</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="room-book">
-                                <div class="col-md-8 col-sm-6 col-xs-6 clear-padding">
-                                    <h5>$49 Avg/Night</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6 clear-padding">
-                                    <a href="#">Book</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="room-grid-view">
-                        <img src="assets/images/offer3.jpg" alt="cruise">
-                        <div class="room-info">
-                            <div class="room-title">
-                                <h5>Devlok Hotel<span> 3<i class="fa fa-star"></i></span></h5>
-                                <p><i class="fa fa-map-marker"></i> Main Road, Manali</p>
-                                <div class="hotel-ammeties">
-                                    <i class="fa fa-wifi" title="Free Wifi"></i>
-                                    <i class="fa fa-cutlery" title="Breakfast"></i>
-                                    <i class="fa fa-taxi" title="Taxi Available"></i>
-                                    <i class="fa fa-bed" title="Extra Bed"></i>
-                                    <i class="fa fa-coffee" title="Free Drinks"></i>
-                                    <i class="fa fa-beer" title="Bar"></i>
-                                </div>
-                            </div>
-                            <div class="room-desc">
-                                <p>Lorem Ipsum is simply dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="hotel-rating">
-                                <div class="pull-left">
-                                    <img src="assets/images/tripadvisor.png" alt="cruise"><span>4.5/5</span>
-                                </div>
-                                <div class="pull-right">
-                                    <i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star"></i><br>
-                                    <span>128 Guest Reviews</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="room-book">
-                                <div class="col-md-8 col-sm-6 col-xs-6 clear-padding">
-                                    <h5>$49 Avg/Night</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6 clear-padding">
-                                    <a href="#">Book</a>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix-md clearfix-sm"></div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="room-grid-view">
-                        <img src="assets/images/offer1.jpg" alt="cruise">
-                        <div class="room-info">
-                            <div class="room-title">
-                                <h5>Devlok Hotel<span> 3<i class="fa fa-star"></i></span></h5>
-                                <p><i class="fa fa-map-marker"></i> Main Road, Manali</p>
-                                <div class="hotel-ammeties">
-                                    <i class="fa fa-wifi" title="Free Wifi"></i>
-                                    <i class="fa fa-cutlery" title="Breakfast"></i>
-                                    <i class="fa fa-taxi" title="Taxi Available"></i>
-                                    <i class="fa fa-bed" title="Extra Bed"></i>
-                                    <i class="fa fa-coffee" title="Free Drinks"></i>
-                                    <i class="fa fa-beer" title="Bar"></i>
-                                </div>
-                            </div>
-                            <div class="room-desc">
-                                <p>Lorem Ipsum is simply dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="hotel-rating">
-                                <div class="pull-left">
-                                    <img src="assets/images/tripadvisor.png" alt="cruise"><span>4.5/5</span>
-                                </div>
-                                <div class="pull-right">
-                                    <i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star"></i><br>
-                                    <span>128 Guest Reviews</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="room-book">
-                                <div class="col-md-8 col-sm-6 col-xs-6 clear-padding">
-                                    <h5>$49 Avg/Night</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6 clear-padding">
-                                    <a href="#">Book</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="room-grid-view">
-                        <img src="assets/images/offer2.jpg" alt="cruise">
-                        <div class="room-info">
-                            <div class="room-title">
-                                <h5>Devlok Hotel<span> 3<i class="fa fa-star"></i></span></h5>
-                                <p><i class="fa fa-map-marker"></i> Main Road, Manali</p>
-                                <div class="hotel-ammeties">
-                                    <i class="fa fa-wifi" title="Free Wifi"></i>
-                                    <i class="fa fa-cutlery" title="Breakfast"></i>
-                                    <i class="fa fa-taxi" title="Taxi Available"></i>
-                                    <i class="fa fa-bed" title="Extra Bed"></i>
-                                    <i class="fa fa-coffee" title="Free Drinks"></i>
-                                    <i class="fa fa-beer" title="Bar"></i>
-                                </div>
-                            </div>
-                            <div class="room-desc">
-                                <p>Lorem Ipsum is simply dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="hotel-rating">
-                                <div class="pull-left">
-                                    <img src="assets/images/tripadvisor.png" alt="cruise"><span>4.5/5</span>
-                                </div>
-                                <div class="pull-right">
-                                    <i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star"></i><br>
-                                    <span>128 Guest Reviews</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="room-book">
-                                <div class="col-md-8 col-sm-6 col-xs-6 clear-padding">
-                                    <h5>$49 Avg/Night</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6 clear-padding">
-                                    <a href="#">Book</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix-sm"></div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="room-grid-view">
-                        <img src="assets/images/offer3.jpg" alt="cruise">
-                        <div class="room-info">
-                            <div class="room-title">
-                                <h5>Devlok Hotel<span> 3<i class="fa fa-star"></i></span></h5>
-                                <p><i class="fa fa-map-marker"></i> Main Road, Manali</p>
-                                <div class="hotel-ammeties">
-                                    <i class="fa fa-wifi" title="Free Wifi"></i>
-                                    <i class="fa fa-cutlery" title="Breakfast"></i>
-                                    <i class="fa fa-taxi" title="Taxi Available"></i>
-                                    <i class="fa fa-bed" title="Extra Bed"></i>
-                                    <i class="fa fa-coffee" title="Free Drinks"></i>
-                                    <i class="fa fa-beer" title="Bar"></i>
-                                </div>
-                            </div>
-                            <div class="room-desc">
-                                <p>Lorem Ipsum is simply dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="hotel-rating">
-                                <div class="pull-left">
-                                    <img src="assets/images/tripadvisor.png" alt="cruise"><span>4.5/5</span>
-                                </div>
-                                <div class="pull-right">
-                                    <i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star colored"></i><i class="fa fa-star"></i><br>
-                                    <span>128 Guest Reviews</span>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="room-book">
-                                <div class="col-md-8 col-sm-6 col-xs-6 clear-padding">
-                                    <h5>$49 Avg/Night</h5>
-                                </div>
-                                <div class="col-md-4 col-sm-6 col-xs-6 clear-padding">
-                                    <a href="#">Book</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <!-- END: HOTEL GRID VIEW -->
 
-                <!-- START: PAGINATION -->
-                <div class="bottom-pagination">
-                    <nav class="pull-right">
-                        <ul class="pagination pagination-lg">
-                            <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">6 <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#" aria-label="Previous"><span aria-hidden="true">&#187;</span></a></li>
-                        </ul>
-                    </nav>
+                <!-- END: SORT AREA -->
+
+                <div class="clearfix"></div>
+                <div class="switchable col-md-12 clear-padding">
+                @foreach($availableHotels as $serial => $availableHotel)
+                    <div class="hotel-list-view {{round($availableHotel['minimumRate']/100)}}-price {{$availableHotel['hotelStarRating']}}-rating all-hotel">
+                        <div class="wrapper">
+                            <div class="col-md-4 col-sm-6 switch-img clear-padding">
+                                @if(is_array($availableHotel['hotelImage']))
+                                    <img src="{{\App\Services\AmadeusConfig::cityImage($availableHotel['hotelCityCode'])}}" alt="{{$availableHotel['hotelName']}}">
+                                @elseif(file_exists($availableHotel['hotelImage']))
+                                    <img src="{{$availableHotel['hotelImage']}}" alt="{{$availableHotel['hotelName']}}">
+                                @elseif(!file_exists($availableHotel['hotelImage']))
+                                    <img src="{{\App\Services\AmadeusConfig::cityImage($availableHotel['hotelCityCode'])}}" alt="{{$availableHotel['hotelName']}}">
+                                @endif
+                            </div>
+                            <div class="col-md-6 col-sm-6 hotel-info">
+                                <div>
+                                    <div class="hotel-header">
+                                        <h5>{{$availableHotel['hotelName']}} <br/>
+                                            <span>
+                                                @for($i = 0; $i < $availableHotel['hotelStarRating']; $i++)
+                                                    <i class="fa fa-star colored"></i>
+                                                @endfor
+
+                                                @for($i = 0; $i < (5 - $availableHotel['hotelStarRating']); $i++)
+                                                     <i class="fa fa-star-o colored"></i>
+                                                @endfor
+                                            </span>
+                                        </h5>
+                                        <p><i class="fa fa-map-marker"></i>{{$availableHotel['hotelAddress']}} <br/> <i class="fa fa-phone"></i>{{$availableHotel['hotelContactNumber']}}</p>
+                                    </div>
+                                    <div class="hotel-facility">
+                                        <p><i class="fa fa-wifi" title="Free Wifi"></i><i class="fa fa-bed" title="Luxury Bedroom"></i><i class="fa fa-taxi" title="Transportation"></i><i class="fa fa-beer" title="Bar"></i><i class="fa fa-cutlery" title="Restaurant"></i></p>
+                                    </div>
+                                    <div class="hotel-desc">
+                                        <p>{{substr($availableHotel['hotelInformation'],0,100)}} ....</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix visible-sm-block"></div>
+                            <div class="col-md-2 rating-price-box text-center clear-padding">
+                                <div class="room-book-box">
+                                    <div class="price">
+                                        <h5>&#x20A6;{{number_format($availableHotel['minimumRate']/100)}} <br/><small>(Excluding Tax)</small></h5>
+                                    </div>
+                                    <div class="book">
+                                        <button class="btn_travel_portal select_hotel" value="{{$serial}}">Select</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
                 </div>
-                <!-- END: PAGINATION -->
+
             </div>
             <!-- END: INDIVIDUAL LISTING AREA -->
         </div>
     </div>
     <!-- END: LISTING AREA -->
-
+<br/>
 @endsection
 
 @section('javascript')
     <script type="text/javascript">
-        /* Price Range Slider */
-
-        $(function() {
-            "use strict";
-            $( "#price-range" ).slider({
-                range: true,
-                min: 0,
-                max: 100,
-                values: [ 3, 50 ],
-                slide: function( event, ui ) {
-                    $( "#amount" ).val( "$ " + ui.values[ 0 ] + " - $ " + ui.values[ 1 ] );
-                }
-            });
-            $( "#amount" ).val( "$ " + $( "#price-range" ).slider( "values", 0 ) +
-                " - $ " + $( "#price-range" ).slider( "values", 1 ) );
-        });
+        let minPrice = '{{$minimumPrice}}';
+        let maxPrice = '{{$maximumPrice}}';
+        let prices   =  $.parseJSON('{{$availablePrices}}');
+        console.log(prices);
     </script>
+    <script src="{{asset('assets/js/pages/hotel/hotel_search_management.js')}}"></script>
+    <script src="{{asset('assets/js/pages/hotel/search_result.js')}}"></script>
 @endsection
 
 @section('css')

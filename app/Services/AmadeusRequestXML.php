@@ -695,24 +695,24 @@ class AmadeusRequestXML
         return $this->requestXML($body);
 	}
 	
-	public function hotelAvailRoomRequestXML($data){
+	public function hotelAvailRoomRequestXML($searchParam,$selectedHotel){
 		$body = '
 <wmHotelAvail xmlns="http://traveltalk.com/wsHotelAvail">
 <OTA_HotelAvailRQ>
      '.$this->posXML().'
    <AvailRequestSegments>
       <AvailRequestSegment>
-         <StayDateRange Start="2012-09-11" End="2012-09-18" />
+         <StayDateRange Start="'.date('Y-m-d',strtotime($searchParam['check_in_date'])).'" End="'.date('Y-m-d',strtotime($searchParam['check_out_date'])).'" />
          <RoomStayCandidates>
             <RoomStayCandidate>
                <GuestCounts IsPerRoom="true">
-                  <GuestCount Count="1" />
+                  <GuestCount Count="'. ($searchParam['adult_count'] + $searchParam['child_count']) .'" />
                </GuestCounts>
             </RoomStayCandidate>
          </RoomStayCandidates>
          <HotelSearchCriteria>
             <Criterion ExactMatch="true">
-               <HotelRef ChainCode="NS" HotelCode="CEN" HotelCityCode="DUS" />
+               <HotelRef ChainCode="'.$selectedHotel['chainCode'].'" HotelCode="'.$selectedHotel['hotelCode'].'" HotelCityCode="'.$this->AmadeusConfig::iataCode($searchParam['hotel_city']).'" />
             </Criterion>
          </HotelSearchCriteria>
       </AvailRequestSegment>

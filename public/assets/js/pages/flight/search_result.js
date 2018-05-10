@@ -11,8 +11,8 @@ $(function(){
         }
     }
 
-    function extractError(error) {
-        for(var error_log in error.response.data.errors) {
+    function extractError(error){
+        for(var error_log in error.response.data.errors){
             var err = error.response.data.errors[error_log];
             toastr.error(err);
         }
@@ -156,5 +156,8 @@ $(function(){
             })
 
     });
+
+
+
 
 });
