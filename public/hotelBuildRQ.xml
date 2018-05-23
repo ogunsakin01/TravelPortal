@@ -1,0 +1,77 @@
+
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                <wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
+       <OTA_TravelItineraryRQ>
+      <POS>
+        <Source PseudoCityCode="MIA1S21AV" ISOCurrency="NGN">
+         <RequestorID Type="21" ID="RubyTravel"/>
+        </Source>
+         <TPA_Extensions>
+            <Provider>
+               <Name>Amadeus</Name> 
+               <System>Test</System> 
+               <Userid>RubyTravel</Userid> 
+               <Password>sTeBr+Fr3kEv</Password> 
+            </Provider>
+         </TPA_Extensions>
+      </POS>
+       <OTA_HotelResRQ>
+       <HotelReservations>
+        <HotelReservation RoomStayReservation="1">
+            <RoomStays>
+              <RoomStay>
+                  <RoomRates>
+                    <RoomRate BookingCode="HWKNCFK" NumberOfUnits="1" RatePlanCode="">
+                     </RoomRate>
+                    </RoomRates>
+                   <GuestCounts>
+                    <GuestCount AgeQualifyingCode="ADT" Age="0" Count="1"></GuestCount><GuestCount AgeQualifyingCode="ADT" Age="0" Count="2"></GuestCount>
+                    </GuestCounts>
+                    <TimeSpan Start="2018-05-28" Duration="1527620721" End="2018-05-30">
+                    </TimeSpan>
+                    <DepositPayments>
+                   <RequiredPayment>
+                   <AcceptedPayments>
+                   <AcceptedPayment>
+                   <PaymentCard CardType="Credit" CardCode="VI" CardNumber="4444333322221111" ExpireDate="0520">
+                   <CardHolderName>JOHN SMITH</CardHolderName>
+                   <Address FormattedInd="0" Type="Home">
+                   <StreetNmbr>7300 NORTH KENDALL DRIVE</StreetNmbr>
+                   <CityName>MIAMI</CityName>
+                   <PostalCode>33156</PostalCode>
+                   <StateProv>FL</StateProv>
+                   <CountryName>USA</CountryName>
+                   </Address>
+                   </PaymentCard>
+                   </AcceptedPayment>
+                   </AcceptedPayments>
+                   </RequiredPayment>
+                   </DepositPayments>                 
+                 <BasicPropertyInfo ChainCode="HS" HotelCode="ACJ" HotelCityCode="DXB" HotelCodeContext="">
+                   </BasicPropertyInfo>
+                  </RoomStay>
+                 </RoomStays>
+                 </HotelReservation>
+                 </HotelReservations>
+                 </OTA_HotelResRQ> 
+                <TPA_Extensions>
+                <PNRData>
+                  <Traveler>
+                   <PersonName>
+                    <NamePrefix>Mr</NamePrefix>                    
+                    <GivenName>Portal Admin</GivenName>
+                    <Surname>Travel</Surname>
+                   </PersonName>
+                   <TravelerRefNumber RPH="1"/>
+                  </Traveler>
+                  <Telephone PhoneLocationType="Home" CountryAccessCode="234"  FormattedInd="0" AreaCityCode="LOS" PhoneNumber="09090909090"/>
+                  <Email>admin@travelportal.com</Email>
+                  <Ticketing>
+                  <TicketAdvisory>OK</TicketAdvisory>
+                  </Ticketing>
+                 </PNRData></TPA_Extensions>
+                 </OTA_TravelItineraryRQ>
+        </wmTravelBuild>
+            </soap:Body>
+        </soap:Envelope>

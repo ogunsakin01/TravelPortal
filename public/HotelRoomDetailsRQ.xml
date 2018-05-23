@@ -19,19 +19,22 @@
       </POS>
    <AvailRequestSegments>
       <AvailRequestSegment>
-         <StayDateRange Start="2018-05-27" End="2018-05-31" />
+         <StayDateRange Start="2018-05-28" End="2018-05-31" />
          <RoomStayCandidates>
             <RoomStayCandidate>
-               <GuestCounts IsPerRoom="true">
+               <GuestCounts IsPerRoom="1">
                   <GuestCount Count="2" />
                </GuestCounts>
             </RoomStayCandidate>
          </RoomStayCandidates>
          <HotelSearchCriteria>
-            <Criterion ExactMatch="true">
-               <HotelRef HotelCityCode="LHR" />
+            <Criterion ExactMatch="1">
+               <HotelRef ChainCode="DV" HotelCode="FAR" HotelCityCode="LHR"  />
             </Criterion>
          </HotelSearchCriteria>
+         <RatePlanCandidates>
+            <RatePlanCandidate RatePlanID="C1DPRO"/>    
+          </RatePlanCandidates> 
       </AvailRequestSegment>
    </AvailRequestSegments>
 </OTA_HotelAvailRQ>

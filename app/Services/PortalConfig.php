@@ -12,28 +12,30 @@ namespace App\Services;
 class PortalConfig
 {
 
-  public $adminBookingsEmail          = '';
+  public static $adminBookingsEmail          = '';
 
-  public $adminTicketingEmail         = '';
+  public static $adminTicketingEmail         = '';
 
-  public $adminCancelPNREmail         = '';
+  public static $adminCancelPNREmail         = '';
 
-  public $adminIssueTicketEmail       = '';
+  public static $adminIssueTicketEmail       = '';
 
-  public $adminVoidTicketEmail        = '';
+  public static $adminVoidTicketEmail        = '';
 
-  public $adminCustomerCareEmail      = '';
+  public static $adminCustomerCareEmail      = '';
 
-  public $adminBookingsNumber         = '';
+  public static $adminBookingsNumber         = '';
 
-  public $adminTicketingNumber        = '';
+  public static $adminTicketingNumber        = '';
 
-  public $adminCancelPNRNumber        = '';
+  public static $adminCancelPNRNumber        = '';
 
-  public $adminIssueTicketNumber      = '';
+  public static $adminIssueTicketNumber      = '';
 
-  public $adminVoidTicketNumber       = '';
+  public static $adminVoidTicketNumber       = '';
 
-  public $adminCustomerCareNumber     = '';
+  public static $adminCustomerCareNumber     = '';
+
+  public static $adminCustomerCareNumber2    = '';
 
 }

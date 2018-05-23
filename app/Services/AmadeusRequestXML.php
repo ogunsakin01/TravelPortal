@@ -9,6 +9,8 @@
 namespace App\Services;
 
 
+use App\Title;
+
 class AmadeusRequestXML
 {
     private $AmadeusConfig;
@@ -40,6 +42,18 @@ class AmadeusRequestXML
     public function requestXML($body){
         return '
         <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                '.$body.'
+            </soap:Body>
+        </soap:Envelope>';
+    }
+
+    public function advancedRequestXML($body,$header){
+        return'
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Header>
+              '.$header.'
+            </soap:Header>
             <soap:Body>
                 '.$body.'
             </soap:Body>
@@ -544,48 +558,44 @@ class AmadeusRequestXML
 </OTA_VehResRQ>';
 	}
 
-    public function travelBuildMainRequestElementXML($passengerInformation,$buildData,$buildType,$user){
-    	
-    	$body = '
-  <wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
-  <OTA_TravelItineraryRQ>
-   '.$this->posXML().'
-   '.$this->buildTypeSort($buildType,$buildData).'
-   <TPA_Extensions>
-      <PNRData>
-         <Traveler PassengerTypeCode="ADT" BirthDate="1952-07-24">
-            <PersonName>
-               <NamePrefix>MR</NamePrefix>
-               <GivenName>JOHN</GivenName>
-               <Surname>TEST</Surname>
-               <NameTitle>MD</NameTitle>
-            </PersonName>
-            <TravelerRefNumber RPH="1" />
-         </Traveler>
-         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="'.$user['profile']['phone'].'" FormattedInd="0" />
-         <Email>'.$user['email'].'info@Amadeus.com</Email>
-         <Ticketing TicketTimeLimit="'.$buildData['ticketTimeLimit'].'" TicketType="eTicket" />
-      </PNRData>
-      <PriceData PriceType="'.$buildData['priceType'].'" AutoTicketing="false" ValidatingAirlineCode="'.$buildData['validatingAirlineCode'].'">
-       <PublishedFares>
-      <FareRestrictPref>
-      <AdvResTicketing><AdvReservation/>
-      </AdvResTicketing>
-      <StayRestrictions>
-      <MinimumStay/>
-      <MaximumStay/>
-      </StayRestrictions>
-      <VoluntaryChanges>
-      <Penalty/>
-      </VoluntaryChanges>
-      </FareRestrictPref>
-      </PublishedFares>
-      </PriceData>
-   </TPA_Extensions>
-  </OTA_TravelItineraryRQ>
-  </wmTravelBuild>';
+	public function hotelDepositXML(){
+        return '<DepositPayments>
+                   <RequiredPayment>
+                   <AcceptedPayments>
+                   <AcceptedPayment>
+                   <PaymentCard CardType="Credit" CardCode="VI" CardNumber="4444333322221111" ExpireDate="0520">
+                   <CardHolderName>JOHN SMITH</CardHolderName>
+                   <Address FormattedInd="0" Type="Home">
+                   <StreetNmbr>7300 NORTH KENDALL DRIVE</StreetNmbr>
+                   <CityName>MIAMI</CityName>
+                   <PostalCode>33156</PostalCode>
+                   <StateProv>FL</StateProv>
+                   <CountryName>USA</CountryName>
+                   </Address>
+                   </PaymentCard>
+                   </AcceptedPayment>
+                   </AcceptedPayments>
+                   </RequiredPayment>
+                   </DepositPayments>';
+    }
 
-        return $this->requestXML($body);
+    public function hotelGuaranteeXML(){
+        return '<Guarantee GuaranteeType="CC">
+                   <GuaranteesAccepted>
+                   <GuaranteeAccepted>
+                   <PaymentCard CardType="Credit" CardCode="VI" CardNumber="4444333322221111" ExpireDate="0520">
+                   <CardHolderName>JOHN SMITH</CardHolderName>
+                   <Address FormattedInd="0" Type="Home">
+                   <StreetNmbr>7300 NORTH KENDALL DRIVE</StreetNmbr>
+                   <CityName>MIAMI</CityName>
+                   <PostalCode>33156</PostalCode>
+                   <StateProv>FL</StateProv>
+                   <CountryName>USA</CountryName>
+                   </Address>
+                   </PaymentCard>
+                   </GuaranteeAccepted>
+                   </GuaranteesAccepted>
+                   </Guarantee>';
     }
 
     public function flightTravelBuildRequestElementXML($passengerInformation,$buildData,$user){
@@ -620,6 +630,134 @@ class AmadeusRequestXML
    </TPA_Extensions>
   </OTA_TravelItineraryRQ>
   </wmTravelBuild>';
+
+        return $this->requestXML($body);
+    }
+
+    public function hotelTravelBuildRequestElementXML($selectedRoom,$selectedHotel,$searchParam,$bookingCustomer){
+        $guests = '';
+        if($searchParam['child_count'] > 0){
+            $guests = $guests.'<GuestCount AgeQualifyingCode="ADT" Age="0" Count="'.$searchParam['child_count'].'"></GuestCount>';
+        }if ($searchParam['adult_count'] > 0){
+            $guests = $guests.'<GuestCount AgeQualifyingCode="ADT" Age="0" Count="'.$searchParam['adult_count'].'"></GuestCount>';
+        }
+        $duration = floor(strtotime($searchParam['check_out_date']) - strtotime($searchParam['check_in_date']) / (60 * 60 * 24));
+
+        if($selectedRoom['guarantee'] == 'GuaranteeRequired'){
+            $guarantee = $this->hotelGuaranteeXML();
+        }elseif($selectedRoom['guarantee'] == 'Deposit'){
+            $guarantee = $this->hotelDepositXML();
+        }else{
+            $guarantee = $this->hotelDepositXML();
+        }
+
+       $body = '<wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
+       <OTA_TravelItineraryRQ>
+      '.$this->posXML().'
+       <OTA_HotelResRQ>
+       <HotelReservations>
+        <HotelReservation RoomStayReservation="1">
+            <RoomStays>
+              <RoomStay>
+                  <RoomRates>
+                    <RoomRate BookingCode="'.$selectedRoom['bookingCode'].'" NumberOfUnits="1" RatePlanCode="'.$selectedRoom['ratePlanCode'].'">
+                     </RoomRate>
+                    </RoomRates>
+                   <GuestCounts>
+                    '.$guests.'
+                    </GuestCounts>
+                    <TimeSpan Start="'.date('Y-m-d', strtotime($searchParam['check_in_date'])).'" Duration="'.$duration.'" End="'.date('Y-m-d', strtotime($searchParam['check_out_date'])).'">
+                            </TimeSpan>
+                            '.$guarantee.'                 
+                 <BasicPropertyInfo ChainCode="'.$selectedHotel['chainCode'].'" HotelCode="'.$selectedHotel['hotelCode'].'" HotelCityCode="'.$selectedHotel['hotelCityCode'].'" HotelCodeContext="'.$selectedHotel['hotelContextCode'].'">
+                   </BasicPropertyInfo>
+                  </RoomStay>
+                 </RoomStays>
+                 </HotelReservation>
+                 </HotelReservations>
+                 </OTA_HotelResRQ> 
+                <TPA_Extensions>
+                <PNRData>
+                  <Traveler>
+                   <PersonName>
+                    <NamePrefix>'.Title::find($bookingCustomer['title_id'])->name.'</NamePrefix>                    
+                    <GivenName>'.$bookingCustomer['first_name'].' '.$bookingCustomer['other_name'].'</GivenName>
+                    <Surname>'.$bookingCustomer['sur_name'].'</Surname>
+                   </PersonName>
+                   <TravelerRefNumber RPH="1"/>
+                  </Traveler>
+                  <Telephone PhoneLocationType="Home" CountryAccessCode="234"  FormattedInd="0" AreaCityCode="LOS" PhoneNumber="'.$bookingCustomer['phone'].'"/>
+                  <Email>'.$bookingCustomer['email'].'</Email>
+                  <Ticketing>
+                  <TicketAdvisory>OK</TicketAdvisory>
+                  </Ticketing>
+                 </PNRData></TPA_Extensions>
+                 </OTA_TravelItineraryRQ>
+        </wmTravelBuild>';
+
+       return $this->requestXML($body);
+    }
+
+    public function hotelTravelBuildRebookRequestElementXML($bookingInformation,$user){
+        $guests = '';
+        if($bookingInformation->child_guest > 0){
+            $guests = $guests.'<GuestCount AgeQualifyingCode="ADT" Age="0" Count="'.$bookingInformation->child_guest.'"></GuestCount>';
+        }if ($bookingInformation->adult_guest > 0){
+            $guests = $guests.'<GuestCount AgeQualifyingCode="ADT" Age="0" Count="'.$bookingInformation->adult_guest.'"></GuestCount>';
+        }
+        $duration = floor(strtotime($bookingInformation->check_out_date) - strtotime($bookingInformation->check_in_date) / (60 * 60 * 24));
+
+        if($bookingInformation->guarantee == 'GuaranteeRequired'){
+            $guarantee = $this->hotelGuaranteeXML();
+        }elseif($bookingInformation->guarantee == 'Deposit'){
+            $guarantee = $this->hotelDepositXML();
+        }else{
+            $guarantee = $this->hotelDepositXML();
+        }
+
+        $body = '<wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
+       <OTA_TravelItineraryRQ>
+      '.$this->posXML().'
+       <OTA_HotelResRQ>
+       <HotelReservations>
+        <HotelReservation RoomStayReservation="1">
+            <RoomStays>
+              <RoomStay>
+                  <RoomRates>
+                    <RoomRate BookingCode="'.$bookingInformation->room_booking_code.'" NumberOfUnits="1" RatePlanCode="'.$bookingInformation->ratePlanCode.'">
+                     </RoomRate>
+                    </RoomRates>
+                   <GuestCounts>
+                    '.$guests.'
+                    </GuestCounts>
+                    <TimeSpan Start="'.date('Y-m-d', strtotime($bookingInformation->check_in_date)).'" Duration="'.$duration.'" End="'.date('Y-m-d', strtotime($bookingInformation->check_out_date)).'">
+                    </TimeSpan>
+                    '.$guarantee.'                 
+                 <BasicPropertyInfo ChainCode="'.$bookingInformation->hotel_chain_code.'" HotelCode="'.$bookingInformation->hotel_code.'" HotelCityCode="'.$bookingInformation->hotel_city_code.'" HotelCodeContext="'.$bookingInformation->hotel_context_code.'">
+                   </BasicPropertyInfo>
+                  </RoomStay>
+                 </RoomStays>
+                 </HotelReservation>
+                 </HotelReservations>
+                 </OTA_HotelResRQ> 
+                <TPA_Extensions>
+                <PNRData>
+                  <Traveler>
+                   <PersonName>
+                    <NamePrefix>'.Title::find($user->title_id)->name.'</NamePrefix>                    
+                    <GivenName>'.$user->first_name.' '.$user->other_name.'</GivenName>
+                    <Surname>'.$user->sur_name.'</Surname>
+                   </PersonName>
+                   <TravelerRefNumber RPH="1"/>
+                  </Traveler>
+                  <Telephone PhoneLocationType="Home" CountryAccessCode="234"  FormattedInd="0" AreaCityCode="LOS" PhoneNumber="'.$user->phone_number.'"/>
+                  <Email>'.$user->email.'</Email>
+                  <Ticketing>
+                  <TicketAdvisory>OK</TicketAdvisory>
+                  </Ticketing>
+                 </PNRData></TPA_Extensions>
+                 </OTA_TravelItineraryRQ>
+        </wmTravelBuild>';
 
         return $this->requestXML($body);
     }
@@ -723,29 +861,28 @@ class AmadeusRequestXML
         return $this->requestXML($body);
 	}
 
-    public function hotelAvailRoomDetailsRequestXML($data) {
-
+    public function hotelAvailRoomDetailsRequestXML($roomInfo,$hotelInfo,$searchParam){
 		$body = '
 <wmHotelAvail xmlns="http://traveltalk.com/wsHotelAvail">
 <OTA_HotelAvailRQ>
      '.$this->posXML().'
    <AvailRequestSegments>
       <AvailRequestSegment>
-         <StayDateRange Start="2012-09-11" End="2012-09-18" />
+         <StayDateRange Start="'.date('Y-m-d',strtotime($searchParam['check_in_date'])).'" End="'.date('Y-m-d',strtotime($searchParam['check_out_date'])).'" />
          <RoomStayCandidates>
             <RoomStayCandidate>
-               <GuestCounts IsPerRoom="true">
-                  <GuestCount Count="1" />
+               <GuestCounts IsPerRoom="1">
+                  <GuestCount Count="'. ($searchParam['adult_count'] + $searchParam['child_count']) .'" />
                </GuestCounts>
             </RoomStayCandidate>
          </RoomStayCandidates>
          <HotelSearchCriteria>
-            <Criterion ExactMatch="true">
-               <HotelRef ChainCode="NS" HotelCode="CEN" HotelCityCode="DUS" />
+            <Criterion ExactMatch="1">
+               <HotelRef ChainCode="'.$hotelInfo['chainCode'].'" HotelCode="'.$hotelInfo['hotelCode'].'" HotelCityCode="'.$this->AmadeusConfig::iataCode($searchParam['hotel_city']).'"  />
             </Criterion>
          </HotelSearchCriteria>
          <RatePlanCandidates>
-            <RatePlanCandidate RatePlanID="C1TR0154HA"/>    
+            <RatePlanCandidate RatePlanID="'.$roomInfo['bookingCode'].'"/>    
           </RatePlanCandidates> 
       </AvailRequestSegment>
    </AvailRequestSegments>
@@ -762,10 +899,17 @@ class AmadeusRequestXML
                     </OTA_CancelRQ>
                    </wmPNRCancel> ';
 
-        return $this->requestXML($body);
+        $header = '<TripXML xmlns="http://amadeusws.tripxml.com/TripXML/wsPNRCancel.asmx">
+              <userName>string</userName>
+              <password>string</password>
+              <compressed>boolean</compressed>
+            </TripXML>';
+
+        return $this->advancedRequestXML($body,$header);
     }
 
     public function voidTicket($ticketNumber){
+
         $body = '<wmVoidTicket xmlns="http://traveltalk.com/wsVoidTicket">
                   <TT_VoidTicketRQ Version="1.0">
                    '.$this->posXML().'
@@ -774,10 +918,18 @@ class AmadeusRequestXML
                    </Tickets>
                   </TT_VoidTicketRQ>
                  </wmVoidTicket>';
-        return $this->requestXML($body);
+
+        $header = '<TripXML xmlns="http://amadeusws.tripxml.com/TripXML/wsVoidTicket.asmx">
+              <userName>string</userName>
+              <password>string</password>
+              <compressed>boolean</compressed>
+            </TripXML>';
+
+        return $this->advancedRequestXML($body,$header);
     }
 
     public function issueTicket($pnr){
+
         $body = '<wmIssueTicket xmlns="http://traveltalk.com/wsIssueTicket">
                    <TT_IssueTicketRQ>
                      '.$this->posXML().'
@@ -786,11 +938,15 @@ class AmadeusRequestXML
                    </TT_IssueTicketRQ>
                  </wmIssueTicket>';
 
-        return $this->requestXML($body);
+        $header = '<TripXML xmlns="http://amadeusws.tripxml.com/TripXML/wsIssueTicket.asmx">
+              <userName>string</userName>
+              <password>string</password>
+              <compressed>boolean</compressed>
+            </TripXML>';
+
+        return $this->advancedRequestXML($body,$header);
 
     }
-
-
 
 
 }

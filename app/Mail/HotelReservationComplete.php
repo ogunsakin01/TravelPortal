@@ -16,9 +16,21 @@ class HotelReservationComplete extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $user;
+
+    public $hotelInfo;
+
+    public $roomInfo;
+
+    public $bookingInfo;
+
+    public function __construct($user,$hotelInfo,$roomInfo,$bookingInfo)
     {
-        //
+        $this->user        = $user;
+        $this->hotelInfo   = $hotelInfo;
+        $this->roomInfo    = $roomInfo;
+        $this->bookingInfo = $bookingInfo;
     }
 
     /**
@@ -26,9 +38,11 @@ class HotelReservationComplete extends Mailable
      *
      * @return $this
      */
+
     public function build()
     {
         return $this->from('no-reply@travelportal.com',config('app.name'))
-            ->markdown('emails.HotelReservationComplete');
+                    ->subject('Hotel Room Reservation')
+                    ->markdown('emails.HotelReservationComplete');
     }
 }

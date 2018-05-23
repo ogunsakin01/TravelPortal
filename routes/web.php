@@ -30,6 +30,7 @@ Route::get('/selected-itinerary-info/{id}','FlightController@selectedItineraryIn
 Route::get('/get-flight-information-and-pricing/{id}','FlightController@getItineraryInformationAndPricing');
 Route::post('/book-itinerary','FlightController@bookItinerary');
 Route::post('/bank-payment','BankPaymentController@itineraryBankPayment');
+Route::post('/hotel-bank-payment','BankPaymentController@hotelBankPayment');
 Route::get('/itinerary-booking','ViewController@itineraryBooking');
 Route::get('/available-itineraries','ViewController@availableItineraries');
 Route::get('/flight-booking-payment-page','ViewController@flightBookingPayment');
@@ -41,6 +42,8 @@ Route::get('/void-ticket/{pnr}','FlightController@voidTicket');
 
 Route::post('/generate-interswitch-payment','OnlinePaymentController@generateInterswitchPayment');
 Route::post('/interswitch-payment-verification','OnlinePaymentController@interswitchPaymentVerification');
+
+
 Route::post('/generate-paystack-payment','OnlinePaymentController@generatePayStackPayment');
 Route::get('/paystack-payment-verification','OnlinePaymentController@payStackPaymentVerification');
 
@@ -56,6 +59,21 @@ Route::get('/available-hotels','ViewController@availableHotels');
 Route::get('/get-selected-hotel-information/{id}','HotelController@getSelectedHotelInformation');
 Route::get('/get-selected-hotel-rooms-information/{id}','HotelController@getSelectHotelRoomsInformation');
 Route::get('/hotel-information','ViewController@hotelInformation');
+Route::get('/get-selected-hotel-room-information/{id}','HotelController@getSelectedHotelRoomInformation');
+Route::get('/selected-hotel-information','HotelController@selectedHotel');
+Route::get('/hotel-room-information/{id}','HotelController@hotelRoomInformation');
+Route::get('/hotel-room-booking/{id}','ViewController@hotelRoomBooking');
+Route::post('/hold-customer-hotel-booking-information','HotelController@holdCustomerHotelBookingInfo');
+Route::get('/get-logged-in-user',function(){
+    return App\User::findOrFail(auth()->user()->id)
+        ->join('profiles','profiles.user_id','=','users.id')
+        ->join('role_user','role_user.user_id','=','users.id')
+        ->first();
+});
+Route::get('/hotel-booking-payment-page','ViewController@hotelBookingPaymentPage');
+Route::get('/hotel-booking-confirmation','HotelController@hotelPaymentConfirmation');
+Route::get('/hotel-booking-completion','ViewCOntroller@hotelBookingCompletion');
+
 
 Route::middleware(['auth'])->group(function(){
 
@@ -93,6 +111,13 @@ Route::middleware(['auth'])->group(function(){
             Route::get('/', 'BackEndViewController@usersManagement');
             Route::post('/add-new','UserController@addNew');
             Route::get('/delete-user/{id}','UserController@deleteUser');
+            Route::post('/update-user','UserController@updateUser');
+        });
+
+        Route::group(['prefix' => 'wallets'],function(){
+
+            Route::get('/','BackEndViewController@walletsManagement');
+
         });
 
     });
@@ -103,14 +128,15 @@ Route::middleware(['auth'])->group(function(){
            Route::get('user','BackEndViewController@userFlightBookings');
            Route::get('agent','BackEndViewController@agentFlightBookings');
            Route::get('customer','BackEndViewController@customerFlightBookings');
-           Route::get('itinerary-booking-information/{reference}','BackEndViewCOntroller@itineraryBookingInformation');
-
+           Route::get('itinerary-booking-information/{reference}','BackEndViewController@itineraryBookingInformation');
         });
 
         Route::group(['prefix' => 'hotel'],function(){
             Route::get('user','BackEndViewController@userHotelBookings');
             Route::get('agent','BackEndViewController@agentHotelBookings');
             Route::get('customer','BackEndViewController@customerHotelBookings');
+            Route::get('hotel-reservation-information/{reference}','BackEndViewController@hotelBookingInformation');
+            Route::get('rebook-hotel-room/{reference}','HotelController@reBookHotelRoom');
         });
 
     });

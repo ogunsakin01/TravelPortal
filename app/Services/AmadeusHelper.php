@@ -1347,6 +1347,7 @@ class AmadeusHelper
     }
 
     public function hotelAvailRoomResponseSort($responseArray){
+
         $availableHotel = $responseArray['soap_Body']['wmHotelAvailResponse']['OTA_HotelAvailRS']['RoomStays']['RoomStay'];
         $minimumRate   = 0;
         $numberOfUnits = count($availableHotel['RoomRates']['RoomRate']);
@@ -1452,7 +1453,11 @@ class AmadeusHelper
             foreach($roomRates as $serial => $roomRate){
                 $bookingCode = $ratePlans[$serial]['@attributes']['BookingCode'];
                 $ratePlanCode = $ratePlans[$serial]['@attributes']['RatePlanCode'];
-                $guarantee    = array_get($ratePlans[$serial]['Guarantee']['@attributes'],'GuaranteeType',array_get($ratePlans[$serial]['Guarantee']['@attributes'],'HoldTime',''));
+                if(isset($ratePlans[$serial]['Guarantee'])){
+                    $guarantee    = array_get($ratePlans[$serial]['Guarantee']['@attributes'],'GuaranteeType',array_get($ratePlans[$serial]['Guarantee']['@attributes'],'HoldTime',''));
+                }else{
+                    $guarantee = "None";
+                }
                 $roomDetails = $ratePlans[$serial]['AdditionalDetails']['AdditionalDetail'];
                 $roomCategory = 'Not Set';
                 $numOfBeds = 'Not Set';
@@ -1502,7 +1507,7 @@ class AmadeusHelper
                 $roomInfo = [
                     'bookingCode' => $bookingCode,
                     'ratePlanCode' => $ratePlanCode,
-                    'Guarantee'    => $guarantee,
+                    'guarantee'    => $guarantee,
                     'roomCategory' => $roomCategory,
                     'numOfBed'    => $numOfBeds,
                     'bedType'          => $bedType,
@@ -1516,7 +1521,11 @@ class AmadeusHelper
             $roomRate = $roomRates;
             $bookingCode = $ratePlans['@attributes']['BookingCode'];
             $ratePlanCode = $ratePlans['@attributes']['RatePlanCode'];
-            $guarantee    = array_get($ratePlans['Guarantee']['@attributes'],'GuaranteeType',array_get($ratePlans['Guarantee']['@attributes'],'HoldTime',''));
+            if(isset($ratePlans[$serial]['Guarantee'])){
+                $guarantee    = array_get($ratePlans['Guarantee']['@attributes'],'GuaranteeType',array_get($ratePlans['Guarantee']['@attributes'],'HoldTime',''));
+            }else{
+                $guarantee = "None";
+            }
             $roomDetails = $ratePlans['AdditionalDetails']['AdditionalDetail'];
             $roomCategory = 'Not Set';
             $numOfBeds = 'Not Set';
@@ -1533,12 +1542,25 @@ class AmadeusHelper
                 }
             }
             $roomPrice = '';
-            if(isset($roomRate['Rates']['Rate'][0]['Total']['@attributes']['AmountAfterTax'])){
-                $roomPrice = $roomRate['Rates']['Rate'][0]['Total']['@attributes']['AmountAfterTax'];
+            if(isset($roomRate['Rates']['Rate'][0])){
+                if(isset($roomRate['Rates']['Rate'][0]['Total']['@attributes']['AmountAfterTax'])){
+                    $roomPrice = $roomRate['Rates']['Rate'][0]['Total']['@attributes']['AmountAfterTax'];
+                }
+                else{
+                    $roomPrice = $roomRate['Rates']['Rate'][0]['Total']['@attributes']['AmountBeforeTax'];
+                }
             }
             else{
-                $roomPrice = $roomRate['Rates']['Rate'][0]['Total']['@attributes']['AmountBeforeTax'];
+                if(isset($roomRate['Rates']['Rate']['Total']['@attributes']['AmountAfterTax'])){
+                    $roomPrice = $roomRate['Rates']['Rate']['Total']['@attributes']['AmountAfterTax'];
+                }
+                else{
+                    $roomPrice = $roomRate['Rates']['Rate']['Total']['@attributes']['AmountBeforeTax'];
+                }
+
             }
+
+
             $roomDescriptions = $roomDetails[0]['DetailDescription']['Text'];
 
             if(is_array($roomDescriptions)){
@@ -1546,13 +1568,14 @@ class AmadeusHelper
                 foreach($roomDescriptions as $j => $roomDesc){
                     $roomDescription = $roomDescription.','.$roomDesc;
                 }
-            }else{
+            }
+            else{
                 $roomDescription = $roomDescriptions;
             }
             $roomInfo = [
                 'bookingCode' => $bookingCode,
                 'ratePlanCode' => $ratePlanCode,
-                'Guarantee'    => $guarantee,
+                'guarantee'    => $guarantee,
                 'roomCategory' => $roomCategory,
                 'numOfBed'    => $numOfBeds,
                 'bedType'      => $bedType,
@@ -1562,21 +1585,24 @@ class AmadeusHelper
             array_push($availableRooms,$roomInfo);
         }
 
-
-        $hotelImageHolder = $availableHotel['BasicPropertyInfo']['VendorMessages']['VendorMessage'][1]['SubSection']['Paragraph'];
-        if($hotelImageHolder[0]){
-            foreach($hotelImageHolder as $serial => $hotelImageNew){
+        if(isset($availableHotel['BasicPropertyInfo']['VendorMessages']['VendorMessage'][1]['SubSection']['Paragraph'])){
+            $hotelImageHolder = $availableHotel['BasicPropertyInfo']['VendorMessages']['VendorMessage'][1]['SubSection']['Paragraph'];
+            if($hotelImageHolder[0]){
+                foreach($hotelImageHolder as $serial => $hotelImageNew){
+                    array_push($hotelImages,[
+                        'title' => $hotelImageNew['@attributes']['Name'],
+                        'url' => $hotelImageNew['URL'],
+                    ]);
+                }
+            }
+            else{
                 array_push($hotelImages,[
-                    'title' => $hotelImageNew['@attributes']['Name'],
-                    'url' => $hotelImageNew['URL'],
+                    'title' => $hotelImageHolder['@attributes']['Name'],
+                    'url' => $hotelImageHolder['URL'],
                 ]);
             }
-        }else{
-            array_push($hotelImages,[
-                'title' => $hotelImageHolder['@attributes']['Name'],
-                'url' => $hotelImageHolder['URL'],
-            ]);
         }
+
 
 
 
@@ -1645,5 +1671,24 @@ class AmadeusHelper
             }
         }
     }
+
+    public function hotelTravelBuildResponseValidator($responseArray){
+        if(empty($responseArray)){
+            return 0;
+        }else{
+            if(isset($responseArray['soap_Body']['wmTravelBuildResponse']['OTA_TravelItineraryRS']['Success'])){
+                return 1;
+            }elseif(isset($responseArray['soap_Body']['wmTravelBuildResponse']['OTA_TravelItineraryRS']['Errors']['Error'])){
+                $error = $responseArray['soap_Body']['wmTravelBuildResponse']['OTA_TravelItineraryRS']['Errors']['Error'];
+                return [
+                    2,
+                    $error
+                ];
+            }else{
+                return 2;
+            }
+        }
+    }
+
 
 }

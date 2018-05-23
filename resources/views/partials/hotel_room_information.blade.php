@@ -11,8 +11,8 @@
                 <span><i class="fa fa-suitcase"></i></span>
             </div>
             <div class="search-title">
-                <span>Raddisson Blue </span>
-                <p>Getting hotel room information</p>
+                <span class="selected_hotel_name">  </span>
+                <p>Getting the selected room information, please hold on for some seconds.</p>
             </div>
             <p class="copyright">&copy; {{date('Y')}} {{config('app.name')}}</p>
         </div>

@@ -103,7 +103,8 @@ $(function(){
                if(response.data == 1){
                    toastr.success("Hotel information retrieved, redirecting to hotel information page");
                    window.location.href = baseUrl+'/hotel-information';
-               }else{
+               }
+               else{
                    if(response.data == 2){
                        toastr.error('Sorry !!! Unable to get hotel information. Kindly select another hotel');
                    }else if(response.data == 0){

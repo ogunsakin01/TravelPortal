@@ -1,5 +1,12 @@
 
         <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Header>
+              <TripXML xmlns="http://amadeusws.tripxml.com/TripXML/wsPNRCancel.asmx">
+              <userName>string</userName>
+              <password>string</password>
+              <compressed>boolean</compressed>
+            </TripXML>
+            </soap:Header>
             <soap:Body>
                 <wmPNRCancel xmlns="http://traveltalk.com/wsPNRCancel">
                     <OTA_CancelRQ>
@@ -16,7 +23,7 @@
             </Provider>
          </TPA_Extensions>
       </POS>
-                      <UniqueID ID="V3FMLM"/>
+                      <UniqueID ID="KK2BSH"/>
                     </OTA_CancelRQ>
                    </wmPNRCancel> 
             </soap:Body>

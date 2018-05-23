@@ -11,6 +11,7 @@ namespace App\Services;
 
 use Exception;
 use Illuminate\Support\Facades\Redirect;
+use nilsenj\Toastr\Facades\Toastr;
 
 
 class PaystackConfig{
@@ -69,7 +70,8 @@ class PaystackConfig{
 
         if(empty($response)){
 
-           return 0;
+           Toastr::error('Bad internet connection. Unable to process payment.');
+           return back();
 
         }else{
 

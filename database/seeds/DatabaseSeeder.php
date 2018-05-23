@@ -28,6 +28,10 @@ class DatabaseSeeder extends Seeder
         $this->call(FlightBookingsTableSeeder::class);
         $this->call(GendersTableSeeder::class);
         $this->call(TitlesTableSeeder::class);
+        $this->call(WalletTableSeeder::class);
+        $this->call(WalletLogTypeTableSeeder::class);
+        $this->call(WalletLogTableSeeder::class);
+
 
     }
 }

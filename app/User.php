@@ -82,51 +82,6 @@ class User extends Authenticatable
         return Hash::make($password);
     }
 
-//    public function storeUser($data)
-//    {
-//        $password = $this->generateRandomPassword();
-//
-//        $user = static::updateOrCreate(
-//            [
-//                'email' => $data['email']
-//            ],
-//
-//            [
-//                'title' => $data['title'],
-//                'first_name' => $data['first_name'],
-//                'last_name' => $data['last_name'],
-//                'other_name' => $data['other_name'],
-//                'date_of_birth' => $data['date_of_birth'],
-//                'phone_number' => $data['phone_number'],
-//                'address' => $data['address'],
-//                'gender' => $data['gender'],
-//                'account_status' => $data['account_status'],
-//                'email' => $data['email'],
-//                'password' => $this->hashPassword($password),
-//                'agency_name' => $data['agency_name'],
-//                'agent_id' => $data['agent_id'],
-//                'office_number' => $data['office_number']
-//            ]
-//        );
-//
-//
-//        if ($user)
-//        {
-//            $wallet = new Wallet();
-//
-//            $wallet->createWallet($user->id);
-//
-//            $role = Role::where('id', $data['role'])->first();
-//
-//            $user->detachRole($role);
-//            $user->attachRole($role);
-//
-//            return true;
-//        }
-//
-//        return false;
-//    }
-
     public function fetch()
     {
         return static::orderBy('created_at', 'ASC')->get();
@@ -315,33 +270,15 @@ class User extends Authenticatable
         return $created_date;
     }
 
-    public function authenticatedUserProfile()
+    public static function authenticatedUserInfo()
     {
-        $user = static::where('id', auth()->id())->first();
 
-//        $title = new Title();
-//
-//        $gender = new Gender();
-//
-//        $role = new Role();
-//
-//        $data = [
-//            'title' => $title->getTitleById($user->title),
-//            'full_name' => $user->first_name." ".$user->last_name." ".$user->other_name,
-//            'date_of_birth' => Carbon::parse($user->date_of_birth)->toFormattedDateString(),
-//            'email' => $user->email,
-//            'phone_number' => $user->phone_number,
-//            'address' => $user->address,
-//            'gender' => $gender->getGenderById($user->gender),
-//            'agency_name' => $user->agency_name,
-//            'agent_id' => $user->agent_id,
-//            'office_number' => $user->office_number,
-//            'account_status' => $this->status($user->account_status),
-//            'role' => $role->role($user->id),
-//            'created_on' => Carbon::parse($user->created_at)->toFormattedDateString()
-//        ];
-//
-//        return $data;
+        $user = static::where('id', auth()->id())->first()
+            ->join('profiles','profiles.user_id','=','users.id')
+            ->join('role_user','role_user.user_id','=','users.id')
+            ->first();
+        return $user;
+
     }
 
     public function getUserProfileById($id)

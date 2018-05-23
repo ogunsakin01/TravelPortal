@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTitlesTable extends Migration
+class CreateWalletLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateTitlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('titles', function (Blueprint $table) {
+        Schema::create('wallet_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->integer('user_id');
+            $table->bigInteger('amount');
+            $table->integer('status');
+            $table->integer('type_id');
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateTitlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('titles');
+        Schema::dropIfExists('wallet_logs');
     }
 }

@@ -33,7 +33,7 @@
     <div class="row booking-detail">
         <div class="container clear-padding">
             <div class="tab-content">
-                <div id="billing-info"> {{--I removed class="tab-pane fade" from this div so that the content will not be hidden--}}
+                <div id="billing-info">
                     <div class="col-md-8 col-sm-8">
                         <div class="passenger-detail">
                             <h3>Total Payment to be made &#x20a6;{{number_format($selectedItinerary['displayTotal']/ 100, 2)}}</h3>

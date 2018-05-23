@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\BankDetail;
 use App\FlightBooking;
+use App\HotelBooking;
 use App\Profile;
 use App\Services\AmadeusConfig;
 use App\Services\AmadeusHelper;
 use App\Markup;
 use App\Markdown;
+use App\Title;
 use App\Vat;
 use function Symfony\Component\VarDumper\Dumper\esc;
 
@@ -19,9 +21,12 @@ class ViewController extends Controller
 
     private $AmadeusConfig;
 
+    private $HotelController;
+
     public function __construct(){
         $this->AmadeusHelper = new AmadeusHelper();
         $this->AmadeusConfig = new AmadeusConfig();
+        $this->HotelController = new HotelController();
     }
 
     public function availableItineraries(){
@@ -107,7 +112,6 @@ class ViewController extends Controller
 
     public function availableHotels(){
 
-        dd($this->palindrome("Was it a car or a cat I saw"));
 
         $hotels = session()->get('availableHotels');
 
@@ -131,14 +135,80 @@ class ViewController extends Controller
     }
 
     public function hotelInformation(){
-
-
-
-
         $selectedHotel = session()->get('selectedHotelInformation');
         $hotelInformation = $this->AmadeusHelper->hotelAvailRoomResponseSort($selectedHotel);
-//        dd($hotelInformation);
         return view('pages.hotel.hotel_details',compact('hotelInformation'));
     }
+
+    public function hotelRoomBooking($id){
+
+        $hotelInformation = $this->HotelController->selectedHotel();
+        $searchParam      = session()->get('hotelSearchParam');
+        $selectedRoom     = $hotelInformation['availableRooms'][$id];
+        $hotelRoomInformation = session()->get('selectedHotelRoomInformation');
+        $vat = 0;
+        $adminMarkDown = 0;
+        $agentMarkDown = 0;
+        $agentMarkup = 0;
+        $customerMarkDown = 0;
+        $customerMarkup = 0;
+        $voucherId = 0;
+        $voucherAmount = 0;
+        $totalAmount = 0;
+
+        $agentMarkupInfo    = Markup::where('role_id', 2)->first();
+        $customerMarkupInfo = Markup::where('role_id', 3)->first();
+        $vatInfo            = Vat::where('id',1)->first();
+
+        $agentMarkup    = $this->AmadeusHelper->priceTypeCalculator($agentMarkupInfo->hotel_markup_type,$agentMarkupInfo->hotel_markup_type,$selectedRoom['roomPrice']);
+        $customerMarkup = $this->AmadeusHelper->priceTypeCalculator($customerMarkupInfo->hotel_markup_type,$customerMarkupInfo->hotel_markup_type,$selectedRoom['roomPrice']);
+        $adminMarkup    = 0;
+        $vat            = $this->AmadeusHelper->priceTypeCalculator($vatInfo->hotel_vat_type,$vatInfo->hotel_vat_type,$selectedRoom['roomPrice']);
+
+        $adminTotalAmount = $selectedRoom['roomPrice'];
+        $agentTotalAmount = $selectedRoom['roomPrice'] + $agentMarkup - $agentMarkDown + $vat;
+        $customerTotalAmount = $selectedRoom['roomPrice'] + $customerMarkup - $customerMarkDown + $vat;
+
+        $selectedRoom['vat'] = round($vat);
+        $selectedRoom['agentMarkDown'] = round($agentMarkDown);
+        $selectedRoom['agentMarkUp'] = round($agentMarkup);
+        $selectedRoom['customerMarkDown'] = round($customerMarkDown);
+        $selectedRoom['customerMarkUp'] = round($customerMarkup);
+        $selectedRoom['adminMarkDown'] = round($adminMarkDown);
+        $selectedRoom['adminMarkUp'] = round($adminMarkup);
+        $selectedRoom['voucherId'] = $voucherId;
+        $selectedRoom['voucherAmount'] = $voucherAmount;
+        $selectedRoom['adminTotalAmount']    = round($adminTotalAmount);
+        $selectedRoom['agentTotalAmount']    = round($agentTotalAmount);
+        $selectedRoom['customerTotalAmount'] = round($customerTotalAmount);
+
+        session()->put('selectedRoom',$selectedRoom);
+        $titles = Title::all();
+        return view('pages.hotel.hotel_booking',compact('hotelRoomInformation','searchParam','selectedRoom','hotelInformation','titles'));
+
+    }
+
+    public function hotelBookingPaymentPage(){
+        $hotelInformation = $this->HotelController->selectedHotel();
+        $searchParam      = session()->get('hotelSearchParam');
+        $selectedRoom     = session()->get('selectedRoom');
+        $hotelRoomInformation = session()->get('selectedHotelRoomInformation');
+        $banks = BankDetail::where('status',1)->get();
+        $titles = Title::all();
+        return view('pages.hotel.hotel_payment_option',compact('hotelRoomInformation','searchParam','selectedRoom','hotelInformation','banks','titles'));
+    }
+
+    public function hotelBookingCompletion(){
+        $hotelInformation = $this->HotelController->selectedHotel();
+        $searchParam      = session()->get('hotelSearchParam');
+        $selectedRoom     = session()->get('selectedRoom');
+        $paymentInfo      = session()->get('paymentInfo');
+        $bookingInfo      = HotelBooking::where('reference',$selectedRoom['bookingReference'])->first();
+
+
+        return view('pages.hotel.hotel_payment_confirmation',compact('hotelInformation','searchParam','selectedRoom','paymentInfo','bookingInfo'));
+    }
+
+
 
 }

@@ -7,9 +7,33 @@
 <!-- START: PAGE TITLE -->
 <div class="row page-title">
     <div class="container clear-padding text-center flight-title">
-        <h3>THANK YOU</h3>
-        <h4 class="thank"><i class="fa fa-thumbs-o-up"></i> Your Booking is Confirmed!!</h4>
-        <span><i class="fa fa-plane"></i> New York <i class="fa fa-long-arrow-right"></i> New Delhi <i class="fa fa-calendar"></i> SAT, 22 JUL</span>
+        <h3>{{$hotelInformation['hotelName']}}</h3>
+        <h5>
+            @for($i = 0; $i < $hotelInformation['hotelStarRating']; $i++)
+                <i class="fa fa-star"></i>
+            @endfor
+            @for($i = 0; $i < (5-$hotelInformation['hotelStarRating']); $i++)
+                <i class="fa fa-star-o"></i>
+            @endfor
+        </h5>
+        <p><i class="fa fa-map-marker"></i> {{$hotelInformation['hotelAddress']}}</p>
+        @if($paymentInfo['status'] == 0)
+            <h4>SORRY</h4>
+            <h4 class="error"><i class="fa fa-thumbs-o-down"></i> {{$paymentInfo['message']}}</h4>
+        @elseif($paymentInfo['status'] == 1 && $paymentInfo['hotelBookingStatus'] == 1)
+            <h4>THANK YOU</h4>
+            <h4 class="thank"><i class="fa fa-thumbs-o-up"></i> The room has been reserved successfully</h4>
+        @elseif($paymentInfo['status'] == 1 && $paymentInfo['hotelBookingStatus'] != 1)
+            <h4>THANK YOU</h4>
+            <h4 class="thank"><i class="fa fa-thumbs-o-up"></i> Your payment was successful but we are unable to reserve the room for you. Kindly contact our customer care for more details</h4>
+        @elseif($paymentInfo['status'] == 2)
+            <h4>ON HOLD</h4>
+            <h4 class="thank"><i class="fa fa-warning"></i> {{$paymentInfo['message']}}</h4>
+        @elseif($paymentInfo['status'] == 3)
+            <h4>ON HOLD</h4>
+            <h4 class="thank"><i class="fa fa-warning"></i> {{$paymentInfo['message']}}</h4>
+        @endif
+
     </div>
 </div>
 <!-- END: PAGE TITLE -->
@@ -23,39 +47,43 @@
                     <h3>Booking Details</h3>
                     <table class="table">
                         <tr>
-                            <td>Booking ID</td>
-                            <td>CR1000CT</td>
+                            <td>Reservation Reference</td>
+                            <td>{{$bookingInfo['reference']}}</td>
                         </tr>
                         <tr>
-                            <td>Transaction ID</td>
-                            <td>CP12346</td>
+                            <td>Hotel Booking Code</td>
+                            <td>{{$bookingInfo['pnr']}}</td>
                         </tr>
                         <tr>
-                            <td>Passenger Name</td>
-                            <td>Lenore</td>
+                            <td>Hotel Name</td>
+                            <td>{{$hotelInformation['hotelName']}}</td>
                         </tr>
                         <tr>
-                            <td>Passenger Email</td>
-                            <td>lenore@lmail.com</td>
+                            <td>Room Description</td>
+                            <td>{{$selectedRoom['roomDescription']}}</td>
                         </tr>
                         <tr>
-                            <td>Booking ID</td>
-                            <td>CR1000CT</td>
+                            <td>Guests</td>
+                            <td>{{$searchParam['adult_count']}} adult(s), {{$searchParam['child_count']}} child(s)</td>
                         </tr>
                         <tr>
-                            <td>Transaction ID</td>
-                            <td>CP12346</td>
+                            <td>Check In</td>
+                            <td>{{date('d, D M. Y',strtotime($hotelInformation['startDate']))}}</td>
                         </tr>
                         <tr>
-                            <td>Passenger Name</td>
-                            <td>Lenore</td>
+                            <td>Check Out</td>
+                            <td>{{date('d, D M. Y',strtotime($hotelInformation['endDate']))}}</td>
                         </tr>
                         <tr>
-                            <td>Passenger Email</td>
-                            <td>lenore@lmail.com</td>
+                            <td>Hotel Contact Number</td>
+                            <td>{{$hotelInformation['hotelContactNumber']}}</td>
+                        </tr>
+                        <tr>
+                            <td>Hotel Address</td>
+                            <td>{{$hotelInformation['hotelAddress']}}</td>
                         </tr>
                     </table>
-                    <p>You can check your email for further details. We have sent you a mail with details.</p>
+                    <p>For successful booking, an email containing this information has been sent to your email.<br/> To go to your dashboard, <a href="{{url('/dashboard')}}">click here</a></p>
                 </div>
             </div>
             <div class="col-md-4 col-sm-4 booking-sidebar">
@@ -66,29 +94,7 @@
                         <h2>+91 1234567890</h2>
                     </div>
                 </div>
-                <div class="sidebar-item rec-box">
-                    <h4><i class="fa fa-bullhorn"></i>Suggestions For You</h4>
-                    <div class="sidebar-body">
-                        <table class="table">
-                            <tr>
-                                <td><i class="fa fa-suitcase"></i> Holidays</td>
-                                <td><a href="#">172 holidays. Starting from $142</a></td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-bed"></i> Hotel</td>
-                                <td><a href="#">150 deals. Starting from $199</a></td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-bed"></i> Hotels</td>
-                                <td><a href="#">172 hotels. Starting from $142</a></td>
-                            </tr>
-                            <tr>
-                                <td><i class="fa fa-suitcase"></i> Holidays</td>
-                                <td><a href="#">150 deals. Starting from $199</a></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

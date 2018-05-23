@@ -12,6 +12,7 @@ namespace App\Services;
 use App\FlightBooking;
 use App\Mail\BankPaymentOptionNotification;
 use App\Mail\FlightReservationComplete;
+use App\Mail\HotelReservationComplete;
 use App\Mail\PaymentFailed;
 use App\Mail\PaymentNotification;
 use App\Mail\PaymentSuccessful;
@@ -104,11 +105,23 @@ class PortalCustomNotificationHandler
     }
 
     public static function voidTicket($user,$ticketNumber){
+
         try{
             Mail::to($user)->send(new TicketVoid($user,$ticketNumber));
         }catch(Exception $e){
             Toastr::error('Unable to send void ticket email');
         }
+
+    }
+
+    public static function bookHotelRoom($user,$hotelInfo,$roomInfo,$bookingInfo){
+
+        try{
+            Mail::to($user)->send(new HotelReservationComplete($user,$hotelInfo,$roomInfo,$bookingInfo));
+        }catch(Exception $e){
+            Toastr::error('Unable to send hotel reservation email');
+        }
+
     }
 
 

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\FlightBooking;
 use App\Gender;
+use App\HotelBooking;
 use App\OnlinePayment;
 use App\Profile;
 use App\Title;
 use App\User;
+use App\Wallet;
+use App\WalletLog;
 use Illuminate\Http\Request;
 use App\MarkupType;
 use App\MarkupValueType;
@@ -191,6 +194,112 @@ class BackEndViewController extends Controller
 
        return view('pages.backend.settings.user-management',compact('users','titles','genders','roles'));
 
+   }
+
+   public function userHotelBookings(){
+       $bookings = HotelBooking::where('user_id',auth()->id())
+           ->orderBy('id','desc')
+           ->get();
+       $paidSuccessfulBookings = count(HotelBooking::where('user_id',auth()->id())
+           ->where('payment_status',1)
+           ->where('reservation_status',1)
+           ->get());
+       $paidUnsuccessfulBookings = count(HotelBooking::where('user_id',auth()->id())
+           ->where('payment_status',1)
+           ->where('reservation_status',0)
+           ->get());
+       $failedBookings = count(HotelBooking::where('user_id',auth()->id())
+           ->where('payment_status',0)
+           ->get());
+       $cancelledBookings = count(HotelBooking::where('user_id',auth()->id())
+           ->where('cancellation_status',1)
+           ->get());
+
+       return view('pages.backend.bookings.hotel.user',compact('bookings','paidSuccessfulBookings','paidUnsuccessfulBookings','failedBookings','cancelledBookings'));
+   }
+
+   public function agentHotelBookings(){
+
+       $allBookings = HotelBooking::orderBy('id','desc')->get();
+       $agentBookings = [];
+       $paidSuccessfulBookings = 0;
+       $paidUnsuccessfulBookings = 0;
+       $failedBookings = 0;
+       $cancelledBookings = 0;
+
+       foreach($allBookings as $serial => $allBooking){
+           if(User::find($allBooking->user_id)->hasRole('agent')){
+               array_push($agentBookings,$allBooking);
+           }
+       }
+
+       foreach($agentBookings as $i => $agentBooking){
+           if($agentBooking->payment_status == 1 && $agentBooking->reservation_status == 1){
+               $paidSuccessfulBookings = $paidSuccessfulBookings + 1;
+           }
+           if($agentBooking->payment_status == 1 && $agentBooking->reservation_status == 0){
+               $paidUnsuccessfulBookings = $paidUnsuccessfulBookings + 1;
+           }
+           if($agentBooking->payment_status == 0){
+               $failedBookings = $failedBookings + 1;
+           }
+           if($agentBooking->cancellation_status == 1){
+               $cancelledBookings = $cancelledBookings + 1;
+           }
+       }
+
+       return view('pages.backend.bookings.hotel.customer',compact('agentBookings','paidSuccessfulBookings','paidUnsuccessfulBookings','failedBookings','cancelledBookings'));
+
+   }
+
+   public function customerHotelBookings(){
+       $allBookings = HotelBooking::orderBy('id','desc')->get();
+       $customerBookings = [];
+       $paidSuccessfulBookings = 0;
+       $paidUnsuccessfulBookings = 0;
+       $failedBookings = 0;
+       $cancelledBookings = 0;
+
+       foreach($allBookings as $serial => $allBooking){
+           if(User::find($allBooking->user_id)->hasRole('customer')){
+               array_push($customerBookings,$allBooking);
+           }
+       }
+
+       foreach($customerBookings as $i => $customerBooking){
+           if($customerBooking->payment_status == 1 && $customerBooking->reservation_status == 1){
+              $paidSuccessfulBookings = $paidSuccessfulBookings + 1;
+           }
+           if($customerBooking->payment_status == 1 && $customerBooking->reservation_status == 0){
+               $paidUnsuccessfulBookings = $paidUnsuccessfulBookings + 1;
+           }
+           if($customerBooking->payment_status == 0){
+               $failedBookings = $failedBookings + 1;
+           }
+           if($customerBooking->cancellation_status == 1){
+               $cancelledBookings = $cancelledBookings + 1;
+           }
+       }
+
+       return view('pages.backend.bookings.hotel.customer',compact('customerBookings','paidSuccessfulBookings','paidUnsuccessfulBookings','failedBookings','cancelledBookings'));
+
+   }
+
+   public function hotelBookingInformation($reference){
+
+        $booking = HotelBooking::where('reference',$reference)->first();
+        if(empty($booking) || is_null($booking)){
+            Toastr::error('This reservation does not exist in our database');
+            return back();
+        }
+
+        return view('pages.backend.bookings.hotel.hotel_booking_information',compact('booking'));
+   }
+
+   public function walletsManagement(){
+       $wallets = Wallet::orderBy('id','desc')->get();
+       $walletLogs = WalletLog::orderBy('id','desc')->get();
+       return view('pages.backend.settings.wallets_management',compact('wallets','walletLogs'));
    }
 
 }

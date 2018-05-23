@@ -37,11 +37,11 @@
                     <li>
                         <a class="menu-item" href="#" data-i18n="nav.templates.horz.main">Hotel</a>
                         <ul class="menu-content">
-                            <li><a class="menu-item" href="" data-i18n="nav.templates.horz.classic">My Bookings</a>
+                            <li><a class="menu-item" href="{{url('/bookings/hotel/user')}}">My Bookings</a>
                             </li>
-                            <li><a class="menu-item" href="" data-i18n="nav.templates.horz.top_icon">Agent</a>
+                            <li><a class="menu-item" href="{{url('/bookings/hotel/agent')}}">Agent</a>
                             </li>
-                            <li><a class="menu-item" href="" data-i18n="nav.templates.horz.top_icon">Customer</a>
+                            <li><a class="menu-item" href="{{url('/bookings/hotel/customer')}}">Customer</a>
                             </li>
                         </ul>
                     </li>
@@ -73,7 +73,7 @@
                     </li>
                     <li><a class="menu-item" href="" data-i18n="nav.page_layouts.2_columns">Email Subscribers</a>
                     </li>
-                    <li><a href="" class="menu-item">Wallets Management</a></li>
+                    <li><a href="{{url('settings/wallets')}}" class="menu-item">Wallets Management</a></li>
                     </li>
                 </ul>
             </li>

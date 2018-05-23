@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\FlightBooking;
+use App\HotelBooking;
 use App\OnlinePayment;
 use App\Profile;
 use App\Services\InterswitchConfig;
@@ -24,8 +25,13 @@ class OnlinePaymentController extends Controller
 
     public function generateInterswitchPayment(Request $r){
 
+
+
         $redirectUrl = url('/interswitch-payment-verification');
         $txnRef      = strtoupper(str_random(9));
+        if(!isset($r->booking_reference) || empty($r->booking_reference) || is_null($r->booking_reference)){
+            $txnRef = $r->booking_reference;
+        }
 
         $hash = $this->InterswitchConfig->transactionHash($txnRef,$r->amount,$redirectUrl);
         $saveData = [
@@ -47,7 +53,6 @@ class OnlinePaymentController extends Controller
             'redirect_url'   => $redirectUrl,
             'hash'           => $hash
         ];
-
     }
 
     public function generatePayStackPayment(Request $r){
@@ -92,14 +97,29 @@ class OnlinePaymentController extends Controller
               $paymentData->response_full        = $response['responseFull'];
               $paymentData->update();
 
-              $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
-              $booking->payment_status = 1;
-              $booking->update();
+              if(substr($paymentData->booking_reference,0,3) == "AIR"){
 
-              $profile     = Profile::getUserInfo($booking->user_id);
+                  $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
+                  $booking->payment_status = 1;
+                  $booking->update();
 
-              PortalCustomNotificationHandler::paymentSuccessful($response);
-              PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+                  $profile     = Profile::getUserInfo($booking->user_id);
+
+                  PortalCustomNotificationHandler::paymentSuccessful($response);
+                  PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+
+              }elseif(substr($paymentData->booking_reference,0,3) == "HOT"){
+
+                  $booking     = HotelBooking::where('reference',$paymentData->booking_reference)->first();
+                  $booking->payment_status = 1;
+                  $booking->update();
+
+                  $profile     = Profile::getUserInfo($booking->user_id);
+
+                  PortalCustomNotificationHandler::paymentSuccessful($response);
+
+              }
+
 
           }
           else{
@@ -122,13 +142,20 @@ class OnlinePaymentController extends Controller
           }
 
         session()->put('paymentInfo',$paymentInfo);
-        return redirect('/flight-booking-confirmation');
+          if(substr($paymentData->booking_reference,0,3) == "AIR"){
+              return redirect('/flight-booking-confirmation');
+          }
+          elseif(substr($paymentData->booking_reference,0,3) == "HOT"){
+              return redirect('/hotel-booking-confirmation');
+          }
+
 
     }
 
     public function payStackPaymentVerification(){
+
           $response = $this->PaystackConfig->query($_GET['reference']);
-        if($response['responseCode'] == '00' || $response['responseCode'] == '11' || $response['responseCode'] == '10'){
+           if($response['responseCode'] == '00' || $response['responseCode'] == '11' || $response['responseCode'] == '10'){
 
             Toastr::success($response['responseDescription']);
 
@@ -137,6 +164,8 @@ class OnlinePaymentController extends Controller
                 'message' => $response['responseDescription']
             ];
 
+
+
             $paymentData = OnlinePayment::where('reference',$response['reference'])->first();
             $paymentData->payment_status       = 1;
             $paymentData->response_code        = $response['responseCode'];
@@ -144,14 +173,31 @@ class OnlinePaymentController extends Controller
             $paymentData->response_full        = $response['responseFull'];
             $paymentData->update();
 
-            $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
-            $booking->payment_status = 1;
-            $booking->update();
+            if(substr($paymentData->booking_reference,0,3) == "AIR"){
 
-            $profile     = Profile::getUserInfo($booking->user_id);
+                $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
+                $booking->payment_status = 1;
+                $booking->update();
 
-            PortalCustomNotificationHandler::paymentSuccessful($response);
-            PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+                $profile     = Profile::getUserInfo($booking->user_id);
+
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+                PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+
+            }
+            elseif(substr($paymentData->booking_reference,0,3) == "HOT"){
+
+                $booking     = HotelBooking::where('reference',$paymentData->booking_reference)->first();
+                $booking->payment_status = 1;
+                $booking->update();
+
+                $profile     = Profile::getUserInfo($booking->user_id);
+
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+
+            }
+
+
 
         }
         else{
@@ -174,7 +220,13 @@ class OnlinePaymentController extends Controller
         }
 
         session()->put('paymentInfo',$paymentInfo);
-        return redirect('/flight-booking-confirmation');
+        if(substr($paymentData->booking_reference,0,3) == "AIR"){
+            return redirect('/flight-booking-confirmation');
+        }
+        elseif(substr($paymentData->booking_reference,0,3) == "HOT"){
+            return redirect('/hotel-booking-confirmation');
+        }
+
 
     }
 
@@ -246,14 +298,29 @@ class OnlinePaymentController extends Controller
             $paymentData->response_full        = $response['responseFull'];
             $paymentData->update();
 
-            $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
-            $booking->payment_status = 1;
-            $booking->update();
+            if(substr($paymentData->booking_reference,0,3) == "AIR"){
 
-            $profile     = Profile::getUserInfo($booking->user_id);
+                $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
+                $booking->payment_status = 1;
+                $booking->update();
 
-            PortalCustomNotificationHandler::paymentSuccessful($response);
-            PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+                $profile     = Profile::getUserInfo($booking->user_id);
+
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+                PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+
+            }elseif(substr($paymentData->booking_reference,0,3) == "HOT"){
+
+                $booking     = HotelBooking::where('reference',$paymentData->booking_reference)->first();
+                $booking->payment_status = 1;
+                $booking->update();
+
+                $profile     = Profile::getUserInfo($booking->user_id);
+
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+
+            }
+
 
         }
         else{
@@ -298,14 +365,28 @@ class OnlinePaymentController extends Controller
             $paymentData->response_full        = $response['responseFull'];
             $paymentData->update();
 
-            $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
-            $booking->payment_status = 1;
-            $booking->update();
+            if(substr($paymentData->booking_reference,0,3) == "AIR"){
 
-            $profile     = Profile::getUserInfo($booking->user_id);
+                $booking = FlightBooking::where('reference',$paymentData->booking_reference)->first();
+                $booking->payment_status = 1;
+                $booking->update();
 
-            PortalCustomNotificationHandler::paymentSuccessful($response);
-            PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+                $profile = Profile::getUserInfo($booking->user_id);
+
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+                PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+
+            }elseif(substr($paymentData->booking_reference,0,3) == "HOT"){
+
+                $booking = HotelBooking::where('reference',$paymentData->booking_reference)->first();
+                $booking->payment_status = 1;
+                $booking->update();
+
+                $profile = Profile::getUserInfo($booking->user_id);
+
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+
+            }
 
         }
         else{

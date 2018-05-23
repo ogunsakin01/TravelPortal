@@ -19,7 +19,7 @@
       </POS>
    <AvailRequestSegments>
       <AvailRequestSegment>
-         <StayDateRange Start="2018-05-23" End="2018-05-29" />
+         <StayDateRange Start="2018-05-27" End="2018-05-31" />
          <RoomStayCandidates>
             <RoomStayCandidate>
                <GuestCounts IsPerRoom="true">
@@ -29,7 +29,7 @@
          </RoomStayCandidates>
          <HotelSearchCriteria>
             <Criterion ExactMatch="true">
-               <HotelRef ChainCode="RD" HotelCode="316" HotelCityCode="LHR" />
+               <HotelRef ChainCode="WV" HotelCode="MAN" HotelCityCode="LHR" />
             </Criterion>
          </HotelSearchCriteria>
       </AvailRequestSegment>
