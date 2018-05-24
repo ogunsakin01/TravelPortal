@@ -5,7 +5,66 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> Update Wallets</h4>
+                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form method="post" action="{{url('settings/wallets/update-wallet')}}">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>User Wallet</label>
+                                        <select class="form-control" required name="user_id">
+                                            <option value="">[SELECT USER]</option>
+                                            @foreach($wallets as $serial => $wallet)
+                                                <option value="{{$wallet->user_id}}">
+                                                    {{\App\Profile::where('user_id',$wallet->user_id)->first()->sur_name}}
+                                                    {{\App\Profile::where('user_id',$wallet->user_id)->first()->first_name}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Transaction Type</label>
+                                        <select class="form-control" required name="status">
+                                            <option value="">[SELECT TYPE]</option>
+                                            <option value="1" class="success">Credit +</option>
+                                            <option value="0" class="danger">Debit + </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>(&#x20a6;) Amount</label>
+                                        <input type="number" class="form-control" required name="amount" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>&nbsp;</label>
+                                        <button class="btn btn-primary btn-block"><i class="la la-cloud-upload"></i> Update Wallet</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title"> Wallets Management</h4>
@@ -25,9 +84,6 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="baseIcon-tab12" data-toggle="tab" aria-controls="tabIcon12" href="#tabIcon12" aria-expanded="false"><i class="la la-list"></i> Wallet Logs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="baseIcon-tab13" data-toggle="tab" aria-controls="tabIcon13" href="#tabIcon13" aria-expanded="false"><i class="la la-cog"></i> Credit / Debit</a>
                             </li>
                         </ul>
                         <div class="tab-content px-1 pt-1">
@@ -94,49 +150,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="tabIcon13" aria-labelledby="baseIcon-tab3">
-                                 <form method="post">
-                                     @csrf
-                                     <div class="row">
-                                         <div class="col-md-4">
-                                             <div class="form-group">
-                                                 <label>User Wallet</label>
-                                                 <select class="form-control" required name="user_id">
-                                                     <option>[SELECT USER]</option>
-                                                     @foreach($wallets as $serial => $wallet)
-                                                     <option value="{{$wallet->user_id}}">
-                                                         {{\App\Profile::where('user_id',$wallet->user_id)->first()->sur_name}}
-                                                         {{\App\Profile::where('user_id',$wallet->user_id)->first()->first_name}}
-                                                     </option>
-                                                     @endforeach
-                                                 </select>
-                                             </div>
-                                         </div>
-                                         <div class="col-md-4">
-                                             <div class="form-group">
-                                                 <label>Transaction Type</label>
-                                                 <select class="form-control" required name="type_id">
-                                                     <option>[SELECT TYPE]</option>
-                                                     <option value="1">Credit</option>
-                                                     <option value="0">Debit</option>
-                                                 </select>
-                                             </div>
-                                         </div>
-                                         <div class="col-md-4">
-                                             <div class="form-group">
-                                                 <label>Amount</label>
-                                                 <input type="number" class="form-control" required name="amount" />
-                                             </div>
-                                         </div>
-                                         <div class="col-md-4">
-                                             <div class="form-group">
-                                                 <label>&nbsp;</label>
-                                                 <button class="btn btn-primary"><i class="la la-cloud-upload"></i> Update Wallet</button>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </form>
                             </div>
                         </div>
                     </div>

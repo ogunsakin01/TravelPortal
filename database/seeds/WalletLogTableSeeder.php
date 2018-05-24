@@ -16,14 +16,14 @@ class WalletLogTableSeeder extends Seeder
             [
                 'id'      => 1,
                 'user_id' => 1,
-                'amount'  => 100000000,
+                'amount'  => 1000000000,
                 'status'  => 1,
                 'type_id' => 1,
             ],
             [
                 'id'      => 2,
                 'user_id' => 2,
-                'amount'  => 50000000,
+                'amount'  => 500000000,
                 'status'  => 1,
                 'type_id' => 1,
             ],

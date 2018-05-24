@@ -79,13 +79,14 @@
             </li>
             <li class="nav-item @yield('activeTransaction')"><a href="#"><i class="la la-money"></i><span class="menu-title" data-i18n="nav.navbars.main">Transactions(Payments)</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="" data-i18n="nav.navbars.nav_light">Wallet</a>
+                    <li>
+                        <a class="menu-item" href="{{url('/transactions/online-payment')}}" data-i18n="nav.navbars.nav_dark">Online</a>
                     </li>
-                    <li><a class="menu-item" href="{{url('/transactions/online-payment')}}" data-i18n="nav.navbars.nav_dark">Online</a>
+                    <li>
+                        <a class="menu-item" href="{{url('/transactions/bank-payment')}}" data-i18n="nav.navbars.nav_semi">Offline(Bank)</a>
                     </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.navbars.nav_semi">Offline(Bank)</a>
-                    </li>
-                    <li><a class="menu-item" href="" data-i18n="nav.navbars.nav_brand_center">Pay Later</a>
+                    <li>
+                        <a class="menu-item" href="" data-i18n="nav.navbars.nav_brand_center">Pay Later</a>
                     </li>
                 </ul>
             </li>
@@ -107,7 +108,7 @@
                 </a>
             </li>
             <li class="@yield('activeMyWallet') nav-item">
-                <a href="#">
+                <a href="{{url('settings/wallets/user-wallet')}}">
                     <i class="la la-google-wallet"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">My Wallet</span>
                 </a>

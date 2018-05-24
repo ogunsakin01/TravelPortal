@@ -21,22 +21,14 @@
              <OTA_AirBookRQ>
    <AirItinerary DirectionInd="Circle">
       <OriginDestinationOptions>
-         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-15T11:30:00" ArrivalDateTime="2018-05-15T17:15:00" FlightNumber="1980" ResBookDesigCode="U" RPH="1" NumberInParty="3">    
+         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-27T22:30:00" ArrivalDateTime="2018-05-28T08:25:00" FlightNumber="400" ResBookDesigCode="T" RPH="1" NumberInParty="1">    
 		  <DepartureAirport LocationCode="LHR"/>
-		  <ArrivalAirport LocationCode="IST"/>      
-		  <MarketingAirline Code="TK"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-15T18:55:00" ArrivalDateTime="2018-05-16T00:20:00" FlightNumber="760" ResBookDesigCode="U" RPH="2" NumberInParty="3">    
-		  <DepartureAirport LocationCode="IST"/>
 		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="TK"/>     
-		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-23T02:00:00" ArrivalDateTime="2018-05-23T05:40:00" FlightNumber="761" ResBookDesigCode="U" RPH="3" NumberInParty="3">    
+		  <MarketingAirline Code="VS"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-30T11:05:00" ArrivalDateTime="2018-05-30T15:55:00" FlightNumber="401" ResBookDesigCode="T" RPH="2" NumberInParty="1">    
 		  <DepartureAirport LocationCode="DXB"/>
-		  <ArrivalAirport LocationCode="IST"/>      
-		  <MarketingAirline Code="TK"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-23T07:45:00" ArrivalDateTime="2018-05-23T09:50:00" FlightNumber="1979" ResBookDesigCode="U" RPH="4" NumberInParty="3">    
-		  <DepartureAirport LocationCode="IST"/>
 		  <ArrivalAirport LocationCode="LHR"/>      
-		  <MarketingAirline Code="TK"/>     
+		  <MarketingAirline Code="VS"/>     
 		  </FlightSegment></OriginDestinationOption>
       </OriginDestinationOptions>
    </AirItinerary>
@@ -48,44 +40,17 @@
                 <Traveler>
                   <PersonName>
                     <NamePrefix>MR</NamePrefix>
-                    <GivenName>Damilola olamide</GivenName>
+                    <GivenName>Damilola Olamide</GivenName>
                     <Surname>Ogunsakin</Surname>
                   </PersonName>
                   <TravelerRefNumber RPH="1" />
                 </Traveler>
                 
-                <Traveler>
-                  <PersonName>
-                    <NamePrefix>MR</NamePrefix>
-                    <GivenName>suydckj olamidedwas</GivenName>
-                    <Surname>Ogunsakin</Surname>
-                  </PersonName>
-                  <TravelerRefNumber RPH="2" />
-                </Traveler>
-                
-                <Traveler PassengerTypeCode="CHD" BirthDate="2016-01-01">
-                  <PersonName>
-                    <NamePrefix>MR</NamePrefix>
-                    <GivenName>Mia lola</GivenName>
-                    <Surname>John</Surname>
-                  </PersonName>
-                  <TravelerRefNumber RPH="3" />
-                </Traveler>
-                
-                <Traveler PassengerTypeCode="INF" BirthDate="2018-01-01">
-                  <PersonName>
-                    <NamePrefix>MR</NamePrefix>
-                    <GivenName>weij ji</GivenName>
-                    <Surname>sdfu</Surname>
-                  </PersonName>
-                  <TravelerRefNumber RPH="4" />
-                </Traveler>
-                
-         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="09090444444" FormattedInd="0"/>
-         <Email>ogunsakin191@gmail.com</Email>
-         <Ticketing TicketTimeLimit="2018-05-04T23:59:00" TicketType="eTicket" />
+         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="09090909090" FormattedInd="0"/>
+         <Email>admin@travelportal.com</Email>
+         <Ticketing TicketTimeLimit="2018-05-24T23:59:00" TicketType="eTicket" />
       </PNRData>
-      <PriceData PriceType="Published" AutoTicketing="false" ValidatingAirlineCode="TK" >
+      <PriceData PriceType="Published" AutoTicketing="false" ValidatingAirlineCode="VS" >
        <PublishedFares>
       <FareRestrictPref>
       <AdvResTicketing><AdvReservation/>

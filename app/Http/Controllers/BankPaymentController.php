@@ -68,4 +68,38 @@ class BankPaymentController extends Controller
         }
     }
 
+    public function updatePaymentProof(Request $r){
+
+        $this->validate($r,[
+            'payment_proof_file' => 'required|max:10000|mimes:jpg,png,jpeg',
+        ]);
+
+        $file = $r->file('payment_proof_file');
+        $fileName = time().$file->getClientOriginalName();
+        $filePath = '/payment-proofs/'.$fileName;
+        $uploadFile = $file->move(public_path('/payment-proofs/'),$fileName);
+
+        $bankPayment = BankPayment::where('user_id',$r->user_id)->first();
+        $bankPayment->slip_photo = $filePath;
+        $updateBankPayment = $bankPayment->update();
+
+        if($uploadFile && $updateBankPayment){
+            Toastr::success("Payment proof updated successfully");
+        }else{
+            Toastr::error("Unable to unpdate payment proof");
+        }
+
+        return back();
+
+    }
+
+    public function updatePaymentStatus($id,$type){
+        $bankPayment = BankPayment::find($id);
+        $bankPayment->status = $type;
+        $updateBankPayment = $bankPayment->update();
+        if($updateBankPayment){
+            return 1;
+        }
+        return 0;
+    }
 }

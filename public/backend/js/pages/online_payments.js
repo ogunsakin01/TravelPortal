@@ -33,8 +33,8 @@ $(function(){
                              $('.response_description_'+id).html(response.data.responseDescription);
                              $('.payment_status_'+id).html('<p class="success"><i class="la la-check"></i> Successful</p>');
                                 swal("Successful", response.data.responseDescription, "Success");
-
-                            }else{
+                            }
+                            else{
                                if(response.data.responseCode != '--'){
                                    $('.response_code_'+id).html(response.data.responseCode);
                                    $('.response_description_'+id).html(response.data.responseDescription);
@@ -44,6 +44,8 @@ $(function(){
                                    }else{
                                        swal("Sorry", response.data.responseDescription, "error");
                                    }
+                               }else{
+                                   swal("Sorry", response.data.responseDescription, "error");
                                }
                             }
                         })

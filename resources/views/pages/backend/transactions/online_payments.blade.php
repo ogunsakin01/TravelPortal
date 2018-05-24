@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="card-content">
-                    <table class="table table-striped table-responsive table-bordered file-export">
+                    <table class="table table-striped table-responsive table-bordered">
                         <thead>
                         <tr>
                             <th>S/N</th>
@@ -88,7 +88,7 @@
                             <td>{{$interswitchPayment->reference}}</td>
                             <td>{{$interswitchPayment->booking_reference}}</td>
                             <td>{{\App\Profile::where('user_id',$interswitchPayment->user_id)->first()->sur_name}}</td>
-                            <td>{{number_format(($interswitchPayment->amount/100),2)}}</td>
+                            <td>&#x20a6;{{number_format(($interswitchPayment->amount/100),2)}}</td>
                             <th class="payment_status_{{$interswitchPayment->id}}">
                                 @if($interswitchPayment->payment_status == 1)
                                     <p class="success"><i class="la la-check"></i> Successful</p>
@@ -100,7 +100,7 @@
                             <td class="response_description_{{$interswitchPayment->id}}">{{$interswitchPayment->response_description}}</td>
                             <td>{{$interswitchPayment->created_at}}</td>
                             <td>
-                                 <button class="btn btn-outline-primary requery" value="{{$interswitchPayment->id}}"> Requery </button>
+                                 <button class="btn btn-outline-primary requery" type="submit" value="{{$interswitchPayment->id}}"> Requery </button>
                             </td>
                         </tr>
                             @endforeach

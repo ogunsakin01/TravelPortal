@@ -1,5 +1,5 @@
 
-var baseUrl = '';
+
 
 $('.upload-bank').on('click',function(){
    var type = $('#editOrSave').val();
@@ -98,7 +98,7 @@ $('.upload-bank').on('click',function(){
 $('.activate').on('click',function(){
   var id = $(this).val();
     $("#row_"+id).LoadingOverlay('show');
-  axios.post(baseUrl + '/settings/bank-details/settings/bank-details/activate',{
+  axios.post(baseUrl + '/settings/bank-details/activate',{
       id : id
   })
   .then(function(response){

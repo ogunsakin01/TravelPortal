@@ -6,6 +6,8 @@ use App\FlightBooking;
 use App\HotelBooking;
 use App\OnlinePayment;
 use App\Profile;
+use App\Wallet;
+use App\WalletLog;
 use App\Services\InterswitchConfig;
 use App\Services\PaystackConfig;
 use App\Services\PortalCustomNotificationHandler;
@@ -52,6 +54,36 @@ class OnlinePaymentController extends Controller
             'reference'      => $txnRef,
             'redirect_url'   => $redirectUrl,
             'hash'           => $hash
+        ];
+    }
+
+    public function generateInterswitchWalletPayment(Request $r){
+
+        $redirectUrl = url('/backend/interswitch-payment-verification');
+        $txnRef      = strtoupper(str_random(9));
+        $bookingReference = "WTP-".strtoupper(str_random(8));
+        $paymentAmount = $r->amount * 100;
+
+        $hash = $this->InterswitchConfig->transactionHash($txnRef,$paymentAmount,$redirectUrl);
+        $saveData = [
+            'reference'            => $txnRef,
+            'user_id'              => auth()->user()->id,
+            'booking_reference'    => $bookingReference,
+            'amount'               => $paymentAmount,
+            'gateway_id'           => 1,
+            'response_code'        => 0,
+            'response_description' => 'Pending',
+            'payment_status'       => 0,
+            'response_full'        => ''
+        ];
+
+        OnlinePayment::create($saveData);
+
+        return [
+            'reference'      => $txnRef,
+            'redirect_url'   => $redirectUrl,
+            'hash'           => $hash,
+            'amount'         => $paymentAmount
         ];
     }
 
@@ -309,7 +341,8 @@ class OnlinePaymentController extends Controller
                 PortalCustomNotificationHandler::paymentSuccessful($response);
                 PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
 
-            }elseif(substr($paymentData->booking_reference,0,3) == "HOT"){
+            }
+            elseif(substr($paymentData->booking_reference,0,3) == "HOT"){
 
                 $booking     = HotelBooking::where('reference',$paymentData->booking_reference)->first();
                 $booking->payment_status = 1;
@@ -317,6 +350,24 @@ class OnlinePaymentController extends Controller
 
                 $profile     = Profile::getUserInfo($booking->user_id);
 
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+
+            }
+            elseif(substr($paymentData->booking_reference,0,3) == "WTP"){
+
+                $wallet = Wallet::where('user_id',auth()->id())->first();
+                $walletBalance = $wallet->balance;
+                $newWalletBalance = $walletBalance;
+                $newWalletBalance = $walletBalance + $r->amount;
+                $addLog = WalletLog::create([
+                    'user_id' => auth()->id(),
+                    'amount'  => $r->amount,
+                    'status'  => 1,
+                    'type_id' => 3,
+                ]);
+                $wallet->balance = $newWalletBalance;
+                $wallet->update();
+                Toastr::success("Wallet has been topped up successfully");
                 PortalCustomNotificationHandler::paymentSuccessful($response);
 
             }
@@ -434,14 +485,46 @@ class OnlinePaymentController extends Controller
             $paymentData->response_full        = $response['responseFull'];
             $paymentData->update();
 
-            $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
-            $booking->payment_status = 1;
-            $booking->update();
+            if(substr($paymentData->booking_reference,0,3) == "AIR"){
 
-            $profile     = Profile::getUserInfo($booking->user_id);
+                $booking     = FlightBooking::where('reference',$paymentData->booking_reference)->first();
+                $booking->payment_status = 1;
+                $booking->update();
 
-            PortalCustomNotificationHandler::paymentSuccessful($response);
-            PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+                $profile     = Profile::getUserInfo($booking->user_id);
+
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+                PortalCustomNotificationHandler::flightReservationComplete($response,$booking,$profile);
+
+            }
+            elseif(substr($paymentData->booking_reference,0,3) == "HOT"){
+
+                $booking     = HotelBooking::where('reference',$paymentData->booking_reference)->first();
+                $booking->payment_status = 1;
+                $booking->update();
+
+                $profile     = Profile::getUserInfo($booking->user_id);
+
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+
+            }
+            elseif(substr($paymentData->booking_reference,0,3) == "WTP"){
+
+                $wallet = Wallet::where('user_id',auth()->id())->first();
+                $walletBalance = $wallet->balance;
+                $newWalletBalance = $walletBalance;
+                $newWalletBalance = $walletBalance + $payment->amount;
+                $addLog = WalletLog::create([
+                    'user_id' => auth()->id(),
+                    'amount'  => $payment->amount,
+                    'status'  => 1,
+                    'type_id' => 3,
+                ]);
+                $wallet->balance = $newWalletBalance;
+                $wallet->update();
+                PortalCustomNotificationHandler::paymentSuccessful($response);
+
+            }
 
         }
         else{

@@ -257,7 +257,6 @@
                                      </div>
 
                                      <tr class="user_id_{{$user->user_id}}">
-{{--                                         <td>{{$serial+1}}</td>--}}
                                          <td>{{$user->sur_name}} {{$user->first_name}} {{$user->other_name}}</td>
                                          <td>{{$user->email}}</td>
                                          <td>{{$user->phone_number}}</td>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\BankPayment;
 use App\FlightBooking;
 use App\Gender;
 use App\HotelBooking;
+use App\Mail\BankPaymentOptionNotification;
 use App\OnlinePayment;
 use App\Profile;
 use App\Title;
@@ -17,7 +19,9 @@ use App\MarkupValueType;
 use App\Vat;
 use App\Role;
 use App\Markdown;
+use Illuminate\Support\Facades\Auth;
 use nilsenj\Toastr\Facades\Toastr;
+use App\Services\InterswitchConfig;
 
 class BackEndViewController extends Controller
 {
@@ -300,6 +304,32 @@ class BackEndViewController extends Controller
        $wallets = Wallet::orderBy('id','desc')->get();
        $walletLogs = WalletLog::orderBy('id','desc')->get();
        return view('pages.backend.settings.wallets_management',compact('wallets','walletLogs'));
+   }
+
+   public function userWallet(){
+       $userWallet = Wallet::where('user_id',auth()->id())->first();
+
+       $userWalletLogs = WalletLog::where('user_id',auth()->id())->get();
+       $walletCredits = WalletLog::where('user_id',auth()->id())
+                        ->where('status',1)
+                        ->sum('amount');
+       $walletDebits = WalletLog::where('user_id',auth()->id())
+           ->where('status',0)
+           ->sum('amount');
+       $InterswitchConfig = new InterswitchConfig();
+       $user = User::authenticatedUserInfo();
+       return view('pages.backend.user_wallet',compact('userWallet','userWalletLogs','walletCredits','walletDebits','InterswitchConfig','user'));
+   }
+
+   public function bankPayment(){
+       $bankPayments     = BankPayment::orderBy('id','desc')->get();
+       $amountSuccessful = BankPayment::where('status',1)->sum('amount');
+       $amountPending    = BankPayment::where('status',2)->sum('amount');
+       $amountDeclined   = BankPayment::where('status',0)->sum('amount');
+       $countSuccessful  = BankPayment::where('status',1)->count();
+       $countPending     = BankPayment::where('status',2)->count();
+       $countDeclined    = BankPayment::where('status',0)->count();
+       return view('pages.backend.transactions.bank_payments',compact('bankPayments','amountSuccessful','amountPending','amountDeclined','countSuccessful','countPending','countDeclined'));
    }
 
 }

@@ -41,6 +41,7 @@ Route::get('/issue-ticket/{pnr}','FlightController@issueTicket');
 Route::get('/void-ticket/{pnr}','FlightController@voidTicket');
 
 Route::post('/generate-interswitch-payment','OnlinePaymentController@generateInterswitchPayment');
+
 Route::post('/interswitch-payment-verification','OnlinePaymentController@interswitchPaymentVerification');
 
 
@@ -78,6 +79,7 @@ Route::get('/hotel-booking-completion','ViewCOntroller@hotelBookingCompletion');
 Route::middleware(['auth'])->group(function(){
 
     Route::get('backend/payment-confirmation','BackEndViewController@paymentConfirmation');
+    Route::post('/backend/generate-interswitch-wallet-payment','OnlinePaymentController@generateInterswitchWalletPayment');
 
     Route::get('/dashboard','BackEndViewController@dashboard')->name('dashboard');
 
@@ -117,7 +119,8 @@ Route::middleware(['auth'])->group(function(){
         Route::group(['prefix' => 'wallets'],function(){
 
             Route::get('/','BackEndViewController@walletsManagement');
-
+            Route::post('/update-wallet','WalletController@updateWallet');
+            Route::get('/user-wallet','BackEndViewCOntroller@userWallet');
         });
 
     });
@@ -143,6 +146,9 @@ Route::middleware(['auth'])->group(function(){
 
     Route::group(['prefix' => 'transactions'],function(){
         Route::get('/online-payment','BackEndViewController@onlinePayment');
+        Route::get('/bank-payment','BackEndViewController@bankPayment');
+        Route::post('/update-payment-proof','BankPaymentController@updatePaymentProof');
+        Route::get('/update-payment-status/{id}/{type}','BankPaymentController@updatePaymentStatus');
         Route::get('/requery/{id}','OnlinePaymentController@requery');
     });
 

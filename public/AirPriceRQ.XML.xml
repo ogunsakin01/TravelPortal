@@ -19,29 +19,21 @@
       </POS> 
 		  <AirItinerary>   
 		  <OriginDestinationOptions>    
-		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-15T11:30:00" ArrivalDateTime="2018-05-15T17:15:00" FlightNumber="1980" ResBookDesigCode="U">    
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-27T22:30:00" ArrivalDateTime="2018-05-28T08:25:00" FlightNumber="400" ResBookDesigCode="T">    
 		  <DepartureAirport LocationCode="LHR"/>
-		  <ArrivalAirport LocationCode="IST"/>      
-		  <MarketingAirline Code="TK"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-15T18:55:00" ArrivalDateTime="2018-05-16T00:20:00" FlightNumber="760" ResBookDesigCode="U">    
-		  <DepartureAirport LocationCode="IST"/>
 		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="TK"/>     
-		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-23T02:00:00" ArrivalDateTime="2018-05-23T05:40:00" FlightNumber="761" ResBookDesigCode="U">    
+		  <MarketingAirline Code="VS"/>     
+		  </FlightSegment></OriginDestinationOption><OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-30T11:05:00" ArrivalDateTime="2018-05-30T15:55:00" FlightNumber="401" ResBookDesigCode="T">    
 		  <DepartureAirport LocationCode="DXB"/>
-		  <ArrivalAirport LocationCode="IST"/>      
-		  <MarketingAirline Code="TK"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-23T07:45:00" ArrivalDateTime="2018-05-23T09:50:00" FlightNumber="1979" ResBookDesigCode="U">    
-		  <DepartureAirport LocationCode="IST"/>
 		  <ArrivalAirport LocationCode="LHR"/>      
-		  <MarketingAirline Code="TK"/>     
+		  <MarketingAirline Code="VS"/>     
 		  </FlightSegment></OriginDestinationOption>  
 		  </OriginDestinationOptions>  
 		  </AirItinerary>  
 		  <TravelerInfoSummary>   
-		  <SeatsRequested>3</SeatsRequested>   
+		  <SeatsRequested>1</SeatsRequested>   
 		  <AirTravelerAvail>    
-		  <PassengerTypeQuantity Code="ADT" Quantity="2"/><PassengerTypeQuantity Code="CHD" Quantity="1"/><PassengerTypeQuantity Code="INF" Quantity="1"/> 
+		  <PassengerTypeQuantity Code="ADT" Quantity="1"/> 
 		  </AirTravelerAvail>   
 		  <PriceRequestInformation PricingSource="Published"/>  
 		  </TravelerInfoSummary> 
