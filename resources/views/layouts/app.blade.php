@@ -15,7 +15,7 @@
         var path = "{{ route('typeaheadJs') }}";
         var airline_path = "{{route('airlineTypeAheadJs')}}";
     </script>
-     @include('partials.css')
+     @include('partials.frontend.css')
      @yield('css')
 </head>
 <body class="load-full-screen">
@@ -39,35 +39,35 @@
 <div class="site-wrapper">
     <!-- BEGIN: NAV SECTION -->
     <section>
-        @include('partials.header')
+        @include('partials.frontend.header')
         <div class="clearfix"></div>
-        @include('partials.menu')
+        @include('partials.frontend.menu')
     </section>
     <!-- END: NAV SECTION -->
 
    @yield('content')
 
     <!-- START: FOOTER -->
-    @include('partials.footer')
+    @include('partials.frontend.footer')
     <!-- END: FOOTER -->
 </div>
 <!-- END: SITE-WRAPPER -->
 
 <!-- BEGIN : LOADING PAGE -->
-@include('partials.flight_booking_loader')
-@include('partials.flight_information_loader')
-@include('partials.flight_search_loader')
-@include('partials.flight_multi_search_loader')
-@include('partials.hotel_booking_loader')
-@include('partials.hotel_information_loader')
-@include('partials.hotel_room_information')
-@include('partials.hotel_search_loader')
+@include('partials.frontend.flight_booking_loader')
+@include('partials.frontend.flight_information_loader')
+@include('partials.frontend.flight_search_loader')
+@include('partials.frontend.flight_multi_search_loader')
+@include('partials.frontend.hotel_booking_loader')
+@include('partials.frontend.hotel_information_loader')
+@include('partials.frontend.hotel_room_information')
+@include('partials.frontend.hotel_search_loader')
 
 
 <!-- END : LOADING PAGE -->
 
 <!-- Load Scripts -->
-@include('partials.javascript')
+@include('partials.frontend.javascript')
 @yield('javascript')
 {!! Toastr::render() !!}
 </body>

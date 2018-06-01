@@ -2,13 +2,9 @@
 <div align="center">
         <img src="{{asset('assets/images/portal_images/email-logo.png')}}" align="center">
     </div>
-# Introduction
+# Hello {{$user->sur_name}} ,
 
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
+Your account password has just been changed. Please if your account password was not changed by you, kindly send a complain to {{config('app.name')}}
 
 Thanks,<br>
 {{ config('app.name') }}

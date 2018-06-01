@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BankPayment;
+use App\EmailSubscriber;
 use App\FlightBooking;
 use App\Gender;
 use App\HotelBooking;
@@ -186,6 +187,27 @@ class BackEndViewController extends Controller
 
    }
 
+   public function userOnlinePayment(){
+
+        $interswitchPayments = OnlinePayment::where('gateway_id',1)->where('user_id',auth()->id())->orderBy('id','desc')->get();
+        $amountSuccessful = 0;
+        $amountPending = 0;
+        $countSuccessful = 0;
+        $countPending = 0;
+        foreach($interswitchPayments as $serial => $interswitchPayment){
+            if($interswitchPayment->payment_status == 1){
+                $amountSuccessful = $amountSuccessful + $interswitchPayment->amount;
+                $countSuccessful = $countSuccessful + 1;
+            }
+            if($interswitchPayment->payment_status == 0){
+                $amountPending = $amountPending + $interswitchPayment->amount;
+                $countPending = $countPending + 1;
+            }
+        }
+        return view('pages.backend.transactions.user_online_payments',compact('interswitchPayments','amountSuccessful','amountPending','countSuccessful','countPending'));
+
+    }
+
    public function usersManagement(){
 
        $users   = User::where('delete_status',0)
@@ -331,5 +353,22 @@ class BackEndViewController extends Controller
        $countDeclined    = BankPayment::where('status',0)->count();
        return view('pages.backend.transactions.bank_payments',compact('bankPayments','amountSuccessful','amountPending','amountDeclined','countSuccessful','countPending','countDeclined'));
    }
+
+   public function userBankPayment(){
+        $bankPayments     = BankPayment::orderBy('id','desc')->where('user_id',auth()->id())->get();
+        $amountSuccessful = BankPayment::where('status',1)->where('user_id',auth()->id())->sum('amount');
+        $amountPending    = BankPayment::where('status',2)->where('user_id',auth()->id())->sum('amount');
+        $amountDeclined   = BankPayment::where('status',0)->where('user_id',auth()->id())->sum('amount');
+        $countSuccessful  = BankPayment::where('status',1)->where('user_id',auth()->id())->count();
+        $countPending     = BankPayment::where('status',2)->where('user_id',auth()->id())->count();
+        $countDeclined    = BankPayment::where('status',0)->where('user_id',auth()->id())->count();
+        return view('pages.backend.transactions.user_bank_payments',compact('bankPayments','amountSuccessful','amountPending','amountDeclined','countSuccessful','countPending','countDeclined'));
+    }
+
+   public function emailSubscriptions(){
+       $emails = EmailSubscriber::orderBy('id','desc')->get();
+       return view('pages.backend.settings.email_subscriptions',compact('emails'));
+   }
+
 
 }

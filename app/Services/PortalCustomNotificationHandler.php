@@ -13,6 +13,8 @@ use App\FlightBooking;
 use App\Mail\BankPaymentOptionNotification;
 use App\Mail\FlightReservationComplete;
 use App\Mail\HotelReservationComplete;
+use App\Mail\PasswordChange;
+use App\Mail\PasswordReset;
 use App\Mail\PaymentFailed;
 use App\Mail\PaymentNotification;
 use App\Mail\PaymentSuccessful;
@@ -20,6 +22,8 @@ use App\Mail\ReservationCancelled;
 use App\Mail\SuccessfulRegistration;
 use App\Mail\TicketIssued;
 use App\Mail\TicketVoid;
+use App\Mail\WalletCredit;
+use App\Mail\WalletDebit;
 use Exception;
 use Illuminate\Support\Facades\Mail;
 use nilsenj\Toastr\Facades\Toastr;
@@ -124,5 +128,28 @@ class PortalCustomNotificationHandler
 
     }
 
+    public static function passwordReset(){
+        try{
+            Mail::to(auth()->user())->send(new PasswordReset());
+        }catch(Exception $e){
+            Toastr::error('Unable to send password reset email.');
+        }
+    }
+
+    public static function walletCredit($user, $walletLog){
+        try{
+            Mail::to($user->email)->send(new WalletCredit($user,$walletLog));
+        }catch(Exception $e){
+            Toastr::error('Unable to send wallet credit alert email');
+        }
+    }
+
+    public static function walletDebit($user, $walletLog){
+        try{
+            Mail::to($user->email)->send(new WalletDebit($user,$walletLog));
+        }catch(Exception $e){
+            TOastr::error('Unable to send wallet debit email');
+        }
+    }
 
 }

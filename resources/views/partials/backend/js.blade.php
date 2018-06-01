@@ -16,6 +16,13 @@
 <script src="{{asset('backend/app-assets/js/scripts/tables/datatables/datatable-advanced.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend/app-assets/vendors/js/extensions/sweetalert.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend/app-assets/js/scripts/extensions/toastr.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend/app-assets/vendors/js/extensions/dropzone.min.js')}}" type="text/javascript"></script>
+
+
+<script src="{{asset('backend/app-assets/vendors/js/ui/headroom.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend/app-assets/js/core/libraries/jquery_ui/jquery-ui.min.js')}}" type="text/javascript"></script>
+
+
 
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN MODERN JS-->
@@ -25,7 +32,7 @@
 <!-- END MODERN JS-->
 
 <!-- BEGIN PAGE LEVEL JS-->
-<script src="{{asset('backend/app-assets/js/scripts/pages/dashboard-ecommerce.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend/app-assets/js/scripts/pages/dashboard-sales.min.js')}}" type="text/javascript"></script>
 
 <!-- BEGIN TOOLS FROM FRONTEND-->
 <script src="{{asset('assets/js/alertify.js')}}"></script>
@@ -38,6 +45,7 @@
 <script src="{{asset('assets/js/loadingoverlay.js')}}"></script>
 <script src="{{asset('assets/js/materialize.js')}}"></script>
 <script src="{{asset('assets/js/toastr.min.js')}}"></script>
+{{--<script src="{{asset('backend/js/dropzone.min.js')}}"></script>--}}
 <script src="{{asset('assets/js/bootstrap3-typeahead.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/ion.rangeSlider-2.2.0/js/ion-rangeSlider/ion.rangeSlider.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/plugins/printJs/js/print.js')}}"></script>

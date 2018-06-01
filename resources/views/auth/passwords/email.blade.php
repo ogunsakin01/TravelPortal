@@ -1,62 +1,62 @@
-@extends('layouts.app')
 
-@section('page-title') Email Reset @endsection
+
+@extends('layouts.auth')
+
+@section('page-title')  Recover Password @endsection
 
 @section('content')
-
-<div class="row page-title">
-        <div class="container clear-padding text-center flight-title">
-            <h3>PASSWORD RESET</h3>
-            <h4 class="thank">Reset Password</h4>
-        </div>
-    </div>
-<!-- END: PAGE TITLE -->
-
-<!-- START: LOGIN/REGISTER -->
-<div class="row login-row">
-        <div class="container clear-padding">
-            <div class="col-sm-2 useful-links">
-                <h4>Useful Links</h4>
-                <a href="#">Become A Partner</a>
-                <a href="#">Career</a>
-                <a href="#">Developers</a>
-                <a href="#">FAQ</a>
-                <a href="#">Partners</a>
-                <a href="#">Terms Of Use</a>
-                <a href="#">Privacy Policy</a>
-            </div>
-            <div class="col-sm-10 sign-up-form">
+    <section class="flexbox-container">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="col-md-4 col-10 box-shadow-2 p-0">
                 @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
+                    <div class="alert round bg-success alert-icon-left alert-arrow-left alert-dismissible mb-2" role="alert">
+                        <span class="alert-icon"><i class="la la-thumbs-o-up"></i></span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <strong>Great !!! </strong> {{ session('status') }}
                     </div>
                 @endif
-                <h4>Password reset email</h4>
-                <form method="POST" action="{{ route('password.email') }}">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-8">
-                            <label>Email</label>
-                            <div class="input-group">
-                                <input name="email" type="email" class="form-control" placeholder="Email" value="{{ $email ?? old('email') }}" required>
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @else
-                                    <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Send Password Reset Link') }}
+                @if($errors->any())
+                    @foreach($errors->all() as $serial => $error)
+                        <div class="alert round bg-danger alert-icon-left alert-arrow-left alert-dismissible mb-2" role="alert">
+                            <span class="alert-icon"><i class="la la-thumbs-o-down"></i></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
                             </button>
+                            <strong>Oh snap!</strong> {{$error}}
+                        </div>
+                    @endforeach
+                @endif
+                <div class="card border-grey border-lighten-3 px-2 py-2 m-0">
+                    <div class="card-header border-0 pb-0">
+                        <div class="card-title text-center">
+                            <img src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="{{config('app.name')}}">
+                        </div>
+                        <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><span>We will send you a link to reset password.</span></h6>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form-horizontal" action="{{ route('password.email') }}" method="post" novalidate>
+                                @csrf
+                                <fieldset class="form-group position-relative has-icon-left">
+                                    <input type="email" class="form-control form-control-lg input-lg" name="email" id="user-email" placeholder="Your Email Address" required>
+                                    <div class="form-control-position">
+                                        <i class="ft-mail"></i>
+                                    </div>
+                                </fieldset>
+                                <button type="submit" class="btn btn-outline-info btn-lg btn-block"><i class="ft-unlock"></i> Recover Password</button>
+                            </form>
                         </div>
                     </div>
-                </form>
+                    <div class="card-footer border-0">
+                        <p class="float-sm-left text-center"><a href="{{url('/login')}}" class="card-link">Login</a></p>
+                        <p class="float-sm-right text-center">New to {{config('app.name')}} ? <a href="{{url('/register')}}" class="card-link">Create Account</a></p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
 
 @endsection

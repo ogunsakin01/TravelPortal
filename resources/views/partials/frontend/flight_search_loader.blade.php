@@ -6,9 +6,9 @@
             </div>
             <div class="loading-animation" align="center">
                 <span><i class="fa fa-plane"></i></span>
-                <span><i class="fa fa-bed"></i></span>
-                <span><i class="fa fa-ship"></i></span>
-                <span><i class="fa fa-suitcase"></i></span>
+                <span><i class="fa fa-clock-o"></i></span>
+                <span><i class="fa fa-plane"></i></span>
+                <span><i class="fa fa-clock-o"></i></span>
             </div>
             <div class="search-title" align="center">
                 <p><small>We are finding the cheapest available flights for you. Hold on for some seconds </small> <br/>

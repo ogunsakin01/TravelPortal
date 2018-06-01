@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -62,5 +63,16 @@ class Kernel extends HttpKernel
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+        'hotel' => \App\Http\Middleware\CheckAvailableHotels::class,
+        'flight' => \App\Http\Middleware\CheckAvailableItineraries::class,
+        'flight.search.param' => \App\Http\Middleware\CheckFlightSearchParam::class,
+        'hotel.search.param' => \App\Http\Middleware\CheckHotelSearchParam::class,
+        'flight.pricing.info' => \App\Http\Middleware\CheckItineraryPricingInfo::class,
+        'payment.info' => \App\Http\Middleware\CheckPaymentInfo::class,
+        'pnr'          => \App\Http\Middleware\CheckPnr::class,
+        'hotel.information' => \App\Http\Middleware\CheckSelectedHotelInformation::class,
+        'hotel.room.information' => \App\Http\Middleware\CheckSelectedHotelRoomInformation::class,
+        'flight.selected' => \App\Http\Middleware\CheckSelectedItinerary::class,
+        'hotel.room.selected' => \App\Http\Middleware\CheckSelectedRoom::class,
     ];
 }

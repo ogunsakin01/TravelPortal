@@ -40,7 +40,7 @@ class ViewController extends Controller
         $lastItinerary        = count($availableItineraries) - 1;
         $maximumPrice         = round($availableItineraries[$lastItinerary]['displayTotal'] / 100);
 
-        return view('pages.flight.search_result',compact('availableItineraries','availableCabins','availableAirlines','minimumPrice','maximumPrice','availableStops','availablePrices'));
+        return view('pages.frontend.flight.search_result',compact('availableItineraries','availableCabins','availableAirlines','minimumPrice','maximumPrice','availableStops','availablePrices'));
     }
 
     public function itineraryBooking(){
@@ -48,6 +48,7 @@ class ViewController extends Controller
         $itineraryPricingInfo = session()->get('itineraryPricingInfo');
         $selectedItinerary    = session()->get('selectedItinerary');
         $flightSearchParam    = session()->get('flightSearchParam');
+
         $months = [
             'January',
             'February',
@@ -63,7 +64,7 @@ class ViewController extends Controller
             'December'
         ];
 
-        return view('pages.flight.itinerary_booking',compact('itineraryPricingInfo','selectedItinerary','flightSearchParam','months'));
+        return view('pages.frontend.flight.itinerary_booking',compact('itineraryPricingInfo','selectedItinerary','flightSearchParam','months'));
 
     }
 
@@ -76,7 +77,7 @@ class ViewController extends Controller
         $booking = FlightBooking::where('pnr',$pnr)->first();
         $banks = BankDetail::where('status',1)->get();
 
-        return view('pages.flight.payment_option',compact('itineraryPricingInfo','selectedItinerary','flightSearchParam','booking','banks'));
+        return view('pages.frontend.flight.payment_option',compact('itineraryPricingInfo','selectedItinerary','flightSearchParam','booking','banks'));
 
     }
 
@@ -89,7 +90,7 @@ class ViewController extends Controller
           $pnr = session()->get('pnr');
           $booking = FlightBooking::where('pnr',$pnr)->first();
           $profile = Profile::getUserInfo(auth()->user()->id);
-          return view('pages.flight.payment_confirmation',compact('paymentInfo','itineraryPricingInfo','selectedItinerary','flightSearchParam','booking','profile'));
+          return view('pages.frontend.flight.payment_confirmation',compact('paymentInfo','itineraryPricingInfo','selectedItinerary','flightSearchParam','booking','profile'));
 
     }
 
@@ -130,14 +131,14 @@ class ViewController extends Controller
         $minimumPrice = round(min($availableHotels)['minimumRate'] / 100);
         $maximumPrice = round(max($availableHotels)['minimumRate'] / 100);
         $availablePrices = json_encode(array_values(array_unique($prices)));
-        return view('pages.hotel.search_result',compact('availableHotels','hotelSearchParam','minimumPrice','maximumPrice','starRatings','availablePrices'));
+        return view('pages.frontend.hotel.search_result',compact('availableHotels','hotelSearchParam','minimumPrice','maximumPrice','starRatings','availablePrices'));
 
     }
 
     public function hotelInformation(){
         $selectedHotel = session()->get('selectedHotelInformation');
         $hotelInformation = $this->AmadeusHelper->hotelAvailRoomResponseSort($selectedHotel);
-        return view('pages.hotel.hotel_details',compact('hotelInformation'));
+        return view('pages.frontend.hotel.hotel_details',compact('hotelInformation'));
     }
 
     public function hotelRoomBooking($id){
@@ -184,7 +185,7 @@ class ViewController extends Controller
 
         session()->put('selectedRoom',$selectedRoom);
         $titles = Title::all();
-        return view('pages.hotel.hotel_booking',compact('hotelRoomInformation','searchParam','selectedRoom','hotelInformation','titles'));
+        return view('pages.frontend.hotel.hotel_booking',compact('hotelRoomInformation','searchParam','selectedRoom','hotelInformation','titles'));
 
     }
 
@@ -195,7 +196,7 @@ class ViewController extends Controller
         $hotelRoomInformation = session()->get('selectedHotelRoomInformation');
         $banks = BankDetail::where('status',1)->get();
         $titles = Title::all();
-        return view('pages.hotel.hotel_payment_option',compact('hotelRoomInformation','searchParam','selectedRoom','hotelInformation','banks','titles'));
+        return view('pages.frontend.hotel.hotel_payment_option',compact('hotelRoomInformation','searchParam','selectedRoom','hotelInformation','banks','titles'));
     }
 
     public function hotelBookingCompletion(){
@@ -206,9 +207,7 @@ class ViewController extends Controller
         $bookingInfo      = HotelBooking::where('reference',$selectedRoom['bookingReference'])->first();
 
 
-        return view('pages.hotel.hotel_payment_confirmation',compact('hotelInformation','searchParam','selectedRoom','paymentInfo','bookingInfo'));
+        return view('pages.frontend.hotel.hotel_payment_confirmation',compact('hotelInformation','searchParam','selectedRoom','paymentInfo','bookingInfo'));
     }
-
-
 
 }

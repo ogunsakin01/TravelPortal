@@ -121,6 +121,7 @@ return [
 
     'providers' => [
 
+
         /*
          * Laravel Framework Service Providers...
          */
@@ -148,7 +149,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         nilsenj\Toastr\ToastrServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-
+        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -216,6 +217,7 @@ return [
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Flash' => Laracasts\Flash\Flash::class
     ],
 
 ];

@@ -19,7 +19,7 @@
       </POS>
                 
                 <OriginDestinationInformation>
-                  <DepartureDateTime>2018-05-15T00:00:00</DepartureDateTime>   
+                  <DepartureDateTime>2018-05-31T00:00:00</DepartureDateTime>   
                   <OriginLocation LocationCode="LHR"/>   
                   <DestinationLocation LocationCode="DXB"/>  
                 </OriginDestinationInformation> 
@@ -40,9 +40,9 @@
                             </FareRestrictPref>  
                 </TravelPreferences> 
                 <TravelerInfoSummary>   
-                  <SeatsRequested>2</SeatsRequested>
+                  <SeatsRequested>1</SeatsRequested>
                   <AirTravelerAvail>
-                    <PassengerTypeQuantity Code="ADT" Quantity="2"/>
+                    <PassengerTypeQuantity Code="ADT" Quantity="1"/>
                   </AirTravelerAvail>  
                   <PriceRequestInformation PricingSource="Both"/>
                 </TravelerInfoSummary>

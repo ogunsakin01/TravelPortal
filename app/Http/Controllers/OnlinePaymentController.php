@@ -6,6 +6,7 @@ use App\FlightBooking;
 use App\HotelBooking;
 use App\OnlinePayment;
 use App\Profile;
+use App\User;
 use App\Wallet;
 use App\WalletLog;
 use App\Services\InterswitchConfig;
@@ -58,7 +59,6 @@ class OnlinePaymentController extends Controller
     }
 
     public function generateInterswitchWalletPayment(Request $r){
-
         $redirectUrl = url('/backend/interswitch-payment-verification');
         $txnRef      = strtoupper(str_random(9));
         $bookingReference = "WTP-".strtoupper(str_random(8));
@@ -356,6 +356,7 @@ class OnlinePaymentController extends Controller
             elseif(substr($paymentData->booking_reference,0,3) == "WTP"){
 
                 $wallet = Wallet::where('user_id',auth()->id())->first();
+                $user = User::authenticatedUserInfo();
                 $walletBalance = $wallet->balance;
                 $newWalletBalance = $walletBalance;
                 $newWalletBalance = $walletBalance + $r->amount;
@@ -365,6 +366,7 @@ class OnlinePaymentController extends Controller
                     'status'  => 1,
                     'type_id' => 3,
                 ]);
+                PortalCustomNotificationHandler::walletCredit($user,$addLog);
                 $wallet->balance = $newWalletBalance;
                 $wallet->update();
                 Toastr::success("Wallet has been topped up successfully");
@@ -511,6 +513,7 @@ class OnlinePaymentController extends Controller
             elseif(substr($paymentData->booking_reference,0,3) == "WTP"){
 
                 $wallet = Wallet::where('user_id',auth()->id())->first();
+                $user = User::authenticatedUserInfo();
                 $walletBalance = $wallet->balance;
                 $newWalletBalance = $walletBalance;
                 $newWalletBalance = $walletBalance + $payment->amount;
@@ -520,6 +523,7 @@ class OnlinePaymentController extends Controller
                     'status'  => 1,
                     'type_id' => 3,
                 ]);
+                PortalCustomNotificationHandler::walletCredit($user,$addLog);
                 $wallet->balance = $newWalletBalance;
                 $wallet->update();
                 PortalCustomNotificationHandler::paymentSuccessful($response);

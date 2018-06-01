@@ -8,29 +8,21 @@
 
     <div class="row">
         <div class="col-md-3">
-
-            <!-- Photo & Description card -->
-            <div class="profile-side">
-                <div class="profile-photo">
-                    @if(empty($profile->photo))
-                        <img src="{{asset('backend/img/logo-invert.png')}}" class="circle" alt="">
-                    @else
-                        <img src="{{$profile->photo}}" class="circle" alt="">
-                    @endif
-                    <div class="prof-name">
-                       {{$profile->sur_name,' ',$profile->first_name}}
+            <div class="card">
+                <div class="text-center">
+                    <div class="card-body">
+                        @if(empty($profile->photo))
+                            <img src="{{asset('backend/app-assets/images/logo/logo.png')}}" id="user_image" class="rounded-circle  height-150" alt="Card image">
+                        @else
+                            <img src="{{asset($profile->photo)}}" class="rounded-circle  height-150" id="user_image" alt="Card image">
+                        @endif
                     </div>
-                    <div class="prof-title">
-
-                    </div>
-                </div>
-                <div class="profile-body">
-                    <div class="prof-misc">
-                        <span class="ti-time mr-2"></span>
-                        Signed Up {{date('d D, M Y G:i A',strtotime($user->created_at))}}
+                    <div class="card-body">
+                        <h4 class="card-title customer_full_name">{{$profile->sur_name}} {{$profile->first_name}} {{$profile->other_name}}</h4>
                     </div>
                 </div>
             </div>
+
             <!-- /End Photo & Description card -->
 
         </div>
@@ -39,168 +31,119 @@
 
             <!-- Main Profile card -->
             <div class="card">
-                <ul class="nav nav-tabs card-header" id="profile" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile_tab" aria-expanded="true">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="change-password-tab" data-toggle="tab" href="#change_password_tab" aria-expanded="false">Change Password</a>
-                    </li>
-                </ul>
 
                 <div class="card-body">
-                    <div class="tab-content profile-content" id="profileContent">
-
-                        <!-- Dashboard tab -->
-                        <div class="tab-pane fade active show" id="profile_tab" aria-expanded="true">
-
-                            <div class="row mb-2">
-                                <div class="col-12">
-                                    <div class="subheading">
-                                        Basic Information
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Fullname</div>
-                                <div class="col-sm-10">
-                                    {{$profile->sur_name}} {{$profile->first_name}} {{$profile->other_name}}
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Birthday</div>
-                                <div class="col-sm-10">
-                                  {{--  {{$profile->first_name}}--}}
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Address</div>
-                                <div class="col-sm-10">
-                                    {{$profile->address}}
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Gender</div>
-                                <div class="col-sm-10">
-{{--                                    {{$profile['gender']}}--}}
-                                </div>
-                            </div>
-
-                            <div class="row mt-4  mb-2">
-                                <div class="col-12">
-                                    <div class="subheading">
-                                        Contact Information
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Email</div>
-                                <div class="col-sm-10">
-                                    {{$user->email}}
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Phone</div>
-                                <div class="col-sm-10">
-                                    {{$profile->phone_number}}
-                                </div>
-                            </div>
-
-                            <div class="row mt-4 mb-2">
-                                <div class="col-12">
-                                    <div class="subheading">
-                                        Account Information
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Account Status</div>
-                                <div class="col-sm-10">
-                                  {{--  @php
-                                        echo $profile['account_status']
-                                    @endphp--}}
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Created On</div>
-                                <div class="col-sm-10">
-{{--                                    {{$sign_up_date}}--}}
-                                </div>
-                            </div>
-
-                            @role('agent')
-                            <div class="row mt-4 mb-2">
-                                <div class="col-12">
-                                    <div class="subheading">
-                                        Agency Information
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Agency Name</div>
-                                <div class="col-sm-10">
-{{--                                    {{$profile['agency_name']}}--}}
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Agency ID</div>
-                                <div class="col-sm-10">
-{{--                                    {{$profile['agent_id']}}--}}
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-sm-2 text-muted">Office Number</div>
-                                <div class="col-sm-10">
-{{--                                    {{$profile['office_number']}}--}}
-                                </div>
-                            </div>
-                            @endrole
-
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3><strong> Manage Your Information</strong></h3>
                         </div>
-                        <!-- /End Dashboard tab -->
-
-                        <!-- Messages tab -->
-                        <div class="tab-pane fade" id="change_password_tab" aria-expanded="false">
-                            {!! Form::open(['route' => 'profile']) !!}
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        {!! Form::label('','Old Password') !!}
-                                        {!! Form::password('old_password', ['id'=>'old_password', 'class'=>'form-control', 'placeholder'=>'********']) !!}
+                        <div class="col-md-12">
+                            <form method="post" action="{{route('update-profile')}}">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Surname</label>
+                                            <input type="text" name="customer_sur_name" required class="form-control" value="{{$profile->sur_name}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input type="text" name="customer_first_name" required class="form-control" value="{{$profile->first_name}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Other Name</label>
+                                            <input type="text" name="customer_other_name" required class="form-control" value="{{$profile->other_name}}"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        {!! Form::label('','New Password') !!}
-                                        {!! Form::password('new_password', ['id'=>'new_password', 'class'=>'form-control', 'placeholder'=>'********']) !!}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Phone Number</label>
+                                            <input type="text" name="customer_phone_number" required class="form-control" value="{{$profile->phone_number}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" name="customer_email" required disabled class="form-control" value="{{$user->email}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea class="form-control" name="customer_address" required placeholder="Enter your address to help use serve you better">{{$profile->address}}</textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        {!! Form::label('','Confirm Password') !!}
-                                        {!! Form::password('confirm_password', ['id'=>'confirm_password', 'class'=>'form-control', 'placeholder'=>'********']) !!}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary pull-left" type="button" id="update_customer_information">Update Customer Information</button>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <button class="btn btn-alt-primary pull-right btn-sm" type="button" id="change_password" name="change_password">Change</button>
-                                </div>
-                            </div>
-
-                            {!! Form::close() !!}
+                            </form>
                         </div>
-                        <!-- /End Messages tab -->
-
-                    </div><!-- .profile-content -->
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3><strong> Edit Your Profile Image</strong></h3>
+                        </div>
+                        <div class="col-md-12">
+                            <form method="post" id="profile_image_form" enctype="multipart/form-data" action="{{route('update-profile-image')}}">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label>Enter New Image</label>
+                                            <input class="form-control" type="file" id="customer_profile_photo" name="customer_profile_photo" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-primary btn-block" name="profile_upload" id="update_image" type="button">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3><strong> Change Password</strong></h3>
+                        </div>
+                        <div class="col-md-12">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Enter New Password</label>
+                                            <input class="form-control" type="password" name="customer_new_password" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label>Confirm New Password</label>
+                                            <input class="form-control" type="password" name="customer_new_password_confirm" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <button class="btn btn-primary btn-block" type="button" id="update_password">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div><!-- .card-body -->
             </div><!-- .card -->
             <!-- /End Main Profile card -->
@@ -211,7 +154,5 @@
 @endsection
 
 @section('javascript')
-
-    <script src="{{asset('backend/js/pages/passwords.js')}}"></script>
-
+    <script src="{{asset('backend/js/pages/profile.js')}}"></script>
 @endsection

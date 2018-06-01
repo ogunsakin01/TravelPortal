@@ -25,4 +25,6 @@ class PackageController extends Controller
     {
         return view('pages.package.package_payment_confirmation');
     }
+
+
 }

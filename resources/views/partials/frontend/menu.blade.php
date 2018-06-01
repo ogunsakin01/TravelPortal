@@ -39,9 +39,11 @@
                             <li class="dropdown @yield('activeContactUs')">
                                 <a class="dropdown-toggle" href="#"> CONTACT US </a>
                             </li>
+                            @if(auth()->guest())
                             <li class="dropdown @yield('activeLogin')">
                                 <a class="dropdown-toggle" href="{{url('/login')}}"> LOGIN </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                     <!-- END: NAVIGATION -->

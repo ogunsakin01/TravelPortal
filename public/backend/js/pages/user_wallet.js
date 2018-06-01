@@ -7,7 +7,7 @@ $(function(){
         let amount = $('.amount').val();
         buttonClassClicked('generate_wallet_payment','GENERATE PAYMENT',1);
         toastr.info('Generating payment, please hold on for some seconds');
-        toastr.info(amount);
+        // toastr.info(amount);
         axios.post(baseUrl+'/backend/generate-interswitch-wallet-payment',{
             amount : amount,
         })

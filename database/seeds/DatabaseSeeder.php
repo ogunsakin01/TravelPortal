@@ -31,7 +31,9 @@ class DatabaseSeeder extends Seeder
         $this->call(WalletTableSeeder::class);
         $this->call(WalletLogTypeTableSeeder::class);
         $this->call(WalletLogTableSeeder::class);
-
+        $this->call(PackageCategoryTableSeeder::class);
+        $this->call(PackageTypeTableSeeder::class);
+        $this->call(CabinTypesSeeder::class);
 
     }
 }

@@ -60,13 +60,11 @@ class User extends Authenticatable
 
     public static function getUserById($id)
     {
-        $user = static::where('id', $id)->first();
-        if(is_null($user) || empty($user)){
-            return "0";
-        }
-        else{
-            return $user;
-        }
+        $user = static::where('id', $id)->first()
+            ->join('profiles','profiles.user_id','=','users.id')
+            ->join('role_user','role_user.user_id','=','users.id')
+            ->first();
+        return $user;
 
     }
 

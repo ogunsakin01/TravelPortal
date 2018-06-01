@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('pages.home');
+    return view('pages.frontend.home');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -31,10 +31,11 @@ Route::get('/get-flight-information-and-pricing/{id}','FlightController@getItine
 Route::post('/book-itinerary','FlightController@bookItinerary');
 Route::post('/bank-payment','BankPaymentController@itineraryBankPayment');
 Route::post('/hotel-bank-payment','BankPaymentController@hotelBankPayment');
-Route::get('/itinerary-booking','ViewController@itineraryBooking');
-Route::get('/available-itineraries','ViewController@availableItineraries');
-Route::get('/flight-booking-payment-page','ViewController@flightBookingPayment');
-Route::get('/flight-booking-confirmation','ViewController@flightPaymentConfirmation');
+
+Route::get('/itinerary-booking','ViewController@itineraryBooking')->middleware('flight.search.param','flight.selected','flight.pricing.info');
+Route::get('/available-itineraries','ViewController@availableItineraries')->middleware('flight');
+Route::get('/flight-booking-payment-page','ViewController@flightBookingPayment')->middleware('flight.search.param','flight.selected','flight.pricing.info','pnr');
+Route::get('/flight-booking-confirmation','ViewController@flightPaymentConfirmation')->middleware('flight.search.param','flight.selected','flight.pricing.info','payment.info');
 
 Route::get('/cancel-pnr/{pnr}','FlightController@cancelPNR');
 Route::get('/issue-ticket/{pnr}','FlightController@issueTicket');
@@ -56,14 +57,14 @@ Route::get('backend/paystack-payment-verification','OnlinePaymentController@payS
 
 
 Route::post('/searchHotel','HotelController@searchHotel');
-Route::get('/available-hotels','ViewController@availableHotels');
+Route::get('/available-hotels','ViewController@availableHotels')->middleware('hotel','hotel.search.param');
 Route::get('/get-selected-hotel-information/{id}','HotelController@getSelectedHotelInformation');
 Route::get('/get-selected-hotel-rooms-information/{id}','HotelController@getSelectHotelRoomsInformation');
-Route::get('/hotel-information','ViewController@hotelInformation');
+Route::get('/hotel-information','ViewController@hotelInformation')->middleware('hotel.information');
 Route::get('/get-selected-hotel-room-information/{id}','HotelController@getSelectedHotelRoomInformation');
 Route::get('/selected-hotel-information','HotelController@selectedHotel');
 Route::get('/hotel-room-information/{id}','HotelController@hotelRoomInformation');
-Route::get('/hotel-room-booking/{id}','ViewController@hotelRoomBooking');
+Route::get('/hotel-room-booking/{id}','ViewController@hotelRoomBooking')->middleware('hotel.search.param','hotel.room.information');
 Route::post('/hold-customer-hotel-booking-information','HotelController@holdCustomerHotelBookingInfo');
 Route::get('/get-logged-in-user',function(){
     return App\User::findOrFail(auth()->user()->id)
@@ -71,9 +72,9 @@ Route::get('/get-logged-in-user',function(){
         ->join('role_user','role_user.user_id','=','users.id')
         ->first();
 });
-Route::get('/hotel-booking-payment-page','ViewController@hotelBookingPaymentPage');
+Route::get('/hotel-booking-payment-page','ViewController@hotelBookingPaymentPage')->middleware('hotel.search.param','hotel.room.selected','hotel.room.information');
 Route::get('/hotel-booking-confirmation','HotelController@hotelPaymentConfirmation');
-Route::get('/hotel-booking-completion','ViewCOntroller@hotelBookingCompletion');
+Route::get('/hotel-booking-completion','ViewCOntroller@hotelBookingCompletion')->middleware('hotel.search.param','hotel.room.selected','payment.info');
 
 
 Route::middleware(['auth'])->group(function(){
@@ -107,7 +108,11 @@ Route::middleware(['auth'])->group(function(){
         });
 
         Route::get('/profile', 'BackEndViewController@profile')->name('profile');
-        Route::get('', 'ProfileController@profileView')->name('backend-profile-view');
+
+        Route::post('/updateProfile','ProfileController@updateProfileImageJs');
+        Route::post('/update/user/profile','ProfileController@updateUserProfile')->name('update-profile');
+        Route::post('/update/user/image','ProfileController@updateUserProfileImage')->name('update-profile-image');
+        Route::post('/update/user/password','ProfileController@updateUserProfilePassword')->name('update-profile-password');
 
         Route::group(['prefix' => 'users'],function(){
             Route::get('/', 'BackEndViewController@usersManagement');
@@ -122,6 +127,8 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/update-wallet','WalletController@updateWallet');
             Route::get('/user-wallet','BackEndViewCOntroller@userWallet');
         });
+
+        Route::get('subscribers','BackEndViewController@emailSubscriptions');
 
     });
 
@@ -147,16 +154,33 @@ Route::middleware(['auth'])->group(function(){
     Route::group(['prefix' => 'transactions'],function(){
         Route::get('/online-payment','BackEndViewController@onlinePayment');
         Route::get('/bank-payment','BackEndViewController@bankPayment');
+
+        Route::get('/user/online-payment','BackEndViewController@userOnlinePayment');
+        Route::get('/user/bank-payment','BackEndViewController@userBankPayment');
+
         Route::post('/update-payment-proof','BankPaymentController@updatePaymentProof');
         Route::get('/update-payment-status/{id}/{type}','BankPaymentController@updatePaymentStatus');
         Route::get('/requery/{id}','OnlinePaymentController@requery');
     });
 
-    Route::group(['prefix' => 'travel-packages'],function(){
+    Route::group(['prefix' => 'backend/travel-packages', 'middleware' => ['auth','role:admin'] ], function(){
 
-    });
-
-    Route::group(['prefix' => 'wallets'],function(){
+        Route::get('', 'TravelPackageController@travelPackages');
+        Route::get('create', 'TravelPackageController@packageCreate');
+        Route::post('createPackage','TravelPackageController@create');
+        Route::post('createFlightDeal','TravelPackageController@createFlightDeal');
+        Route::post('createHotelDeal','TravelPackageController@createHotelDeal');
+        Route::post('createAttraction','TravelPackageController@createAttraction');
+        Route::get('activate/{id}', 'TravelPackageController@activate')->name('activate');
+        Route::get('deactivate/{id}', 'TravelPackageController@deactivate')->name('deactivate');
+        Route::get('delete/{id}', 'TravelPackageController@deletePackage');
+        Route::get('edit/{id}', 'TravelPackageController@editPackage');
+        Route::post('delete-image','TravelPackageController@deleteImage');
+        Route::get('categories','TravelPackageController@categories');
+        Route::post('activate/category','TravelPackageController@activateCategory');
+        Route::post('deActivate/category','TravelPackageController@deActivateCategory');
+        Route::post('categoryCreateOrUpdate','TravelPackageController@categoryCreateOrUpdate');
+        Route::post('storeGalleryInfo','TravelPackageController@storeGalleryImages');
 
     });
 

@@ -89,7 +89,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Bookings Records</h4>
+                    <h4 class="card-title"> History</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -155,7 +155,7 @@
                               <td>{{$bankPayment->booking_reference}}</td>
                               <td>
                                   {{\App\Profile::where('user_id',$bankPayment->user_id)->first()->sur_name}}
-                                  {{\App\Profile::where('user_id',$bankPayment->user_id)->first()->sur_name}}
+                                  {{\App\Profile::where('user_id',$bankPayment->user_id)->first()->first_name}}
                               </td>
                               <td>
                                   &#x20a6;{{number_format(($bankPayment->amount/100),2)}}
@@ -181,6 +181,7 @@
                                   @elseif($bankPayment->status == 1)
                                       <button class="btn btn-sm btn-danger decline" value="{{$bankPayment->id}}" data-toggle="tool-tip" data-original-title="Decline payment"><i class="la la-sm la-times"></i></button>
                                   @elseif($bankPayment->status == 2)
+                                      <button class="btn btn-sm btn-success approve" value="{{$bankPayment->id}}" data-toggle="tool-tip" data-original-title="Approve payment"><i class="la la-sm la-check"></i></button>
                                       <button class="btn btn-sm btn-danger decline" value="{{$bankPayment->id}}" data-toggle="tool-tip" data-original-title="Decline payment"><i class="la la-sm la-times"></i></button>
                                   @endif
                               </td>

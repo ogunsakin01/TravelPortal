@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\PortalCustomNotificationHandler;
+use App\User;
 use Illuminate\Http\Request;
 use App\Wallet;
 use App\WalletLog;
@@ -12,6 +14,7 @@ class WalletController extends Controller
 
     public function updateWallet(Request $request){
 
+        $user = User::getUserById($request->user_id);
         $wallet = Wallet::where('user_id',$request->user_id)->first();
         $walletBalance = $wallet->balance;
         $newWalletBalance = $walletBalance;
@@ -23,6 +26,7 @@ class WalletController extends Controller
                 'status'  => $request->status,
                 'type_id' => 1,
             ]);
+            PortalCustomNotificationHandler::walletCredit($user,$addLog);
         }
         elseif($request->status == 0){
             $newWalletBalance = $walletBalance - ($request->amount * 100);
@@ -32,6 +36,7 @@ class WalletController extends Controller
                 'status'  => $request->status,
                 'type_id' => 2,
             ]);
+            PortalCustomNotificationHandler::walletDebit($user,$addLog);
         }
         $wallet->balance = $newWalletBalance;
         $updateWallet = $wallet->update();
