@@ -1034,8 +1034,8 @@
         });
 
     </script>
-    <script src="{{asset('assets/js/pages/flight/flight_search_management.js')}}"></script>
-    <script src="{{asset('assets/js/pages/hotel/hotel_search_management.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/pages/flight/flight_search_management.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/pages/hotel/hotel_search_management.js')}}"></script>
 
 @endsection
 

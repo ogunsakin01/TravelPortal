@@ -124,7 +124,7 @@
 @endsection
 
 @section('javascript')
-    <script src="{{asset('assets/js/pages/hotel/payment_option.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/pages/hotel/payment_option.js')}}"></script>
 @endsection
 
 @section('css')

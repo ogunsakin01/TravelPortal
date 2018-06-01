@@ -308,7 +308,7 @@
 @endsection
 
 @section('javascript')
-    <script src="{{asset('assets/js/pages/hotel/hotel_booking.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/pages/hotel/hotel_booking.js')}}"></script>
 @endsection
 
 @section('css')

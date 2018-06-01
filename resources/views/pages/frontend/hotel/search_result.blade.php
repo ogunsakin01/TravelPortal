@@ -185,8 +185,8 @@
         let prices   =  $.parseJSON('{{$availablePrices}}');
         console.log(prices);
     </script>
-    <script src="{{asset('assets/js/pages/hotel/hotel_search_management.js')}}"></script>
-    <script src="{{asset('assets/js/pages/hotel/search_result.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/pages/hotel/hotel_search_management.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/pages/hotel/search_result.js')}}"></script>
 @endsection
 
 @section('css')

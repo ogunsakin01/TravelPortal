@@ -186,5 +186,5 @@
 @endsection
 
 @section('javascript')
-<script src="{{asset('assets/js/pages/flight/payment_option.js')}}"></script>
+<script src="{{asset('frontend/assets/js/pages/flight/payment_option.js')}}"></script>
 @endsection

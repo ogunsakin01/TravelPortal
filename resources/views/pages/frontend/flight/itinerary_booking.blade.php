@@ -586,7 +586,7 @@
 
 
 @section('javascript')
-<script src="{{asset('assets/js/pages/flight/itinerary_booking.js')}}"></script>
+<script src="{{asset('frontend/assets/js/pages/flight/itinerary_booking.js')}}"></script>
 @endsection
 @section('css')
 

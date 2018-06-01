@@ -446,8 +446,8 @@
           var prices   =  $.parseJSON('{{$availablePrices}}');
 
     </script>
-    <script src="{{asset('assets/js/pages/flight/flight_search_management.js')}}"></script>
-    <script src="{{asset('assets/js/pages/flight/search_result.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/pages/flight/flight_search_management.js')}}"></script>
+    <script src="{{asset('frontend/assets/js/pages/flight/search_result.js')}}"></script>
 
 @endsection
 

@@ -19,14 +19,14 @@
       </POS> 
 		  <AirItinerary>   
 		  <OriginDestinationOptions>    
-		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-31T15:00:00" ArrivalDateTime="2018-05-31T20:40:00" FlightNumber="778" ResBookDesigCode="V">    
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-06-26T12:30:00" ArrivalDateTime="2018-06-26T20:25:00" FlightNumber="112" ResBookDesigCode="N">    
 		  <DepartureAirport LocationCode="LHR"/>
-		  <ArrivalAirport LocationCode="CAI"/>      
-		  <MarketingAirline Code="MS"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-31T22:30:00" ArrivalDateTime="2018-06-01T04:00:00" FlightNumber="910" ResBookDesigCode="V">    
-		  <DepartureAirport LocationCode="CAI"/>
+		  <ArrivalAirport LocationCode="JED"/>      
+		  <MarketingAirline Code="SV"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-06-26T23:10:00" ArrivalDateTime="2018-06-27T03:00:00" FlightNumber="598" ResBookDesigCode="N">    
+		  <DepartureAirport LocationCode="JED"/>
 		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="MS"/>     
+		  <MarketingAirline Code="SV"/>     
 		  </FlightSegment></OriginDestinationOption>  
 		  </OriginDestinationOptions>  
 		  </AirItinerary>  
@@ -35,7 +35,7 @@
 		  <AirTravelerAvail>    
 		  <PassengerTypeQuantity Code="ADT" Quantity="1"/> 
 		  </AirTravelerAvail>   
-		  <PriceRequestInformation PricingSource="Private"/>  
+		  <PriceRequestInformation PricingSource="Published"/>  
 		  </TravelerInfoSummary> 
 		 </OTA_AirPriceRQ>
 		</wmAirPrice> 
