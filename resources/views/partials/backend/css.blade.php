@@ -34,9 +34,9 @@
 <!-- BEGIN Custom CSS-->
 
 <link rel="stylesheet" type="text/css" href="{{asset('backend/assets/css/style.css')}}">
-<link href="{{asset('assets/css/iziModal.css')}}" rel="stylesheet">
-<link href="{{asset('assets/css/iziToast.css')}}" rel="stylesheet">
-<link href="{{asset('assets/css/materialize.css')}}" rel="stylesheet">
-<link href="{{asset('assets/css/toastr.min.css')}}" rel="stylesheet">
+<link href="{{asset('frontend/assets/css/iziModal.css')}}" rel="stylesheet">
+<link href="{{asset('frontend/assets/css/iziToast.css')}}" rel="stylesheet">
+<link href="{{asset('frontend/assets/css/materialize.css')}}" rel="stylesheet">
+<link href="{{asset('frontend/assets/css/toastr.min.css')}}" rel="stylesheet">
 
 <!-- BEGIN Custom CSS-->

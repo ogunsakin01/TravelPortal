@@ -29,6 +29,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -341,5 +342,16 @@ class User extends Authenticatable
         ]);
     }
 
+    public function profile(){
+        return static::hasOne(Profile::class,'user_id','id');
+    }
+
+    public function agency_profile(){
+        return static::hasOne(AgencyProfile::class,'user_id','id');
+    }
+
+    public function cooperate_customer_profile(){
+        return static::hasOne(CooperateCustomerProfile::class,'user_id','id');
+    }
 
 }

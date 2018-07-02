@@ -21,14 +21,14 @@
              <OTA_AirBookRQ>
    <AirItinerary DirectionInd="OneWay">
       <OriginDestinationOptions>
-         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-05-30T15:00:00" ArrivalDateTime="2018-05-30T20:40:00" FlightNumber="778" ResBookDesigCode="V" RPH="1" NumberInParty="1">    
-		  <DepartureAirport LocationCode="LHR"/>
-		  <ArrivalAirport LocationCode="CAI"/>      
-		  <MarketingAirline Code="MS"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-05-31T09:30:00" ArrivalDateTime="2018-05-31T15:00:00" FlightNumber="912" ResBookDesigCode="V" RPH="2" NumberInParty="1">    
-		  <DepartureAirport LocationCode="CAI"/>
+         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-07-10T15:35:00" ArrivalDateTime="2018-07-10T21:05:00" FlightNumber="203" ResBookDesigCode="X" RPH="1" NumberInParty="1">    
+		  <DepartureAirport LocationCode="LOS"/>
+		  <ArrivalAirport LocationCode="KGL"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-07-10T23:59:00" ArrivalDateTime="2018-07-11T08:30:00" FlightNumber="304" ResBookDesigCode="X" RPH="2" NumberInParty="1">    
+		  <DepartureAirport LocationCode="KGL"/>
 		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="MS"/>     
+		  <MarketingAirline Code="WB"/>     
 		  </FlightSegment></OriginDestinationOption>
       </OriginDestinationOptions>
    </AirItinerary>
@@ -40,17 +40,17 @@
                 <Traveler>
                   <PersonName>
                     <NamePrefix>MR</NamePrefix>
-                    <GivenName>Damilola Olamide</GivenName>
-                    <Surname>Ogunsakin</Surname>
+                    <GivenName>Fowl Junior</GivenName>
+                    <Surname>Artemis</Surname>
                   </PersonName>
                   <TravelerRefNumber RPH="1" />
                 </Traveler>
                 
-         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="09090444444" FormattedInd="0"/>
-         <Email>ogunsakin191@gmail.com</Email>
-         <Ticketing TicketTimeLimit="2018-05-30T23:59:00" TicketType="eTicket" />
+         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="09090909090" FormattedInd="0"/>
+         <Email>admin@travelportal.com</Email>
+         <Ticketing TicketTimeLimit="2018-07-10T23:59:00" TicketType="eTicket" />
       </PNRData>
-      <PriceData PriceType="Private" AutoTicketing="false" ValidatingAirlineCode="MS" >
+      <PriceData PriceType="Published" AutoTicketing="false" ValidatingAirlineCode="WB" >
        <PublishedFares>
       <FareRestrictPref>
       <AdvResTicketing><AdvReservation/>

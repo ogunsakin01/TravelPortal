@@ -20,7 +20,7 @@ class BankPayment extends Model
     public static function store($booking,$bank_details_id){
 
         $store = static::updateOrCreate([
-            'user_id'           => $booking->user_id,
+            'user_id'           => auth()->id(),
             'booking_reference' => $booking->reference
         ],[
             'reference'      => strtoupper(str_random(6)),
@@ -32,4 +32,5 @@ class BankPayment extends Model
 
         return $store;
     }
+
 }

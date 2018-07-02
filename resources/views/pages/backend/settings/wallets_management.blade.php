@@ -138,8 +138,8 @@
                                             <td>
                                                 @if($walletLog->status == 1)
                                                     <p class="success"> Credit</p>
-                                                @elseif($walletLog == 0)
-                                                    <p class="danger"> Credit</p>
+                                                @elseif($walletLog->status == 0)
+                                                    <p class="danger"> Debit</p>
                                                 @endif
                                             </td>
                                             <td>

@@ -16,19 +16,33 @@ class PackageReservationComplete extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $deal;
+
+    public $booking;
+
+    public $user;
+
+
+    public function __construct($booking,$deal,$user)
     {
-        //
+        $this->deal = $deal;
+        $this->booking = $booking;
+        $this->user = $user;
     }
 
     /**
+     *
      * Build the message.
      *
      * @return $this
      */
+
     public function build()
     {
-        return $this->from('no-reply@travelportal.com',config('app.name'))
-            ->markdown('emails.PackageReservationComplete');
+        return $this->from('no-reply@travelpro.com.ng',config('app.name'))
+                    ->subject('Travel Deal Booking')
+                    ->markdown('emails.PackageReservationComplete');
     }
+
 }

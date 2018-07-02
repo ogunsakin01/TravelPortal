@@ -93,7 +93,7 @@ class AmadeusRequestXML
             ';
         }
 
-       $body = '
+        $body = '
             <wmLowFarePlus xmlns="http://traveltalk.com/wsLowFarePlus">
               <OTA_AirLowFareSearchPlusRQ>   
                 '.$this->posXML().'
@@ -328,27 +328,27 @@ class AmadeusRequestXML
 
         if($originDestinationsCount > 1){
             $originDestinationOptions = '';
-           for($i = 0; $i < $originDestinationsCount; $i++){
-               $segmentInfo = '';
-               $check = $i + 1;
-               foreach($selectedItinerary['originDestinations'] as $serial => $originDestination){
-                   $originDestination = (array)$originDestination;
-                   if($check == $originDestination['originDestinationPlacement']){
-                       $segmentInfoData = '<FlightSegment DepartureDateTime="'.$originDestination['departureDateTime'].'" ArrivalDateTime="'.$originDestination['arrivalDateTime'].'" FlightNumber="'.$originDestination['flightNumber'].'" ResBookDesigCode="'.$originDestination['resBookDesigCode'].'">    
+            for($i = 0; $i < $originDestinationsCount; $i++){
+                $segmentInfo = '';
+                $check = $i + 1;
+                foreach($selectedItinerary['originDestinations'] as $serial => $originDestination){
+                    $originDestination = (array)$originDestination;
+                    if($check == $originDestination['originDestinationPlacement']){
+                        $segmentInfoData = '<FlightSegment DepartureDateTime="'.$originDestination['departureDateTime'].'" ArrivalDateTime="'.$originDestination['arrivalDateTime'].'" FlightNumber="'.$originDestination['flightNumber'].'" ResBookDesigCode="'.$originDestination['resBookDesigCode'].'">    
 		  <DepartureAirport LocationCode="'.$originDestination['departureAirportCode'].'"/>
 		  <ArrivalAirport LocationCode="'.$originDestination['arrivalAirportCode'].'"/>      
 		  <MarketingAirline Code="'.$originDestination['marketingAirlineCode'].'"/>     
 		  </FlightSegment>';
-                       $segmentInfo = $segmentInfo.$segmentInfoData;
-                   }
-               }
-               $originDestinationOption = '';
+                        $segmentInfo = $segmentInfo.$segmentInfoData;
+                    }
+                }
+                $originDestinationOption = '';
 
-               if($segmentInfo != ""){
-                   $originDestinationOption = '<OriginDestinationOption>'.$segmentInfo.'</OriginDestinationOption>';
-               }
-               $originDestinationOptions = $originDestinationOptions.$originDestinationOption;
-           }
+                if($segmentInfo != ""){
+                    $originDestinationOption = '<OriginDestinationOption>'.$segmentInfo.'</OriginDestinationOption>';
+                }
+                $originDestinationOptions = $originDestinationOptions.$originDestinationOption;
+            }
         }
 
         else{
@@ -362,12 +362,12 @@ class AmadeusRequestXML
 		  <ArrivalAirport LocationCode="'.$originDestination['arrivalAirportCode'].'"/>      
 		  <MarketingAirline Code="'.$originDestination['marketingAirlineCode'].'"/>     
 		  </FlightSegment>';
-               $segmentInfo = $segmentInfo.$segmentInfoData;
+                $segmentInfo = $segmentInfo.$segmentInfoData;
             }
             $originDestinationOptions = '<OriginDestinationOption>'.$segmentInfo.'</OriginDestinationOption>';
         }
 
-		$body = '
+        $body = '
        <wmAirPrice xmlns="http://traveltalk.com/wsAirPrice">
 		 <OTA_AirPriceRQ>
 		  '.$this->posXML().' 
@@ -387,18 +387,18 @@ class AmadeusRequestXML
 		</wmAirPrice> ';
 
         return $this->requestXML($body);
-	}
+    }
 
     public function buildTypeSort($buildType,$buildData){
-		if($buildType == 'Hotel'){
-			return $this->hotelBookXML($buildData);
-		}elseif($buildType == 'Air'){
-			return $this->airBookXML($buildData);
-		}elseif($buildType == 'Vehicle'){
-			return $this->vehicleBookXML($buildData);
-		}
-		return '';
-	}
+        if($buildType == 'Hotel'){
+            return $this->hotelBookXML($buildData);
+        }elseif($buildType == 'Air'){
+            return $this->airBookXML($buildData);
+        }elseif($buildType == 'Vehicle'){
+            return $this->vehicleBookXML($buildData);
+        }
+        return '';
+    }
 
     public function airBookXML($selectedItinerary){
         $passengerCount = 0;
@@ -410,6 +410,7 @@ class AmadeusRequestXML
                 $passengerCount = $passengerCount + $count['quantity'];
             }
         }
+
 
         $originDestinationsCount = $selectedItinerary['originDestinationsCount'];
 
@@ -458,7 +459,7 @@ class AmadeusRequestXML
             $originDestinationOptions = '<OriginDestinationOption>'.$segmentInfo.'</OriginDestinationOption>';
         }
 
-	return '
+        return '
              <OTA_AirBookRQ>
    <AirItinerary DirectionInd="'.$selectedItinerary['directionInd'].'">
       <OriginDestinationOptions>
@@ -468,10 +469,10 @@ class AmadeusRequestXML
 </OTA_AirBookRQ>
            ';
 
-	}
+    }
 
     public function hotelBookXML($hotelRoomInformation){
-		return '<OTA_HotelResRQ>
+        return '<OTA_HotelResRQ>
    <HotelReservations>
       <HotelReservation RoomStayReservation="1">
          <RoomStays>
@@ -534,10 +535,10 @@ class AmadeusRequestXML
       </HotelReservation>
    </HotelReservations>
 </OTA_HotelResRQ>';
-	}
+    }
 
     public function vehicleBookXML($vehicleInformation){
-		return '<?xml version="1.0" encoding="UTF-8"?>
+        return '<?xml version="1.0" encoding="UTF-8"?>
 <OTA_VehResRQ>
    <VehResRQCore Status="Available">
       <VehRentalCore PickUpDateTime="2006-07-05T06:00:00" ReturnDateTime="2006-08-04T06:00:00">
@@ -556,9 +557,9 @@ class AmadeusRequestXML
       </TPA_Extensions>
    </VehResRQCore>
 </OTA_VehResRQ>';
-	}
+    }
 
-	public function hotelDepositXML(){
+    public function hotelDepositXML(){
         return '<DepositPayments>
                    <RequiredPayment>
                    <AcceptedPayments>
@@ -651,7 +652,7 @@ class AmadeusRequestXML
             $guarantee = $this->hotelDepositXML();
         }
 
-       $body = '<wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
+        $body = '<wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
        <OTA_TravelItineraryRQ>
       '.$this->posXML().'
        <OTA_HotelResRQ>
@@ -695,7 +696,7 @@ class AmadeusRequestXML
                  </OTA_TravelItineraryRQ>
         </wmTravelBuild>';
 
-       return $this->requestXML($body);
+        return $this->requestXML($body);
     }
 
     public function hotelTravelBuildRebookRequestElementXML($bookingInformation,$user){
@@ -767,7 +768,7 @@ class AmadeusRequestXML
         foreach($passengerInformation as $key => $information){
             $prefix = explode('_',$key)[0];
             if($prefix != ""){
-            array_push($available,$prefix);
+                array_push($available,$prefix);
             }
         }
         $passengerArray = array_values(array_unique($available));
@@ -792,7 +793,7 @@ class AmadeusRequestXML
                 <Traveler'.$addition.'>
                   <PersonName>
                     <NamePrefix>'.$passengerInformation[$passengerType."_title"][$p].'</NamePrefix>
-                    <GivenName>'.$passengerInformation[$passengerType."_first_name"][$p].' '.$passengerInformation[$passengerType."_other_name"][$p].'</GivenName>
+                    <GivenName>'.$passengerInformation[$passengerType."_given_name"][$p].'</GivenName>
                     <Surname>'.$passengerInformation[$passengerType."_sur_name"][$p].'</Surname>
                   </PersonName>
                   <TravelerRefNumber RPH="'.$passengerRPH.'" />
@@ -803,11 +804,11 @@ class AmadeusRequestXML
             }
         }
 
-       return $travelers;
+        return $travelers;
     }
 
     public function hotelAvailRequestXml($data){
-		$body = '
+        $body = '
 <wmHotelAvail xmlns="http://traveltalk.com/wsHotelAvail">
 <OTA_HotelAvailRQ>
      '.$this->posXML().'
@@ -831,10 +832,10 @@ class AmadeusRequestXML
 </OTA_HotelAvailRQ>
 </wmHotelAvail>';
         return $this->requestXML($body);
-	}
-	
-	public function hotelAvailRoomRequestXML($searchParam,$selectedHotel){
-		$body = '
+    }
+
+    public function hotelAvailRoomRequestXML($searchParam,$selectedHotel){
+        $body = '
 <wmHotelAvail xmlns="http://traveltalk.com/wsHotelAvail">
 <OTA_HotelAvailRQ>
      '.$this->posXML().'
@@ -859,10 +860,10 @@ class AmadeusRequestXML
 </wmHotelAvail>';
 
         return $this->requestXML($body);
-	}
+    }
 
     public function hotelAvailRoomDetailsRequestXML($roomInfo,$hotelInfo,$searchParam){
-		$body = '
+        $body = '
 <wmHotelAvail xmlns="http://traveltalk.com/wsHotelAvail">
 <OTA_HotelAvailRQ>
      '.$this->posXML().'
@@ -889,9 +890,9 @@ class AmadeusRequestXML
 </OTA_HotelAvailRQ>
 </wmHotelAvail>';
         return $this->requestXML($body);
-	}
+    }
 
-	public function cancelPNRRequestXML($pnr){
+    public function cancelPNRRequestXML($pnr){
         $body = '<wmPNRCancel xmlns="http://traveltalk.com/wsPNRCancel">
                     <OTA_CancelRQ>
                       '.$this->posXML().'
@@ -947,6 +948,4 @@ class AmadeusRequestXML
         return $this->advancedRequestXML($body,$header);
 
     }
-
-
 }

@@ -196,3 +196,37 @@
         }
     }
 
+    $('.save_email_subscription').on('click',function(){
+        let email = $('.subscription_email').val();
+        let classes = ['subscription_email'];
+        if(!validateFormWithClasses(classes)){
+            return false;
+        }
+        if(!isEmail(email)){
+            toastr.error('Enter a valid email address');
+            return false;
+        }
+        buttonClassClicked('save_email_subscription','Save',1);
+        axios.post(baseUrl+'/save-subscription-email',{
+            email : email
+        })
+            .then(function(response){
+                if(response.data == 1){
+                    toastr.success('Email added to subscribers list','Thank you');
+                }else if(response.data == 2){
+                    toastr.info('Email already on subscribers list','Opps!!');
+                }else if(response.data == 0){
+                    toastr.error("Unable to add email to subscribers list","Sorry !!!")
+                }else{
+                    toastr.error("Internal server error, unable to add email to subscribers list","Sorry!!!");
+                }
+                $('.subscription_email').val('');
+                buttonClassClicked('save_email_subscription','Save',0);
+            })
+            .catch(function(error){
+                extractError(error);
+                buttonClassClicked('save_email_subscription','Save',0);
+            })
+
+    });
+

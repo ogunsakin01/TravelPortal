@@ -47,8 +47,8 @@
                 <div class="card-content">
                     <div class="card-body">
                        <div class="row">
-                           <div class="col-md-6">
-                                 <img src="{{asset('assets/images/portal_images/interswitch.png')}}" class="img-responsive col-md-12"/>
+                           <div class="col-md-12">
+                                 <img src="{{asset('frontend/assets/images/portal_images/interswitch.png')}}" class="img-responsive col-md-12"/>
                            </div>
                            <div class="col-md-12">
                                <form method="post" action="{{$InterswitchConfig->requestActionUrl}}">
@@ -112,8 +112,8 @@
                                         <td>
                                             @if($walletLog->status == 1)
                                                 <p class="success"> Credit</p>
-                                            @elseif($walletLog == 0)
-                                                <p class="danger"> Credit</p>
+                                            @elseif($walletLog->status == 0)
+                                                <p class="danger"> Debit</p>
                                             @endif
                                         </td>
                                         <td>

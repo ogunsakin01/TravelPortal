@@ -11,7 +11,7 @@
 
 @include('partials.backend.css')
 @yield('css')
-    <!-- END Custom CSS-->
+<!-- END Custom CSS-->
 </head>
 <body class="vertical-layout vertical-content-menu 1-column   menu-expanded blank-page blank-page" data-open="click" data-menu="vertical-content-menu" data-col="1-column">
 <!-- ////////////////////////////////////////////////////////////////////////////-->
@@ -20,7 +20,7 @@
         <div class="content-header row">
         </div>
         <div class="content-body">
-           @yield('content')
+            @yield('content')
         </div>
     </div>
 </div>

@@ -34,7 +34,7 @@ class WalletCredit extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@travelportal.com',config('app.name'))
+        return $this->from('no-reply@travelpro.com.ng',config('app.name'))
             ->subject('Wallet Credit Alert')
             ->markdown('emails.WalletCredit');
     }

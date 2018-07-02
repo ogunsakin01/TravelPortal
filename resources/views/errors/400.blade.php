@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.error')
 
 @section('page-title') 500 @endsection
 
@@ -10,15 +10,8 @@
                 <div class="card-header bg-transparent border-0">
                     <h2 class="error-code text-center mb-2">400</h2>
                     <h3 class="text-uppercase text-center">Bad Request</h3>
+                    <a href="{{url('/')}}" class="btn btn-primary btn-block"><i class="ft-arrow-left"></i> GO BACK</a>
                 </div>
-                <div class="card-content">
-                    <div class="row py-2">
-                        <div class="col-12 col-sm-6 col-md-6">
-                            <a href="{{url('/')}}" class="btn btn-primary btn-block"><i class="ft-home"></i> Back to Home</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>

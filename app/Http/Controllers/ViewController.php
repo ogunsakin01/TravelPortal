@@ -9,9 +9,9 @@ use App\Profile;
 use App\Services\AmadeusConfig;
 use App\Services\AmadeusHelper;
 use App\Markup;
-use App\Markdown;
 use App\Title;
 use App\Vat;
+use App\TravelPackage;
 use function Symfony\Component\VarDumper\Dumper\esc;
 
 class ViewController extends Controller
@@ -27,6 +27,20 @@ class ViewController extends Controller
         $this->AmadeusHelper = new AmadeusHelper();
         $this->AmadeusConfig = new AmadeusConfig();
         $this->HotelController = new HotelController();
+    }
+
+    public function home(){
+
+        $deals = TravelPackage::where('status', 1)
+            ->with('images')
+            ->with('flightDeal')
+            ->with('hotelDeal')
+            ->with('attractionDeal')
+            ->limit(15)
+            ->get();
+
+        return view('pages.frontend.home',compact('deals'));
+
     }
 
     public function availableItineraries(){
@@ -208,6 +222,141 @@ class ViewController extends Controller
 
 
         return view('pages.frontend.hotel.hotel_payment_confirmation',compact('hotelInformation','searchParam','selectedRoom','paymentInfo','bookingInfo'));
+    }
+
+    public function flightDeals(){
+
+        $flights = TravelPackage::where('attraction',0)
+            ->where('hotel', 0)
+            ->where('flight', 1)
+            ->where('status', 1)
+            ->orderBy('id','desc')
+            ->paginate(8);
+
+        return view('pages.frontend.deal.flight',compact('flights'));
+    }
+
+    public function hotelDeals(){
+
+        $hotelDeals = TravelPackage::orderBy('id','desc')
+            ->where('attraction',0)
+            ->where('hotel', 1)
+            ->where('flight', 0)
+            ->where('status', 1)
+            ->with('images')
+            ->with('hotelDeal')
+            ->get();
+        return view('pages.frontend.deal.hotel',compact('hotelDeals'));
+    }
+
+    public function attractionDeals(){
+
+        $attractionDeals = TravelPackage::where('attraction',1)
+            ->where('hotel', 0)
+            ->where('flight', 0)
+            ->where('status', 1)
+            ->orderBy('id','desc')
+            ->with('images')
+            ->with('sightSeeing')
+            ->orderBy('id','desc')
+            ->paginate(8);
+        return view('pages.frontend.deal.attraction',compact('attractionDeals'));
+
+    }
+
+    public function hotDeals(){
+
+        $hotDeals = TravelPackage::where('status', 1)
+            ->with('flightDeal')
+            ->with('hotelDeal')
+            ->with('attractionDeal')
+            ->with('sightSeeing')
+            ->with('images')
+            ->orderBy('id','desc')
+            ->paginate(8);
+        return view('pages.frontend.deal.attraction',compact('hotDeals'));
+    }
+
+
+    public function dealDetails($id){
+
+        $deal = TravelPackage::where('id',$id)
+            ->with('hotelDeal')
+            ->with('flightDeal')
+            ->with('attractionDeal')
+            ->with('sightSeeing')
+            ->with('images')
+            ->first();
+
+        if($deal->status != 1){
+            Toastr::error("The package you are trying to get is not active.");
+            return back();
+        }
+
+        return view('pages.frontend.deal.details',compact('deal'));
+    }
+
+    public function dealBooking($id){
+
+        $deal = TravelPackage::where('id',$id)
+            ->with('hotelDeal')
+            ->with('flightDeal')
+            ->with('attractionDeal')
+            ->with('sightSeeing')
+            ->with('images')
+            ->first();
+
+        $titles = Title::all();
+
+        if($deal->status != 1){
+            Toastr::error("The package you are trying to get is not active.");
+            return back();
+        }
+
+        return view('pages.frontend.deal.bookings',compact('deal','titles'));
+
+    }
+
+    public function dealPaymentOptions(){
+
+        $booking_id = session()->get('deal_booking_id');
+
+        $booking = PackageBooking::find($booking_id);
+
+        $deal = TravelPackage::where('id',$booking->package_id)
+            ->with('hotelDeal')
+            ->with('flightDeal')
+            ->with('attractionDeal')
+            ->with('sightSeeing')
+            ->with('images')
+            ->first();
+
+        $banks = BankDetail::where('status',1)->get();
+
+        $titles = Title::all();
+
+        return view('pages.frontend.deal.payment_options',compact('booking','deal','banks','titles'));
+
+    }
+
+    public function dealBookingConfirmation(){
+
+        $booking_id = session()->get('deal_booking_id');
+
+        $booking = PackageBooking::find($booking_id);
+
+        $deal = TravelPackage::where('id',$booking->package_id)
+            ->with('hotelDeal')
+            ->with('flightDeal')
+            ->with('attractionDeal')
+            ->with('sightSeeing')
+            ->with('images')
+            ->first();
+
+        $paymentInfo = session()->get('paymentInfo');
+
+        return view('pages.frontend.deal.booking_confirmation',compact('booking','deal','paymentInfo'));
+
     }
 
 }

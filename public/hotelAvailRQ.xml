@@ -19,7 +19,7 @@
       </POS>
    <AvailRequestSegments>
       <AvailRequestSegment>
-         <StayDateRange Start="2018-05-27" End="2018-05-31" />
+         <StayDateRange Start="2018-07-10" End="2018-07-13" />
          <RoomStayCandidates>
             <RoomStayCandidate>
                <GuestCounts IsPerRoom="true">

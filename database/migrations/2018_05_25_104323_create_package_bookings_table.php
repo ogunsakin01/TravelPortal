@@ -21,8 +21,15 @@ class CreatePackageBookingsTable extends Migration
             $table->integer('adults');
             $table->integer('children');
             $table->integer('infants');
+            $table->integer('customer_title_id');
+            $table->string('customer_sur_name');
+            $table->string('customer_first_name');
+            $table->string('customer_other_name');
+            $table->string('customer_phone');
+            $table->string('customer_email');
             $table->string('total_amount');
             $table->integer('payment_status');
+            $table->integer('booking_status')->default(0);
             $table->timestamps();
         });
     }

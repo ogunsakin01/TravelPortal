@@ -38,7 +38,7 @@ class FlightReservationComplete extends Mailable
     public function build()
     {
         return $this->subject('Reservation Created')
-            ->from('no-reply@travelportal.com',config('app.name'))
+            ->from('no-reply@travelpro.com.ng',config('app.name'))
             ->markdown('emails.FlightReservationComplete');
     }
 }

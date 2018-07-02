@@ -51,17 +51,6 @@
                                                 </form>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <th>Pay with Paystack</th>
-                                            <td>
-                                                <form method="post" action="{{url('backend/generate-paystack-payment')}}">
-                                                    @csrf
-                                                    <input type="hidden" name="amount" value="{{$booking->total_amount}}"/>
-                                                    <input  type="hidden" name="booking_reference" value="{{$booking->reference}}"/>
-                                                    <input type="hidden" name="email" value="{{$user['email']}}"/>
-                                                    <button class="btn btn-primary btn-sm" type="submit"><i class="la la-money"></i> Pay Now </button>
-                                                </form></td>
-                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -70,7 +59,7 @@
                     </div>
                 @endif
             @endif
-            @if($booking->reservation_status == 0)
+            @if($booking->reservation_status == 0 && $booking->payment_status == 1)
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Incomplete Bookings (Try Again)</h4>
@@ -90,25 +79,36 @@
                                 Note that customer information sent to the hotel will be information of current logged in user.
                                 </p>
                                 <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                        <tr>
-                                            <th>Try Again</th>
-                                            <td>
-                                                <button type="button" class="btn btn-primary retry_booking" value="{{$booking->reference}}"><i class="la la-recycle"></i> Retry Booking</button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    @if(strtotime(date('y-m-d H:i:s')) < strtotime($booking->check_in_date))
+                                        <table class="table">
+                                            <tbody>
+                                            <tr>
+                                                <th>Try Again</th>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary retry_booking" value="{{$booking->reference}}"><i class="la la-recycle"></i> Retry Booking</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        <table class="table">
+                                            <tbody>
+                                            <tr>
+                                                <th class="danger"><i class="fa fa-times"></i> This reservation has expired !!!</th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
                     </div>
-               @if(strtotime(date('y-m-d H:i:s')) < strtotime($booking->check_in_date))
-
-               @else
-
-               @endif
+                @else
+                <div class="alert alert-info">
+                    <strong><i class="la la-info"></i> Important Notice !!!</strong>
+                    <p>This reservation is still available, make payment for the reservation to go ahead with the booking.</p>
+                </div>
             @endif
             <div class="card">
                 <div class="card-header">
@@ -127,7 +127,7 @@
                             <table class="table">
                                 <tbody>
                                 <tr>
-                                    <td>PNR</td>
+                                    <td>PNR(Booking Code)</td>
                                     <th>{{$booking->pnr}}</th>
                                 </tr>
                                 <tr>

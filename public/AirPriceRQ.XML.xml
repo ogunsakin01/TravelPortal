@@ -19,14 +19,14 @@
       </POS> 
 		  <AirItinerary>   
 		  <OriginDestinationOptions>    
-		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-06-26T12:30:00" ArrivalDateTime="2018-06-26T20:25:00" FlightNumber="112" ResBookDesigCode="N">    
-		  <DepartureAirport LocationCode="LHR"/>
-		  <ArrivalAirport LocationCode="JED"/>      
-		  <MarketingAirline Code="SV"/>     
-		  </FlightSegment><FlightSegment DepartureDateTime="2018-06-26T23:10:00" ArrivalDateTime="2018-06-27T03:00:00" FlightNumber="598" ResBookDesigCode="N">    
-		  <DepartureAirport LocationCode="JED"/>
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-07-10T15:35:00" ArrivalDateTime="2018-07-10T21:05:00" FlightNumber="203" ResBookDesigCode="X">    
+		  <DepartureAirport LocationCode="LOS"/>
+		  <ArrivalAirport LocationCode="KGL"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-07-10T23:59:00" ArrivalDateTime="2018-07-11T08:30:00" FlightNumber="304" ResBookDesigCode="X">    
+		  <DepartureAirport LocationCode="KGL"/>
 		  <ArrivalAirport LocationCode="DXB"/>      
-		  <MarketingAirline Code="SV"/>     
+		  <MarketingAirline Code="WB"/>     
 		  </FlightSegment></OriginDestinationOption>  
 		  </OriginDestinationOptions>  
 		  </AirItinerary>  

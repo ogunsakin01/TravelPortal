@@ -18,7 +18,7 @@ class RolesTableSeeder extends Seeder
                 'name'         => 'admin',
                 'display_name' => 'Portal Admin',
                 'description'  => 'General control of the entire system'
-            ],
+        ],
             [
                 'name'         => 'agent',
                 'display_name' => 'Portal Agent',
@@ -29,6 +29,16 @@ class RolesTableSeeder extends Seeder
                 'display_name' => 'Portal Customer',
                 'description'  => 'A registered visitor, customer'
             ],
+            [
+                'name'         => 'branch',
+                'display_name' => 'Portal Branch',
+                'description'  => 'A branch of the portal company'
+            ],
+            [
+                'name'         => 'cooperate',
+                'display_name' => 'Cooperate Customer',
+                'description'  => 'A cooperate customer of the portal'
+            ]
         ];
 
         foreach($roles as $serial => $role){

@@ -1,6 +1,6 @@
 @component('mail::message')
 <div align="center">
-        <img src="{{asset('assets/images/portal_images/email-logo.png')}}" align="center">
+        <img src="{{asset('frontend/assets/images/portal_images/email-logo.png')}}" align="center">
 </div>
 # <b style="color: red;">Payment Failed</b>
 

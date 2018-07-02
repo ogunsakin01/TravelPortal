@@ -7,10 +7,10 @@
                         <label>SUBSCRIBE TO OUR NEWSLETTER</label>
                         <div class="clearfix"></div>
                         <div class="col-md-9 col-sm-8 col-xs-6 clear-padding">
-                            <input class="form-control" type="email" required placeholder="Enter Your Email" name="email">
+                            <input class="form-control subscription_email" type="email" required placeholder="Enter Your Email" name="email">
                         </div>
                         <div class="col-md-3 col-sm-4 col-xs-6 clear-padding">
-                            <button type="submit"><i class="fa fa-paper-plane"></i>SUBSCRIBE</button>
+                            <button type="button"><i class="fa fa-paper-plane save_email_subscription"></i>SUBSCRIBE</button>
                         </div>
                     </form>
                 </div>

@@ -12,7 +12,7 @@
             </div>
             <div class="search-title" align="center">
                 <span><i class="fa fa-smile-o "></i> Great Choice !!!</span>
-                <p>Hold on for some seconds while we get more information on your choice ... </p>
+                <h6>Hold on for some seconds while we get more information on your choice ... </h6>
             </div>
             <div class=" confirmation-detail">
                 <h3>Booking Details</h3>

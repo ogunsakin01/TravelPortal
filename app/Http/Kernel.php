@@ -74,5 +74,6 @@ class Kernel extends HttpKernel
         'hotel.room.information' => \App\Http\Middleware\CheckSelectedHotelRoomInformation::class,
         'flight.selected' => \App\Http\Middleware\CheckSelectedItinerary::class,
         'hotel.room.selected' => \App\Http\Middleware\CheckSelectedRoom::class,
+        'deals.booking.id' => \App\Http\Middleware\checkDealBookingId::class,
     ];
 }

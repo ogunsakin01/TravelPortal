@@ -11,11 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('pages.frontend.home');
-});
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'ViewController@home');
+Route::get('/home', 'ViewController@home')->name('home');
 Route::get('/logout','Auth\LoginController@logout');
 Route::post('/custom-sign-in','UserController@signIn');
 Route::post('/custom-sign-up','UserController@signUp');
@@ -31,6 +28,8 @@ Route::get('/get-flight-information-and-pricing/{id}','FlightController@getItine
 Route::post('/book-itinerary','FlightController@bookItinerary');
 Route::post('/bank-payment','BankPaymentController@itineraryBankPayment');
 Route::post('/hotel-bank-payment','BankPaymentController@hotelBankPayment');
+Route::post('/flight-wallet-payment','WalletController@itineraryWalletPayment');
+Route::post('/hotel-wallet-payment','WalletController@hotelWalletPayment');
 
 Route::get('/itinerary-booking','ViewController@itineraryBooking')->middleware('flight.search.param','flight.selected','flight.pricing.info');
 Route::get('/available-itineraries','ViewController@availableItineraries')->middleware('flight');
@@ -64,7 +63,7 @@ Route::get('/hotel-information','ViewController@hotelInformation')->middleware('
 Route::get('/get-selected-hotel-room-information/{id}','HotelController@getSelectedHotelRoomInformation');
 Route::get('/selected-hotel-information','HotelController@selectedHotel');
 Route::get('/hotel-room-information/{id}','HotelController@hotelRoomInformation');
-Route::get('/hotel-room-booking/{id}','ViewController@hotelRoomBooking')->middleware('hotel.search.param','hotel.room.information');
+Route::get('/hotel-room-booking/{id}','ViewController@hotelRoomBooking')->middleware('hotel.search.param');
 Route::post('/hold-customer-hotel-booking-information','HotelController@holdCustomerHotelBookingInfo');
 Route::get('/get-logged-in-user',function(){
     return App\User::findOrFail(auth()->user()->id)
@@ -72,14 +71,17 @@ Route::get('/get-logged-in-user',function(){
         ->join('role_user','role_user.user_id','=','users.id')
         ->first();
 });
-Route::get('/hotel-booking-payment-page','ViewController@hotelBookingPaymentPage')->middleware('hotel.search.param','hotel.room.selected','hotel.room.information');
+Route::get('/hotel-booking-payment-page','ViewController@hotelBookingPaymentPage')->middleware('hotel.search.param','hotel.room.selected');
 Route::get('/hotel-booking-confirmation','HotelController@hotelPaymentConfirmation');
 Route::get('/hotel-booking-completion','ViewCOntroller@hotelBookingCompletion')->middleware('hotel.search.param','hotel.room.selected','payment.info');
 
 
 Route::middleware(['auth'])->group(function(){
 
+    Route::post('/search-portal','BackEndViewController@searchPortal');
+
     Route::get('backend/payment-confirmation','BackEndViewController@paymentConfirmation');
+
     Route::post('/backend/generate-interswitch-wallet-payment','OnlinePaymentController@generateInterswitchWalletPayment');
 
     Route::get('/dashboard','BackEndViewController@dashboard')->name('dashboard');
@@ -123,22 +125,24 @@ Route::middleware(['auth'])->group(function(){
 
         Route::group(['prefix' => 'wallets'],function(){
 
-            Route::get('/','BackEndViewController@walletsManagement');
+            Route::get('','BackEndViewController@walletsManagement');
             Route::post('/update-wallet','WalletController@updateWallet');
-            Route::get('/user-wallet','BackEndViewCOntroller@userWallet');
+            Route::get('/user-wallet','BackEndViewController@userWallet');
         });
 
         Route::get('subscribers','BackEndViewController@emailSubscriptions');
+
+        Route::get('visa-application-requests','BackEndViewController@visaApplicationRequests');
 
     });
 
     Route::group(['prefix' => 'bookings'],function(){
 
         Route::group(['prefix' => 'flight'],function(){
-           Route::get('user','BackEndViewController@userFlightBookings');
-           Route::get('agent','BackEndViewController@agentFlightBookings');
-           Route::get('customer','BackEndViewController@customerFlightBookings');
-           Route::get('itinerary-booking-information/{reference}','BackEndViewController@itineraryBookingInformation');
+            Route::get('user','BackEndViewController@userFlightBookings');
+            Route::get('agent','BackEndViewController@agentFlightBookings');
+            Route::get('customer','BackEndViewController@customerFlightBookings');
+            Route::get('itinerary-booking-information/{reference}','BackEndViewController@itineraryBookingInformation');
         });
 
         Route::group(['prefix' => 'hotel'],function(){
@@ -149,6 +153,12 @@ Route::middleware(['auth'])->group(function(){
             Route::get('rebook-hotel-room/{reference}','HotelController@reBookHotelRoom');
         });
 
+        Route::group(['prefix' => 'package'],function(){
+            Route::get('user','BackEndViewController@userPackageBookings');
+            Route::get('agent','BackEndViewController@agentPackageBookings');
+            Route::get('customer','BackEndViewController@customerPackageBookings');
+            Route::get('package-reservation-information/{reference}','BackEndViewController@packageBookingInformation');
+        });
     });
 
     Route::group(['prefix' => 'transactions'],function(){
@@ -171,6 +181,7 @@ Route::middleware(['auth'])->group(function(){
         Route::post('createFlightDeal','TravelPackageController@createFlightDeal');
         Route::post('createHotelDeal','TravelPackageController@createHotelDeal');
         Route::post('createAttraction','TravelPackageController@createAttraction');
+        Route::get('delete-sight-seeing/{id}','TravelPackageController@deleteSightSeeing');
         Route::get('activate/{id}', 'TravelPackageController@activate')->name('activate');
         Route::get('deactivate/{id}', 'TravelPackageController@deactivate')->name('deactivate');
         Route::get('delete/{id}', 'TravelPackageController@deletePackage');
@@ -183,6 +194,23 @@ Route::middleware(['auth'])->group(function(){
         Route::post('storeGalleryInfo','TravelPackageController@storeGalleryImages');
 
     });
+
+});
+
+Route::group(['prefix' => '/deals'],function(){
+
+    Route::get('','ViewController@hotDeals');
+    Route::get('flight','ViewController@flightDeals');
+    Route::get('hotel','ViewController@hotelDeals');
+    Route::get('attraction','ViewController@attractionDeals');
+    Route::get('details/{id}','ViewController@dealDetails');
+    Route::get('booking/{id}','ViewController@dealBooking');
+    Route::post('booking','TravelPackageController@bookDeal');
+    Route::get('payment-options','ViewController@dealPaymentOptions')->middleware('deals.booking.id');
+    Route::get('booking-confirmation','ViewController@dealBookingConfirmation')->middleware('payment.info','deals.booking.id');
+    Route::post('calculateBookingAmount','TravelPackageController@calculateBookingAmount');
+    Route::post('wallet-payment','WalletController@dealWalletPayment');
+    Route::post('bank-payment','BankPaymentController@dealBankPayment');
 
 });
 

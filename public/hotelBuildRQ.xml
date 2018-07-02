@@ -22,13 +22,13 @@
             <RoomStays>
               <RoomStay>
                   <RoomRates>
-                    <RoomRate BookingCode="HWKNCFK" NumberOfUnits="1" RatePlanCode="">
+                    <RoomRate BookingCode="B1DUK5B" NumberOfUnits="1" RatePlanCode="">
                      </RoomRate>
                     </RoomRates>
                    <GuestCounts>
-                    <GuestCount AgeQualifyingCode="ADT" Age="0" Count="1"></GuestCount><GuestCount AgeQualifyingCode="ADT" Age="0" Count="2"></GuestCount>
+                    <GuestCount AgeQualifyingCode="ADT" Age="0" Count="1"></GuestCount><GuestCount AgeQualifyingCode="ADT" Age="0" Count="1"></GuestCount>
                     </GuestCounts>
-                    <TimeSpan Start="2018-05-28" Duration="1527620721" End="2018-05-30">
+                    <TimeSpan Start="2018-07-10" Duration="1531422278" End="2018-07-13">
                     </TimeSpan>
                     <DepositPayments>
                    <RequiredPayment>
@@ -48,7 +48,7 @@
                    </AcceptedPayments>
                    </RequiredPayment>
                    </DepositPayments>                 
-                 <BasicPropertyInfo ChainCode="HS" HotelCode="ACJ" HotelCityCode="DXB" HotelCodeContext="">
+                 <BasicPropertyInfo ChainCode="BW" HotelCode="913" HotelCityCode="LHR" HotelCodeContext="1A">
                    </BasicPropertyInfo>
                   </RoomStay>
                  </RoomStays>

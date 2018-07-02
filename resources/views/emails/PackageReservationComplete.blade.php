@@ -1,26 +1,24 @@
 @component('mail::message')
 <div align="center">
-        <img src="{{asset('assets/images/portal_images/email-logo.png')}}" align="center">
+        <img src="{{asset('frontend/assets/images/portal_images/email-logo.png')}}" align="center">
 </div>
-# Hi {{$user['first_name']}}
+# Hi {{$user->profile->first_name}},
+Your reservation was successful, kindly find your reservation information below
 
-Your booking was successful. Find below the details of the hotel and room you just booked, if the check in and check out time is not attached to their dates, please call the hotel contact number attached to this email or call the portal customer care number.
-
-
-<b>Booking Ref</b>      :  {{ $bookingInfo['reference']}}<br/>
-<b>Reservation Code</b> :  {{ $bookingInfo['pnr']}}<br/>
-<b>Hotel Name</b>       :  {{$hotelInfo['hotelName']}}<br/>
-<b>Room Info</b>        :  {{$roomInfo['roomDescription']}}<br/>
-<b>Check In</b>         :  {{date('d, D M. Y',strtotime($hotelInfo['startDate']))}}<br/>
-<b>Check Out</b>        :  {{date('d, D M. Y',strtotime($hotelInfo['endDate']))}}<br/>
-<b>Phone No</b>         :  {{$hotelInfo['hotelContactNumber']}}<br/>
-<b>Address</b>          :  {{$hotelInfo['hotelAddress']}}
+<b>Deal Name</b>                      :  {{ $deal->name}}<br/>
+<b>Flight</b>                         :  @if($deal->flight == 1) Available @else Not Available @endif <br/>
+<b>Hotel</b>                          :  @if($deal->hotel == 1) Available @else Not Available @endif<br/>
+<b>Attraction</b>                     :  @if($deal->attraction == 1) Available @else Not Available @endif<br/>
+<b>Adult({{$booking->adults}})</b>    :  &#x20a6;{{number_format(($booking->adults * $deal->adult_price),2)}}<br/>
+<b>Child({{$booking->children}})</b>  :  &#x20a6;{{number_format(($booking->children * $deal->child_price),2)}}<br/>
+<b>Infant({{$booking->infants}})</b>  :  &#x20a6;{{number_format(($booking->infants * $deal->infant_price),2)}}<br/>
+<b>Total Booking Amount</b>           :  &#x20a6;{{number_format(($booking->total_amount/100),2)}}
 
 
-Find below the hotel reservation code
+Find below the booking reference
 @component('mail::panel')
 <div align="center">
-  {{ $bookingInfo['pnr']}}
+  {{ $booking->reference}}
 </div>
 @endcomponent
 

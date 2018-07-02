@@ -1,6 +1,6 @@
 @component('mail::message')
 <div align="center">
-    <img src="{{asset('assets/images/portal_images/email-logo.png')}}" align="center">
+    <img src="{{asset('frontend/assets/images/portal_images/email-logo.png')}}" align="center">
 </div>
 # Hi {{$user['first_name']}}
 
@@ -25,8 +25,8 @@ Find below the hotel reservation code
 @endcomponent
 
 Follow the button below to your dashboard to manage your bookings
-@component('mail::button', ['url' => url('/dashboard')])
-    Dashboard
+@component('mail::button', ['url' => url('/bookings/hotel/hotel-reservation-information/'.$bookingInfo['reference'])])
+    View Reservation
 @endcomponent
 
 Sincerely,<br>

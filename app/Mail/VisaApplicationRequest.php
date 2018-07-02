@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class PasswordChange extends Mailable
+class VisaApplicationRequest extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,12 @@ class PasswordChange extends Mailable
      *
      * @return void
      */
-    public function __construct()
+
+    public $details;
+
+    public function __construct($details)
     {
-        //
+        $this->details = $details;
     }
 
     /**
@@ -28,6 +31,8 @@ class PasswordChange extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.PasswordChange');
+        return $this->from('no-reply@travelpro.com.ng',config('app.name'))
+            ->subject('New Visa Application Request')
+            ->markdown('emails.VisaApplicationRequest');
     }
 }

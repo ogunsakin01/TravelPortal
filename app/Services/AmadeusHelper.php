@@ -1643,7 +1643,7 @@ class AmadeusHelper
                 ];
             }elseif(empty($cancelResponse)){
                 return 21;
-            }elseif($cancelResponse['OTA_CancelRS']['Success']){
+            }elseif(isset($cancelResponse['OTA_CancelRS']['Success'])){
                 return 1;
             }else{
                 return 2;

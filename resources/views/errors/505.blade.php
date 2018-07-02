@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.error')
 
 @section('page-title') 505 @endsection
 
@@ -12,7 +12,7 @@
                 <div class="text-center desc">
                     <h1>Troubleshooting Error</h1>
                     <p>Looks like something is wrong.</p>
-                    <a href="#"><i class="fa fa-home"></i>Homepage</a>
+                    <a href="{{url('/')}}" class="btn btn-primary btn-block"><i class="ft-arrow-left"></i> GO BACK</a>
                 </div>
             </div>
         </div>

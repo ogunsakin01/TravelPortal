@@ -103,4 +103,25 @@ class TravelPackage extends Model
 
         return static::orderBy('id','desc')->get();
     }
+
+    public function images(){
+        return $this->hasMany(Gallery::class,'package_id','id');
+    }
+
+    public function flightDeal(){
+        return $this->hasOne(FlightDeal::class,'package_id','id');
+    }
+
+    public function hotelDeal(){
+        return $this->hasOne(HotelDeal::class,'package_id','id');
+    }
+
+    public function attractionDeal(){
+        return $this->hasOne(Attraction::class,'package_id','id');
+    }
+
+    public function sightSeeing(){
+        return $this->hasMany(SightSeeing::class,'package_id','id');
+    }
+
 }

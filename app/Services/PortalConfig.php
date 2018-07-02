@@ -38,4 +38,6 @@ class PortalConfig
 
   public static $adminCustomerCareNumber2    = '';
 
+    public static $adminVisaApplicationEmail = 'visas@dynaxtravel.com';
+
 }

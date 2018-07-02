@@ -188,3 +188,25 @@ $('form').submit(function() {
 });
 
 
+$('#backend_search').on('submit',function(){
+    let key = $('.backend_search_key').val();
+    axios.post(baseUrl+'/search-portal',{
+        key : key
+    })
+        .then(function(response){
+            if(response.data.status == 1){
+                toastr.success("Redirecting to search result page","Search Completed !!!");
+                window.location.href = response.data.redirect;
+            }else if(response.data.status == 0){
+                toastr.info("No result found for the pnr or reference you entered","Try again");
+            }else{
+                toastr.error("The server returned an empty response","Empty Response");
+            }
+        })
+        .catch(function(error){
+            extractError(error);
+        });
+    e.preventDefault();
+});
+
+

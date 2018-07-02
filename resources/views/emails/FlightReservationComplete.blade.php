@@ -1,6 +1,6 @@
 @component('mail::message')
 <div align="center">
-        <img src="{{asset('assets/images/portal_images/email-logo.png')}}" align="center">
+        <img src="{{asset('frontend/assets/images/portal_images/email-logo.png')}}" align="center">
 </div>
 # Hi {{$profile['first_name']}}
 
@@ -13,8 +13,8 @@ Amount Paid           :   <b>&#x20a6;{{number_format(($response['amount']/100),2
 
 Follow the link below to manage your bookings and payments ...
 
-@component('mail::button', ['url' => '/dashboard'])
-    Dashboard
+@component('mail::button', ['url' => url('/bookings/flight/itinerary-booking-information/'.$booking->reference)])
+    View Reservation
 @endcomponent
 
 Sincerely,<br>

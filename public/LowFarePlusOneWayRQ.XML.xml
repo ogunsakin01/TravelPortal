@@ -19,8 +19,8 @@
       </POS>
                 
                 <OriginDestinationInformation>
-                  <DepartureDateTime>2018-06-26T00:00:00</DepartureDateTime>   
-                  <OriginLocation LocationCode="LHR"/>   
+                  <DepartureDateTime>2018-07-10T00:00:00</DepartureDateTime>   
+                  <OriginLocation LocationCode="LOS"/>   
                   <DestinationLocation LocationCode="DXB"/>  
                 </OriginDestinationInformation> 
             

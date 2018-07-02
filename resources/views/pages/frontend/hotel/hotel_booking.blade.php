@@ -269,24 +269,20 @@
                             <div class="sidebar-body">
                                 <table class="table">
                                     <tr>
-                                        <td>Adult 1</td>
-                                        <td>$199</td>
+                                        <td>SERVICE FEES</td>
+                                        <td>&#x20A6;{{number_format(($selectedRoom['customerMarkUp']/100),2)}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Base Ammount</td>
-                                        <td>$100</td>
+                                        <td>TAXES</td>
+                                        <td>&#x20A6;{{number_format(($selectedRoom['vat']/100),2)}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Service Tax</td>
-                                        <td>$50</td>
+                                        <td>DISCOUNT</td>
+                                        <td>&#x20A6; {{number_format(($selectedRoom['customerMarkDown']/100),2)}} </td>
                                     </tr>
                                     <tr>
-                                        <td>Other Taxes</td>
-                                        <td>$20</td>
-                                    </tr>
-                                    <tr>
-                                        <td>You Pay</td>
-                                        <td class="total">$500</td>
+                                        <td>TOTAL PRICE</td>
+                                        <td class="total">&#x20A6;{{number_format(($selectedRoom['customerTotalAmount']/100),2)}}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -295,7 +291,8 @@
                             <h4><i class="fa fa-phone"></i>Need Help?</h4>
                             <div class="sidebar-body text-center">
                                 <p>Need Help? Call us or drop a message. Our agents will be in touch shortly.</p>
-                                <h2>+91 1234567890</h2>
+                                <h3><a href="tel:{{\App\Services\PortalConfig::$adminBookingsNumber}}">{{\App\Services\PortalConfig::$adminBookingsNumber}}</a></h3>
+                                <h3><a href="mailto:{{\App\Services\PortalConfig::$adminBookingsEmail}}">{{\App\Services\PortalConfig::$adminBookingsEmail}}</a></h3>
                             </div>
                         </div>
                     </div>

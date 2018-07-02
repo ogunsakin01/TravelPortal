@@ -83,18 +83,20 @@
                             <td>{{$hotelInformation['hotelAddress']}}</td>
                         </tr>
                     </table>
-                    <p>For successful booking, an email containing this information has been sent to your email.<br/> To go to your dashboard, <a href="{{url('/dashboard')}}">click here</a></p>
+                    <p>Follow the link below to manage your booking.</p>
+                    <p><a href="{{url('/bookings/hotel/hotel-reservation-information/'.$bookingInfo['reference'])}}">{{url('/bookings/hotel/hotel-reservation-information/'.$bookingInfo['reference'])}}</a></p>
                 </div>
             </div>
+
             <div class="col-md-4 col-sm-4 booking-sidebar">
                 <div class="sidebar-item contact-box">
                     <h4><i class="fa fa-phone"></i>Need Help?</h4>
                     <div class="sidebar-body text-center">
                         <p>Need Help? Call us or drop a message. Our agents will be in touch shortly.</p>
-                        <h2>+91 1234567890</h2>
+                        <h3><a href="tel:{{\App\Services\PortalConfig::$adminBookingsNumber}}">{{\App\Services\PortalConfig::$adminBookingsNumber}}</a></h3>
+                        <h3><a href="mailto:{{\App\Services\PortalConfig::$adminBookingsEmail}}">{{\App\Services\PortalConfig::$adminBookingsEmail}}</a></h3>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

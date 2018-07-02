@@ -37,6 +37,10 @@ class Airline extends Model
     }
 
     public static function getAirlineName($code){
-        return static::where('code',$code)->first()->name;
+        $airline = static::where('code',$code)->first();
+        if(is_null($airline) || empty($airline)){
+            return "";
+        }
+        return $airline->name;
     }
 }

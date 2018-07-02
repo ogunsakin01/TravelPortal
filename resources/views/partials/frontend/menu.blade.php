@@ -24,25 +24,19 @@
                             <li class="dropdown @yield('activeHome')">
                                 <a class="dropdown-toggle" href="{{ url('/') }}"> HOME </a>
                             </li>
-                            <li class="dropdown @yield('activeFlights')">
-                                <a class="dropdown-toggle" href="#"> FLIGHTS </a>
-                            </li>
-                            <li class="dropdown @yield('activeHotels')">
-                                <a class="dropdown-toggle" href="#"> HOTELS </a>
-                            </li>
-                            <li class="dropdown @yield('activePackages')">
-                                <a class="dropdown-toggle" href="#"> PACKAGES </a>
-                            </li>
-                            <li class="dropdown @yield('activeAboutUs')">
-                                <a class="dropdown-toggle" href="#"> ABOUT US </a>
-                            </li>
-                            <li class="dropdown @yield('activeContactUs')">
-                                <a class="dropdown-toggle" href="#"> CONTACT US </a>
-                            </li>
+                            <li class="dropdown @yield('activeFlight')"><a class="dropdown-toggle" href="{{url('/deals/flight')}}">Flights</a></li>
+                            <li class="dropdown @yield('activeHotel')"><a class="dropdown-toggle" href="{{url('/deals/hotel')}}">Hotels</a></li>
+                            <li class="dropdown @yield('activeDeals')"><a class="dropdown-toggle" href="{{url('/deals')}}">Hot Deals</a></li>
+                            <li class="dropdown @yield('activeVisaApplication')"><a class="dropdown-toggle" href="{{url('/visa-application')}}">Visa</a></li>
+                            <li class="dropdown @yield('activeAboutUs')"><a class="dropdown-toggle" href="{{url('/about-us')}}">About Us</a></li>
                             @if(auth()->guest())
                             <li class="dropdown @yield('activeLogin')">
                                 <a class="dropdown-toggle" href="{{url('/login')}}"> LOGIN </a>
                             </li>
+                                @else
+                                <li>
+                                    <a href="{{url('/dashboard')}}"> <i class="fa fa-user"></i> My Bookings </a>
+                                </li>
                             @endif
                         </ul>
                     </div>

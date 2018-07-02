@@ -59,7 +59,8 @@
                                 <td>{{$booking->ticket_time_limit}}</td>
                             </tr>
                         </table>
-                        <p>You can check your bookings history for further details. Manage your bookings from your dashboard.</p>
+                        <p>Follow the link below to manage your booking.</p>
+                        <p><a href="{{url('/bookings/flight/itinerary-booking-information/'.$booking->reference)}}">{{url('/bookings/flight/itinerary-booking-information/'.$booking->reference)}}</a></p>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-4 booking-sidebar">
@@ -67,32 +68,10 @@
                         <h4><i class="fa fa-phone"></i>Need Help?</h4>
                         <div class="sidebar-body text-center">
                             <p>Need Help? Call us or drop a message. Our agents will be in touch shortly.</p>
-                            <h2>+91 1234567890</h2>
+                            <h3><a href="tel:{{\App\Services\PortalConfig::$adminBookingsNumber}}">{{\App\Services\PortalConfig::$adminBookingsNumber}}</a></h3>
+                            <h3><a href="mailto:{{\App\Services\PortalConfig::$adminBookingsEmail}}">{{\App\Services\PortalConfig::$adminBookingsEmail}}</a></h3>
                         </div>
                     </div>
-                    {{--<div class="sidebar-item rec-box">--}}
-                        {{--<h4><i class="fa fa-bullhorn"></i>Suggestions For You</h4>--}}
-                        {{--<div class="sidebar-body">--}}
-                            {{--<table class="table">--}}
-                                {{--<tr>--}}
-                                    {{--<td><i class="fa fa-suitcase"></i> Holidays</td>--}}
-                                    {{--<td><a href="#">172 holidays. Starting from $142</a></td>--}}
-                                {{--</tr>--}}
-                                {{--<tr>--}}
-                                    {{--<td><i class="fa fa-bed"></i> Hotel</td>--}}
-                                    {{--<td><a href="#">150 deals. Starting from $199</a></td>--}}
-                                {{--</tr>--}}
-                                {{--<tr>--}}
-                                    {{--<td><i class="fa fa-bed"></i> Hotels</td>--}}
-                                    {{--<td><a href="#">172 hotels. Starting from $142</a></td>--}}
-                                {{--</tr>--}}
-                                {{--<tr>--}}
-                                    {{--<td><i class="fa fa-suitcase"></i> Holidays</td>--}}
-                                    {{--<td><a href="#">150 deals. Starting from $199</a></td>--}}
-                                {{--</tr>--}}
-                            {{--</table>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                 </div>
             </div>
         </div>

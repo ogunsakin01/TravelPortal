@@ -28,14 +28,10 @@
                 <div class="col-md-8 clear-padding">
                     <div id="slider" class="flexslider">
                         <ul class="slides">
-                            @if(!is_array($hotelInformation['hotelImages']))
+                            @if(is_array($hotelInformation['hotelImages']))
                                 @foreach($hotelInformation['hotelImages'] as $i => $images)
                                     <li>
-                                        @if(file_exists($images['url']))
                                             <img src="{{$images['url']}}" alt="{{$images['title']}}">
-                                        @else
-                                            <img src="{{\App\Services\AmadeusConfig::cityImage($hotelInformation['hotelCityCode'])}}" alt="{{$images['title']}}">
-                                        @endif
                                     </li>
                                 @endforeach
                             @else
@@ -48,14 +44,10 @@
                     </div>
                     <div id="carousel" class="flexslider">
                         <ul class="slides">
-                            @if(!is_array($hotelInformation['hotelImages']))
+                            @if(is_array($hotelInformation['hotelImages']))
                                 @foreach($hotelInformation['hotelImages'] as $i => $images)
                                     <li>
-                                        @if(file_exists($images['url']))
-                                            <img src="{{$images['url']}}" alt="{{$images['title']}}">
-                                        @else
-                                            <img src="{{\App\Services\AmadeusConfig::cityImage($hotelInformation['hotelCityCode'])}}" alt="{{$images['title']}}">
-                                        @endif
+                                         <img src="{{$images['url']}}" alt="{{$images['title']}}">
                                     </li>
                                 @endforeach
                             @else
@@ -129,14 +121,9 @@
                             @foreach($hotelInformation['availableRooms'] as $ro => $room)
                             <div class="room-info-wrapper">
                                 <div class="col-md-4 col-sm-6 clear-padding">
-{{--                                    {{dd($hotelInformation['hotelImages'])}}--}}
-                                    @if(!is_array($hotelInformation['hotelImages']))
-                                    @if(file_exists($hotelInformation['hotelImages'][rand(0,(count($hotelInformation['hotelImages']) -1))]['url']))
+                                    @if(is_array($hotelInformation['hotelImages']))
                                         <img src="{{$hotelInformation['hotelImages'][rand(0,(count($hotelInformation['hotelImages']) -1))]['url']}}" alt="{{$images['title']}}">
                                     @else
-                                        <img src="{{\App\Services\AmadeusConfig::cityImage($hotelInformation['hotelCityCode'])}}" alt="{{$hotelInformation['hotelName']}}">
-                                    @endif
-                                        @else
                                         <img src="{{\App\Services\AmadeusConfig::cityImage($hotelInformation['hotelCityCode'])}}" alt="{{$hotelInformation['hotelName']}}">
                                     @endif
                                 </div>
@@ -159,7 +146,6 @@
                                         <h3>&#x20A6;{{number_format(round($room['roomPrice']/100))}}</h3>
                                     </div>
                                     <div class="book">
-                                        {{--<button class="btn btn_travel_portal select_room" value="{{$ro}}"> SELECT</button>--}}
                                         <a href="{{url('/hotel-room-booking/'.$ro)}}"> SELECT </a>
                                     </div>
                                 </div>

@@ -500,7 +500,6 @@
 
     @if($package->attraction == 1)
         @if(is_null($attraction) || empty($attraction))
-            <input type="hidden" value="{{$attraction->id}}" class="attraction_id"/>
             <div class="row attraction_deals hidden">
                 <div class="col-md-12">
                     <div class="card">
@@ -662,17 +661,21 @@
                                             <button type="button" class="btn btn-alt-primary add_more_sight_seeing float-lg-right">Add More Sight Seeing <i class="fa fa-plus"></i></button>
                                         </div>
                                         <div class="card-body">
-                                            <div class="row sight_seeing_container">
+                                            <div class="sight_seeing_container">
                                                 @foreach(\App\SightSeeing::getSightseeingByPackageId($package->id) as $s => $sight_seeing)
-                                                    <div class="col-md-4">
-                                                        <label>Sight Seeing Title</label>
-                                                        <input class="form-control attraction_sight_seeing_title" value="{{$sight_seeing->title}}" type="text" placeholder="e.g Eiffel Tower Visit"/>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <label>Sight Seeing Description *</label>
-                                                        <textarea class="form-control attraction_sight_seeing_description" rows="5" placeholder="A brief or detailed explanation of what the sight seeing is about">
-                                                {{$sight_seeing->description}}
-                                            </textarea>
+                                                    <input type="hidden" class="attraction_sight_seeing_id" value="{{$sight_seeing->id}}">
+                                                    <div class="row sight_seeing_{{$sight_seeing->id}}">
+                                                        <div class="col-md-3">
+                                                            <label>Sight Seeing Title</label>
+                                                            <input class="form-control attraction_sight_seeing_title" value="{{$sight_seeing->title}}" type="text" placeholder="e.g Eiffel Tower Visit"/>
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <label>Sight Seeing Description *</label>
+                                                            <textarea class="form-control attraction_sight_seeing_description" rows="5" placeholder="A brief or detailed explanation of what the sight seeing is about"> {{$sight_seeing->description}} </textarea>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button class="btn btn-danger delete_sight_seeing" value="{{$sight_seeing->id}}"><i class="la la-trash"></i></button>
+                                                        </div>
                                                     </div>
                                                 @endforeach
                                             </div>
@@ -744,4 +747,4 @@
 @endsection
 @section('javascript')
     <script src="{{asset('backend/js/pages/travel-packages.js')}}" type="text/javascript"></script>
-    @endsection
+@endsection

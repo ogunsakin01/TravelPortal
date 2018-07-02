@@ -39,4 +39,8 @@ class Attraction extends Model
         return static::where('package_id', $id)->first();
 
     }
+
+    public function sightSeeings(){
+        return $this->hasMany(SightSeeing::class,'attraction_id','id');
+    }
 }

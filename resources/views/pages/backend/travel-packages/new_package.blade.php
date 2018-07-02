@@ -344,14 +344,17 @@
                                   <button type="button" class="btn btn-alt-primary add_more_sight_seeing float-lg-right">Add More Sight Seeing <i class="fa fa-plus"></i></button>
                               </div>
                               <div class="card-body">
-                                  <div class="row sight_seeing_container">
-                                      <div class="col-md-4">
-                                          <label>Sight Seeing Title</label>
-                                          <input class="form-control attraction_sight_seeing_title" type="text" placeholder="e.g Eiffel Tower Visit"/>
-                                      </div>
-                                      <div class="col-md-8">
-                                          <label>Sight Seeing Description *</label>
-                                          <textarea class="form-control attraction_sight_seeing_description" rows="5" placeholder="A brief or detailed explanation of what the sight seeing is about"></textarea>
+                                  <div class="sight_seeing_container">
+                                      <div class="row">
+                                          <input type="hidden" class="attraction_sight_seeing_id" value="">
+                                          <div class="col-md-3">
+                                              <label>Sight Seeing Title</label>
+                                              <input class="form-control attraction_sight_seeing_title" type="text" placeholder="e.g Eiffel Tower Visit"/>
+                                          </div>
+                                          <div class="col-md-7">
+                                              <label>Sight Seeing Description *</label>
+                                              <textarea class="form-control attraction_sight_seeing_description" rows="5" placeholder="A brief or detailed explanation of what the sight seeing is about"></textarea>
+                                          </div>
                                       </div>
                                   </div>
                               </div>

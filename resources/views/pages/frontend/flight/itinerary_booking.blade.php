@@ -325,16 +325,10 @@
                                                        <input type="text" name="adult_sur_name[]" required class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 ol-sm-4">
+                                                <div class="col-md-8 ol-sm-8">
                                                     <div class="form-group">
-                                                        <label>First name</label>
-                                                        <input type="text" name="adult_first_name[]" required class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 ol-sm-4">
-                                                    <div class="form-group">
-                                                        <label>Other name</label>
-                                                        <input type="text" name="adult_other_name[]" required class="form-control">
+                                                        <label>Given name</label>
+                                                        <input type="text" name="adult_given_name[]" required class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -367,16 +361,10 @@
                                                         <input type="text" name="child_sur_name[]" required class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 ol-sm-4">
+                                                <div class="col-md-8 ol-sm-8">
                                                     <div class="form-group">
-                                                        <label>First name</label>
-                                                        <input type="text" name="child_first_name[]" required class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 ol-sm-4">
-                                                    <div class="form-group">
-                                                        <label>Other name</label>
-                                                        <input type="text" name="child_other_name[]" required class="form-control">
+                                                        <label>Given name(s)</label>
+                                                        <input type="text" name="child_given_name[]" required class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -440,16 +428,10 @@
                                                         <input type="text" name="infant_sur_name[]" required class="form-control">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 ol-sm-4">
+                                                <div class="col-md-8 ol-sm-8">
                                                     <div class="form-group">
-                                                        <label>First name</label>
-                                                        <input type="text" name="infant_first_name[]" required class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4 ol-sm-4">
-                                                    <div class="form-group">
-                                                        <label>Other name</label>
-                                                        <input type="text" name="infant_other_name[]" required class="form-control">
+                                                        <label>Given name(s)</label>
+                                                        <input type="text" name="infant_given_name[]" required class="form-control">
                                                     </div>
                                                 </div>
                                             </div>

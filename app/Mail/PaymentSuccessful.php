@@ -33,7 +33,7 @@ class PaymentSuccessful extends Mailable
     public function build()
     {
         return $this->subject('Payment Successful')
-            ->from('no-reply@travelportal.com',config('app.name'))
+            ->from('no-reply@travelpro.com.ng',config('app.name'))
             ->markdown('emails.PaymentSuccessful');
     }
 }

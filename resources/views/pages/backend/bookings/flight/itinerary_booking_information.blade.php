@@ -53,17 +53,6 @@
                                     </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>Pay with Paystack</th>
-                                <td>
-                                    <form method="post" action="{{url('backend/generate-paystack-payment')}}">
-                                        @csrf
-                                        <input type="hidden" name="amount" value="{{$booking->total_amount}}"/>
-                                        <input  type="hidden" name="booking_reference" value="{{$booking->reference}}"/>
-                                        <input type="hidden" name="email" value="{{$user['email']}}"/>
-                                        <button class="btn btn-primary btn-sm" type="submit"><i class="la la-money"></i> Pay Now </button>
-                                    </form></td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -191,44 +180,58 @@
                     <div class="card-content">
                         <div class="card-body">
                          <div class="row">
+                             @if(isset(json_decode($booking->pnr_request_response,true)['passengers']))
                              @foreach(json_decode($booking->pnr_request_response,true)['passengers'] as $serial => $passenger)
                              <div class="col-md-12">
                                  <div class="row">
                                      <div class="col-md-2">
-                                      {{$passenger['Customer']['PersonName']['@attributes']['NameType']}}
+                                      <h4>{{$passenger['Customer']['PersonName']['@attributes']['NameType']}}</h4>
                                      </div>
                                      <div class="col-md-10">
-                                         {{$passenger['Customer']['PersonName']['Surname']}} {{$passenger['Customer']['PersonName']['GivenName']}}
+                                        <h5><b>{{$passenger['Customer']['PersonName']['Surname']}} {{$passenger['Customer']['PersonName']['GivenName']}}</b></h5>
                                      </div>
                                  </div>
                              </div>
                              @endforeach
+                             @endif
                          </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @if(isset(json_decode($booking->pnr_request_response,true)['flights']))
+            @foreach(json_decode($booking->pnr_request_response,true)['flights'] as $serial => $flight)
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Itinerary Information</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                        <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="card pull-up border-blue-grey">
                     <div class="card-content">
                         <div class="card-body">
-                            @foreach(json_decode($booking->pnr_request_response,true)['flights'] as $serial => $flight)
-
-                            @endforeach
+                            <div class="row">
+                              <div class="col-md-12" align="center">
+                                 <div class="row">
+                                     <div class="col-md-2">
+                                         <img class="img-circle" style="max-width: 80px; max-height:80px;" src="{{\App\Services\AmadeusConfig::airlineLogo(\App\Airline::where('name',$flight['Air']['OperatingAirline'])->first()->code)}}"/>
+                                     </div>
+                                     <div class="col-md-4">
+                                         <h4><b>{{$flight['Air']['DepartureAirport']}}</b></h4>
+                                        <p>{{date('d, D M Y. G:i A',strtotime($flight['Air']['@attributes']['DepartureDateTime']))}}</p>
+                                     </div>
+                                     <div class="col-md-2">
+                                          <p>Flight - {{$flight['Air']['@attributes']['FlightNumber']}}</p>
+                                         <p>{{$flight['Air']['Equipment']}}</p>
+                                     </div>
+                                     <div class="col-md-4">
+                                         <h4><b>{{$flight['Air']['ArrivalAirport']}}</b></h4>
+                                         <p>{{date('d, D M Y. G:i A',strtotime($flight['Air']['@attributes']['ArrivalDateTime']))}}</p>
+                                     </div>
+                                 </div>
+                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
+            @endif
         </div>
 
     </div>

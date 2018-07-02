@@ -39,7 +39,7 @@
                             <h3>Total Payment to be made &#x20a6;{{number_format($selectedItinerary['displayTotal']/ 100, 2)}}</h3>
                             <div class="passenger-detail-body">
                                 @if(!is_null($banks))
-                                <div class="saved-card">
+                                    <div class="saved-card">
                                     <form method="post" action="{{url('/bank-payment')}}">
                                         @csrf
                                         @foreach($banks as $serial => $bank)
@@ -53,10 +53,10 @@
                                 </div>
                                     <div class="payment-seperator clearfix"></div>
                                 @endif
-                                <div class="paypal-pay">
+                                    <div class="paypal-pay">
                                     <h4>Pay Using Interswitch</h4>
                                     <div class="col-md-8 col-sm-8">
-                                       <img src="{{asset('assets/images/portal_images/interswitch.png')}}" class="img-responsive"/>
+                                       <img src="{{asset('frontend/assets/images/portal_images/interswitch.png')}}" class="img-responsive"/>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
                                         <input  type="hidden"  class="booking_reference" value="{{$booking->reference}}"/>
@@ -79,7 +79,7 @@
                                     <div class="paypal-pay">
                                         <h4>Pay Using PayStack</h4>
                                         <div class="col-md-8 col-sm-8">
-                                            <img src="{{asset('assets/images/portal_images/paystack.png')}}" class="img-responsive"/>
+                                            <img src="{{asset('frontend/assets/images/portal_images/paystack.png')}}" class="img-responsive"/>
                                         </div>
                                         <div class="col-md-4 col-sm-4">
                                             <form method="post" action="{{url('/generate-paystack-payment')}}">
@@ -91,6 +91,64 @@
                                             </form>
                                         </div>
                                     </div>
+                                    @role('agent')
+                                    <div class="payment-seperator clearfix"></div>
+                                    <div class="paypal-pay">
+                                        @php
+                                            $walletBalance = \App\Wallet::where('user_id',auth()->id())->first()->balance;
+                                        @endphp
+                                        <h4>Pay Using Wallet Balance</h4>
+                                        <div class="col-md-4 col-sm-4">
+                                            <img src="{{asset('frontend/assets/images/portal_images/wallet.png')}}" class="img-responsive"/>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            @if($walletBalance > $selectedItinerary['displayTotal'])
+                                                <form method="post" action="{{url('flight-wallet-payment')}}">
+                                                    <b> Wallet Balance = &#x20A6; {{number_format(($walletBalance/100),2)}} </b>
+                                               @csrf
+                                                    <p>
+                                                        You have enough credit in your wallet, you can now make payment for this booking with your wallet credit.
+                                                        <input type="hidden" class="booking_reference" name="booking_reference" value="{{$booking->reference}}"/>
+                                                        <input type="hidden" class="amount" name="amount" value="{{$selectedItinerary['displayTotal']}}"/>
+                                                        <button type="submit" class="btn btn_travel_portal wallet_pay_now">CONFIRM BOOKING
+                                                        </button>
+                                                    </p>
+                                                </form>
+                                            @else
+                                                <p>You do not have enough money in your wallet to make payment for this booking. Please top up your wallet and try again later.</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    @endrole
+                                    @role('admin')
+                                    <div class="payment-seperator clearfix"></div>
+                                    <div class="paypal-pay">
+                                        @php
+                                            $walletBalance = \App\Wallet::where('user_id',auth()->id())->first()->balance;
+                                        @endphp
+                                        <h4>Pay Using Wallet Balance</h4>
+                                        <div class="col-md-4 col-sm-4">
+                                            <img src="{{asset('frontend/assets/images/portal_images/wallet.png')}}" class="img-responsive"/>
+                                        </div>
+                                        <div class="col-md-8 col-sm-8">
+                                            @if($walletBalance > $selectedItinerary['displayTotal'])
+                                                <form method="post" action="{{url('flight-wallet-payment')}}">
+                                                    <b> Wallet Balance = &#x20A6; {{number_format(($walletBalance/100),2)}} </b>
+                                                    @csrf
+                                                    <p>
+                                                        You have enough credit in your wallet, you can now make payment for this booking with your wallet credit.
+                                                        <input type="hidden" class="booking_reference" name="booking_reference" value="{{$booking->reference}}"/>
+                                                        <input type="hidden" class="amount" name="amount" value="{{$selectedItinerary['displayTotal']}}"/>
+                                                        <button type="submit" class="btn btn_travel_portal wallet_pay_now">CONFIRM BOOKING
+                                                        </button>
+                                                    </p>
+                                                </form>
+                                            @else
+                                                <p>You do not have enough money in your wallet to make payment for this booking. Please top up your wallet and try again later.</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    @endrole
                             </div>
                         </div>
                     </div>
@@ -174,7 +232,8 @@
                             <h4><i class="fa fa-phone"></i>Need Help?</h4>
                             <div class="sidebar-body text-center">
                                 <p>Need Help? Call us or drop a message. Our agents will be in touch shortly.</p>
-                                <h2>+91 1234567890</h2>
+                                <h3><a href="tel:{{\App\Services\PortalConfig::$adminBookingsNumber}}">{{\App\Services\PortalConfig::$adminBookingsNumber}}</a></h3>
+                                <h3><a href="mailto:{{\App\Services\PortalConfig::$adminBookingsEmail}}">{{\App\Services\PortalConfig::$adminBookingsEmail}}</a></h3>
                             </div>
                         </div>
                     </div>

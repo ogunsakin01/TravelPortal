@@ -35,4 +35,8 @@ class PackageBooking extends Model
             ->orderBy('id','desc')
             ->get();
     }
+
+    public function deal(){
+        return static::hasOne(TravelPackage::class,'id','package_id');
+    }
 }

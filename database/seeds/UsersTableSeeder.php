@@ -38,6 +38,22 @@ class UsersTableSeeder extends Seeder
                 'profile_complete_status' => 0,
                 'api_token'               => ''
             ],
+            [
+                'id'                      =>  4,
+                'email'                   => 'first_agency@travelportal.com',
+                'password'                => bcrypt('first_agency'),
+                'delete_status'           => 0,
+                'profile_complete_status' => 0,
+                'api_token'               => ''
+            ],
+            [
+                'id'                      =>  5,
+                'email'                   => 'first_cooperate_customer@travelportal.com',
+                'password'                => bcrypt('first_cooperate_customer'),
+                'delete_status'           => 0,
+                'profile_complete_status' => 0,
+                'api_token'               => ''
+            ],
         ];
 
         foreach($users as $serial => $user){
@@ -46,7 +62,7 @@ class UsersTableSeeder extends Seeder
         }
 
         $defaultOriginalUser =  [
-            'id'                          =>  4,
+            'id'                          =>  6,
             'email'                       => 'ogunsakin191@gmail.com',
             'password'                    => bcrypt('ogunsakin191'),
             'delete_status'               => 0,

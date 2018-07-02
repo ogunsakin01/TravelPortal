@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SightSeeing extends Model
 {
-    protected $fillable = ['package_id', 'attraction_id', 'title', 'description'];
+    protected $fillable = [ 'package_id' , 'attraction_id' , 'title' , 'description' , 'id' ];
 
     public static function getSightseeingByPackageId($activity_id){
         return static::where('package_id', $activity_id)->get();
@@ -39,12 +39,28 @@ class SightSeeing extends Model
 
     public static function storeSightSeeing($r)
     {
-        $data = [
-            'package_id'     => $r['package_id'],
-            'attraction_id'  => $r['attraction_id'],
-            'title'          => $r['title'],
-            'description'    => $r['description'],
-        ];
-        static::create($data);
+        $sightSeeing = static::find($r['sight_seeing_id']);
+        if(is_null($sightSeeing) || empty($sightSeeing)){
+            $data = [
+                'package_id'     => $r['package_id'],
+                'attraction_id'  => $r['attraction_id'],
+                'title'          => $r['title'],
+                'description'    => $r['description'],
+            ];
+            return static::create($data);
+        }else{
+            return static::updateOrCreate(
+                [
+                    'id' => $r['sight_seeing_id'],
+                ],
+                [
+                    'package_id'     => $r['package_id'],
+                    'attraction_id'  => $r['attraction_id'],
+                    'title'          => $r['title'],
+                    'description'    => $r['description'],
+                ]
+            );
+        }
     }
+
 }
