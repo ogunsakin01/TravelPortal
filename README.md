@@ -5,7 +5,7 @@ Travel Portal with Amadeus and Laravel
 This project was abandoned a long time ago, if you need help or guidance, please send an email to me at ogunsakin191@gmail.com.
 
 #### Added September 4th, 2023
- have been receiving numerous requests regarding this project, even five years after its abandonment. The primary reason for discontinuing this project was sponsorship-related issues. However, if anyone is willing to provide sponsorship or support for this project in any way, please feel free to reach out to my email address. I would be more than willing to consider resuming and updating the project with your assistance.
+I have been receiving numerous requests regarding this project, even five years after its abandonment. The primary reason for discontinuing this project was sponsorship-related issues. However, if anyone is willing to provide sponsorship or support for this project in any way, please feel free to reach out to my email address. I would be more than willing to consider resuming and updating the project with your assistance.
 
 I should note that over the years, my skill level has evolved significantly. I've gained new insights and best practices in software development, which have led me to reevaluate some of the practices in the existing codebase. It's possible that the project may require a substantial overhaul to bring it up to current standards.
 
