@@ -5,10 +5,10 @@ Travel Portal with Amadeus and Laravel
 This project was abandoned a long time ago, if you need help or guidance, please send an email to me at ogunsakin191@gmail.com.
 
 #### September 4th, 2023
-I have been receiving numerous requests regarding this project, even five years after its abandonment. The primary reason for discontinuing this project was sponsorship-related issues. However, if anyone is willing to provide sponsorship or support for this project in any way, please feel free to reach out to my email address. I would be more than willing to consider resuming and updating the project with your assistance.
+I trust this message finds you well. I've been receiving a steady stream of requests regarding this project that was set aside five years ago due to sponsorship challenges. Should there be anyone willing to offer sponsorship or support, of any kind, for this project, please do not hesitate to reach out to me via email. I am more than open to the possibility of resuming and revitalizing the project with your valued assistance.
 
-I should note that over the years, my skill level has evolved significantly. I've gained new insights and best practices in software development, which have led me to reevaluate some of the practices in the existing codebase. It's possible that the project may require a substantial overhaul to bring it up to current standards.
+It's worth noting that over the years, my proficiency in software development has seen significant growth. This has led to a reevaluation of certain aspects of the existing codebase, with the potential for a substantial overhaul to align with current standards.
 
-In addition to this, I've also implemented other APIs, including the Amadeus EPower API. So, there's an opportunity to expand the project's functionality and integration with these new technologies.
+In addition, I've had the privilege of working with various APIs in the travel and hospitality industry, including the Amadeus EPower API, Sabre, Galileo, TBOHolidays, Guesty, and more. This presents a unique opportunity to expand the project's capabilities and seamlessly integrate these cutting-edge technologies.
 
-I appreciate the continued interest in this project, and I look forward to potentially revitalizing and enhancing it with the help of interested sponsors and collaborators. Please don't hesitate to get in touch with me via email if you're interested in discussing this further.
+The enduring interest in this project is truly heartening, and I am genuinely excited about the prospect of rejuvenating and enhancing it, with the support of passionate sponsors and collaborators. Please do not hesitate to reach out via email if you'd like to explore this further.
